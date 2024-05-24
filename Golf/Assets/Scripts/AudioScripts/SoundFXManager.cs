@@ -53,13 +53,15 @@ public class SoundFXManager : MonoBehaviour
         audioSource.volume = volume;
 
         //Play sound
-        audioSource.Play();
+        audioSource.PlayOneShot(audioClip[rand]);
 
         //Get length of sound FX clip
         float clipLength = audioSource.clip.length;
+        
 
         //Destroy the clip after it is done playing
         Destroy(audioSource.gameObject, clipLength);
+        
     }
 
 }

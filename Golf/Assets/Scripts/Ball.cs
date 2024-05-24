@@ -59,7 +59,9 @@ public class Ball : MonoBehaviour
 
     [Header("Sounds")]
     public float maxSFXVolume = .5f;
-    [SerializeField] private AudioClip[] swingClips;
+    [SerializeField] private AudioClip[] softSwingClips;
+    [SerializeField] private AudioClip[] mediumSwingClips;
+    [SerializeField] private AudioClip[] hardSwingClips;
 
     void Awake()
     {
@@ -144,7 +146,6 @@ public class Ball : MonoBehaviour
         {
             angle += 180;
         }
-        print(angle);
         if (angle >= 30 && angle <= 60)
         {
             if (origAngle < 0)
@@ -163,7 +164,6 @@ public class Ball : MonoBehaviour
         else if (angle >= 120 && angle <= 150)
         {
 
-            Debug.Log("Ball is moving between 120 and 150 degrees.");
             if (origAngle < 0)
             {
                 animator.SetFloat("DiagonalSpeed", -rb.velocity.magnitude);
@@ -299,7 +299,7 @@ public class Ball : MonoBehaviour
     {
         lineRenderer.enabled = true;
         Vector3[] points = new Vector3[numPoints];
-        Vector3 initialPosition = transform.position;
+        Vector3 initialPosition = new Vector3(transform.position.x, transform.position.y, -9f);
         Vector3 velocity = force;
 
         for (int i = 0; i < numPoints; i++)
@@ -387,12 +387,17 @@ public class Ball : MonoBehaviour
         }
            
         rb.AddForce(force, ForceMode2D.Impulse);
-        if (distFromBall > 7)
+        if (distFromBall > 0 && distFromBall < 4)
         {
+            SoundFXManager.instance.PlayRandomSoundFXClip(softSwingClips, transform, maxSFXVolume);
+        }
+        else if (distFromBall >= 4 && distFromBall < 8.5)
+        {
+            SoundFXManager.instance.PlayRandomSoundFXClip(mediumSwingClips, transform, maxSFXVolume + .5f);
         }
         else
         {
-            SoundFXManager.instance.PlayRandomSoundFXClip(swingClips, transform, maxSFXVolume);
+            SoundFXManager.instance.PlayRandomSoundFXClip(hardSwingClips, transform, maxSFXVolume);
         }
         
     }
