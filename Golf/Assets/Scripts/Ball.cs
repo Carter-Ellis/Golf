@@ -28,6 +28,7 @@ public class Ball : MonoBehaviour
     LineRenderer lineRenderer;
     CameraController cam;
     public Animator animator;
+    public GameObject cursor;
     
     [Header("Burst")]
     public GameObject ballClone;
@@ -69,6 +70,7 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cam = GameObject.FindAnyObjectByType<CameraController>();
         hasShot = true;
+        cursor.GetComponent<SpriteRenderer>().enabled = false;
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = numPoints;
         lineRenderer.startWidth = .25f;
@@ -297,6 +299,7 @@ public class Ball : MonoBehaviour
 
     void DrawTrajectory(Vector2 force)
     {
+        cursor.GetComponent<SpriteRenderer>().enabled = true;
         lineRenderer.enabled = true;
         Vector3[] points = new Vector3[numPoints];
         Vector3 initialPosition = new Vector3(transform.position.x, transform.position.y, -9f);
@@ -307,8 +310,8 @@ public class Ball : MonoBehaviour
             float t = 5 * (int)(i / 5) * timeStep;
             points[i] = initialPosition + velocity;
         }
-
-        lineRenderer.SetPositions(points);
+        cursor.transform.position = initialPosition + velocity;
+        //lineRenderer.SetPositions(points);
     }
 
     void GrabBall()
@@ -387,6 +390,7 @@ public class Ball : MonoBehaviour
         }
            
         rb.AddForce(force, ForceMode2D.Impulse);
+        cursor.GetComponent<SpriteRenderer>().enabled = false;
         if (distFromBall > 0 && distFromBall < 4)
         {
             SoundFXManager.instance.PlayRandomSoundFXClip(softSwingClips, transform, maxSFXVolume);

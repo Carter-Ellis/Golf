@@ -7,7 +7,7 @@ public class TreeSway : MonoBehaviour
 {
     private float timer;
     private float rand;
-    private float swayRange = 25f;
+    private float swayRange = 100f;
     private bool isSwaying;
     public Animator animator;
     void Start()
