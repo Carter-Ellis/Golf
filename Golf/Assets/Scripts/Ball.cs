@@ -21,6 +21,7 @@ public class Ball : MonoBehaviour
 
     public int wallHits = 0;
     public int _minWallHitCombo = 2;
+    public LayerMask layerMask;
 
     [Header("Ball Properties")]
     Ball ball;
@@ -30,6 +31,7 @@ public class Ball : MonoBehaviour
     public Animator animator;
     public GameObject cursor;
     
+
     [Header("Burst")]
     public GameObject ballClone;
     public Transform burstPos1;
@@ -317,11 +319,15 @@ public class Ball : MonoBehaviour
     void GrabBall()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-
-        if (isMouseButton1Held && hit.collider != null && rb.velocity == new Vector2(0, 0) && hit.collider.tag == "Ball")
+        RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
+        foreach (RaycastHit2D hit in hits)
         {
-            hasClickedBall = true;
+
+            if (isMouseButton1Held && hit.collider != null && rb.velocity == new Vector2(0, 0) && hit.collider.tag == "Ball" && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ball"))
+            {
+                hasClickedBall = true;
+                break;
+            }
         }
         if (hasClickedBall)
         {
@@ -331,6 +337,7 @@ public class Ball : MonoBehaviour
         {
             hasClickedBall = false;
         }
+
     }
 
     void Putt()

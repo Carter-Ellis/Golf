@@ -17,7 +17,6 @@ public class TreeSway : MonoBehaviour
 
     void Update()
     {
-        
         timer += Time.deltaTime;
         if (timer > rand)
         {

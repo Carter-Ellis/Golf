@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 582842698364151004}
   - component: {fileID: 6977114230261614422}
   - component: {fileID: 8195194255100573815}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1271720191, guid: 6957b8866d04feb4f9cc1dbae39640ae, type: 3}
+  m_Sprite: {fileID: 45016213, guid: a754393c94003d94fb164f729f5750bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -141,7 +141,11 @@ MonoBehaviour:
   _maxHitDamage: 100
   wallHits: 0
   _minWallHitCombo: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
   animator: {fileID: 8195194255100573815}
+  cursor: {fileID: 0}
   ballClone: {fileID: 3721559810071799873, guid: 836cd9449b106994dbe21e2cb7d698ce, type: 3}
   burstPos1: {fileID: 3249511363950788581}
   burstPos2: {fileID: 6604726080401795051}
@@ -155,9 +159,18 @@ MonoBehaviour:
   abilityChargesTxt: {fileID: 0}
   healthTxt: {fileID: 0}
   maxSFXVolume: 0.5
-  swingClips:
-  - {fileID: 8300000, guid: 8ee5a81b2b472c643a6a0435060de010, type: 3}
-  - {fileID: 8300000, guid: 9a5fc95f4b14a404bacf5a9cb8378b99, type: 3}
+  softSwingClips:
+  - {fileID: 8300000, guid: fcef32151719f3a4e82370793e249bf5, type: 3}
+  - {fileID: 8300000, guid: eca8a63ff2d88164f8380be0fd8d0e9c, type: 3}
+  - {fileID: 8300000, guid: 8b3ad9eb8b09d8e4683c62558b9d54e8, type: 3}
+  mediumSwingClips:
+  - {fileID: 8300000, guid: ec1084b5990006742bfd1b631f603655, type: 3}
+  - {fileID: 8300000, guid: 0eac95068feed1c43bc9a6ee62f1d131, type: 3}
+  - {fileID: 8300000, guid: cc4e47f644bd35d4cb2cd7a7d2470e89, type: 3}
+  hardSwingClips:
+  - {fileID: 8300000, guid: 716982f8d1da76c4b8a0135bfa88a6bc, type: 3}
+  - {fileID: 8300000, guid: 337d37865e2eac945bb4aae0484808cc, type: 3}
+  - {fileID: 8300000, guid: 9e7b33f927f5acc45a749fab2bd9f862, type: 3}
 --- !u!58 &582842698364151004
 CircleCollider2D:
   m_ObjectHideFlags: 0
