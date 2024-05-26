@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TreeSway : MonoBehaviour
 {
+    private Ball ball;
     private float timer;
     private float rand;
     private float swayRange = 100f;
@@ -13,10 +14,21 @@ public class TreeSway : MonoBehaviour
     void Start()
     {
         rand = Random.Range(0, swayRange);
+        ball = GameObject.FindObjectOfType<Ball>();
     }
 
     void Update()
     {
+
+        if (ball.transform.position.y > transform.position.y - .75f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -5f);
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
+        }
+
         timer += Time.deltaTime;
         if (timer > rand)
         {

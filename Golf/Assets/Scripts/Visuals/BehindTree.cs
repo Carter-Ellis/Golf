@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class Behind : MonoBehaviour
+public class BehindTree : MonoBehaviour
 {
     private Ball ball;
     private SpriteRenderer sr;
@@ -15,20 +15,8 @@ public class Behind : MonoBehaviour
     {
         gameObject.SetActive(true);
         ball = GameObject.FindObjectOfType<Ball>();
-        sr = GetComponent<SpriteRenderer>();
+        sr = transform.parent.GetComponent<SpriteRenderer>();
         exited = true;
-    }
-
-    void Update()
-    {
-        if (ball.transform.position.y > transform.position.y - .75f)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -5f);
-        }
-        else
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
-        }
     }
 
     IEnumerator FadeToTransparent()
@@ -49,7 +37,10 @@ public class Behind : MonoBehaviour
     {
         for (float i = fadedAmount; i <= 1.05; i += 0.05f)
         {
-            
+            if (!exited)
+            {
+                break;
+            }
             sr.color = new Color(1f, 1f, 1f, i);
             yield return new WaitForSeconds(fadingSpeed);
         }
