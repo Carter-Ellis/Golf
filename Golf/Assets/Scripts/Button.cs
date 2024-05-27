@@ -11,10 +11,14 @@ public class Button : MonoBehaviour
     private float leftPosition;
     private float rightPosition;
     private bool isOpen;
+    private SpriteRenderer sr;
     private Rigidbody2D doorRB;
+    public Sprite pushedSprite;
+    public Sprite unpushedSprite;
     void Start()
     {
         doorRB = door.GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         topPosition = Mathf.Abs(door.transform.position.y + (door.GetComponent<Renderer>().bounds.size.y / 2f));
         bottomPosition = Mathf.Abs(door.transform.position.y - (door.GetComponent<Renderer>().bounds.size.y / 2f));
         leftPosition = Mathf.Abs(door.transform.position.x - (door.GetComponent<Renderer>().bounds.size.x / 2f));
@@ -33,6 +37,7 @@ public class Button : MonoBehaviour
                 doorRB.velocity = Vector2.zero;
                 isOpen = false;
             }
+            
         }
         else
         {
@@ -53,6 +58,7 @@ public class Button : MonoBehaviour
         {
             return;
         }
+        sr.sprite = pushedSprite;
         if (isOpen)
         {
             CloseDoor();
@@ -63,6 +69,11 @@ public class Button : MonoBehaviour
         }
         
 
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        sr.sprite = unpushedSprite;
     }
 
     void OpenDoor()

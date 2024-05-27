@@ -6,17 +6,17 @@ public class Hole : MonoBehaviour
 {
     Ball ball;
     public int par = 4;
+    public float ballOverHoleSpeed = 10f;
     private void Awake()
     {
         ball = GameObject.FindAnyObjectByType<Ball>();
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 10);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball)
+        if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
         {
-            
             if (ball.strokes <= par)
             {
                 print("On Par! Strokes: " + ball.strokes);
@@ -28,9 +28,6 @@ public class Hole : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.tag == "Ball")
-        {
-            Destroy(collision.gameObject);
-        }
+        
     }
 }

@@ -50,6 +50,7 @@ public class Ball : MonoBehaviour
     public bool canPutt;
     private bool isMouseButton1Held;
     public bool isBurst;
+    public float maxHitSpeed = 15f;
 
     [Header("Abilities")]
     public List<Ability> unlockedAbilities = new List<Ability>();
@@ -384,9 +385,9 @@ public class Ball : MonoBehaviour
 
         float distFromBall = Vector2.Distance(mousePos, ballPos);
         
-        if (distFromBall > 10)
+        if (distFromBall > maxHitSpeed)
         {
-            distFromBall = 10;
+            distFromBall = maxHitSpeed;
         }
 
         Vector2 force = -mousePosNormalized * distFromBall;

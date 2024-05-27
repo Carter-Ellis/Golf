@@ -19,21 +19,11 @@ public class TreeSway : MonoBehaviour
 
     void Update()
     {
-
-        if (ball.transform.position.y > transform.position.y - .75f)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -5f);
-        }
-        else
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
-        }
-
         timer += Time.deltaTime;
         if (timer > rand)
         {
             animator.SetBool("IsSwaying", true);
-            isSwaying = true;            
+            isSwaying = true;
         }
         if (isSwaying)
         {
@@ -46,6 +36,20 @@ public class TreeSway : MonoBehaviour
                 timer = 0;
             }
         }
+
+        if (ball == null)
+        {
+            return;
+        }
+        //Put tree in front of ball or behind.
+        if (ball.transform.position.y > transform.position.y - .75f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -5f);
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
+        }     
 
     }
 }
