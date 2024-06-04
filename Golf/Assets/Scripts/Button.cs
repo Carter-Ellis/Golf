@@ -4,92 +4,39 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    public GameObject door;
-    public float openSpeed = 3f;
-    private float topPosition;
-    private float bottomPosition;
-    private float leftPosition;
-    private float rightPosition;
-    private bool isOpen;
     private SpriteRenderer sr;
-    private Rigidbody2D doorRB;
+    public GameObject target;
+    private ButtonTarget buttonTarget;
     public Sprite pushedSprite;
     public Sprite unpushedSprite;
-    void Start()
+    private void Awake()
     {
-        doorRB = door.GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        topPosition = Mathf.Abs(door.transform.position.y + (door.GetComponent<Renderer>().bounds.size.y / 2f));
-        bottomPosition = Mathf.Abs(door.transform.position.y - (door.GetComponent<Renderer>().bounds.size.y / 2f));
-        leftPosition = Mathf.Abs(door.transform.position.x - (door.GetComponent<Renderer>().bounds.size.x / 2f));
-        rightPosition = Mathf.Abs(door.transform.position.x + (door.GetComponent<Renderer>().bounds.size.x / 2f));
-        isOpen = false;
-    }
-
-    void Update()
-    {
-        if (isOpen)
+        if (target != null)
         {
-            topPosition = Mathf.Abs(door.transform.position.y + (door.GetComponent<Renderer>().bounds.size.y / 2f));
-            leftPosition = Mathf.Abs(door.transform.position.x - (door.GetComponent<Renderer>().bounds.size.x / 2f));
-            if (bottomPosition >= topPosition || rightPosition >= leftPosition)
+            Component[] components = target.GetComponents<Component>();
+            foreach (Component component in components)
             {
-                doorRB.velocity = Vector2.zero;
-                isOpen = false;
-            }
-            
-        }
-        else
-        {
-            rightPosition = Mathf.Abs(door.transform.position.x + (door.GetComponent<Renderer>().bounds.size.x / 2f));
-            bottomPosition = Mathf.Abs(door.transform.position.y - (door.GetComponent<Renderer>().bounds.size.y / 2f));
-            if (bottomPosition >= topPosition || rightPosition >= leftPosition)
-            {
-                doorRB.velocity = Vector2.zero;
-                isOpen = true;
+                if (component is ButtonTarget)
+                {
+                    buttonTarget = (ButtonTarget)component;
+                    break;
+                }
             }
         }
-        
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (door == null) 
+        sr.sprite = pushedSprite;
+        if (buttonTarget == null)
         {
             return;
         }
-        sr.sprite = pushedSprite;
-        if (isOpen)
-        {
-            CloseDoor();
-        }
-        else
-        {
-            OpenDoor();
-        }
-        
-
+        buttonTarget.onPress();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         sr.sprite = unpushedSprite;
-    }
-
-    void OpenDoor()
-    {
-        float zAngle = door.transform.eulerAngles.z + 90;
-        float zAngleRad = zAngle * Mathf.Deg2Rad;
-        Vector2 direction = new Vector2(Mathf.Cos(zAngleRad), Mathf.Sin(zAngleRad));
-        topPosition = Mathf.Abs(door.transform.position.y + (door.GetComponent<Renderer>().bounds.size.y / 2f));     
-        doorRB.velocity = direction.normalized * openSpeed;       
-    }
-    void CloseDoor()
-    {
-        float zAngle = door.transform.eulerAngles.z - 90;
-        float zAngleRad = zAngle * Mathf.Deg2Rad;
-        Vector2 direction = new Vector2(Mathf.Cos(zAngleRad), Mathf.Sin(zAngleRad));
-        bottomPosition = Mathf.Abs(door.transform.position.y - (door.GetComponent<Renderer>().bounds.size.y / 2f));
-        doorRB.velocity = direction.normalized * openSpeed;
     }
 }
