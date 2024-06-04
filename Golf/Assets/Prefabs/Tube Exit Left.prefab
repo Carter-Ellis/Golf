@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4922849582647752606}
   - component: {fileID: 6713663054212331397}
   m_Layer: 0
-  m_Name: Tube Exit Right
+  m_Name: Tube Exit Left
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1769571830, guid: 2e10d8e851349584caa0b90a042edf91, type: 3}
+  m_Sprite: {fileID: 912586476, guid: 2e10d8e851349584caa0b90a042edf91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,7 +118,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.4350853, y: -0.030345917}
+  m_Offset: {x: 0.4358368, y: -0.030345917}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,7 +129,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1298294, y: 0.811882}
+  m_Size: {x: 0.13735962, y: 0.811882}
   m_EdgeRadius: 0
 --- !u!1 &6930888642083972899
 GameObject:
@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 6930888642083972899}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.104, y: -0.045, z: 0}
+  m_LocalPosition: {x: 0.094, y: -0.045, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

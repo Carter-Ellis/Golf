@@ -42,7 +42,6 @@ public class SoundFXManager : MonoBehaviour
 
         //Assign a random index
         int rand = Random.Range(0, audioClip.Length);
-
         //Spawn in gameObject
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4635291657722789567}
   - component: {fileID: 7161445217940775320}
-  - component: {fileID: 5414299174909541300}
   - component: {fileID: 2538561253230077596}
+  - component: {fileID: 1159284048120010626}
   m_Layer: 0
   m_Name: Tube Entrance
   m_TagString: Untagged
@@ -86,8 +86,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5414299174909541300
-BoxCollider2D:
+--- !u!114 &2538561253230077596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454735341223179889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd7ae7491847b04bac9491470237c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exit: {fileID: 0}
+  ballOverHoleSpeed: 10
+  exitSpeed: 2
+  timer: 0
+  rand: 0
+  direction: 3
+  enterSFX: {fileID: 8300000, guid: c0613f6f4cae548488bf3e1dd7f919de, type: 3}
+  exitSFX: {fileID: 8300000, guid: 06acf02d4ee02784bbe45d913df39607, type: 3}
+  tunnelHitSFX:
+  - {fileID: 8300000, guid: 20b3d3a904ec69d4b9743b72efcfbaee, type: 3}
+  - {fileID: 8300000, guid: ac952a287bcbf6948b8b73273344c0b1, type: 3}
+  - {fileID: 8300000, guid: 4329fcec49081414fb7b4aa9e5ca387b, type: 3}
+  - {fileID: 8300000, guid: 4c027e3cbf35c9e428dddd729deaaf6d, type: 3}
+  - {fileID: 8300000, guid: e945b309dd29f41409417789af46f2dd, type: 3}
+  - {fileID: 8300000, guid: c1c9b7b8f81e0194a890637eb2b969b7, type: 3}
+--- !u!58 &1159284048120010626
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,29 +145,6 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.005874634, y: 0.032322884}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.40055847, y: 0.23013878}
-  m_EdgeRadius: 0
---- !u!114 &2538561253230077596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454735341223179889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bd7ae7491847b04bac9491470237c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exit: {fileID: 0}
+  m_Radius: 0.1020632

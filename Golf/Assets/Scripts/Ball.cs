@@ -23,6 +23,7 @@ public class Ball : MonoBehaviour
     public int _minWallHitCombo = 2;
     public LayerMask layerMask;
 
+
     [Header("Ball Properties")]
     Ball ball;
     Rigidbody2D rb;
@@ -62,10 +63,11 @@ public class Ball : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthTxt;
 
     [Header("Sounds")]
-    public float maxSFXVolume = .5f;
+    public float maxSFXVolume = .45f;
     [SerializeField] private AudioClip[] softSwingClips;
     [SerializeField] private AudioClip[] mediumSwingClips;
     [SerializeField] private AudioClip[] hardSwingClips;
+    [SerializeField] private AudioClip[] wallHitClips;
 
     void Awake()
     {
@@ -96,7 +98,7 @@ public class Ball : MonoBehaviour
         
         isMouseButton1Held = Input.GetMouseButton(1);
 
-        if (rb.velocity.magnitude < .5)
+        if (rb.velocity.magnitude < .5f)
         {
             rb.velocity = Vector2.zero;
             wallHits = 0;
@@ -266,6 +268,12 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             wallHits++;
+            float volume = rb.velocity.magnitude / 10;
+            if (volume > maxSFXVolume)
+            {
+                volume = maxSFXVolume;
+            }
+            SoundFXManager.instance.PlayRandomSoundFXClip(wallHitClips, transform, volume);
         }
     }
 
@@ -399,17 +407,18 @@ public class Ball : MonoBehaviour
            
         rb.AddForce(force, ForceMode2D.Impulse);
         cursor.GetComponent<SpriteRenderer>().enabled = false;
+        
         if (distFromBall > 0 && distFromBall < 4)
         {
             SoundFXManager.instance.PlayRandomSoundFXClip(softSwingClips, transform, maxSFXVolume);
         }
         else if (distFromBall >= 4 && distFromBall < 8.5)
         {
-            SoundFXManager.instance.PlayRandomSoundFXClip(mediumSwingClips, transform, maxSFXVolume + .5f);
+            SoundFXManager.instance.PlayRandomSoundFXClip(mediumSwingClips, transform, maxSFXVolume);
         }
         else
         {
-            SoundFXManager.instance.PlayRandomSoundFXClip(hardSwingClips, transform, maxSFXVolume);
+            SoundFXManager.instance.PlayRandomSoundFXClip(hardSwingClips, transform, maxSFXVolume - .05f);
         }
         
     }

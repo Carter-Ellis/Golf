@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1340458440728589831}
   - component: {fileID: 4072886778742437739}
-  - component: {fileID: 8725723260585022264}
+  - component: {fileID: 5097827289153803405}
   - component: {fileID: 1007731987029588124}
   - component: {fileID: 7071544471804427169}
+  - component: {fileID: 2716107892520744034}
+  - component: {fileID: 7467946742961529851}
   m_Layer: 0
   m_Name: Freeze Ability
   m_TagString: Freeze
@@ -30,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.81, y: 7.44, z: 0}
-  m_LocalScale: {x: 0.5185, y: 0.5185, z: 0.5185}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: -1475067724, guid: 83db8de336be4dd45a6637043bc302de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,8 +89,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &8725723260585022264
-CapsuleCollider2D:
+--- !u!58 &5097827289153803405
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,9 +121,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: 0, y: -0.0056858063}
+  serializedVersion: 2
+  m_Radius: 0.41945457
 --- !u!50 &1007731987029588124
 Rigidbody2D:
   serializedVersion: 4
@@ -163,3 +165,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   isRecharge: 0
+--- !u!95 &2716107892520744034
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564763267982748658}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8960e6b40a887a346a41623dd9bd28c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7467946742961529851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564763267982748658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00adfd2fcdfb6244a051fd1517681a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shineAnimName: FreezeShine

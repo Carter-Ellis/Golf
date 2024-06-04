@@ -9,6 +9,8 @@ public class Button : MonoBehaviour
     private ButtonTarget buttonTarget;
     public Sprite pushedSprite;
     public Sprite unpushedSprite;
+    public AudioClip pushClip;
+    public AudioClip unpushClip;
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -28,6 +30,7 @@ public class Button : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         sr.sprite = pushedSprite;
+        SoundFXManager.instance.PlaySoundFXClip(pushClip, transform, FindObjectOfType<Ball>().maxSFXVolume);
         if (buttonTarget == null)
         {
             return;
@@ -37,6 +40,7 @@ public class Button : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        SoundFXManager.instance.PlaySoundFXClip(unpushClip, transform, FindObjectOfType<Ball>().maxSFXVolume);
         sr.sprite = unpushedSprite;
     }
 }
