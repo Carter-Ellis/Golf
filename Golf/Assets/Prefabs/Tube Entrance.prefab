@@ -103,7 +103,7 @@ MonoBehaviour:
   exitSpeed: 2
   timer: 0
   rand: 0
-  direction: 3
+  direction: 2
   enterSFX: {fileID: 8300000, guid: c0613f6f4cae548488bf3e1dd7f919de, type: 3}
   exitSFX: {fileID: 8300000, guid: 06acf02d4ee02784bbe45d913df39607, type: 3}
   tunnelHitSFX:

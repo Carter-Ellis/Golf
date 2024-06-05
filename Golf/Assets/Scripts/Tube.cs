@@ -17,14 +17,17 @@ public class Tube : MonoBehaviour
     private Ball ball;
 
     private Vector3 exitPos;
-    private Vector3 scaleChange = new Vector3(-.01f, -.01f, 0);
+    private Vector3 scaleChange = new Vector3(-1f, -1f, 0);
     private Vector3 origScale = new Vector3(1, 1, 1);
 
     
     private bool isTraveling;
     private bool played;
 
-    private float travelSpeed = .01f;
+    private float travelTime = 1f;
+    private float fallTime = .2f;
+    private float fallSpeed;
+    private float travelSpeed;
     public float ballOverHoleSpeed = 10f;
     public float exitSpeed = 2f;
     public float timer = 0f;
@@ -39,8 +42,9 @@ public class Tube : MonoBehaviour
     void Start()
     {
         exitPos = exit.transform.GetChild(0).transform.position;
+        travelSpeed = Vector2.Distance(exitPos, transform.position) / travelTime;
         ball = FindObjectOfType<Ball>();
-        travelSpeed = travelSpeed + Vector3.Distance(gameObject.transform.position, exitPos) / 4000;
+        travelSpeed = travelSpeed + Vector2.Distance(gameObject.transform.position, exitPos) / 4000;
         rand = Random.Range(playStartRange, playEndRange);
     }
 
@@ -58,15 +62,15 @@ public class Tube : MonoBehaviour
             }
 
             if (ball.transform.localScale.x <= 0) {
-                ball.transform.position = Vector3.MoveTowards(ball.transform.position, exitPos, travelSpeed);
+                ball.transform.position = Vector2.MoveTowards(ball.transform.position, exitPos, travelSpeed * Time.deltaTime);
                 ball.gameObject.SetActive(false);
             }
             else
             {
-                ball.transform.position = Vector3.MoveTowards(ball.transform.position, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - .1f), .01f);
-                ball.transform.root.localScale += scaleChange;
+                ball.transform.position = Vector2.MoveTowards(ball.transform.position, (Vector2)transform.position - new Vector2(0, .1f), fallSpeed * Time.deltaTime);
+                ball.transform.root.localScale += scaleChange / fallTime * Time.deltaTime;
             }
-            if (ball.transform.position == exitPos)
+            if (ball.transform.position.x == exitPos.x && ball.transform.position.y == exitPos.y)
             {
                 Exit();
             }
@@ -90,7 +94,8 @@ public class Tube : MonoBehaviour
             SoundFXManager.instance.PlaySoundFXClip(enterSFX, transform, ball.maxSFXVolume + .1f);
             played = true;
         }
-        
+        ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
         isTraveling = true;
 
     }

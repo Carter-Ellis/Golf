@@ -31,6 +31,7 @@ public class Ball : MonoBehaviour
     CameraController cam;
     public Animator animator;
     public GameObject cursor;
+    public GameObject objectControlled;
     
 
     [Header("Burst")]
@@ -93,7 +94,28 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            if (hit.collider != null)
+            {
+                Component[] components = hit.collider.GetComponents<Component>();
+                foreach (Component component in components)
+                {
+                    if (component is ClickTarget && (component.gameObject == objectControlled || objectControlled == null))
+                    {
+                        ((ClickTarget)component).onClick();
+                    }
+                    else if (component is ClickTarget && component.gameObject != objectControlled && objectControlled != null)
+                    {
+                        objectControlled.GetComponent<ClickTarget>().onClick();
+                        ((ClickTarget)component).onClick();
+                    }
+                }
+            }
+        }
+       
         ClickEnemy();
         
         isMouseButton1Held = Input.GetMouseButton(1);

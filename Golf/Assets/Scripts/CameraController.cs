@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class CameraController : MonoBehaviour
 {
     CinemachineVirtualCamera cam;
+    Transform followedObject;
     Ball ball;
     public bool isViewMode;
     Vector3 mapPos = new Vector3(4, 7, -10);
@@ -38,6 +39,7 @@ public class CameraController : MonoBehaviour
         if (ball != null && Input.GetKeyDown(mapKey) && !isViewMode) 
         {
             cam.m_Lens.OrthographicSize = mapViewSize;
+            followedObject = cam.Follow;
             cam.Follow = null;
             cam.transform.position = mapPos;
             isViewMode = true;
@@ -45,7 +47,7 @@ public class CameraController : MonoBehaviour
         else if (ball != null && Input.GetKeyDown(mapKey))
         {
             cam.m_Lens.OrthographicSize = normalViewSize;
-            cam.Follow = ball.transform;
+            cam.Follow = followedObject;
             isViewMode = false;
         }
         

@@ -6,7 +6,7 @@ public class Music : MonoBehaviour
 {
     [SerializeField] private AudioClip[] musicClips;
     public float maxMusicVolume = .05f;
-    void Awake()
+    void Start()
     {
         MusicManager.instance.PlayRandomMusicClip(musicClips, transform, maxMusicVolume);
     }
