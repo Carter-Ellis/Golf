@@ -22,16 +22,17 @@ public class Ball : MonoBehaviour
     public int wallHits = 0;
     public int _minWallHitCombo = 2;
     public LayerMask layerMask;
+    public LayerMask ignoreRaycast;
 
 
     [Header("Ball Properties")]
     Ball ball;
     Rigidbody2D rb;
     LineRenderer lineRenderer;
-    CameraController cam;
+    CameraController camController;
     public Animator animator;
     public GameObject cursor;
-    public GameObject objectControlled;
+    public Selectable objectSelected;
     
 
     [Header("Burst")]
@@ -74,7 +75,7 @@ public class Ball : MonoBehaviour
     {
         ball = GetComponent<Ball>();
         rb = GetComponent<Rigidbody2D>();
-        cam = GameObject.FindAnyObjectByType<CameraController>();
+        camController = GameObject.FindAnyObjectByType<CameraController>();
         hasShot = true;
         cursor.GetComponent<SpriteRenderer>().enabled = false;
         lineRenderer = GetComponent<LineRenderer>();
@@ -98,21 +99,24 @@ public class Ball : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            bool didSelect = false;
             if (hit.collider != null)
             {
                 Component[] components = hit.collider.GetComponents<Component>();
                 foreach (Component component in components)
                 {
-                    if (component is ClickTarget && (component.gameObject == objectControlled || objectControlled == null))
+                    if (component is Selectable)
                     {
-                        ((ClickTarget)component).onClick();
+                        Select(component);
+                        didSelect = true;
+                        break;
                     }
-                    else if (component is ClickTarget && component.gameObject != objectControlled && objectControlled != null)
-                    {
-                        objectControlled.GetComponent<ClickTarget>().onClick();
-                        ((ClickTarget)component).onClick();
-                    }
+                    
                 }
+            }
+            if (!didSelect) 
+            {
+                Select(null);
             }
         }
        
@@ -130,7 +134,7 @@ public class Ball : MonoBehaviour
         {
         }
 
-        if (!cam.isViewMode)
+        if (!camController.isViewMode)
         {
             setPutt();
         }
@@ -165,6 +169,34 @@ public class Ball : MonoBehaviour
         
     }
 
+
+    public void Select(Component component)
+    {
+
+        Component newSelected = null;
+        if (objectSelected != null)
+        {
+            objectSelected.onDeselect();
+        }
+        if (component != null && (Selectable)component != objectSelected)
+        {
+            ((Selectable)component).onSelect();
+            newSelected = component;
+        }
+
+        if (newSelected == null || newSelected is not Selectable) {
+
+            objectSelected = null;
+            camController.cam.Follow = this.transform;
+            ball.canPutt = true;
+        }
+        else
+        {
+            objectSelected = (Selectable)newSelected;
+            camController.cam.Follow = newSelected.transform;
+            ball.canPutt = false;
+        }
+    }
 
     void AnimateBall()
     {

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7684432861650765567}
   - component: {fileID: 7548943715217230986}
   - component: {fileID: 5813446675697174951}
-  - component: {fileID: 7663356265795177788}
   - component: {fileID: 4959741988140844224}
   m_Layer: 0
   m_Name: Tree
@@ -145,23 +144,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7663356265795177788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321731003555594242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9680f84d3a9ca4a8e62c2088de6953, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSFXVolume: 0.5
-  wallHitClips:
-  - {fileID: 8300000, guid: 69e64a9e94abce84aa02172b6d3b45ae, type: 3}
-  - {fileID: 8300000, guid: 5a5bb7f7f28d5ad4c9ef63b5d6e61cd6, type: 3}
-  - {fileID: 8300000, guid: 5c38c171a95665a498070e7002bfc79f, type: 3}
 --- !u!114 &4959741988140844224
 MonoBehaviour:
   m_ObjectHideFlags: 0

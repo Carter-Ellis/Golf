@@ -1,95 +1,94 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
-public class Fan : MonoBehaviour, ClickTarget
+public class Fan : MonoBehaviour, Selectable
 {
-    GameObject obj;
     Ball ball;
+    Wind wind;
     CinemachineVirtualCamera cam;
-    public float blowingPower = .03f;
-    private bool isBlowing;
     private bool isSelected;
+    private float controlRadius = 10f;
     public float rotationSpeed = 50f;
-    public float rotationBounds;
+    public float blowingPower = .07f;
+    private Quaternion origRotation;
+    public float rotationBounds = 90f;
+
+
 
 
     private void Awake()
     {
         ball = FindObjectOfType<Ball>();
         cam = FindObjectOfType<CinemachineVirtualCamera>();
+        wind = GetComponentInChildren<Wind>();
+        origRotation = transform.rotation;
+        if (wind != null)
+        {
+            wind.blowingPower = blowingPower;
+        }
     }
 
     private void Update()
     {
-        float rad = Mathf.Deg2Rad * transform.rotation.eulerAngles.z;
-        Vector2 direction = (new Vector2((float)Mathf.Cos(rad), (float)Mathf.Sin(rad))).normalized;
+        if (ball == null) 
+            return;
 
-        Rotate();
-
-        if (isBlowing && obj != null)
-        {
-            if (obj.gameObject.tag == "Ball" && ball.GetComponent<Rigidbody2D>().velocity.magnitude > .5f)
-            {
-                obj.GetComponent<Rigidbody2D>().velocity += blowingPower * direction;
-            }
-            else if (obj.gameObject.tag == "Ball")
-            {
-                obj.GetComponent<Rigidbody2D>().velocity = direction;
-            }
-            else
-            {
-                obj.GetComponent<Rigidbody2D>().velocity += blowingPower * direction;
-            }
-            
-        }
-    }
-
-
-    private void Rotate()
-    { 
         if (!isSelected)
         {
             return;
         }
-        float rotationIncrement = rotationSpeed * Time.deltaTime;
-        Vector3 rotationVector = new Vector3(0, 0, rotationIncrement);
 
-        if (Input.GetKey(KeyCode.D))
+        if (Vector2.Distance(ball.transform.position, transform.position) >= controlRadius)
         {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles - rotationVector);
+            ball.Select(null);
+            return;
         }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + rotationVector);
-        }
+
+        Rotate();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void onSelect()
     {
-        if (collision.gameObject == null)
+        isSelected = !isSelected;
+        gameObject.GetComponent<SpriteRenderer>().color = isSelected ? Color.green : Color.white;
+    }
+
+    public void onDeselect()
+    {
+        isSelected = false;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+
+
+    private void Rotate()
+    { 
+        bool left = Input.GetKey(KeyCode.A);
+        bool right = Input.GetKey(KeyCode.D);
+
+        if (left == right) 
         {
             return;
         }
-        obj = collision.gameObject;
-        isBlowing = true;
+
+        float dir = left ? 1 : -1;
+        float rotationIncrement = dir * rotationSpeed * Time.deltaTime;
+
+        Quaternion newRot = transform.rotation * Quaternion.AngleAxis(rotationIncrement, Vector3.forward);
+
+        if (Quaternion.Angle(newRot, origRotation) >= rotationBounds)
+        {
+            Quaternion max = origRotation * Quaternion.AngleAxis(rotationBounds * dir, Vector3.forward);
+            transform.rotation = max;
+        }
+        else
+        {
+            transform.rotation = newRot;
+        }
 
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        obj = null;
-        isBlowing = false;
-    }
-
-    public void onClick()
-    {
-        isSelected = !isSelected;
-        cam.Follow = isSelected ? transform : ball.transform;
-        ball.canPutt = isSelected ? false : true;   
-        ball.objectControlled = ball.objectControlled == null ? gameObject : null; 
-        
-        gameObject.GetComponent<SpriteRenderer>().color = isSelected ? Color.green : Color.white;
-    }
 }

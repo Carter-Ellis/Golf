@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
-    CinemachineVirtualCamera cam;
+    public CinemachineVirtualCamera cam;
     Transform followedObject;
     Ball ball;
     public bool isViewMode;
