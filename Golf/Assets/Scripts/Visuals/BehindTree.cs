@@ -6,16 +6,31 @@ using UnityEngine;
 public class BehindTree : MonoBehaviour
 {
     private Ball ball;
-    private SpriteRenderer sr;
+    private SpriteRenderer trunkSr;
+    private SpriteRenderer leavesSr;
     private float fadingSpeed = 0.05f;
     private float fadeToTransparentAmount = .5f;
     private float fadedAmount;
     private bool exited;
+    private GameObject trunk;
+    private GameObject leaves;
+    private Color leavesColor;
+    private Color trunkColor;
     void Start()
     {
+        if (transform.parent.transform.childCount < 2)
+        {
+            return;
+        }
         gameObject.SetActive(true);
         ball = GameObject.FindObjectOfType<Ball>();
-        sr = transform.parent.GetComponent<SpriteRenderer>();
+        leavesColor = transform.parent.GetChild(0).GetComponent<SpriteRenderer>().color;
+        trunkColor = transform.parent.GetChild(1).GetComponent<SpriteRenderer>().color;
+        leaves = transform.parent.GetChild(0).gameObject;
+        trunk = transform.parent.GetChild(1).gameObject;
+        
+        trunkSr = trunk.GetComponent<SpriteRenderer>();
+        leavesSr = leaves.GetComponent<SpriteRenderer>();
         exited = true;
     }
 
@@ -28,7 +43,9 @@ public class BehindTree : MonoBehaviour
                 break;
             }
             fadedAmount = i;
-            sr.color = new Color(1f, 1f, 1f, i);
+            
+            trunkSr.color = new Color(trunkColor.r, trunkColor.g, trunkColor.b, i);
+            leavesSr.color = new Color(leavesColor.r, leavesColor.g, leavesColor.b, i);
             yield return new WaitForSeconds(fadingSpeed);
         }
     }
@@ -41,7 +58,8 @@ public class BehindTree : MonoBehaviour
             {
                 break;
             }
-            sr.color = new Color(1f, 1f, 1f, i);
+            trunkSr.color = new Color(trunkColor.r, trunkColor.g, trunkColor.b, i);
+            leavesSr.color = new Color(leavesColor.r, leavesColor.g, leavesColor.b, i);
             yield return new WaitForSeconds(fadingSpeed);
         }
     }
@@ -49,6 +67,7 @@ public class BehindTree : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Make transparent when behind
+        
         if (collision.gameObject != null && collision.gameObject.tag == "Ball")
         {
             exited = false;

@@ -10,7 +10,8 @@ public class TreeSway : MonoBehaviour
     private float rand;
     private float swayRange = 100f;
     private bool isSwaying;
-    public Animator animator;
+    public Animator leavesAnim;
+    public Animator trunkAnim;
     void Start()
     {
         rand = Random.Range(0, swayRange);
@@ -20,18 +21,24 @@ public class TreeSway : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        if (leavesAnim == null)
+        {
+            return;
+        }
         if (timer > rand)
         {
-            animator.SetBool("IsSwaying", true);
+            leavesAnim.SetBool("IsSwaying", true);
+            trunkAnim.SetBool("IsSwaying", true);
             isSwaying = true;
         }
         if (isSwaying)
         {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.IsName("TreeSway") && stateInfo.normalizedTime > .5f)
+            AnimatorStateInfo stateInfo = leavesAnim.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.IsName("LeavesSway") && stateInfo.normalizedTime > 1f)
             {
                 isSwaying = false;
-                animator.SetBool("IsSwaying", false);
+                leavesAnim.SetBool("IsSwaying", false);
+                trunkAnim.SetBool("IsSwaying", false);
                 rand = Random.Range(0, swayRange);
                 timer = 0;
             }
