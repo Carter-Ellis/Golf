@@ -10,6 +10,7 @@ public class BallClone : MonoBehaviour
     Ball ball;
     Rigidbody2D rb;
     public Animator animator;
+    public bool isInteractable;
     void Start()
     {
         ball = GameObject.FindObjectOfType<Ball>();
@@ -21,7 +22,7 @@ public class BallClone : MonoBehaviour
     {
         timer += Time.deltaTime;
         ball.isBurst = true;
-        if (timer > lifeTime)
+        if (timer > lifeTime && !isInteractable)
         {
             ball.isBurst = false;
             Destroy(gameObject);
@@ -30,6 +31,10 @@ public class BallClone : MonoBehaviour
     }
     void AnimateBall()
     {
+        if (rb.velocity.magnitude < .5f)
+        {
+            rb.velocity = Vector2.zero;
+        }
         if (Mathf.Abs(rb.velocity.y) > Mathf.Abs(rb.velocity.x))
         {
             //Roll Up

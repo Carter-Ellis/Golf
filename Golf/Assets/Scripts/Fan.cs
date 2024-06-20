@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TreeEditor;
 using UnityEngine;
 
@@ -15,7 +16,6 @@ public class Fan : MonoBehaviour, Selectable
     public float blowingPower = .07f;
     private Quaternion origRotation;
     public float rotationBounds = 90f;
-
 
 
 
@@ -35,18 +35,15 @@ public class Fan : MonoBehaviour, Selectable
     {
         if (ball == null) 
             return;
-
         if (!isSelected)
         {
             return;
         }
-
         if (Vector2.Distance(ball.transform.position, transform.position) >= controlRadius)
         {
             ball.Select(null);
             return;
         }
-
         Rotate();
     }
 
@@ -62,7 +59,7 @@ public class Fan : MonoBehaviour, Selectable
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
-
+    
 
     private void Rotate()
     { 

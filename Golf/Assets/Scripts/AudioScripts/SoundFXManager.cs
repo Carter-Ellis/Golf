@@ -37,6 +37,35 @@ public class SoundFXManager : MonoBehaviour
         Destroy(audioSource.gameObject, clipLength);
     }
 
+    public void PlaySoundFXClipLoop(AudioClip audioClip, Transform spawnTransform, float volume)
+    {
+        //Spawn in gameObject
+        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+
+        //Assign the audioClip
+        audioSource.clip = audioClip;
+
+        //Assign volume
+        audioSource.volume = volume;
+
+        //Play sound
+        audioSource.loop = true;
+        audioSource.PlayOneShot(audioClip);
+        
+    }
+
+    public void PlaySoundFXClipStop(AudioClip audioClip, Transform spawnTransform)
+    {
+        //Spawn in gameObject
+        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+
+        //Assign the audioClip
+        audioSource.clip = audioClip;
+
+        //Play sound
+        audioSource.Stop();
+    }
+
     public void PlayRandomSoundFXClip(AudioClip[] audioClip, Transform spawnTransform, float volume)
     {
 

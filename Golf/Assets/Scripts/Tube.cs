@@ -24,7 +24,7 @@ public class Tube : MonoBehaviour
     private bool isTraveling;
     private bool played;
 
-    private float travelTime = 1f;
+    private float travelTime = 2f;
     private float fallTime = .2f;
     private float fallSpeed;
     private float travelSpeed;

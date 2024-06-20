@@ -8,7 +8,7 @@ public class Music : MonoBehaviour
     public float maxMusicVolume = .05f;
     void Start()
     {
-        MusicManager.instance.PlayRandomMusicClip(musicClips, transform, maxMusicVolume);
+        MusicManager.instance.PlayMusicClip(musicClips[5], transform, maxMusicVolume);
     }
 
 }
