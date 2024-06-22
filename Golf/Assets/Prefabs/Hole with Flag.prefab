@@ -119,9 +119,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.007330186, y: 0.006956822}
+  m_Offset: {x: -0.0073301867, y: -0.0021657944}
   serializedVersion: 2
-  m_Radius: 0.05341008
+  m_Radius: 0.10206318
 --- !u!114 &2587498342059375768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +135,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   par: 4
+  ballOverHoleSpeed: 10
+  inHoleSFX: {fileID: 8300000, guid: 6598c61eed4b4fc4d89b2dd82427b990, type: 3}
+  inHoleSound:
+    Guid:
+      Data1: -751787633
+      Data2: 1257281416
+      Data3: -1989307518
+      Data4: 1425531288
+    Path: event:/InHole
 --- !u!1001 &6426848812223977150
 PrefabInstance:
   m_ObjectHideFlags: 0

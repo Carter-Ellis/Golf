@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 324284639654998179}
   - component: {fileID: 3191499145683424210}
   - component: {fileID: 2764158111439467718}
+  - component: {fileID: 1018637818308635695}
   m_Layer: 0
   m_Name: Fan
   m_TagString: Untagged
@@ -100,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
-  blowingPower: 0.9
+  blowingPower: 0.4
   rotationBounds: 180
 --- !u!58 &2764158111439467718
 CircleCollider2D:
@@ -137,6 +138,37 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.03280449}
   serializedVersion: 2
   m_Radius: 0.36221886
+--- !u!114 &1018637818308635695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8327603128765418329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1652776398
+      Data2: 1202112888
+      Data3: 814109358
+      Data4: 550454068
+    Path: event:/SFX/Fan/Fan
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 9.474197
+  OverrideMaxDistance: 14.379921
 --- !u!1001 &4021232943593104013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,19 +219,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947483352976165781, guid: 528e4ceadf8a58741baec97de8421d86, type: 3}
       propertyPath: m_Size.x
-      value: 5.6018295
+      value: 6.957878
       objectReference: {fileID: 0}
     - target: {fileID: 5947483352976165781, guid: 528e4ceadf8a58741baec97de8421d86, type: 3}
       propertyPath: m_Size.y
-      value: 1.7714233
+      value: 1.4261668
       objectReference: {fileID: 0}
     - target: {fileID: 5947483352976165781, guid: 528e4ceadf8a58741baec97de8421d86, type: 3}
       propertyPath: m_Offset.x
-      value: 2.445034
+      value: 3.1230583
       objectReference: {fileID: 0}
     - target: {fileID: 5947483352976165781, guid: 528e4ceadf8a58741baec97de8421d86, type: 3}
       propertyPath: m_Offset.y
-      value: 0.2416172
+      value: -0.025066137
       objectReference: {fileID: 0}
     - target: {fileID: 6781072583949923882, guid: 528e4ceadf8a58741baec97de8421d86, type: 3}
       propertyPath: blowingPower

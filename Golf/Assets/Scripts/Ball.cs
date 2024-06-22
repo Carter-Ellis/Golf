@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
+using FMOD.Studio;
 
 public class Ball : MonoBehaviour
 {
@@ -66,10 +66,15 @@ public class Ball : MonoBehaviour
 
     [Header("Sounds")]
     public float maxSFXVolume = .45f;
+    public float minPitch = 0.5f;  // Minimum pitch value
+    public float maxPitch = 2.0f;  // Max pitch
+    public float maxVelocity = 10.0f;
+    [SerializeField] private AudioClip[] rollSFX;
     [SerializeField] private AudioClip[] softSwingClips;
     [SerializeField] private AudioClip[] mediumSwingClips;
     [SerializeField] private AudioClip[] hardSwingClips;
     [SerializeField] private AudioClip[] wallHitClips;
+    private EventInstance ballRollSFX;
 
     void Awake()
     {
@@ -84,18 +89,24 @@ public class Ball : MonoBehaviour
         lineRenderer.endWidth = .25f;
         canPutt = true;
     }
-    
+
+    private void Start()
+    {
+        ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
+    }
+
     void Update()
     {
 
         checkDead();
         AnimateBall();
+        UpdateSound();
 
         if (isBallLocked)
         {
             return;
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -130,9 +141,7 @@ public class Ball : MonoBehaviour
             wallHits = 0;
         }
         //Roll Audio
-        if (rb.velocity.magnitude > 0)
-        {
-        }
+        
 
         if (!camController.isViewMode)
         {
@@ -327,7 +336,7 @@ public class Ball : MonoBehaviour
             {
                 volume = maxSFXVolume;
             }
-            SoundFXManager.instance.PlayRandomSoundFXClip(wallHitClips, transform, volume);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
         }
     }
 
@@ -464,17 +473,37 @@ public class Ball : MonoBehaviour
         
         if (distFromBall > 0 && distFromBall < 4)
         {
-            SoundFXManager.instance.PlayRandomSoundFXClip(softSwingClips, transform, maxSFXVolume);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.softSwing, transform.position);
         }
         else if (distFromBall >= 4 && distFromBall < 8.5)
         {
-            SoundFXManager.instance.PlayRandomSoundFXClip(mediumSwingClips, transform, maxSFXVolume);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.mediumSwing, transform.position);
         }
         else
         {
-            SoundFXManager.instance.PlayRandomSoundFXClip(hardSwingClips, transform, maxSFXVolume - .05f);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hardSwing, transform.position);
         }
         
+    }
+
+    private void UpdateSound()
+    {
+        //Start rollSFX event if the ball has a velocity > 0
+        if (rb.velocity.magnitude > 0)
+        {
+            // Get the playback state
+            PLAYBACK_STATE playbackState;
+            ballRollSFX.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                ballRollSFX.start();
+            }
+        }
+        else
+        {
+            // Otherwise stop the SFX
+            ballRollSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        }
     }
 
 }

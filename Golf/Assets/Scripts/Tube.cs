@@ -56,7 +56,7 @@ public class Tube : MonoBehaviour
 
             if (timer > rand)
             {
-                SoundFXManager.instance.PlayRandomSoundFXClip(tunnelHitSFX, transform, ball.maxSFXVolume - .35f);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelBounce, transform.position);
                 rand = Random.Range(playStartRange, playEndRange);
                 timer = 0f;
             }
@@ -91,7 +91,7 @@ public class Tube : MonoBehaviour
         }
         if (!played)
         {
-            SoundFXManager.instance.PlaySoundFXClip(enterSFX, transform, ball.maxSFXVolume + .1f);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelEnter, transform.position);
             played = true;
         }
         ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -119,7 +119,7 @@ public class Tube : MonoBehaviour
                 ball.GetComponent<Rigidbody2D>().velocity = new Vector2(exitSpeed, 0);
                 break;
         }
-        SoundFXManager.instance.PlaySoundFXClip(exitSFX, transform, ball.maxSFXVolume + .1f);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelExit, transform.position);
         played = false;
         isTraveling = false;
     }

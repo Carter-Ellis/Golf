@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
-
 public class Hole : MonoBehaviour
 {
     Ball ball;
     public int par = 4;
     public float ballOverHoleSpeed = 10f;
     private bool inHole;
-    private Vector3 scaleChange = new Vector3(-.01f, -.01f, 0);
+    private float fallTime = .2f;
+    private float fallSpeed;
+    private Vector3 scaleChange = new Vector3(-1f, -1f, 0f);
+    public AudioClip inHoleSFX;
     private void Awake()
     {
         ball = GameObject.FindObjectOfType<Ball>();
@@ -24,14 +25,19 @@ public class Hole : MonoBehaviour
             return;
         }
 
-        if (ball.transform.localScale.x <= 0) {
+        if (ball.transform.localScale.x <= 0)
+        {
+            // Play inhole audio
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);   
             Destroy(ball.gameObject);
             inHole = false;
+
         }
-        else if (ball != null)
+        else
         {
-            ball.transform.position = Vector3.MoveTowards(ball.transform.position, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - .1f), .01f);
-            ball.transform.root.localScale += scaleChange;
+            
+            ball.transform.position = Vector2.MoveTowards(ball.transform.position, (Vector2)transform.position - new Vector2(0, .1f), fallSpeed * Time.deltaTime);
+            ball.transform.root.localScale += scaleChange / fallTime * Time.deltaTime;
         }
     }
 
@@ -49,7 +55,8 @@ public class Hole : MonoBehaviour
             }
 
             inHole = true;
-            
+            ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
         }
         
     }

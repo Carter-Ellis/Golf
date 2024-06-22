@@ -30,7 +30,7 @@ public class Button : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         sr.sprite = pushedSprite;
-        SoundFXManager.instance.PlaySoundFXClip(pushClip, transform, .45f);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.push, transform.position);
         if (buttonTarget == null)
         {
             return;
@@ -40,7 +40,7 @@ public class Button : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        SoundFXManager.instance.PlaySoundFXClip(unpushClip, transform, .45f);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.unpush, transform.position);
         sr.sprite = unpushedSprite;
     }
 }
