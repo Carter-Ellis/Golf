@@ -7,14 +7,16 @@ using UnityEngine;
 
 public class Fan : MonoBehaviour, Selectable
 {
-    Ball ball;
-    Wind wind;
-    CinemachineVirtualCamera cam;
+    private Ball ball;
+    private Wind wind;
+    private Transform center;
+    public GameObject spriteObj;
     private bool isSelected;
     private float controlRadius = 10f;
     public float rotationSpeed = 50f;
     public float blowingPower = .07f;
     private Quaternion origRotation;
+    private Animator anim;
     public float rotationBounds = 90f;
 
 
@@ -22,14 +24,17 @@ public class Fan : MonoBehaviour, Selectable
     private void Awake()
     {
         ball = FindObjectOfType<Ball>();
-        cam = FindObjectOfType<CinemachineVirtualCamera>();
         wind = GetComponentInChildren<Wind>();
+        anim = GetComponentInChildren<Animator>();
+        center = transform.GetChild(0);
         origRotation = transform.rotation;
         if (wind != null)
         {
             wind.blowingPower = blowingPower;
         }
+        UpdateSprite();
     }
+
 
     private void Update()
     {
@@ -50,22 +55,30 @@ public class Fan : MonoBehaviour, Selectable
     public void onSelect()
     {
         isSelected = !isSelected;
-        gameObject.GetComponent<SpriteRenderer>().color = isSelected ? Color.green : Color.white;
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = isSelected ? Color.green : Color.white;
     }
 
     public void onDeselect()
     {
         isSelected = false;
-        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.white;
     }
 
     
-
+    private void UpdateSprite()
+    {
+        int spriteIndex = 8 - (int)((center.rotation.eulerAngles.z / 45f) + .5f);
+        if (spriteIndex >= 8)
+        {
+            spriteIndex = 0;
+        }
+        anim.SetFloat("Angle", spriteIndex);
+    }
     private void Rotate()
     { 
         bool left = Input.GetKey(KeyCode.A);
         bool right = Input.GetKey(KeyCode.D);
-
+        UpdateSprite();
         if (left == right) 
         {
             return;
@@ -74,17 +87,38 @@ public class Fan : MonoBehaviour, Selectable
         float dir = left ? 1 : -1;
         float rotationIncrement = dir * rotationSpeed * Time.deltaTime;
 
-        Quaternion newRot = transform.rotation * Quaternion.AngleAxis(rotationIncrement, Vector3.forward);
-
+        Quaternion rotMat = Quaternion.AngleAxis(rotationIncrement, Vector3.forward);
+        Quaternion newRot = center.rotation * rotMat;
         if (Quaternion.Angle(newRot, origRotation) >= rotationBounds)
         {
             Quaternion max = origRotation * Quaternion.AngleAxis(rotationBounds * dir, Vector3.forward);
-            transform.rotation = max;
+            center.rotation = max;
         }
         else
         {
-            transform.rotation = newRot;
+            center.rotation = newRot;
+            Quaternion spriteRot = spriteObj.transform.rotation * rotMat;
+            Vector3 angles = spriteRot.eulerAngles;
+            float zAngle = angles.z;
+            if (zAngle >= 180)
+            {
+                zAngle -= 360;
+            }
+
+            if (zAngle > 22.5f)
+            {
+                zAngle -= 45f;
+            }
+            else if (zAngle < -22.5)
+            {
+                zAngle += 45f;
+            }
+            
+            angles.z = zAngle;
+            //spriteObj.transform.rotation = Quaternion.Euler(angles);
         }
+
+        
 
     }
 

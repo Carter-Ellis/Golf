@@ -117,7 +117,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 1
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &5987861296526931403
@@ -144,6 +144,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  ignoreRaycast:
+    serializedVersion: 2
+    m_Bits: 4
   animator: {fileID: 8195194255100573815}
   cursor: {fileID: 0}
   ballClone: {fileID: 3721559810071799873, guid: 836cd9449b106994dbe21e2cb7d698ce, type: 3}
@@ -154,11 +157,22 @@ MonoBehaviour:
   isBallLocked: 0
   canPutt: 0
   isBurst: 0
+  maxHitSpeed: 15
   indexOfAbility: 0
   selectedAbilityTxt: {fileID: 0}
   abilityChargesTxt: {fileID: 0}
   healthTxt: {fileID: 0}
-  maxSFXVolume: 0.5
+  maxSFXVolume: 0.45
+  minPitch: 0.5
+  maxPitch: 2
+  maxVelocity: 10
+  rollSFX:
+  - {fileID: 8300000, guid: 91b9d98db4939e7418a08e70ca8ec403, type: 3}
+  - {fileID: 8300000, guid: 27f93378d38748844b3ceaa65739e833, type: 3}
+  - {fileID: 8300000, guid: 8eed55f3590c25c4c8fc1d531793f930, type: 3}
+  - {fileID: 8300000, guid: f34f2eccad5ecd34b8829783d1028cfb, type: 3}
+  - {fileID: 8300000, guid: 9d2a90c0cdf0c404c9148a941b257ec5, type: 3}
+  - {fileID: 8300000, guid: 945aa6c7cad893248b9b3e9ce8e7bca9, type: 3}
   softSwingClips:
   - {fileID: 8300000, guid: fcef32151719f3a4e82370793e249bf5, type: 3}
   - {fileID: 8300000, guid: eca8a63ff2d88164f8380be0fd8d0e9c, type: 3}
@@ -171,6 +185,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 716982f8d1da76c4b8a0135bfa88a6bc, type: 3}
   - {fileID: 8300000, guid: 337d37865e2eac945bb4aae0484808cc, type: 3}
   - {fileID: 8300000, guid: 9e7b33f927f5acc45a749fab2bd9f862, type: 3}
+  wallHitClips:
+  - {fileID: 8300000, guid: 69e64a9e94abce84aa02172b6d3b45ae, type: 3}
+  - {fileID: 8300000, guid: 5a5bb7f7f28d5ad4c9ef63b5d6e61cd6, type: 3}
+  - {fileID: 8300000, guid: 5c38c171a95665a498070e7002bfc79f, type: 3}
 --- !u!58 &582842698364151004
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -53,7 +53,6 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        print(SFXVolume);
         masterBus.setVolume(masterVolume);
         musicBus.setVolume(musicVolume);
         SFXBus.setVolume(SFXVolume);
