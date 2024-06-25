@@ -317,6 +317,7 @@ public class Ball : MonoBehaviour
         GameObject clone;
         clone = Instantiate(ballClone, burstPos1.position, Quaternion.identity);
         clone.GetComponent<Rigidbody2D>().velocity = rb.velocity * burstSpeedMultiplier;
+        
         clone = Instantiate(ballClone, burstPos2.position, Quaternion.identity);
         clone.GetComponent<Rigidbody2D>().velocity = rb.velocity * burstSpeedMultiplier;
         clone = Instantiate(ballClone, burstPos3.position, Quaternion.identity);

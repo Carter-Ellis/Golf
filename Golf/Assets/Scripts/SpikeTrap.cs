@@ -6,15 +6,18 @@ using UnityEngine;
 public class SpikeTrap : MonoBehaviour
 {
     private float timer = 0f;
-    private float idleTime = 2f;
-    private float setTime = 2f;
-    private float attackTime = 3f;
+    private float onSpikeTimer = 0f;
+    public float onSpikeDamageTimer = 2f;
+    public float idleTime = 2f;
+    public float setTime = 2f;
+    public float attackTime = 3f;      
     private bool isAttacking;
     private bool isSet;
     private Animator anim;
     private void Start()
     {
         anim = GetComponent<Animator>();
+        onSpikeTimer = onSpikeDamageTimer;
     }
 
     private void Update()
@@ -52,14 +55,20 @@ public class SpikeTrap : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        
         if (isAttacking && collision.gameObject != null)
         {
-            if (collision.gameObject.tag == "Ball")
+            onSpikeTimer += Time.deltaTime;
+            if (collision.gameObject.tag == "Ball" && onSpikeTimer > onSpikeDamageTimer)
             {
                 Ball ball = collision.gameObject.GetComponent<Ball>();
-                ball.health -= 1;
+                ball.health -= 10;
+                onSpikeTimer = 0f;
             }
         }
     }
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        onSpikeTimer = onSpikeDamageTimer;
+    }
 }

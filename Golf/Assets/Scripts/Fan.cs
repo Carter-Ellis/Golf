@@ -12,7 +12,7 @@ public class Fan : MonoBehaviour, Selectable
     private Transform center;
     public GameObject spriteObj;
     private bool isSelected;
-    private float controlRadius = 10f;
+    public float controlRadius = 10f;
     public float rotationSpeed = 50f;
     public float blowingPower = .07f;
     private Quaternion origRotation;

@@ -20,14 +20,20 @@ public class BallClone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        AnimateBall();
+        if (isInteractable)
+        {           
+            return;
+        }
         timer += Time.deltaTime;
         ball.isBurst = true;
-        if (timer > lifeTime && !isInteractable)
+        Debug.Log(ball.isBurst);
+        if (timer > lifeTime)
         {
             ball.isBurst = false;
             Destroy(gameObject);
         }
-        AnimateBall();
+        
     }
     void AnimateBall()
     {
