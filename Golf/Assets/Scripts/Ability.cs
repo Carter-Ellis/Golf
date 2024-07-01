@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum ABILITIES
 {
-    WIND,
+    
     FREEZE,
+    WIND,
     TELEPORT,
     BURST,
     MAX_ABILITIES
@@ -19,10 +21,10 @@ public abstract class Ability
     {
         switch (type)
         {
-            case ABILITIES.WIND:
-                return new AbilityWind(color);
             case ABILITIES.FREEZE:
                 return new AbilityFreeze(color);
+            case ABILITIES.WIND:
+                return new AbilityWind(color);
             case ABILITIES.TELEPORT:
                 return new AbilityTeleport(color);
             case ABILITIES.BURST:
@@ -31,7 +33,6 @@ public abstract class Ability
                 return null;
         }
     }
-    public abstract void onPickup(Ball ball);
 
     public abstract void onUse(Ball ball);
 
@@ -44,4 +45,6 @@ public abstract class Ability
     public abstract void onFrame(Ball ball);
 
     public abstract void reset(Ball ball);
+
+    public abstract void onPickup(Ball ball);
 }

@@ -14,6 +14,7 @@ TagManager:
   - Wall
   - Tee
   - Interactable
+  - Shop
   layers:
   - Default
   - TransparentFX

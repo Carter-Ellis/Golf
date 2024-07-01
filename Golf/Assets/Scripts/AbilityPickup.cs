@@ -9,22 +9,23 @@ public class AbilityPickup : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
+        Inventory inv = collision.gameObject.GetComponent<Inventory>();
         Ball ball = collision.gameObject.GetComponent<Ball>();
-        if (ball == null)
+        if (inv == null || ball == null || inv.abilityCount >= inv.maxAbilities)
         {
             return;
         }
-        if (ball.unlockedAbilities.Count > 0)
+        if (inv.unlockedAbilities.Count > 0)
         {
-            ball.unlockedAbilities[ball.indexOfAbility].reset(ball);
+            inv.unlockedAbilities[inv.indexOfAbility].reset(ball);
         }
         if (isRecharge)
         {
-            ball.RechargeAbility(type);
+            inv.RechargeAbility(type);
         }
         else
         {
-            ball.AddAbility(Ability.Create(type, gameObject.GetComponent<SpriteRenderer>().color));
+            inv.AddAbility(Ability.Create(type, gameObject.GetComponent<SpriteRenderer>().color));
         }
         
         Destroy(this.gameObject);

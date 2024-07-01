@@ -55,13 +55,7 @@ public class Ball : MonoBehaviour
     public bool isBurst;
     public float maxHitSpeed = 15f;
 
-    [Header("Abilities")]
-    public List<Ability> unlockedAbilities = new List<Ability>();
-    public int indexOfAbility = 0;
-
     [Header("TextDisplay")]
-    [SerializeField] public TextMeshProUGUI selectedAbilityTxt;
-    [SerializeField] public TextMeshProUGUI abilityChargesTxt;
     [SerializeField] private TextMeshProUGUI healthTxt;
 
     [Header("Sounds")]
@@ -134,47 +128,18 @@ public class Ball : MonoBehaviour
         ClickEnemy();
         
         isMouseButton1Held = Input.GetMouseButton(1);
-
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 20f);
         if (rb.velocity.magnitude < .5f)
         {
             rb.velocity = Vector2.zero;
             wallHits = 0;
         }
-        //Roll Audio
         
 
         if (!camController.isViewMode)
         {
             setPutt();
-        }
-        if (Input.GetKeyDown(KeyCode.E) && unlockedAbilities.Count > 0)
-        {
-            unlockedAbilities[indexOfAbility].reset(this);
-            indexOfAbility = (indexOfAbility + 1) % unlockedAbilities.Count;
-        }
-        if (Input.GetKeyDown(KeyCode.Q) && unlockedAbilities.Count > 0)
-        {
-            unlockedAbilities[indexOfAbility].reset(this);
-            indexOfAbility = (unlockedAbilities.Count - 1 + indexOfAbility) % unlockedAbilities.Count;            
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space) && unlockedAbilities.Count > 0)
-        {
-            unlockedAbilities[indexOfAbility].onUse(this);
-        }
-        if (unlockedAbilities.Count > 0)
-        {
-            unlockedAbilities[indexOfAbility].onFrame(this);
-        }
-
-        //Text Display
-        if (unlockedAbilities.Count > 0)
-        {
-            selectedAbilityTxt.text = "Ability: " + unlockedAbilities[indexOfAbility].name;
-            selectedAbilityTxt.color = unlockedAbilities[indexOfAbility].color;
-            abilityChargesTxt.text = unlockedAbilities[indexOfAbility].chargeName + ": " + unlockedAbilities[indexOfAbility].getCharges(this) + " of " + unlockedAbilities[indexOfAbility].getMaxCharges(this);
-            abilityChargesTxt.color = unlockedAbilities[indexOfAbility].color;
-        }    
+        }  
         
     }
 
@@ -341,36 +306,8 @@ public class Ball : MonoBehaviour
         }
     }
 
-    public void AddAbility(Ability ability)
-    {
-        if (ability == null)
-        {
-            return;
-        }
+    
 
-        foreach (Ability abil in unlockedAbilities) {
-            if (abil.type == ability.type)
-            {
-                return;
-            }
-        }
-        unlockedAbilities.Add(ability);
-        indexOfAbility = unlockedAbilities.Count - 1;
-        ability.onPickup(this);
-
-    }
-
-    public void RechargeAbility(ABILITIES type)
-    {
-        foreach (Ability ability in unlockedAbilities)
-        {
-            if (ability.type == type)
-            {
-                ability.onRecharge(this);
-                break;
-            }
-        }
-    }
 
     void DrawTrajectory(Vector2 force)
     {

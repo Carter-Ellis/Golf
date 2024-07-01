@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e9ebe0403fc884e8da518c4c0640d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   isRecharge: 0
 --- !u!95 &2716107892520744034
 Animator:
