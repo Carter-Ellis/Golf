@@ -7,12 +7,21 @@ public class FMODEvents : MonoBehaviour
 {
     [field: Header("Ball SFX")]
     [field: SerializeField] public EventReference ballRollSFX { get; private set; }
+    [field: SerializeField] public EventReference ballHurtSFX { get; private set; }
 
     [field: Header("Music")]
     [field: SerializeField] public EventReference music { get; private set; }
 
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference ambience { get; private set; }
+
+    [field: Header("DoorSFX")]
+    [field: SerializeField] public EventReference door6sec { get; private set; }
+
+    [field: Header("SpikeTrap SFX")]
+    [field: SerializeField] public EventReference spikeTrapAttack { get; private set; }
+    [field: SerializeField] public EventReference spikeTrapSet { get; private set; }
+    [field: SerializeField] public EventReference spikeTrapContract { get; private set; }
 
     [field: Header("InHole SFX")]
     [field: SerializeField] public EventReference inHoleSound { get; private set; }
@@ -40,6 +49,18 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Button")]
     [field: SerializeField] public EventReference push { get; private set; }
     [field: SerializeField] public EventReference unpush { get; private set; }
+
+    [field: Header("Menu")]
+    [field: SerializeField] public EventReference menuBlip { get; private set; }
+    [field: SerializeField] public EventReference menuOpen { get; private set; }
+    [field: SerializeField] public EventReference menuClose { get; private set; }
+    
+    [field: Header("Coin")]
+    [field: SerializeField] public EventReference coinCollect { get; private set; }
+
+    [field: Header("Shop")]
+    [field: SerializeField] public EventReference shopPurchase { get; private set; }
+
     public static FMODEvents instance { get; private set; }
 
     private void Awake()

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class AbilityTeleport : Ability
 {
+    private GameObject ballMarker;
     private int charges = 100;
     private int maxCharges = 100;
     bool isReady;
@@ -34,7 +35,7 @@ public class AbilityTeleport : Ability
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        
+        ballMarker = GameObject.FindGameObjectWithTag("BallMarker");
         if (isReady && Input.GetMouseButtonUp(1) && hit.collider == null)
         {
             
@@ -42,7 +43,8 @@ public class AbilityTeleport : Ability
             {
                 return;
             }
-
+            ballMarker.GetComponent<SpriteRenderer>().enabled = true;
+            ballMarker.transform.position = ball.GetComponent<Transform>().position;
             ball.GetComponent<Transform>().position = mousePos;
             charges--;
             isReady = false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using FMOD.Studio;
+using System.Threading;
 
 public class Ball : MonoBehaviour
 {
@@ -53,6 +54,8 @@ public class Ball : MonoBehaviour
     public bool canPutt;
     private bool isMouseButton1Held;
     public bool isBurst;
+    private bool takingDamage;
+    private float damageTimer = 0f;
     public float maxHitSpeed = 15f;
 
     [Header("TextDisplay")]
@@ -91,10 +94,20 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
-
         checkDead();
         AnimateBall();
         UpdateSound();
+
+        if (takingDamage)
+        {
+            damageTimer += Time.deltaTime;
+            if (damageTimer > .2f)
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                takingDamage = false;
+                damageTimer = 0;
+            }
+        }
 
         if (isBallLocked)
         {
@@ -238,6 +251,13 @@ public class Ball : MonoBehaviour
         }
         
         healthTxt.text = "Health: " + health;
+    }
+    public void TakeDamage(int damage)
+    {
+        takingDamage = true;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(255/255, 100/255,100/255);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.ballHurtSFX, transform.position);
+        health -= damage;
     }
     void ClickEnemy()
     {

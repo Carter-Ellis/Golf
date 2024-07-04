@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour
     {
         if (collision.gameObject != null && collision.gameObject.tag == "Ball")
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
             inventory = ball.GetComponent<Inventory>();
             inventory.coins++;
             Destroy(gameObject);

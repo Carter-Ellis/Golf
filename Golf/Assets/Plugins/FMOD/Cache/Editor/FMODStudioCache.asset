@@ -1,5 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9067422162966430082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BallRoll/Pitch
+  m_EditorClassIdentifier: 
+  Name: Pitch
+  StudioPath: 
+  Min: -12
+  Max: 12
+  Default: -12
+  ID:
+    data1: 4110172961
+    data2: 2879497392
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-8888691980173592226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,11 +39,38 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638545998832617899
+  lastModified: 638556456264261372
   FileSizes:
   - Name: Desktop
-    Value: 484960
+    Value: 639392
   Exists: 1
+--- !u!114 &-8747438197981371918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SpikeTrap/SpikeSet
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SpikeTrap/SpikeSet
+  Guid:
+    Data1: -251137632
+    Data2: 1092017720
+    Data3: -1359795797
+    Data4: -470811272
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &-7187301522603174016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,6 +98,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6658157434718990235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/EQ Global
+  m_EditorClassIdentifier: 
+  Name: EQ Global
+  StudioPath: parameter:/EQ Global
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 91160202
+    data2: 3150964580
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-6185849026822522442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +145,10 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: -72961473407123349}
+  - {fileID: 7739135668541609947}
+  - {fileID: -9067422162966430082}
   MinDistance: 1
   MaxDistance: 20
   Length: 500
@@ -101,6 +179,57 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4674784861882732439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/World 1 Music/IsShop
+  m_EditorClassIdentifier: 
+  Name: IsShop
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2533894310
+    data2: 3753669020
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-4551674225056323731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SpikeTrap/SpikeAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SpikeTrap/SpikeAttack
+  Guid:
+    Data1: -910572138
+    Data2: 1238225962
+    Data3: -2080266089
+    Data4: 152759705
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &-4463440142302074641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,10 +299,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638545998831898222
+  lastModified: 638556456263032940
   FileSizes:
   - Name: Desktop
-    Value: 1486
+    Value: 1672
   Exists: 1
 --- !u!114 &-3693029117578066837
 MonoBehaviour:
@@ -190,10 +319,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638545977495021077
+  lastModified: 638556335379631764
   FileSizes:
   - Name: Desktop
-    Value: 16930688
+    Value: 18662048
   Exists: 1
 --- !u!114 &-2426589835655340309
 MonoBehaviour:
@@ -213,6 +342,60 @@ MonoBehaviour:
     Data2: 1199835355
     Data3: 816132505
     Data4: 755292062
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2013606825857887653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SpikeTrap/SpikeContract
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SpikeTrap/SpikeContract
+  Guid:
+    Data1: 171493226
+    Data2: 1250551439
+    Data3: -502351230
+    Data4: 996376185
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &-1287355612274333649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Shop/MenuClose
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Shop/MenuClose
+  Guid:
+    Data1: -1814063165
+    Data2: 1338101022
+    Data3: 1659313326
+    Data4: -184129013
   Banks:
   - {fileID: -8888691980173592226}
   IsStream: 0
@@ -276,6 +459,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-72961473407123349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BallRoll/EQ Global
+  m_EditorClassIdentifier: 
+  Name: EQ Global
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 91160202
+    data2: 3150964580
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,13 +515,78 @@ MonoBehaviour:
   - {fileID: -4463440142302074641}
   - {fileID: -2426589835655340309}
   - {fileID: -5975921364889222824}
-  EditorParameters: []
+  - {fileID: 293489229007960563}
+  - {fileID: 3691960937131047237}
+  - {fileID: -1287355612274333649}
+  - {fileID: -2013606825857887653}
+  - {fileID: -4551674225056323731}
+  - {fileID: -8747438197981371918}
+  - {fileID: 8235520541960738548}
+  - {fileID: 7081478787357308992}
+  - {fileID: 7651986097493132956}
+  - {fileID: 14254293823330912}
+  EditorParameters:
+  - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -3700934035955269805}
   StringsBanks:
   - {fileID: 1880946066473275958}
-  cacheTime: 638545998832617899
+  cacheTime: 638556456264261372
   cacheVersion: 131618
+--- !u!114 &14254293823330912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Shop/Purchase
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Shop/Purchase
+  Guid:
+    Data1: 31350079
+    Data2: 1300978514
+    Data3: 1034689946
+    Data4: 305832917
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &293489229007960563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Shop/MenuOpen
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Shop/MenuOpen
+  Guid:
+    Data1: 2027606104
+    Data2: 1238803285
+    Data3: 1170971063
+    Data4: 829850334
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &420839407750736933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,10 +656,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638545998831918172
+  lastModified: 638556456263052887
   FileSizes:
   - Name: Desktop
-    Value: 1680
+    Value: 2318
   Exists: 1
 --- !u!114 &2781871004732926462
 MonoBehaviour:
@@ -412,10 +684,38 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
+  Parameters:
+  - {fileID: -4674784861882732439}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 165808
+--- !u!114 &3691960937131047237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Shop/MenuBlip
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Shop/MenuBlip
+  Guid:
+    Data1: 463069628
+    Data2: 1276462677
+    Data3: -1136654943
+    Data4: 1854385749
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 28000
+  Length: 0
 --- !u!114 &6352107760272149478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +761,111 @@ MonoBehaviour:
     Data2: 1101746036
     Data3: 250169274
     Data4: -1998905204
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7081478787357308992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Door/6SecTime
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Door/6SecTime
+  Guid:
+    Data1: 777624729
+    Data2: 1165309896
+    Data3: -598089329
+    Data4: -1364046696
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7651986097493132956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Coin/CoinCollect
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Coin/CoinCollect
+  Guid:
+    Data1: -1039810653
+    Data2: 1328392540
+    Data3: 46205608
+    Data4: -1600682646
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7739135668541609947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BallRoll/Volume
+  m_EditorClassIdentifier: 
+  Name: Volume
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 3731255622
+    data2: 4010054925
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &8235520541960738548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ball/Hurt
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ball/Hurt
+  Guid:
+    Data1: 1686134504
+    Data2: 1090247445
+    Data3: 1552602045
+    Data4: 656374579
   Banks:
   - {fileID: -8888691980173592226}
   IsStream: 0

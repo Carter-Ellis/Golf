@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShopTrigger : MonoBehaviour
 {
-    [SerializeField] private UI_Shop uishop;
     private bool isActive;
+    bool isSoundPlayed;
+    bool isInRange;
     Ball ball;
     private float shopRadius = 7f;
     private void Awake()
@@ -20,21 +22,42 @@ public class ShopTrigger : MonoBehaviour
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        if (Input.GetMouseButtonDown(0) && hit.collider != null && hit.collider.tag == "Shop")
+        if (Input.GetMouseButtonDown(0) && hit.collider != null && hit.collider.tag == "Shop" && isInRange)
         {
+            SceneManager.LoadSceneAsync("Shop");
             isActive = !isActive;
-            uishop.gameObject.SetActive(isActive);
-            
+            if (isActive)
+            {
+                isSoundPlayed = false;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.menuOpen, transform.position);
+            }
+            else
+            {
+                print("Hello");
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
+            }
+
         }
-        /*else if (Input.GetKey)
+        if (Vector2.Distance((Vector2)ball.transform.position, (Vector2)transform.position) > shopRadius && isActive)
         {
+            isInRange = false;
             isActive = false;
-            uishop.gameObject.SetActive(isActive);
-        }*/
-        if (Vector2.Distance((Vector2)ball.transform.position, (Vector2)transform.position) > shopRadius)
-        {
-            uishop.gameObject.SetActive(false);
+            if (!isSoundPlayed)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
+                isSoundPlayed = true;
+            }
+           
         }
+        else if (Vector2.Distance((Vector2)ball.transform.position, (Vector2)transform.position) > shopRadius)
+        {
+            isInRange = false;
+        }
+        else
+        {
+            isInRange = true;
+        }
+        
     }
 
 }

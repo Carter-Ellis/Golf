@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour
     [Header("TextDisplay")]
     [SerializeField] public TextMeshProUGUI selectedAbilityTxt;
     [SerializeField] public TextMeshProUGUI abilityChargesTxt;
+    [SerializeField] private TextMeshProUGUI coinTxt;
 
     private void Start()
     {
@@ -28,7 +29,7 @@ public class Inventory : MonoBehaviour
     {
         AbilityManager();
         DisplayAbility();
-
+        coinTxt.text = "Coins: " + coins;
     }
     private void AbilityManager()
     {

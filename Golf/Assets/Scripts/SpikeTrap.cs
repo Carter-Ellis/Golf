@@ -26,11 +26,13 @@ public class SpikeTrap : MonoBehaviour
         if (timer > idleTime && !isSet)
         {
             isSet = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.spikeTrapSet, transform.position);
             anim.SetTrigger("SetSpike");
             timer = 0f;
         }
         else if (timer > setTime && isSet && !isAttacking)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.spikeTrapAttack, transform.position);
             isAttacking = true;
             timer = 0f;
             anim.SetTrigger("Attack");
@@ -46,11 +48,16 @@ public class SpikeTrap : MonoBehaviour
         }
         if (isAttacking && timer > attackTime && isSet)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.spikeTrapContract, transform.position);
             anim.SetTrigger("AttackIdle");
             anim.SetTrigger("Attack");
             timer = 0f;
             isAttacking = false;
             isSet = false;
+        }
+        if (!isAttacking)
+        {
+            onSpikeTimer = onSpikeDamageTimer;
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -62,13 +69,13 @@ public class SpikeTrap : MonoBehaviour
             if (collision.gameObject.tag == "Ball" && onSpikeTimer > onSpikeDamageTimer)
             {
                 Ball ball = collision.gameObject.GetComponent<Ball>();
-                ball.health -= 10;
+                ball.TakeDamage(10);
                 onSpikeTimer = 0f;
             }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
-    {
+    {    
         onSpikeTimer = onSpikeDamageTimer;
     }
 }

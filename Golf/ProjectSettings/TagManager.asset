@@ -15,6 +15,7 @@ TagManager:
   - Tee
   - Interactable
   - Shop
+  - BallMarker
   layers:
   - Default
   - TransparentFX

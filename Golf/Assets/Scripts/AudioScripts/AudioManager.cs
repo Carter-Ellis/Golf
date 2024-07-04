@@ -16,6 +16,9 @@ public class AudioManager : MonoBehaviour
     [Range(0, 1)]
     public float ambienceVolume = 1f;
 
+    [Header("Shop")]
+    public bool isShop;
+
     private Bus masterBus;
     private Bus musicBus;
     private Bus SFXBus;
@@ -42,13 +45,23 @@ public class AudioManager : MonoBehaviour
         musicBus = RuntimeManager.GetBus("bus:/Music");
         SFXBus = RuntimeManager.GetBus("bus:/SFX");
         ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
-
+        
     }
 
     private void Start()
     {
         InitializeAmbience(FMODEvents.instance.ambience);
         InitializeMusic(FMODEvents.instance.music);
+        if (isShop)
+        {
+            musicEventInstance.setParameterByName("IsShop", 1);
+        }
+        else
+        {
+            musicEventInstance.setParameterByName("IsShop", 0);
+        }
+        
+        
     }
 
     private void Update()
