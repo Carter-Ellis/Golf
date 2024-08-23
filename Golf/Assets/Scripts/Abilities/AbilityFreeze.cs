@@ -12,6 +12,7 @@ public class AbilityFreeze : Ability
         type = ABILITIES.FREEZE;
         name = "Freeze";
         chargeName = "Frost Locks";
+        description = "Instantly halt the ball's movement, freezing it in place for precise control and strategic positioning";
         this.color = color;
     }
 

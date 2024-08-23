@@ -45,6 +45,7 @@ public class Ball : MonoBehaviour
 
 
     [Header("Variables")]
+    public bool isBattleMode;
     public bool isBallLocked;
     bool isAiming;
     bool hasShot;
@@ -97,6 +98,11 @@ public class Ball : MonoBehaviour
         checkDead();
         AnimateBall();
         UpdateSound();
+
+        if (isBattleMode)
+        {
+            return;
+        }
 
         if (takingDamage)
         {

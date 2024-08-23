@@ -16,6 +16,7 @@ public class AbilityTeleport : Ability
         type = ABILITIES.TELEPORT;
         name = "Teleport";
         chargeName = "Tele Orbs";
+        description = "Instantly transport the ball from one location to another for quick repositioning";
         this.color = color;
     }
 
@@ -43,7 +44,7 @@ public class AbilityTeleport : Ability
             {
                 return;
             }
-            ballMarker.GetComponent<SpriteRenderer>().enabled = true;
+            ballMarker.GetComponent<SpriteRenderer>().enabled = true; 
             ballMarker.transform.position = ball.GetComponent<Transform>().position;
             ball.GetComponent<Transform>().position = mousePos;
             charges--;

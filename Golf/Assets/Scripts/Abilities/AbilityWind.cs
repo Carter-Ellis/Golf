@@ -12,6 +12,7 @@ public class AbilityWind : Ability
         type = ABILITIES.WIND;
         name = "Wind";
         chargeName = "Air Bags";
+        description = "Harness a powerful gust to significantly boost the ball's speed, propelling it forward with increased velocity";
         this.color = color;
     }
     public override void onPickup(Ball ball)
