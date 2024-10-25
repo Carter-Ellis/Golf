@@ -16,12 +16,17 @@ public class VolumeSlider : MonoBehaviour
     [Header("Type")]
     [SerializeField] private VolumeType volumeType;
 
-    private Slider volumeSlider;
+    public Slider volumeSlider;
+    private Inventory inv;
 
     private void Awake()
     {
         volumeSlider = this.GetComponentInChildren<Slider>();
-        
+        inv = FindObjectOfType<Inventory>();
+        if (inv == null)
+        {
+            Debug.LogWarning("Inventory object not found!");
+        }
     }
 
     private void Update()
@@ -38,12 +43,13 @@ public class VolumeSlider : MonoBehaviour
                 volumeSlider.value = AudioManager.instance.SFXVolume;
                 break;
             case VolumeType.AMBIENCE:
-                volumeSlider.value = AudioManager.instance.ambienceVolume;
+                volumeSlider.value = AudioManager.instance.ambienceVolume;    
                 break;
             default:
                 Debug.Log("Volume Type not supported: " + volumeType);
                 break;
         }
+        //AudioManager.instance.ambienceVolume = ;
     }
 
     public void OnSliderValueChange()
@@ -52,20 +58,25 @@ public class VolumeSlider : MonoBehaviour
         {
             case VolumeType.MASTER:
                 AudioManager.instance.masterVolume = volumeSlider.value;
+                inv.masterVol = volumeSlider.value;
                 break;
             case VolumeType.MUSIC:
                 AudioManager.instance.musicVolume = volumeSlider.value;
+                inv.musicVol = volumeSlider.value;
                 break;
             case VolumeType.SFX:
                 AudioManager.instance.SFXVolume = volumeSlider.value;
+                inv.SFXVol = volumeSlider.value;
                 break;
             case VolumeType.AMBIENCE:
                 AudioManager.instance.ambienceVolume = volumeSlider.value;
+                inv.ambienceVol = volumeSlider.value;
                 break;
             default:
                 Debug.Log("Volume Type not supported: " + volumeType);
                 break;
         }
+        inv.SavePlayer();
     }
 
 }

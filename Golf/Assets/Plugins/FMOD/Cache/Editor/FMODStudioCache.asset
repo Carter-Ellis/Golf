@@ -39,7 +39,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638556456264261372
+  lastModified: 638654717078936086
   FileSizes:
   - Name: Desktop
     Value: 639392
@@ -319,10 +319,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638556335379631764
+  lastModified: 638654716516543495
   FileSizes:
   - Name: Desktop
-    Value: 18662048
+    Value: 18662336
   Exists: 1
 --- !u!114 &-2426589835655340309
 MonoBehaviour:
@@ -531,7 +531,7 @@ MonoBehaviour:
   - {fileID: -3700934035955269805}
   StringsBanks:
   - {fileID: 1880946066473275958}
-  cacheTime: 638556456264261372
+  cacheTime: 638654717078936086
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -686,6 +686,7 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: -4674784861882732439}
+  - {fileID: 8303783976882578339}
   MinDistance: 1
   MaxDistance: 20
   Length: 165808
@@ -875,6 +876,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &8303783976882578339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/World 1 Music/Pitch
+  m_EditorClassIdentifier: 
+  Name: Pitch
+  StudioPath: 
+  Min: -12
+  Max: 12
+  Default: -12
+  ID:
+    data1: 4110172961
+    data2: 2879497392
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &8935984509762363687
 MonoBehaviour:
   m_ObjectHideFlags: 0

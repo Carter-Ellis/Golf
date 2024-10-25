@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     Transform followedObject;
     Ball ball;
     public bool isViewMode;
+    public bool isIdleMode;
     Vector3 mapPos = new Vector3(4, 7, -10);
 
     public float mapViewSize = 15f;
@@ -28,7 +29,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (ball == null)
+        if (ball == null && !isIdleMode)
         {
             timer += Time.deltaTime;
             if (timer > reloadSceneTime)

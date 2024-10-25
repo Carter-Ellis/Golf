@@ -1,20 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class Hole : MonoBehaviour
 {
     Ball ball;
     public int par = 4;
     public float ballOverHoleSpeed = 10f;
-    private bool inHole;
+    public bool inHole;
     private float fallTime = .2f;
     private float fallSpeed;
     private Vector3 scaleChange = new Vector3(-1f, -1f, 0f);
     public AudioClip inHoleSFX;
+    public Animator animator;
     private void Awake()
     {
         ball = GameObject.FindObjectOfType<Ball>();
-        transform.position = new Vector3(transform.position.x, transform.position.y, 10);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+    }
+
+    private void UnlockNewLevel()
+    {
+        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex")) {
+            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 1);
+            PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
+            
+        }
+        ball.GetComponent<Inventory>().SavePlayer();
     }
 
     private void Update()
@@ -28,10 +40,12 @@ public class Hole : MonoBehaviour
         if (ball.transform.localScale.x <= 0)
         {
             // Play inhole audio
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);   
-            Destroy(ball.gameObject);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
+            UnlockNewLevel();
+            animator.SetBool("Won", true);
+            ball.gameObject.SetActive(false);
             inHole = false;
-
+            
         }
         else
         {

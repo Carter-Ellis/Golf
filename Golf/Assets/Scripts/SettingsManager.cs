@@ -16,7 +16,10 @@ public class SettingsManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
-            ball.isBallLocked = soundMenuCanvas.enabled;
+            if (ball != null)
+            {
+                ball.isBallLocked = soundMenuCanvas.enabled;
+            }   
             
         }
     }

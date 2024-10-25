@@ -11,6 +11,8 @@ public class Button : MonoBehaviour
     public Sprite unpushedSprite;
     public AudioClip pushClip;
     public AudioClip unpushClip;
+    internal bool interactable;
+
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();

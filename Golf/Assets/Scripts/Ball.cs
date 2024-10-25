@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using FMOD.Studio;
-using System.Threading;
+using UnityEngine.SceneManagement;
 
+public enum Direction
+{
+    North,
+    East,
+    South,
+    West,
+    NorthEast,
+    NorthWest,
+    SouthEast,
+    SouthWest
+}
 public class Ball : MonoBehaviour
 {
 
@@ -34,7 +45,7 @@ public class Ball : MonoBehaviour
     public Animator animator;
     public GameObject cursor;
     public Selectable objectSelected;
-    
+    public Direction CurrentDirection { get; private set; }
 
     [Header("Burst")]
     public GameObject ballClone;
@@ -42,6 +53,7 @@ public class Ball : MonoBehaviour
     public Transform burstPos2;
     public Transform burstPos3;
     public Transform burstPos4;
+
 
 
     [Header("Variables")]
@@ -91,6 +103,7 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
+        CurrentDirection = Direction.South;
     }
 
     void Update()
@@ -98,6 +111,17 @@ public class Ball : MonoBehaviour
         checkDead();
         AnimateBall();
         UpdateSound();
+        UpdateDirection(rb.velocity);
+
+        if (Input.GetKeyDown(KeyCode.R)) 
+        {
+            ball.GetComponent<Inventory>().ErasePlayerData();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        /*if (Input.GetKeyDown(KeyCode.B))
+        {
+            isBattleMode = !isBattleMode;
+        }*/
 
         if (isBattleMode)
         {
@@ -113,6 +137,13 @@ public class Ball : MonoBehaviour
                 takingDamage = false;
                 damageTimer = 0;
             }
+        }
+
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 20f);
+        if (rb.velocity.magnitude < .5f)
+        {
+            rb.velocity = Vector2.zero;
+            wallHits = 0;
         }
 
         if (isBallLocked)
@@ -147,12 +178,7 @@ public class Ball : MonoBehaviour
         ClickEnemy();
         
         isMouseButton1Held = Input.GetMouseButton(1);
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 20f);
-        if (rb.velocity.magnitude < .5f)
-        {
-            rb.velocity = Vector2.zero;
-            wallHits = 0;
-        }
+        
         
 
         if (!camController.isViewMode)
@@ -161,7 +187,6 @@ public class Ball : MonoBehaviour
         }  
         
     }
-
 
     public void Select(Component component)
     {
@@ -189,6 +214,22 @@ public class Ball : MonoBehaviour
             camController.cam.Follow = newSelected.transform;
             ball.canPutt = false;
         }
+    }
+    private void UpdateDirection(Vector2 movement)
+    {
+        if (movement.x > 0)
+        {
+            CurrentDirection = movement.y > 0 ? Direction.NorthEast : (movement.y < 0 ? Direction.SouthEast : Direction.East);
+        }
+        else if (movement.x < 0)
+        {
+            CurrentDirection = movement.y > 0 ? Direction.NorthWest : (movement.y < 0 ? Direction.SouthWest : Direction.West);
+        }
+        else
+        {
+            CurrentDirection = movement.y > 0 ? Direction.North : (movement.y < 0 ? Direction.South : CurrentDirection);
+        }
+
     }
 
     void AnimateBall()
@@ -241,7 +282,7 @@ public class Ball : MonoBehaviour
         }
         else if (Mathf.Abs(rb.velocity.y) < Mathf.Abs(rb.velocity.x))
         {
-            //Roll Right
+            //Roll Right           
             animator.SetBool("isVertical", false);
             animator.SetBool("isHorizontal", true);       
             animator.SetFloat("SpeedX", rb.velocity.x);

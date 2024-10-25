@@ -19,10 +19,10 @@ public class AudioManager : MonoBehaviour
     [Header("Shop")]
     public bool isShop;
 
-    private Bus masterBus;
-    private Bus musicBus;
-    private Bus SFXBus;
-    private Bus ambienceBus;
+    public Bus masterBus;
+    public Bus musicBus;
+    public Bus SFXBus;
+    public Bus ambienceBus;
 
     private List<EventInstance> eventInstances;
 
