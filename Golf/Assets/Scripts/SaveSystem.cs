@@ -46,6 +46,7 @@ public static class SaveSystem
             Scene currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
             Debug.Log("Saved data cleared.");
+
         }
         else
         {

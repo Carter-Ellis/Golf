@@ -297,7 +297,7 @@ public class Ball : MonoBehaviour
             animator.SetFloat("SpeedY", 0);
         }
         
-        healthTxt.text = "Health: " + health;
+        //healthTxt.text = "Health: " + health;
     }
     public void TakeDamage(int damage)
     {

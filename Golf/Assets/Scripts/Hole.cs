@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Hole : MonoBehaviour
@@ -13,6 +14,10 @@ public class Hole : MonoBehaviour
     private Vector3 scaleChange = new Vector3(-1f, -1f, 0f);
     public AudioClip inHoleSFX;
     public Animator animator;
+
+
+    [SerializeField] private TextMeshProUGUI parTxt;
+    [SerializeField] private TextMeshProUGUI scoreTxt;
     private void Awake()
     {
         ball = GameObject.FindObjectOfType<Ball>();
@@ -59,14 +64,30 @@ public class Hole : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
         {
-            if (ball.strokes <= par)
+            if (ball.strokes < par)
             {
-                print("On Par! Strokes: " + ball.strokes);
+                int currentLevel = SceneManager.GetActiveScene().buildIndex;
+                Inventory inv = ball.GetComponent<Inventory>();
+                if (inv.coinsCollected == null)
+                {
+                    inv.coinsCollected = new Dictionary<int, List<int>>();
+                }
+
+                if (!inv.coinsCollected.ContainsKey(currentLevel))
+                {
+                    inv.coinsCollected[currentLevel] = new List<int>();
+                }
+                if (!inv.coinsCollected[currentLevel].Contains(3))
+                {
+                    inv.coins += 1;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
+                }
+                inv.coinsCollected[currentLevel].Add(3);
+                
+                
             }
-            else if (ball.strokes > par)
-            {
-                print("You are so bad! Strokes: " + ball.strokes);
-            }
+            parTxt.text = "Par: " + par;
+            scoreTxt.text = "Score: " + ball.strokes;
 
             inHole = true;
             ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

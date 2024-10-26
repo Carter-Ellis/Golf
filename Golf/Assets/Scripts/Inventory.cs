@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour
 {
-    
-    
     Ball ball;
     public List<Ability> unlockedAbilities = new List<Ability>();
     public int indexOfAbility = 0;
@@ -22,6 +21,22 @@ public class Inventory : MonoBehaviour
     public float SFXVol = 1f;
     public float ambienceVol = 1f;
 
+    public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
+
+    [Header("Coins")]
+    public GameObject coin1;
+    public GameObject coin2;
+    public GameObject coin3;
+
+    [Header("Coins Menu")]
+    public GameObject coin1Menu;
+    public GameObject coin2Menu;
+    public GameObject coin3Menu;
+
+    [Header("Coin Sprites")]
+    public Sprite coinCollectedSprite;
+    public Sprite coinSprite;
+
     [Header("TextDisplay")]
     [SerializeField] public TextMeshProUGUI selectedAbilityTxt;
     [SerializeField] public TextMeshProUGUI abilityChargesTxt;
@@ -30,16 +45,48 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         LoadPlayer();
+        ChangeCoinSprites();
+
         ball = GetComponent<Ball>();
+    }
+    private void ChangeCoinSprites()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        if (coinsCollected != null && coinsCollected.ContainsKey(currentLevel))
+        {
+            if (coinsCollected[currentLevel].Contains(1) && coin1 != null && coin1Menu != null)
+            {
+                SetCoinState(coin1, coin1Menu);
+                print("Already collected coin 1");
+            }
+            if (coinsCollected[currentLevel].Contains(2) && coin2 != null && coin2Menu != null)
+            {
+                SetCoinState(coin2, coin2Menu);
+                print("Already collected coin 2");
+            }
+            if (coinsCollected[currentLevel].Contains(3) && coin3 != null && coin3Menu != null)
+            {
+                SetCoinState(coin3, coin3Menu);
+                print("Already collected coin 3");
+            }
+        }
+    }
+    private void SetCoinState(GameObject coin, GameObject coinMenu)
+    {
+        coin.GetComponent<Animator>().enabled = false;
+        coin.GetComponent<SpriteRenderer>().sprite = coinCollectedSprite;
+        coinMenu.GetComponent<Image>().sprite = coinSprite;
+        
     }
 
     private void Update()
     {
         AbilityManager();
         DisplayAbility();
+
         if (coinTxt != null)
         {
-            coinTxt.text = "Coins: " + coins;
+            coinTxt.text = "" + coins;
         }
 
     }
@@ -47,9 +94,24 @@ public class Inventory : MonoBehaviour
     public void LoadNextLevel()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
 
         int nextLevelIndex = currentIndex + 1;
-        SceneManager.LoadScene(nextLevelIndex);
+        if (nextLevelIndex < sceneCount)
+        {
+            SceneManager.LoadScene(nextLevelIndex);
+        }
+        else
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        
+    }
+    public void ReloadLevel()
+    {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentIndex);
     }
 
     public void LoadMainMenu()
@@ -60,6 +122,7 @@ public class Inventory : MonoBehaviour
     public void SavePlayer()
     {
         SaveSystem.SavePlayer(this);
+        ChangeCoinSprites();
     }
     public void LoadPlayer()
     {
@@ -81,6 +144,8 @@ public class Inventory : MonoBehaviour
         AudioManager.instance.musicVolume = musicVol;
         AudioManager.instance.SFXVolume = SFXVol;
         AudioManager.instance.ambienceVolume = ambienceVol;
+
+        coinsCollected = data.coinsCollected;
     }
 
     public void ErasePlayerData()

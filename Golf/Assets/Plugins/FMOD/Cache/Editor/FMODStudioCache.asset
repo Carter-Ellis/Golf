@@ -319,7 +319,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638654716516543495
+  lastModified: 638654768435470764
   FileSizes:
   - Name: Desktop
     Value: 18662336
@@ -531,7 +531,7 @@ MonoBehaviour:
   - {fileID: -3700934035955269805}
   StringsBanks:
   - {fileID: 1880946066473275958}
-  cacheTime: 638654717078936086
+  cacheTime: 638654768435470764
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
