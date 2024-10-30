@@ -50,6 +50,8 @@ public static class SaveSystem
         }
         else
         {
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
             Debug.LogWarning("No saved data found to delete.");
         }
     }

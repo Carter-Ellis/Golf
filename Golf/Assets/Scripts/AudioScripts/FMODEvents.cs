@@ -61,6 +61,8 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Shop")]
     [field: SerializeField] public EventReference shopPurchase { get; private set; }
 
+    [field: Header("AppleBite")]
+    [field: SerializeField] public EventReference appleBite { get; private set; }
     public static FMODEvents instance { get; private set; }
 
     private void Awake()

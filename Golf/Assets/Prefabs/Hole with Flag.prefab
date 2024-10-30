@@ -134,11 +134,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31925d4690a52734aac305fff64d205e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  par: 4
+  par: 5
   ballOverHoleSpeed: 10
   inHole: 0
   inHoleSFX: {fileID: 8300000, guid: 6598c61eed4b4fc4d89b2dd82427b990, type: 3}
-  animator: {fileID: 3101814467110496086, guid: 78691b3cc20601c4c8959d2a4dc156d8, type: 3}
+  animator: {fileID: 0}
+  nextLevelButton: {fileID: 0}
+  winTxt: {fileID: 0}
+  parTxt: {fileID: 0}
+  strokesTxt: {fileID: 0}
+  signTxt: {fileID: 0}
 --- !u!1001 &6426848812223977150
 PrefabInstance:
   m_ObjectHideFlags: 0

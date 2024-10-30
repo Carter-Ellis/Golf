@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &780451338107553760
 Transform:
   m_ObjectHideFlags: 0
@@ -148,6 +148,27 @@ MonoBehaviour:
   idleTime: 2
   setTime: 2
   attackTime: 3
+  spikeSetAudio:
+    Guid:
+      Data1: 667774129
+      Data2: 1296097742
+      Data3: -1055510883
+      Data4: -360406498
+    Path: event:/SFX/SpikeTrap/SpikeSet3D
+  spikeAttackAudio:
+    Guid:
+      Data1: -1639379160
+      Data2: 1184325620
+      Data3: -367960421
+      Data4: -1888873625
+    Path: event:/SFX/SpikeTrap/SpikeAttack3D
+  spikeContractAudio:
+    Guid:
+      Data1: 1408282595
+      Data2: 1177013672
+      Data3: -1212580457
+      Data4: 1459281125
+    Path: event:/SFX/SpikeTrap/SpikeContract3D
 --- !u!95 &856396174007733798
 Animator:
   serializedVersion: 5

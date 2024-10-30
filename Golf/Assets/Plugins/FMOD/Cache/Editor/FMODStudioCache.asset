@@ -39,10 +39,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638654717078936086
+  lastModified: 638658454883238516
   FileSizes:
   - Name: Desktop
-    Value: 639392
+    Value: 647168
   Exists: 1
 --- !u!114 &-8747438197981371918
 MonoBehaviour:
@@ -299,7 +299,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638556456263032940
+  lastModified: 638658451880459742
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -319,10 +319,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638654768435470764
+  lastModified: 638656476676125418
   FileSizes:
   - Name: Desktop
-    Value: 18662336
+    Value: 26241504
   Exists: 1
 --- !u!114 &-2426589835655340309
 MonoBehaviour:
@@ -378,6 +378,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &-1982782176032651811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SpikeTrap/SpikeContract3D
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SpikeTrap/SpikeContract3D
+  Guid:
+    Data1: 1408282595
+    Data2: 1177013672
+    Data3: -1212580457
+    Data4: 1459281125
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1287355612274333649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,13 +552,17 @@ MonoBehaviour:
   - {fileID: 7081478787357308992}
   - {fileID: 7651986097493132956}
   - {fileID: 14254293823330912}
+  - {fileID: 6112434066740057172}
+  - {fileID: 2968971862091633483}
+  - {fileID: -1982782176032651811}
+  - {fileID: 1805913757126353761}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -3700934035955269805}
   StringsBanks:
   - {fileID: 1880946066473275958}
-  cacheTime: 638654768435470764
+  cacheTime: 638658454883238516
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -641,6 +672,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &1805913757126353761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Apple/AppleBite
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Apple/AppleBite
+  Guid:
+    Data1: 1292482696
+    Data2: 1194963459
+    Data3: 1176705175
+    Data4: -344942267
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1880946066473275958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,10 +714,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638556456263052887
+  lastModified: 638658451880489649
   FileSizes:
   - Name: Desktop
-    Value: 2318
+    Value: 2496
   Exists: 1
 --- !u!114 &2781871004732926462
 MonoBehaviour:
@@ -690,6 +748,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 165808
+--- !u!114 &2968971862091633483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SpikeTrap/SpikeSet3D
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SpikeTrap/SpikeSet3D
+  Guid:
+    Data1: 667774129
+    Data2: 1296097742
+    Data3: -1055510883
+    Data4: -360406498
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &3691960937131047237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,6 +797,33 @@ MonoBehaviour:
   - {fileID: -8888691980173592226}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6112434066740057172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SpikeTrap/SpikeAttack3D
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SpikeTrap/SpikeAttack3D
+  Guid:
+    Data1: -1639379160
+    Data2: 1184325620
+    Data3: -367960421
+    Data4: -1888873625
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1

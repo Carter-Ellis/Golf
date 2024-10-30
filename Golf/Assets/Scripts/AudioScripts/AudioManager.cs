@@ -33,11 +33,15 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if(instance != null && instance != this)
         {
-            Debug.Log("Found more than one Audio Manager in the scene.");
+            Destroy(gameObject); // Prevent duplicates
+            return;
         }
+
         instance = this;
+
+        DontDestroyOnLoad(gameObject);
 
         eventInstances = new List<EventInstance>();
 
@@ -50,8 +54,16 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeAmbience(FMODEvents.instance.ambience);
-        InitializeMusic(FMODEvents.instance.music);
+        if (!musicEventInstance.isValid())
+        {
+            InitializeMusic(FMODEvents.instance.music);
+        }
+
+        if (!ambienceEventInstance.isValid())
+        {
+            InitializeAmbience(FMODEvents.instance.ambience);
+        }
+
         if (isShop)
         {
             musicEventInstance.setParameterByName("IsShop", 1);
@@ -60,8 +72,6 @@ public class AudioManager : MonoBehaviour
         {
             musicEventInstance.setParameterByName("IsShop", 0);
         }
-        
-        
     }
 
     private void Update()
@@ -108,6 +118,6 @@ public class AudioManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        CleanUp();
+        //CleanUp();
     }
 }

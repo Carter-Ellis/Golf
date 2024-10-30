@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class Hole : MonoBehaviour
 {
     Ball ball;
@@ -15,13 +17,23 @@ public class Hole : MonoBehaviour
     public AudioClip inHoleSFX;
     public Animator animator;
 
+    public UnityEngine.UI.Button nextLevelButton;
 
+    [SerializeField] private TextMeshProUGUI winTxt;
     [SerializeField] private TextMeshProUGUI parTxt;
-    [SerializeField] private TextMeshProUGUI scoreTxt;
+    [SerializeField] private TextMeshProUGUI strokesTxt;
+    [SerializeField] private TextMeshPro signTxt;
+    [SerializeField] private TextMeshPro signLevelTxt;
     private void Awake()
     {
         ball = GameObject.FindObjectOfType<Ball>();
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        if (signTxt != null)
+        {
+            signTxt.text = "Par:" + par;
+            signLevelTxt.text = "Hole:" + SceneManager.GetActiveScene().buildIndex;
+        }
+        
     }
 
     private void UnlockNewLevel()
@@ -36,7 +48,7 @@ public class Hole : MonoBehaviour
 
     private void Update()
     {
-
+        
         if (!inHole)
         {
             return;
@@ -46,7 +58,11 @@ public class Hole : MonoBehaviour
         {
             // Play inhole audio
             AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
-            UnlockNewLevel();
+            if (ball.strokes <= par)
+            {
+                UnlockNewLevel();
+            }
+            
             animator.SetBool("Won", true);
             ball.gameObject.SetActive(false);
             inHole = false;
@@ -86,8 +102,23 @@ public class Hole : MonoBehaviour
                 
                 
             }
+
+            if (ball.strokes <= par)
+            {
+                winTxt.fontSize = 100;
+                winTxt.text = "YOU WIN!";
+            }
+            else
+            {
+                nextLevelButton.interactable = false;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = false;
+                winTxt.fontSize = 60;
+                winTxt.text = "You Lose! Too Many Strokes!";
+            }
+
             parTxt.text = "Par: " + par;
-            scoreTxt.text = "Score: " + ball.strokes;
+            strokesTxt.text = "Strokes: " + ball.strokes;
+            
 
             inHole = true;
             ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

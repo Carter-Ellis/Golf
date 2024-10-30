@@ -374,6 +374,7 @@ public class Ball : MonoBehaviour
     }
 
     
+    
 
 
     void DrawTrajectory(Vector2 force)

@@ -1,13 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using CodeMonkey.Utils;
 using UnityEngine.UI;
 using static Item;
-using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 public class UI_Shop : MonoBehaviour
 {

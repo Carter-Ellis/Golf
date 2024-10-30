@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] public TextMeshProUGUI selectedAbilityTxt;
     [SerializeField] public TextMeshProUGUI abilityChargesTxt;
     [SerializeField] private TextMeshProUGUI coinTxt;
+    [SerializeField] private TextMeshProUGUI strokeTxt;
 
     private void Start()
     {
@@ -87,6 +88,10 @@ public class Inventory : MonoBehaviour
         if (coinTxt != null)
         {
             coinTxt.text = "" + coins;
+        }
+        if (strokeTxt != null)
+        {
+            strokeTxt.text = "stroke:" + ball.strokes;
         }
 
     }

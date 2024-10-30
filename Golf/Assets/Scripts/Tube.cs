@@ -17,6 +17,7 @@ public class Tube : MonoBehaviour
     private Ball ball;
 
     private Vector3 exitPos;
+    private Vector3 iExitPos;
     private Vector3 scaleChange = new Vector3(-1f, -1f, 0);
     private Vector3 origScale = new Vector3(1, 1, 1);
 
@@ -30,6 +31,7 @@ public class Tube : MonoBehaviour
     private float travelSpeed;
     public float ballOverHoleSpeed = 10f;
     public float exitSpeed = 2f;
+    public float iExitSpeed = 4f;
     public float timer = 0f;
     public float rand = 0;
     private float playEndRange = 1f;
@@ -42,6 +44,7 @@ public class Tube : MonoBehaviour
     void Start()
     {
         exitPos = exit.transform.GetChild(0).transform.position;
+        iExitPos = exit.transform.GetChild(1).transform.position;
         travelSpeed = Vector2.Distance(exitPos, transform.position) / travelTime;
         ball = FindObjectOfType<Ball>();
         travelSpeed = travelSpeed + Vector2.Distance(gameObject.transform.position, exitPos) / 4000;
@@ -85,7 +88,15 @@ public class Tube : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.tag != "Ball" || collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > ballOverHoleSpeed)
+        if (collision.gameObject.tag == "Interactable")
+        {
+            GameObject iball = collision.gameObject;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelEnter, transform.position);
+            IExit(iball);
+            return;
+        }
+
+        if (collision.gameObject.tag != "Ball"|| collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > ballOverHoleSpeed)
         {
             return;
         }
@@ -98,6 +109,29 @@ public class Tube : MonoBehaviour
         fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
         isTraveling = true;
 
+    }
+
+    private void IExit(GameObject iball)
+    {
+        float randomY = Random.Range(-.5f, .5f);
+        float randomX = Random.Range(-.5f, .5f);
+        iball.GetComponent<Rigidbody2D>().position = new Vector2(iExitPos.x + randomX, iExitPos.y + randomY);
+        float IExitspeed = iExitSpeed;
+        switch (direction)
+        {
+            case DIRECTION.UP:
+                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, IExitspeed);
+                break;
+            case DIRECTION.DOWN:
+                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -IExitspeed);
+                break;
+            case DIRECTION.LEFT:
+                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(-IExitspeed, 0);
+                break;
+            case DIRECTION.RIGHT:
+                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(IExitspeed, 0);
+                break;
+        }
     }
 
     private void Exit()

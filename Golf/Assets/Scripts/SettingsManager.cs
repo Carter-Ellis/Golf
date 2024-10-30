@@ -13,7 +13,11 @@ public class SettingsManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (ball != null && ball.GetComponent<Ball>().enabled != false && !ball.isActiveAndEnabled)
+        {
+            soundMenuCanvas.enabled = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && ball.isActiveAndEnabled)
         {
             soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
             if (ball != null)

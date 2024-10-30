@@ -15,9 +15,9 @@ public class CameraController : MonoBehaviour
     Vector3 mapPos = new Vector3(4, 7, -10);
 
     public float mapViewSize = 15f;
-    public float normalViewSize = 6.5f;
+    public float normalViewSize = 15f;
     private float timer = 0;
-    private float reloadSceneTime = 3f;
+    private float reloadSceneTime = 2f;
     KeyCode mapKey = KeyCode.Tab;
     void Awake()
     {
@@ -32,6 +32,7 @@ public class CameraController : MonoBehaviour
         if (ball == null && !isIdleMode)
         {
             timer += Time.deltaTime;
+            print(timer);
             if (timer > reloadSceneTime)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

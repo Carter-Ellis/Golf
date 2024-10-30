@@ -333,6 +333,14 @@ MonoBehaviour:
   musicVol: 1
   SFXVol: 1
   ambienceVol: 1
+  coin1: {fileID: 0}
+  coin2: {fileID: 0}
+  coin3: {fileID: 0}
+  coin1Menu: {fileID: 0}
+  coin2Menu: {fileID: 0}
+  coin3Menu: {fileID: 0}
+  coinCollectedSprite: {fileID: 21300000, guid: 76e7419728ab26f4690c0794ba801805, type: 3}
+  coinSprite: {fileID: 2117289527, guid: d2f75b85b4a340440b356beb35de0f38, type: 3}
   selectedAbilityTxt: {fileID: 0}
   abilityChargesTxt: {fileID: 0}
   coinTxt: {fileID: 0}
@@ -534,9 +542,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.0026426315}
   serializedVersion: 2
-  m_Radius: 0.24717379
+  m_Radius: 0.2800703
 --- !u!120 &6977114230261614422
 LineRenderer:
   serializedVersion: 2

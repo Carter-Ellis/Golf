@@ -65,5 +65,11 @@ public class BallClone : MonoBehaviour
         }
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
+    }
+
 }
 

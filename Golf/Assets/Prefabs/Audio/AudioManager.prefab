@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5674323343691079615}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.574379, y: 9.180576, z: -0.094151005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   musicVolume: 1
   SFXVolume: 1
   ambienceVolume: 1
+  isShop: 0
 --- !u!1 &5738473320897888796
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +101,13 @@ MonoBehaviour:
       Data3: 775986857
       Data4: -1819595494
     Path: event:/SFX/Ball/BallRoll
+  <ballHurtSFX>k__BackingField:
+    Guid:
+      Data1: 1686134504
+      Data2: 1090247445
+      Data3: 1552602045
+      Data4: 656374579
+    Path: event:/SFX/Ball/Hurt
   <music>k__BackingField:
     Guid:
       Data1: -49780040
@@ -114,6 +122,34 @@ MonoBehaviour:
       Data3: 923135633
       Data4: 280572043
     Path: event:/Ambience/Outside
+  <door6sec>k__BackingField:
+    Guid:
+      Data1: 777624729
+      Data2: 1165309896
+      Data3: -598089329
+      Data4: -1364046696
+    Path: event:/SFX/Door/6SecTime
+  <spikeTrapAttack>k__BackingField:
+    Guid:
+      Data1: -910572138
+      Data2: 1238225962
+      Data3: -2080266089
+      Data4: 152759705
+    Path: event:/SFX/SpikeTrap/SpikeAttack
+  <spikeTrapSet>k__BackingField:
+    Guid:
+      Data1: -251137632
+      Data2: 1092017720
+      Data3: -1359795797
+      Data4: -470811272
+    Path: event:/SFX/SpikeTrap/SpikeSet
+  <spikeTrapContract>k__BackingField:
+    Guid:
+      Data1: 171493226
+      Data2: 1250551439
+      Data3: -502351230
+      Data4: 996376185
+    Path: event:/SFX/SpikeTrap/SpikeContract
   <inHoleSound>k__BackingField:
     Guid:
       Data1: -751787633
@@ -123,50 +159,99 @@ MonoBehaviour:
     Path: event:/SFX/InHole
   <tunnelEnter>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1763086508
+      Data2: 1250342497
+      Data3: 1612710308
+      Data4: -119883486
+    Path: event:/SFX/Tunnel/EnterTunnel
   <tunnelExit>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -388787223
+      Data2: 1152819841
+      Data3: 2130945172
+      Data4: 1871037453
+    Path: event:/SFX/Tunnel/ExitTunnel
   <tunnelBounce>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1074324416
+      Data2: 1101746036
+      Data3: 250169274
+      Data4: -1998905204
+    Path: event:/SFX/Tunnel/RandomTunnelBounce
   <wallHit>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1112420826
+      Data2: 1148061014
+      Data3: 204583315
+      Data4: 1129248151
+    Path: event:/SFX/Wall Hits/WallHit
   <hardSwing>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -489335133
+      Data2: 1149256867
+      Data3: -877276773
+      Data4: 1055718269
+    Path: event:/SFX/Ball Swings/Hard Swings/RandomHardSwings
   <mediumSwing>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -883667119
+      Data2: 1210715761
+      Data3: 856587943
+      Data4: -1093819002
+    Path: event:/SFX/Ball Swings/Medium Swings/RandomMediumSwings
   <softSwing>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -622070481
+      Data2: 1221487016
+      Data3: 1029671566
+      Data4: 1216195519
+    Path: event:/SFX/Ball Swings/Soft Swings/RandomSoftSwings
+  <push>k__BackingField:
+    Guid:
+      Data1: -769110626
+      Data2: 1199835355
+      Data3: 816132505
+      Data4: 755292062
+    Path: event:/SFX/Button/Push
+  <unpush>k__BackingField:
+    Guid:
+      Data1: 1204303073
+      Data2: 1259655168
+      Data3: -789338225
+      Data4: -2107924233
+    Path: event:/SFX/Button/Unpush
+  <menuBlip>k__BackingField:
+    Guid:
+      Data1: 463069628
+      Data2: 1276462677
+      Data3: -1136654943
+      Data4: 1854385749
+    Path: event:/SFX/Shop/MenuBlip
+  <menuOpen>k__BackingField:
+    Guid:
+      Data1: 2027606104
+      Data2: 1238803285
+      Data3: 1170971063
+      Data4: 829850334
+    Path: event:/SFX/Shop/MenuOpen
+  <menuClose>k__BackingField:
+    Guid:
+      Data1: -1814063165
+      Data2: 1338101022
+      Data3: 1659313326
+      Data4: -184129013
+    Path: event:/SFX/Shop/MenuClose
+  <coinCollect>k__BackingField:
+    Guid:
+      Data1: -1039810653
+      Data2: 1328392540
+      Data3: 46205608
+      Data4: -1600682646
+    Path: event:/SFX/Coin/CoinCollect
+  <shopPurchase>k__BackingField:
+    Guid:
+      Data1: 31350079
+      Data2: 1300978514
+      Data3: 1034689946
+      Data4: 305832917
+    Path: event:/SFX/Shop/Purchase

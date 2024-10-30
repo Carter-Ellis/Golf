@@ -10,29 +10,54 @@ public class SpikeTrap : MonoBehaviour
     public float onSpikeDamageTimer = 2f;
     public float idleTime = 2f;
     public float setTime = 2f;
-    public float attackTime = 3f;      
+    public float attackTime = 3f;
     private bool isAttacking;
     private bool isSet;
     private Animator anim;
+
+
+    private FMOD.Studio.EventInstance instanceSet;
+    private FMOD.Studio.EventInstance instanceAttack;
+    private FMOD.Studio.EventInstance instanceContract;
+
+    public FMODUnity.EventReference spikeSetAudio;
+    public FMODUnity.EventReference spikeAttackAudio;
+    public FMODUnity.EventReference spikeContractAudio;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
         onSpikeTimer = onSpikeDamageTimer;
+
+        instanceSet = FMODUnity.RuntimeManager.CreateInstance(spikeSetAudio);
+        Debug.Log("Instance Set Created: " + instanceSet.isValid()); // Log if instance is valid
+
+        instanceAttack = FMODUnity.RuntimeManager.CreateInstance(spikeAttackAudio);
+        Debug.Log("Instance Attack Created: " + instanceAttack.isValid());
+
+        instanceContract = FMODUnity.RuntimeManager.CreateInstance(spikeContractAudio);
+        Debug.Log("Instance Contract Created: " + instanceContract.isValid());
+
     }
 
     private void Update()
     {
+        instanceSet.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        instanceAttack.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        instanceContract.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
         timer += Time.deltaTime;
         if (timer > idleTime && !isSet)
         {
             isSet = true;
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.spikeTrapSet, transform.position);
+
+            instanceSet.start();
             anim.SetTrigger("SetSpike");
             timer = 0f;
         }
         else if (timer > setTime && isSet && !isAttacking)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.spikeTrapAttack, transform.position);
+            instanceAttack.start();
             isAttacking = true;
             timer = 0f;
             anim.SetTrigger("Attack");
@@ -48,7 +73,7 @@ public class SpikeTrap : MonoBehaviour
         }
         if (isAttacking && timer > attackTime && isSet)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.spikeTrapContract, transform.position);
+            instanceContract.start();
             anim.SetTrigger("AttackIdle");
             anim.SetTrigger("Attack");
             timer = 0f;
@@ -62,20 +87,20 @@ public class SpikeTrap : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
+
         if (isAttacking && collision.gameObject != null)
         {
             onSpikeTimer += Time.deltaTime;
             if (collision.gameObject.tag == "Ball" && onSpikeTimer > onSpikeDamageTimer)
             {
                 Ball ball = collision.gameObject.GetComponent<Ball>();
-                ball.TakeDamage(10);
+                ball.TakeDamage(100);
                 onSpikeTimer = 0f;
             }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
-    {    
+    {
         onSpikeTimer = onSpikeDamageTimer;
     }
 }
