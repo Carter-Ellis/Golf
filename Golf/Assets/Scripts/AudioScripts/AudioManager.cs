@@ -40,8 +40,8 @@ public class AudioManager : MonoBehaviour
         }
 
         instance = this;
-
         DontDestroyOnLoad(gameObject);
+
 
         eventInstances = new List<EventInstance>();
 
@@ -81,7 +81,18 @@ public class AudioManager : MonoBehaviour
         SFXBus.setVolume(SFXVolume);
         ambienceBus.setVolume(ambienceVolume);
     }
+    public void SetVolumes(float master, float music, float sfx, float ambience)
+    {
+        masterVolume = master;
+        musicVolume = music;
+        SFXVolume = sfx;
+        ambienceVolume = ambience;
 
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        SFXBus.setVolume(SFXVolume);
+        ambienceBus.setVolume(ambienceVolume);
+    }
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);

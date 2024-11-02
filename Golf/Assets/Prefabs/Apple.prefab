@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3786789251701469130}
   - component: {fileID: 9211526271156080232}
   - component: {fileID: 6970202469205152085}
+  - component: {fileID: 7127801708608104277}
   m_Layer: 0
   m_Name: Apple
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,3 +134,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2f306605560b34fbde954906e2d12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 10
+  eatenApple: {fileID: -409469347, guid: 2729e0ca2fcfe9045a298a9087ee8464, type: 3}
+--- !u!50 &7127801708608104277
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305777588344843421}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

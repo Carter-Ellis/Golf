@@ -65,11 +65,17 @@ public class Ball : MonoBehaviour
     int numPoints = 50;
     float timeStep = .05f;
     public bool canPutt;
+    public bool isPuttCooldown;
     private bool isMouseButton1Held;
     public bool isBurst;
     private bool takingDamage;
     private float damageTimer = 0f;
     public float maxHitSpeed = 15f;
+
+    [Header("Swing Cooldown")]
+    private float swingTimer = 0;
+    private float swingCooldownTime = 3f;
+    [SerializeField] private TextMeshProUGUI swingCooldownTxt;
 
     [Header("TextDisplay")]
     [SerializeField] private TextMeshProUGUI healthTxt;
@@ -98,6 +104,7 @@ public class Ball : MonoBehaviour
         lineRenderer.startWidth = .25f;
         lineRenderer.endWidth = .25f;
         canPutt = true;
+        isPuttCooldown = true;
     }
 
     private void Start()
@@ -127,7 +134,7 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-
+        
         if (takingDamage)
         {
             damageTimer += Time.deltaTime;
@@ -138,6 +145,8 @@ public class Ball : MonoBehaviour
                 damageTimer = 0;
             }
         }
+
+        SwingCooldown();
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, 20f);
         if (rb.velocity.magnitude < .5f)
@@ -177,7 +186,7 @@ public class Ball : MonoBehaviour
        
         ClickEnemy();
         
-        isMouseButton1Held = Input.GetMouseButton(1);
+        isMouseButton1Held = Input.GetMouseButton(0) || Input.GetMouseButton(1);
         
         
 
@@ -213,6 +222,20 @@ public class Ball : MonoBehaviour
             objectSelected = (Selectable)newSelected;
             camController.cam.Follow = newSelected.transform;
             ball.canPutt = false;
+        }
+    }
+    public void SwingCooldown()
+    {
+        if (!isPuttCooldown)
+        {
+            swingTimer += Time.deltaTime;
+            swingCooldownTxt.text = (swingCooldownTime - (int)swingTimer).ToString();
+            if (swingTimer > swingCooldownTime || rb.velocity.magnitude == 0)
+            {
+                isPuttCooldown = true;
+                swingTimer = 0f;
+                swingCooldownTxt.text = "";
+            }
         }
     }
     private void UpdateDirection(Vector2 movement)
@@ -320,7 +343,7 @@ public class Ball : MonoBehaviour
 
     void setPutt()
     {
-        if (canPutt)
+        if (canPutt && isPuttCooldown)
         {
             GrabBall();
         }
@@ -398,10 +421,11 @@ public class Ball : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
+        
         foreach (RaycastHit2D hit in hits)
         {
 
-            if (isMouseButton1Held && hit.collider != null && rb.velocity == new Vector2(0, 0) && hit.collider.tag == "Ball" && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ball"))
+            if (isMouseButton1Held && hit.collider != null && hit.collider.tag == "Ball" && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ball"))
             {
                 hasClickedBall = true;
                 break;
@@ -454,7 +478,8 @@ public class Ball : MonoBehaviour
 
     void Shoot()
     {
-        
+        canPutt = false;
+        isPuttCooldown = false;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 ballPos = ball.transform.position;
 

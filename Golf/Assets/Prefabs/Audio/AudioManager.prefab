@@ -255,3 +255,10 @@ MonoBehaviour:
       Data3: 1034689946
       Data4: 305832917
     Path: event:/SFX/Shop/Purchase
+  <appleBite>k__BackingField:
+    Guid:
+      Data1: 1292482696
+      Data2: 1194963459
+      Data3: 1176705175
+      Data4: -344942267
+    Path: event:/SFX/Apple/AppleBite

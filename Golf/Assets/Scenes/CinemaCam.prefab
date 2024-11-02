@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2186489800258463769}
   - component: {fileID: 9147448088716921452}
-  - component: {fileID: 7565259327947306272}
+  - component: {fileID: 5782883389764257968}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7565259327947306272
+--- !u!114 &5782883389764257968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,9 +58,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0.2
-  m_LookaheadSmoothing: 0.5
-  m_LookaheadIgnoreY: 0
+  m_LookaheadTime: 0
+  m_LookaheadSmoothing: 0
+  m_LookaheadIgnoreY: 1
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -99,10 +99,11 @@ GameObject:
   - component: {fileID: 161511419982758206}
   - component: {fileID: 6021537498366416626}
   - component: {fileID: 7740738032028461144}
+  - component: {fileID: 3522495181777368497}
   m_Layer: 0
   m_Name: CinemaCam
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -143,10 +144,10 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 60
-    OrthographicSize: 6.75
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -173,6 +174,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc7d2de8d252774f9ff13e977b8158f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 6021537498366416626}
   isViewMode: 0
+  isIdleMode: 0
   mapViewSize: 15
-  normalViewSize: 6.75
+  normalViewSize: 5
+--- !u!114 &3522495181777368497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124096053181867956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

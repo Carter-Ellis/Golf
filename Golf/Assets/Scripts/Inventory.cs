@@ -21,6 +21,8 @@ public class Inventory : MonoBehaviour
     public float SFXVol = 1f;
     public float ambienceVol = 1f;
 
+    public float zoom = 5f;
+
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
 
     [Header("Coins")]
@@ -46,6 +48,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         LoadPlayer();
+        LoadZoom();
         ChangeCoinSprites();
 
         ball = GetComponent<Ball>();
@@ -84,7 +87,6 @@ public class Inventory : MonoBehaviour
     {
         AbilityManager();
         DisplayAbility();
-
         if (coinTxt != null)
         {
             coinTxt.text = "" + coins;
@@ -112,11 +114,17 @@ public class Inventory : MonoBehaviour
         }
         
     }
+    public void LoadZoom()
+    {
+        float zoomData = SaveSystem.LoadZoom();
+        print("Loading: " +  zoomData);
+        zoom = zoomData;
+    }
     public void ReloadLevel()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
-
         SceneManager.LoadScene(currentIndex);
+        LoadZoom();
     }
 
     public void LoadMainMenu()
@@ -131,6 +139,7 @@ public class Inventory : MonoBehaviour
     }
     public void LoadPlayer()
     {
+        print("Player Loaded");
         PlayerData data = SaveSystem.LoadPlayer();
         if (data == null)
         {
@@ -140,6 +149,7 @@ public class Inventory : MonoBehaviour
 
         coins = data.coins;
         currentLevel = data.currentLevel;
+
         masterVol = data.masterVol;
         musicVol = data.musicVol;
         SFXVol = data.SFXVol;
@@ -156,6 +166,7 @@ public class Inventory : MonoBehaviour
     public void ErasePlayerData()
     {
         SaveSystem.ErasePlayerData();
+        SaveSystem.EraseZoomData();
         PlayerPrefs.DeleteAll();
     }
 

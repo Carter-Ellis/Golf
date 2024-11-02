@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera virtualCamera;
-    private float zoom;
+    Inventory inv;
     [SerializeField] float sensitivity = 200f;
     [SerializeField] float maxViewDistance = 10.6f;
     [SerializeField] float minViewDistance = 2.9f;
@@ -15,25 +16,44 @@ public class CameraZoom : MonoBehaviour
 
     private void Start()
     {
-        if (virtualCamera != null)
+        inv = FindObjectOfType<Ball>().GetComponent<Inventory>();
+        if (inv != null && virtualCamera != null)
         {
-            zoom = virtualCamera.m_Lens.OrthographicSize;
-        } 
+            print("new zoom: " + inv.zoom);
+            virtualCamera.m_Lens.OrthographicSize = inv.zoom;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            Debug.LogError("Missing Virtual Camera or Inventory object in CameraZoom script.");
+        }
+        
+        
     }
 
-    private void Update()
+    private void LateUpdate()
     {
 
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        zoom -= scroll * sensitivity;
-        zoom = Mathf.Clamp(zoom, minViewDistance, maxViewDistance);
+        if (scroll != 0)
+        {
+            
+            inv.zoom -= scroll * sensitivity;
+            inv.zoom = Mathf.Clamp(inv.zoom, minViewDistance, maxViewDistance);
+            print("saving: " + inv.zoom);
+            SaveSystem.SaveZoom(inv.zoom);
+        }
         if (virtualCamera == null)
         {
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+            {
+                Debug.LogError("Virtual Camera missing in CameraZoom script.");
+            } 
+            
             return;
         }
-        virtualCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(virtualCamera.m_Lens.OrthographicSize, zoom, ref velocity, smoothTime);
+        virtualCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(virtualCamera.m_Lens.OrthographicSize, inv.zoom, ref velocity, smoothTime);
 
     }
 }

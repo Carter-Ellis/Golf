@@ -344,6 +344,7 @@ MonoBehaviour:
   selectedAbilityTxt: {fileID: 0}
   abilityChargesTxt: {fileID: 0}
   coinTxt: {fileID: 0}
+  strokeTxt: {fileID: 0}
 --- !u!114 &6036834513385240820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,8 +481,10 @@ MonoBehaviour:
   isBattleMode: 0
   isBallLocked: 0
   canPutt: 0
+  isPuttCooldown: 0
   isBurst: 0
   maxHitSpeed: 15
+  swingCooldownTxt: {fileID: 0}
   healthTxt: {fileID: 0}
   maxSFXVolume: 0.45
   minPitch: 0.5

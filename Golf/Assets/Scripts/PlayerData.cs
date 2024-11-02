@@ -7,6 +7,8 @@ public class PlayerData
     public int coins;
     public int currentLevel;
 
+    public float zoom = 5f;
+
     public float masterVol = 1f;
     public float musicVol = 1f;
     public float SFXVol = 1f;
@@ -18,6 +20,8 @@ public class PlayerData
     {
         coins = inv.coins;
         currentLevel = inv.currentLevel;
+
+        zoom = inv.zoom;
 
         masterVol = inv.masterVol;
         musicVol = inv.musicVol;
