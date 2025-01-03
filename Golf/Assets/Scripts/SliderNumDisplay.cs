@@ -23,7 +23,6 @@ public class SliderNumDisplay : MonoBehaviour
             print("Slider type not selected");
             return;
         }
-
         volumeTxt.text = sliderType + ": " + (int) (slider.value * 100);
 
     }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class AbilityPickup : MonoBehaviour
 {
     public ABILITIES type;
@@ -15,7 +15,8 @@ public class AbilityPickup : MonoBehaviour
         {
             return;
         }
-        if (inv.unlockedAbilities.Count > 0)
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.menuOpen, transform.position);
+        if (inv.unlockedAbilities != null && inv.unlockedAbilities.Count > 0)
         {
             inv.unlockedAbilities[inv.indexOfAbility].reset(ball);
         }

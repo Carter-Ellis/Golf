@@ -7,18 +7,29 @@ public class Coin : MonoBehaviour
 {
     Ball ball;
     Inventory inventory;
-    
+    public bool isRed;
     public int coinNumber;
 
     private void Start()
     {
         ball = FindObjectOfType<Ball>();
+        inventory = ball.GetComponent<Inventory>();
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.gameObject != null && collision.gameObject.tag == "Ball")
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
+
+            if (isRed)
+            {
+                inventory.redCoinCount++;
+                gameObject.SetActive(false);
+                return;
+            }
+
             inventory = ball.GetComponent<Inventory>();
 
             if (inventory.coinsCollected == null)

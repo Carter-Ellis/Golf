@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+[System.Serializable]
 
 public class AbilityFreeze : Ability
 {
     private int charges = 0;
-    private int maxCharges = 3;
+    private int maxCharges = 10;
     public AbilityFreeze(Color color)
     {
         type = ABILITIES.FREEZE;
@@ -33,7 +34,7 @@ public class AbilityFreeze : Ability
 
     public override void onPickup(Ball ball)
     {        
-        charges = maxCharges + 100;
+        charges = maxCharges;
     }
 
     public override void onRecharge(Ball ball)
@@ -51,7 +52,6 @@ public class AbilityFreeze : Ability
         {
             return;
         }
-        charges--;
         rb.velocity = new Vector2(0, 0);
     }
 

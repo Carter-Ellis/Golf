@@ -13,16 +13,26 @@ public class AbilityFloatAndShine : MonoBehaviour
     private bool isShining;
     private Animator animator;
     public string shineAnimName;
+    private bool activated;
     void Start()
     {
         startPos = transform.position.y;
         animator = GetComponent<Animator>();
+
         StartCoroutine(MoveUp());
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        startPos = transform.position.y;
+        animator = GetComponent<Animator>();
+
+        StartCoroutine(MoveUp());
+    }
+
     void Update()
     {
+
         timer += Time.deltaTime;
         
         if (timer > shineTime)
@@ -47,6 +57,7 @@ public class AbilityFloatAndShine : MonoBehaviour
         
         for (float i = 0; i < liftHeight; i += .01f)
         {
+            if (!gameObject.activeSelf) yield break;
             transform.position = new Vector3(transform.position.x, startPos + i, transform.position.z);
             yield return new WaitForSeconds(liftSpeed);
         }
@@ -56,6 +67,7 @@ public class AbilityFloatAndShine : MonoBehaviour
     {
         for (float i = startPos + liftHeight; i > startPos - 0.01f; i -= 0.01f)
         {
+            if (!gameObject.activeSelf) yield break;
             transform.position = new Vector3(transform.position.x, i, transform.position.z);
             yield return new WaitForSeconds(liftSpeed);
         }

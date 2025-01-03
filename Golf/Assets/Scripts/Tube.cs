@@ -24,6 +24,7 @@ public class Tube : MonoBehaviour
     
     private bool isTraveling;
     private bool played;
+    public int AscendAmount;
 
     private float travelTime = 2f;
     private float fallTime = .2f;
@@ -100,6 +101,7 @@ public class Tube : MonoBehaviour
         {
             return;
         }
+        ball.GetComponent<Inventory>().currentHeight += AscendAmount;
         if (!played)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelEnter, transform.position);

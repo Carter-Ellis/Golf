@@ -15,7 +15,6 @@ public class PlayerData
     public float ambienceVol = 1f;
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
-
     public PlayerData(Inventory inv)
     {
         coins = inv.coins;

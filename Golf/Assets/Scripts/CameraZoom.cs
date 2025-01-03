@@ -19,7 +19,6 @@ public class CameraZoom : MonoBehaviour
         inv = FindObjectOfType<Ball>().GetComponent<Inventory>();
         if (inv != null && virtualCamera != null)
         {
-            print("new zoom: " + inv.zoom);
             virtualCamera.m_Lens.OrthographicSize = inv.zoom;
         }
         else if (SceneManager.GetActiveScene().buildIndex != 0)
@@ -41,7 +40,6 @@ public class CameraZoom : MonoBehaviour
             
             inv.zoom -= scroll * sensitivity;
             inv.zoom = Mathf.Clamp(inv.zoom, minViewDistance, maxViewDistance);
-            print("saving: " + inv.zoom);
             SaveSystem.SaveZoom(inv.zoom);
         }
         if (virtualCamera == null)

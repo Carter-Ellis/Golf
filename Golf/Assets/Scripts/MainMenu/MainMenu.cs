@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public Canvas soundMenuCanvas;
+    public Canvas mainMenu;
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync("Level 1");
@@ -19,6 +20,7 @@ public class MainMenu : MonoBehaviour
     public void DisplayOptions()
     {
         Ball ball = FindObjectOfType<Ball>();
+        mainMenu.enabled = !mainMenu.enabled;
         soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
         if (ball != null)
         {

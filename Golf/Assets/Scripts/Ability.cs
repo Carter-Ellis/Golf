@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
 public enum ABILITIES
 {
     
@@ -11,13 +12,14 @@ public enum ABILITIES
     BURST,
     MAX_ABILITIES
 }
+[System.Serializable]
 public abstract class Ability
 {
     public ABILITIES type;
     public string name;
     public string chargeName;
     public string description;
-    public Color color;
+    [SerializeField] public Color color;
 
     public Ability()
     {

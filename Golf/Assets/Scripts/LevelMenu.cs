@@ -8,7 +8,6 @@ public class LevelMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button[] buttons;
     public GameObject levelButtons;
-    public Sprite bossLevel;
     private Inventory inv;
     private void Start()
     {
@@ -21,10 +20,7 @@ public class LevelMenu : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].interactable = false;
-            if ((i + 1) % 6 == 0)
-            {
-                buttons[i].GetComponent<Image>().sprite = bossLevel;
-            }
+            
             
             buttons[i].GetComponent<ButtonAudio>().enabled = false;
         }

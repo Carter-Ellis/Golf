@@ -30,6 +30,7 @@ public static class SaveSystem
 
     public static float LoadZoom()
     {
+        
         string path = Application.persistentDataPath + "/zoom.data";
         if (File.Exists(path))
         {

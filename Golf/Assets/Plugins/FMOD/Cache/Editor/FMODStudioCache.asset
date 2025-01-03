@@ -39,10 +39,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638658454883238516
+  lastModified: 638714603295522496
   FileSizes:
   - Name: Desktop
-    Value: 647168
+    Value: 650304
   Exists: 1
 --- !u!114 &-8747438197981371918
 MonoBehaviour:
@@ -299,7 +299,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638658451880459742
+  lastModified: 638714600546260332
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -556,13 +556,14 @@ MonoBehaviour:
   - {fileID: 2968971862091633483}
   - {fileID: -1982782176032651811}
   - {fileID: 1805913757126353761}
+  - {fileID: 5944229386815654179}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -3700934035955269805}
   StringsBanks:
   - {fileID: 1880946066473275958}
-  cacheTime: 638658454883238516
+  cacheTime: 638714603295522496
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -714,10 +715,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638658451880489649
+  lastModified: 638714600546290242
   FileSizes:
   - Name: Desktop
-    Value: 2496
+    Value: 2546
   Exists: 1
 --- !u!114 &2781871004732926462
 MonoBehaviour:
@@ -802,6 +803,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &5944229386815654179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Tick SFX
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Tick SFX
+  Guid:
+    Data1: 1074149037
+    Data2: 1300065781
+    Data3: -2089496909
+    Data4: 1912513520
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 388
 --- !u!114 &6112434066740057172
 MonoBehaviour:
   m_ObjectHideFlags: 0

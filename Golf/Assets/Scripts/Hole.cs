@@ -30,8 +30,12 @@ public class Hole : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         if (signTxt != null)
         {
-            signTxt.text = "Par:" + par;
-            signLevelTxt.text = "Hole:" + SceneManager.GetActiveScene().buildIndex;
+            signTxt.text = "Par " + par;
+            signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
+        }
+        else
+        {
+            signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
         }
         
     }
@@ -105,18 +109,22 @@ public class Hole : MonoBehaviour
 
             if (ball.strokes <= par)
             {
-                winTxt.fontSize = 100;
+                winTxt.fontSize = 80;
                 winTxt.text = "YOU WIN!";
             }
             else
             {
                 nextLevelButton.interactable = false;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = false;
-                winTxt.fontSize = 60;
+                winTxt.fontSize = 50;
                 winTxt.text = "You Lose! Too Many Strokes!";
             }
 
-            parTxt.text = "Par: " + par;
+            if (parTxt != null)
+            {
+                parTxt.text = "Par: " + par;
+            }
+            
             strokesTxt.text = "Strokes: " + ball.strokes;
             
 

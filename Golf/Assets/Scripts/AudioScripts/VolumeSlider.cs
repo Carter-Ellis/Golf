@@ -18,6 +18,7 @@ public class VolumeSlider : MonoBehaviour
 
     public Slider volumeSlider;
     private Inventory inv;
+    public bool isInitializing;
 
     private void Awake()
     {
@@ -49,11 +50,18 @@ public class VolumeSlider : MonoBehaviour
                 Debug.Log("Volume Type not supported: " + volumeType);
                 break;
         }
-        //AudioManager.instance.ambienceVolume = ;
+
+        isInitializing = false;
+        
     }
 
     public void OnSliderValueChange()
     {
+        if (!isInitializing)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.tick, transform.position);
+        }
+        
         switch (volumeType)
         {
             case VolumeType.MASTER:

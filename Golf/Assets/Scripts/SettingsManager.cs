@@ -27,4 +27,12 @@ public class SettingsManager : MonoBehaviour
             
         }
     }
+    public void backButton()
+    {
+        soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
+        if (ball != null)
+        {
+            ball.isBallLocked = soundMenuCanvas.enabled;
+        }
+    }
 }

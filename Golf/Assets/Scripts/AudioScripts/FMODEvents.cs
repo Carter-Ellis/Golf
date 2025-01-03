@@ -54,7 +54,9 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference menuBlip { get; private set; }
     [field: SerializeField] public EventReference menuOpen { get; private set; }
     [field: SerializeField] public EventReference menuClose { get; private set; }
-    
+
+    [field: SerializeField] public EventReference tick { get; private set; }
+
     [field: Header("Coin")]
     [field: SerializeField] public EventReference coinCollect { get; private set; }
 

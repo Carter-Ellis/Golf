@@ -32,7 +32,6 @@ public class CameraController : MonoBehaviour
         if (ball == null && !isIdleMode)
         {
             timer += Time.deltaTime;
-            print(timer);
             if (timer > reloadSceneTime)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

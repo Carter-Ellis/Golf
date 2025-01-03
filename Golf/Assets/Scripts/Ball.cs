@@ -113,6 +113,16 @@ public class Ball : MonoBehaviour
         CurrentDirection = Direction.South;
     }
 
+    private void FixedUpdate()
+    {
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 20f);
+        if (rb.velocity.magnitude < .5f)
+        {
+            rb.velocity = Vector2.zero;
+            wallHits = 0;
+        }
+    }
+
     void Update()
     {
         checkDead();
@@ -147,13 +157,6 @@ public class Ball : MonoBehaviour
         }
 
         SwingCooldown();
-
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 20f);
-        if (rb.velocity.magnitude < .5f)
-        {
-            rb.velocity = Vector2.zero;
-            wallHits = 0;
-        }
 
         if (isBallLocked)
         {

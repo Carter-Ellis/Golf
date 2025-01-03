@@ -241,6 +241,13 @@ MonoBehaviour:
       Data3: 1659313326
       Data4: -184129013
     Path: event:/SFX/Shop/MenuClose
+  <tick>k__BackingField:
+    Guid:
+      Data1: 1074149037
+      Data2: 1300065781
+      Data3: -2089496909
+      Data4: 1912513520
+    Path: event:/SFX/Tick SFX
   <coinCollect>k__BackingField:
     Guid:
       Data1: -1039810653

@@ -24,11 +24,14 @@ public class Inventory : MonoBehaviour
     public float zoom = 5f;
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
+    public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
+    public int currentHeight = 0;
 
     [Header("Coins")]
     public GameObject coin1;
     public GameObject coin2;
     public GameObject coin3;
+    public int redCoinCount;
 
     [Header("Coins Menu")]
     public GameObject coin1Menu;
@@ -45,6 +48,10 @@ public class Inventory : MonoBehaviour
     [SerializeField] private TextMeshProUGUI coinTxt;
     [SerializeField] private TextMeshProUGUI strokeTxt;
 
+    public Inventory()
+    {
+        unlockedAbilities = new List<Ability>();
+    }
     private void Start()
     {
         LoadPlayer();
@@ -52,6 +59,7 @@ public class Inventory : MonoBehaviour
         ChangeCoinSprites();
 
         ball = GetComponent<Ball>();
+
     }
     private void ChangeCoinSprites()
     {
@@ -61,17 +69,14 @@ public class Inventory : MonoBehaviour
             if (coinsCollected[currentLevel].Contains(1) && coin1 != null && coin1Menu != null)
             {
                 SetCoinState(coin1, coin1Menu);
-                print("Already collected coin 1");
             }
             if (coinsCollected[currentLevel].Contains(2) && coin2 != null && coin2Menu != null)
             {
                 SetCoinState(coin2, coin2Menu);
-                print("Already collected coin 2");
             }
             if (coinsCollected[currentLevel].Contains(3) && coin3 != null && coin3Menu != null)
             {
                 SetCoinState(coin3, coin3Menu);
-                print("Already collected coin 3");
             }
         }
     }
@@ -91,9 +96,13 @@ public class Inventory : MonoBehaviour
         {
             coinTxt.text = "" + coins;
         }
+        if (ball == null)
+        {
+            return;
+        }
         if (strokeTxt != null)
         {
-            strokeTxt.text = "stroke:" + ball.strokes;
+            strokeTxt.text = "stroke: " + ball.strokes;
         }
 
     }
@@ -117,7 +126,6 @@ public class Inventory : MonoBehaviour
     public void LoadZoom()
     {
         float zoomData = SaveSystem.LoadZoom();
-        print("Loading: " +  zoomData);
         zoom = zoomData;
     }
     public void ReloadLevel()
@@ -139,6 +147,7 @@ public class Inventory : MonoBehaviour
     }
     public void LoadPlayer()
     {
+        //ErasePlayerData();
         print("Player Loaded");
         PlayerData data = SaveSystem.LoadPlayer();
         if (data == null)
@@ -149,6 +158,12 @@ public class Inventory : MonoBehaviour
 
         coins = data.coins;
         currentLevel = data.currentLevel;
+
+        foreach (VolumeSlider slider in FindObjectsOfType<VolumeSlider>())
+        {
+            slider.isInitializing = true;
+        }
+        
 
         masterVol = data.masterVol;
         musicVol = data.musicVol;
@@ -161,6 +176,7 @@ public class Inventory : MonoBehaviour
         AudioManager.instance.ambienceVolume = ambienceVol;
 
         coinsCollected = data.coinsCollected;
+
     }
 
     public void ErasePlayerData()
@@ -172,6 +188,12 @@ public class Inventory : MonoBehaviour
 
     private void AbilityManager()
     {
+
+        if (unlockedAbilities == null)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].reset(ball);
@@ -195,6 +217,10 @@ public class Inventory : MonoBehaviour
 
     private void DisplayAbility()
     {
+        if (unlockedAbilities == null)
+        {
+            return;
+        }
         if (unlockedAbilities.Count > 0)
         {
             selectedAbilityTxt.text = "Ability: " + unlockedAbilities[indexOfAbility].name;
@@ -206,6 +232,7 @@ public class Inventory : MonoBehaviour
 
     public void AddAbility(Ability ability)
     {
+        
         if (ability == null)
         {
             return;
@@ -221,12 +248,17 @@ public class Inventory : MonoBehaviour
         unlockedAbilities.Add(ability);
         indexOfAbility = unlockedAbilities.Count - 1;
         abilityCount++;
+        
         ability.onPickup(ball);
 
     }
 
     public void RechargeAbility(ABILITIES type)
     {
+        if (unlockedAbilities == null)
+        {
+            return;
+        }
         foreach (Ability ability in unlockedAbilities)
         {
             if (ability.type == type)
