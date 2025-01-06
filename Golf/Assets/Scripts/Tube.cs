@@ -22,7 +22,7 @@ public class Tube : MonoBehaviour
     private Vector3 origScale = new Vector3(1, 1, 1);
 
     
-    private bool isTraveling;
+    public bool isTraveling;
     private bool played;
     public int AscendAmount;
 
@@ -110,6 +110,7 @@ public class Tube : MonoBehaviour
         ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
         isTraveling = true;
+        ball.isTraveling = isTraveling;
 
     }
 
@@ -158,6 +159,7 @@ public class Tube : MonoBehaviour
         AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelExit, transform.position);
         played = false;
         isTraveling = false;
+        ball.isTraveling = isTraveling;
     }
 
 

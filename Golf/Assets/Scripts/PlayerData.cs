@@ -15,6 +15,8 @@ public class PlayerData
     public float ambienceVol = 1f;
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
+
+    public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
     public PlayerData(Inventory inv)
     {
         coins = inv.coins;
@@ -28,5 +30,7 @@ public class PlayerData
         ambienceVol = inv.ambienceVol;
 
         coinsCollected = inv.coinsCollected;
+
+        levelPopups = inv.levelPopups;
     }
 }

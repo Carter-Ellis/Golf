@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera virtualCamera;
+    CameraController camController;
     Inventory inv;
     [SerializeField] float sensitivity = 200f;
     [SerializeField] float maxViewDistance = 10.6f;
@@ -17,6 +18,7 @@ public class CameraZoom : MonoBehaviour
     private void Start()
     {
         inv = FindObjectOfType<Ball>().GetComponent<Inventory>();
+        camController = FindObjectOfType<CameraController>();
         if (inv != null && virtualCamera != null)
         {
             virtualCamera.m_Lens.OrthographicSize = inv.zoom;
@@ -49,6 +51,10 @@ public class CameraZoom : MonoBehaviour
                 Debug.LogError("Virtual Camera missing in CameraZoom script.");
             } 
             
+            return;
+        }
+        if (camController.isViewMode || camController.isWinScreen)
+        {
             return;
         }
         virtualCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(virtualCamera.m_Lens.OrthographicSize, inv.zoom, ref velocity, smoothTime);

@@ -59,6 +59,7 @@ public class Ball : MonoBehaviour
     [Header("Variables")]
     public bool isBattleMode;
     public bool isBallLocked;
+    public bool isTraveling;
     bool isAiming;
     bool hasShot;
     bool hasClickedBall;
@@ -127,7 +128,7 @@ public class Ball : MonoBehaviour
     {
         checkDead();
         AnimateBall();
-        UpdateSound();
+        //UpdateSound();
         UpdateDirection(rb.velocity);
 
         if (Input.GetKeyDown(KeyCode.R)) 
@@ -162,7 +163,7 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !camController.isViewMode)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);

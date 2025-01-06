@@ -6,6 +6,7 @@ public class SettingsManager : MonoBehaviour
 {
     public Canvas soundMenuCanvas;
     private Ball ball;
+    
     private void Start()
     {
         soundMenuCanvas.enabled = false;
@@ -13,6 +14,15 @@ public class SettingsManager : MonoBehaviour
     }
     private void Update()
     {
+        if (ball != null && ball.isTraveling)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
+                ball.isBallLocked = soundMenuCanvas.enabled;
+            }
+            return;
+        }
         if (ball != null && ball.GetComponent<Ball>().enabled != false && !ball.isActiveAndEnabled)
         {
             soundMenuCanvas.enabled = false;

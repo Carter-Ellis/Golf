@@ -65,6 +65,24 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("AppleBite")]
     [field: SerializeField] public EventReference appleBite { get; private set; }
+
+    [field: Header("ColinLines")]
+    [field: SerializeField] public EventReference birdie { get; private set; }
+
+    [field: SerializeField] public EventReference bogey { get; private set; }
+
+    [field: SerializeField] public EventReference doubleBogey { get; private set; }
+
+    [field: SerializeField] public EventReference eagle { get; private set; }
+
+    [field: SerializeField] public EventReference par { get; private set; }
+
+    [field: Header("Applause")]
+    [field: SerializeField] public EventReference applause { get; private set; }
+
+    [field: Header("Bouncer")]
+    [field: SerializeField] public EventReference bouncer { get; private set; }
+
     public static FMODEvents instance { get; private set; }
 
     private void Awake()

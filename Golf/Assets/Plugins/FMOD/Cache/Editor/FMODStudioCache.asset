@@ -39,10 +39,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638714603295522496
+  lastModified: 638717027199412110
   FileSizes:
   - Name: Desktop
-    Value: 650304
+    Value: 906944
   Exists: 1
 --- !u!114 &-8747438197981371918
 MonoBehaviour:
@@ -71,6 +71,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &-7663369843286452421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/eagle
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/eagle
+  Guid:
+    Data1: 176747763
+    Data2: 1314487309
+    Data3: 1245826704
+    Data4: -1530488822
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7187301522603174016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +257,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &-4539162742569094026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Applause
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Applause
+  Guid:
+    Data1: 1303967632
+    Data2: 1120227038
+    Data3: 2069852595
+    Data4: 974989396
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4463440142302074641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +353,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638714600546260332
+  lastModified: 638717024720075547
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -486,6 +540,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-136777269012555911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Bouncer/BouncerSounds
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Bouncer/BouncerSounds
+  Guid:
+    Data1: -27186558
+    Data2: 1229209551
+    Data3: 1363651737
+    Data4: 1513754508
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-72961473407123349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,13 +638,20 @@ MonoBehaviour:
   - {fileID: -1982782176032651811}
   - {fileID: 1805913757126353761}
   - {fileID: 5944229386815654179}
+  - {fileID: 8527632258410271524}
+  - {fileID: 1385161026115930528}
+  - {fileID: 2857347305509877892}
+  - {fileID: 277786182806412892}
+  - {fileID: -7663369843286452421}
+  - {fileID: -4539162742569094026}
+  - {fileID: -136777269012555911}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -3700934035955269805}
   StringsBanks:
   - {fileID: 1880946066473275958}
-  cacheTime: 638714603295522496
+  cacheTime: 638717027199412110
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -583,6 +671,33 @@ MonoBehaviour:
     Data2: 1300978514
     Data3: 1034689946
     Data4: 305832917
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &277786182806412892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/db
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/db
+  Guid:
+    Data1: -1952613146
+    Data2: 1195675788
+    Data3: -1353050961
+    Data4: 1342122978
   Banks:
   - {fileID: -8888691980173592226}
   IsStream: 0
@@ -646,6 +761,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 17568
+--- !u!114 &1385161026115930528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/birdie
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/birdie
+  Guid:
+    Data1: -233426299
+    Data2: 1225390611
+    Data3: 421776813
+    Data4: 1224257419
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1389019973525055639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,10 +857,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638714600546290242
+  lastModified: 638717024720095491
   FileSizes:
   - Name: Desktop
-    Value: 2546
+    Value: 2864
   Exists: 1
 --- !u!114 &2781871004732926462
 MonoBehaviour:
@@ -749,6 +891,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 165808
+--- !u!114 &2857347305509877892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/bogey
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/bogey
+  Guid:
+    Data1: -1553593639
+    Data2: 1120922747
+    Data3: -2105480551
+    Data4: 277919610
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2968971862091633483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,6 +1209,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &8527632258410271524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/par
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/par
+  Guid:
+    Data1: 458861357
+    Data2: 1115060431
+    Data3: 1613100735
+    Data4: -1038973158
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8935984509762363687
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5403adf1fbb232642b2d141ac24fa86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRed: 0
+  coinNumber: 1
 --- !u!95 &2656807247923444140
 Animator:
   serializedVersion: 5

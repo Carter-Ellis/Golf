@@ -6,8 +6,14 @@ using FMODUnity;
 public class ButtonAudio : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
     public EventReference clickSound;
+    public bool isSecretButton;
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (isSecretButton)
+        {
+            return;
+        }
         AudioManager.instance.PlayOneShot(FMODEvents.instance.menuBlip, transform.position);
     }
 

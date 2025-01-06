@@ -12,12 +12,19 @@ public class CameraController : MonoBehaviour
     Ball ball;
     public bool isViewMode;
     public bool isIdleMode;
-    Vector3 mapPos = new Vector3(4, 7, -10);
+    public bool isWinScreen;
 
-    public float mapViewSize = 15f;
+    public Transform mapViewPos;
+    public float mapViewSize;
+
     public float normalViewSize = 15f;
     private float timer = 0;
     private float reloadSceneTime = 2f;
+
+    private bool isAdjustingDamp;
+    private float dampTimer = 0f;
+    private float dampTimerThreshold = .05f;
+
     KeyCode mapKey = KeyCode.Tab;
     void Awake()
     {
@@ -26,9 +33,33 @@ public class CameraController : MonoBehaviour
         cam.m_Lens.OrthographicSize = normalViewSize;
         isViewMode = false;
     }
-
+    private void Update()
+    {
+        if (isAdjustingDamp)
+        {
+            dampTimer += Time.deltaTime;
+            if (dampTimer >= dampTimerThreshold)
+            {
+                print("Hello");
+                var transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
+                if (transposer != null)
+                {
+                    transposer.m_XDamping = 1;
+                    transposer.m_YDamping = 1;
+                    transposer.m_ZDamping = 1;
+                }
+                isAdjustingDamp = false;
+            }
+        }
+    }
     void LateUpdate()
     {
+        if (mapViewPos == null || cam == null)
+        {
+            Debug.LogError("GolfMapViewpoint or VirtualCamera is not assigned!");
+            return;
+        }
+
         if (ball == null && !isIdleMode)
         {
             timer += Time.deltaTime;
@@ -37,19 +68,39 @@ public class CameraController : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+
+        if (isWinScreen)
+        {
+            return;
+        }
+
         if (ball != null && Input.GetKeyDown(mapKey) && !isViewMode) 
         {
-            cam.m_Lens.OrthographicSize = mapViewSize;
+            
+            
             followedObject = cam.Follow;
             cam.Follow = null;
-            cam.transform.position = mapPos;
+            cam.m_Lens.OrthographicSize = mapViewSize;
+            cam.transform.position = mapViewPos.position;
+            
             isViewMode = true;
         }
         else if (ball != null && Input.GetKeyDown(mapKey))
         {
-            cam.m_Lens.OrthographicSize = normalViewSize;
+            var transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
+            if (transposer != null)
+            {
+                transposer.m_XDamping = 0;
+                transposer.m_YDamping = 0;
+                transposer.m_ZDamping = 0;
+            }
+            cam.m_Lens.OrthographicSize = ball.GetComponent<Inventory>().zoom;
+            cam.transform.position = new Vector2(followedObject.transform.position.x, followedObject.transform.position.y);
             cam.Follow = followedObject;
+            
             isViewMode = false;
+            isAdjustingDamp = true;
+
         }
         
 

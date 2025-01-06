@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class Inventory : MonoBehaviour
 {
     Ball ball;
+    PopupController popupController;
     public List<Ability> unlockedAbilities = new List<Ability>();
     public int indexOfAbility = 0;
 
@@ -24,6 +25,7 @@ public class Inventory : MonoBehaviour
     public float zoom = 5f;
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
+    public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
     public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
     public int currentHeight = 0;
 
@@ -54,12 +56,16 @@ public class Inventory : MonoBehaviour
     }
     private void Start()
     {
+        popupController = FindObjectOfType<PopupController>();
+        ball = GetComponent<Ball>();
+
         LoadPlayer();
         LoadZoom();
         ChangeCoinSprites();
+        CheckPopup();
 
-        ball = GetComponent<Ball>();
-
+        
+        
     }
     private void ChangeCoinSprites()
     {
@@ -80,6 +86,39 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    private void CheckPopup()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        if (popupController.popup != null)
+        {
+            ball.enabled = false;
+        }
+        
+        if (levelPopups != null && levelPopups.ContainsKey(currentLevel))
+        {
+            if (levelPopups[currentLevel] == true)
+            {
+                popupController.disablePopup();
+                ball.enabled = true;
+            }
+            else
+            {
+                levelPopups[currentLevel] = true;
+            }
+        }
+        else if (levelPopups == null)
+        {
+            levelPopups = new Dictionary<int, bool>();
+            levelPopups[currentLevel] = true;
+        }
+        else
+        {
+            levelPopups[currentLevel] = true;
+        }
+        SavePlayer();
+    }
+
     private void SetCoinState(GameObject coin, GameObject coinMenu)
     {
         coin.GetComponent<Animator>().enabled = false;
@@ -102,7 +141,7 @@ public class Inventory : MonoBehaviour
         }
         if (strokeTxt != null)
         {
-            strokeTxt.text = "stroke: " + ball.strokes;
+            strokeTxt.text = "Stroke " + ball.strokes;
         }
 
     }
@@ -176,6 +215,8 @@ public class Inventory : MonoBehaviour
         AudioManager.instance.ambienceVolume = ambienceVol;
 
         coinsCollected = data.coinsCollected;
+
+        levelPopups = data.levelPopups;
 
     }
 

@@ -269,3 +269,52 @@ MonoBehaviour:
       Data3: 1176705175
       Data4: -344942267
     Path: event:/SFX/Apple/AppleBite
+  <birdie>k__BackingField:
+    Guid:
+      Data1: -233426299
+      Data2: 1225390611
+      Data3: 421776813
+      Data4: 1224257419
+    Path: event:/SFX/ColinLines/birdie
+  <bogey>k__BackingField:
+    Guid:
+      Data1: -1553593639
+      Data2: 1120922747
+      Data3: -2105480551
+      Data4: 277919610
+    Path: event:/SFX/ColinLines/bogey
+  <doubleBogey>k__BackingField:
+    Guid:
+      Data1: -1952613146
+      Data2: 1195675788
+      Data3: -1353050961
+      Data4: 1342122978
+    Path: event:/SFX/ColinLines/db
+  <eagle>k__BackingField:
+    Guid:
+      Data1: 176747763
+      Data2: 1314487309
+      Data3: 1245826704
+      Data4: -1530488822
+    Path: event:/SFX/ColinLines/eagle
+  <par>k__BackingField:
+    Guid:
+      Data1: 458861357
+      Data2: 1115060431
+      Data3: 1613100735
+      Data4: -1038973158
+    Path: event:/SFX/ColinLines/par
+  <applause>k__BackingField:
+    Guid:
+      Data1: 1303967632
+      Data2: 1120227038
+      Data3: 2069852595
+      Data4: 974989396
+    Path: event:/SFX/Applause
+  <bouncer>k__BackingField:
+    Guid:
+      Data1: -27186558
+      Data2: 1229209551
+      Data3: 1363651737
+      Data4: 1513754508
+    Path: event:/SFX/Bouncer/BouncerSounds

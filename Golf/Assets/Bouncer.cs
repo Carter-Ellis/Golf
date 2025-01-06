@@ -26,6 +26,6 @@ public class Bouncer : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isBouncing = true;
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.appleBite, transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
     }
 }
