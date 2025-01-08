@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class CameraController : MonoBehaviour
 {
     public CinemachineVirtualCamera cam;
+    public Canvas userInterface;
+    public Canvas mapViewUI;
     Transform followedObject;
     Ball ball;
     public bool isViewMode;
@@ -40,7 +42,6 @@ public class CameraController : MonoBehaviour
             dampTimer += Time.deltaTime;
             if (dampTimer >= dampTimerThreshold)
             {
-                print("Hello");
                 var transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
                 if (transposer != null)
                 {
@@ -54,9 +55,13 @@ public class CameraController : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (mapViewPos == null || cam == null)
+        if ((mapViewPos == null || cam == null) && SceneManager.GetActiveScene().name != "Main Menu")
         {
             Debug.LogError("GolfMapViewpoint or VirtualCamera is not assigned!");
+            return;
+        }
+        else if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
             return;
         }
 
@@ -77,8 +82,12 @@ public class CameraController : MonoBehaviour
         if (ball != null && Input.GetKeyDown(mapKey) && !isViewMode) 
         {
             
-            
-            followedObject = cam.Follow;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.mapOpen, transform.position);
+
+            userInterface.enabled = false;
+            mapViewUI.enabled = true;
+
+            followedObject = ball.transform;
             cam.Follow = null;
             cam.m_Lens.OrthographicSize = mapViewSize;
             cam.transform.position = mapViewPos.position;
@@ -87,6 +96,7 @@ public class CameraController : MonoBehaviour
         }
         else if (ball != null && Input.GetKeyDown(mapKey))
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
             var transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
             if (transposer != null)
             {
@@ -97,7 +107,9 @@ public class CameraController : MonoBehaviour
             cam.m_Lens.OrthographicSize = ball.GetComponent<Inventory>().zoom;
             cam.transform.position = new Vector2(followedObject.transform.position.x, followedObject.transform.position.y);
             cam.Follow = followedObject;
-            
+
+            userInterface.enabled = true;
+            mapViewUI.enabled = false;
             isViewMode = false;
             isAdjustingDamp = true;
 

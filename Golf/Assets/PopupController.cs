@@ -18,15 +18,7 @@ public class PopupController : MonoBehaviour
             inv.levelPopups[level] = true;
             return;
         }
-        string levelName = SceneManager.GetActiveScene().name;
-
-        if (levelName != "Main Menu") { return; }
-
-        foreach (var levelNumber in inv.levelPopups.Keys.ToList())
-        {
-            inv.levelPopups[levelNumber] = false;
-        }
-        inv.SavePlayer();
+      
     }
 
     public void disablePopup()

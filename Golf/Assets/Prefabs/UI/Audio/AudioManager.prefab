@@ -318,3 +318,10 @@ MonoBehaviour:
       Data3: 1363651737
       Data4: 1513754508
     Path: event:/SFX/Bouncer/BouncerSounds
+  <mapOpen>k__BackingField:
+    Guid:
+      Data1: 719895954
+      Data2: 1107911518
+      Data3: -827859839
+      Data4: 1630205069
+    Path: event:/SFX/map open sound

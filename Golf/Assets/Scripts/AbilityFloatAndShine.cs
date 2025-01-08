@@ -12,6 +12,7 @@ public class AbilityFloatAndShine : MonoBehaviour
     private float shineTime = 5f;
     private bool isShining;
     private Animator animator;
+    public bool hasShine;
     public string shineAnimName;
     private bool activated;
     void Start()
@@ -32,6 +33,10 @@ public class AbilityFloatAndShine : MonoBehaviour
 
     void Update()
     {
+        if (!hasShine)
+        {
+            return;
+        }
 
         timer += Time.deltaTime;
         

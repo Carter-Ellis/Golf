@@ -20,6 +20,7 @@ public class SettingsManager : MonoBehaviour
             {
                 soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
                 ball.isBallLocked = soundMenuCanvas.enabled;
+                
             }
             return;
         }

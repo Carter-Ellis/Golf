@@ -106,6 +106,7 @@ public class Ball : MonoBehaviour
         lineRenderer.endWidth = .25f;
         canPutt = true;
         isPuttCooldown = true;
+        
     }
 
     private void Start()
@@ -133,7 +134,7 @@ public class Ball : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R)) 
         {
-            ball.GetComponent<Inventory>().ErasePlayerData();
+            AudioManager.instance.CreateInstance(FMODEvents.instance.mapOpen);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         /*if (Input.GetKeyDown(KeyCode.B))

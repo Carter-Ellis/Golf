@@ -43,7 +43,7 @@ public class Hole : MonoBehaviour
             parUITxt.text = "Par " + par;
             signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
         }
-        else
+        else if (parUITxt != null)
         {
             signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
         }

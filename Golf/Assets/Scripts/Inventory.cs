@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -63,7 +64,7 @@ public class Inventory : MonoBehaviour
         LoadZoom();
         ChangeCoinSprites();
         CheckPopup();
-
+        clearPopups();
         
         
     }
@@ -89,6 +90,10 @@ public class Inventory : MonoBehaviour
 
     private void CheckPopup()
     {
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            return;
+        }
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
         if (popupController.popup != null)
         {
@@ -309,4 +314,18 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    private void clearPopups()
+    {
+        string levelName = SceneManager.GetActiveScene().name;
+
+        if (levelName != "Main Menu") { return; }
+
+        foreach (var levelNumber in levelPopups.Keys.ToList())
+        {
+            levelPopups[levelNumber] = false;
+        }
+        SavePlayer();
+    }
+
 }

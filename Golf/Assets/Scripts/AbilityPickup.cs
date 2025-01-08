@@ -6,6 +6,7 @@ public class AbilityPickup : MonoBehaviour
 {
     public ABILITIES type;
     public bool isRecharge = false;
+    public bool playPickupAudio = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
@@ -15,7 +16,12 @@ public class AbilityPickup : MonoBehaviour
         {
             return;
         }
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.menuOpen, transform.position);
+
+        if (playPickupAudio)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.menuOpen, transform.position);
+        }
+        
         if (inv.unlockedAbilities != null && inv.unlockedAbilities.Count > 0)
         {
             inv.unlockedAbilities[inv.indexOfAbility].reset(ball);

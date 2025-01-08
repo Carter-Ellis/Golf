@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class Fan : MonoBehaviour, Selectable
@@ -5,6 +6,7 @@ public class Fan : MonoBehaviour, Selectable
     private Ball ball;
     private Wind wind;
     private Transform center;
+    private CameraController cam;
     public GameObject spriteObj;
     private bool isSelected;
     public float controlRadius = 10f;
@@ -21,6 +23,7 @@ public class Fan : MonoBehaviour, Selectable
         ball = FindObjectOfType<Ball>();
         wind = GetComponentInChildren<Wind>();
         anim = GetComponentInChildren<Animator>();
+        cam = FindObjectOfType<CameraController>();
         center = transform.GetChild(0);
         origRotation = transform.rotation;
         if (wind != null)
@@ -39,7 +42,7 @@ public class Fan : MonoBehaviour, Selectable
         {
             return;
         }
-        if (Vector2.Distance(ball.transform.position, transform.position) >= controlRadius)
+        if (Vector2.Distance(ball.transform.position, transform.position) >= controlRadius && !cam.isViewMode)
         {
             ball.Select(null);
             return;

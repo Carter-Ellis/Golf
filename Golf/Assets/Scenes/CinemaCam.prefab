@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9147448088716921452}
   - component: {fileID: 5782883389764257968}
   - component: {fileID: 6288979888897067374}
+  - component: {fileID: 4350822874403386708}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -132,6 +133,49 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
+--- !u!114 &4350822874403386708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103105048943327151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_LookaheadTime: 0
+  m_LookaheadSmoothing: 0
+  m_LookaheadIgnoreY: 1
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_TargetMovementOnly: 1
+  m_ScreenX: 0.5
+  m_ScreenY: 0.5
+  m_CameraDistance: 10
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
+  m_DeadZoneDepth: 0
+  m_UnlimitedSoftZone: 0
+  m_SoftZoneWidth: 0.8
+  m_SoftZoneHeight: 0.8
+  m_BiasX: 0
+  m_BiasY: 0
+  m_CenterOnActivate: 1
+  m_GroupFramingMode: 2
+  m_AdjustmentMode: 0
+  m_GroupFramingSize: 0.8
+  m_MaxDollyIn: 5000
+  m_MaxDollyOut: 5000
+  m_MinimumDistance: 1
+  m_MaximumDistance: 5000
+  m_MinimumFOV: 3
+  m_MaximumFOV: 60
+  m_MinimumOrthoSize: 1
+  m_MaximumOrthoSize: 5000
 --- !u!1 &7124096053181867956
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +187,7 @@ GameObject:
   - component: {fileID: 161511419982758206}
   - component: {fileID: 6021537498366416626}
   - component: {fileID: 7740738032028461144}
-  - component: {fileID: 3902193842249536447}
+  - component: {fileID: 3525197962389635978}
   m_Layer: 0
   m_Name: CinemaCam
   m_TagString: Untagged
@@ -189,7 +233,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 7.5
+    OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -219,12 +263,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 6021537498366416626}
+  userInterface: {fileID: 0}
+  mapViewUI: {fileID: 0}
   isViewMode: 0
   isIdleMode: 0
+  isWinScreen: 0
   mapViewPos: {fileID: 0}
-  mapViewSize: 10
+  mapViewSize: 9
   normalViewSize: 5
---- !u!114 &3902193842249536447
+--- !u!114 &3525197962389635978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

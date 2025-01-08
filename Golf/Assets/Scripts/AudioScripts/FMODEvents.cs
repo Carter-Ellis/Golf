@@ -83,6 +83,9 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Bouncer")]
     [field: SerializeField] public EventReference bouncer { get; private set; }
 
+    [field: Header("Map SFX")]
+    [field: SerializeField] public EventReference mapOpen { get; private set; }
+
     public static FMODEvents instance { get; private set; }
 
     private void Awake()

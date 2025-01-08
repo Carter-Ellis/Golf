@@ -145,4 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c5b6ab7dc441946881fe86593d0e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundMenuCanvas: {fileID: 6282497331878112335, guid: 062630b2bc233624e9fdc8891538573e, type: 3}
+  soundMenuCanvas: {fileID: 0}
+  mainMenu: {fileID: 0}
+  title: {fileID: 0}
+  isActive: 1

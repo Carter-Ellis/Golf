@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   isRecharge: 0
+  playPickupAudio: 0
 --- !u!95 &2716107892520744034
 Animator:
   serializedVersion: 5
@@ -198,4 +199,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00adfd2fcdfb6244a051fd1517681a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasShine: 1
   shineAnimName: FreezeShine

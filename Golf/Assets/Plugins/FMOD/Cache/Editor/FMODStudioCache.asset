@@ -39,10 +39,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638717027199412110
+  lastModified: 638717756142840508
   FileSizes:
   - Name: Desktop
-    Value: 906944
+    Value: 926912
   Exists: 1
 --- !u!114 &-8747438197981371918
 MonoBehaviour:
@@ -353,7 +353,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638717024720075547
+  lastModified: 638717733296870934
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -378,6 +378,33 @@ MonoBehaviour:
   - Name: Desktop
     Value: 26241504
   Exists: 1
+--- !u!114 &-3328933463724996552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/map open sound
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/map open sound
+  Guid:
+    Data1: 719895954
+    Data2: 1107911518
+    Data3: -827859839
+    Data4: 1630205069
+  Banks:
+  - {fileID: -8888691980173592226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2426589835655340309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,13 +672,14 @@ MonoBehaviour:
   - {fileID: -7663369843286452421}
   - {fileID: -4539162742569094026}
   - {fileID: -136777269012555911}
+  - {fileID: -3328933463724996552}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -3700934035955269805}
   StringsBanks:
   - {fileID: 1880946066473275958}
-  cacheTime: 638717027199412110
+  cacheTime: 638717756142840508
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -857,10 +885,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638717024720095491
+  lastModified: 638717733296890887
   FileSizes:
   - Name: Desktop
-    Value: 2864
+    Value: 2908
   Exists: 1
 --- !u!114 &2781871004732926462
 MonoBehaviour:
