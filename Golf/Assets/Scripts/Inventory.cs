@@ -271,8 +271,8 @@ public class Inventory : MonoBehaviour
         {
             selectedAbilityTxt.text = "Ability: " + unlockedAbilities[indexOfAbility].name;
             selectedAbilityTxt.color = unlockedAbilities[indexOfAbility].color;
-            abilityChargesTxt.text = unlockedAbilities[indexOfAbility].chargeName + ": " + unlockedAbilities[indexOfAbility].getCharges(ball) + " of " + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
-            abilityChargesTxt.color = unlockedAbilities[indexOfAbility].color;
+            //abilityChargesTxt.text = unlockedAbilities[indexOfAbility].chargeName + ": " + unlockedAbilities[indexOfAbility].getCharges(ball) + " of " + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
+            //abilityChargesTxt.color = unlockedAbilities[indexOfAbility].color;
         }
     }
 

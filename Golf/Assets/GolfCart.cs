@@ -13,8 +13,17 @@ public class GolfCart : MonoBehaviour
     {
         cartBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
         cartBody.velocity = new Vector2(speed, 0);
-        spriteRenderer.flipX = true;
+        if (speed < 0)
+        {
+            speed = Mathf.Abs(speed);
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     void Update()
