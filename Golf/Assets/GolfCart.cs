@@ -6,49 +6,42 @@ public class GolfCart : MonoBehaviour
 {
     Rigidbody2D cartBody;
     SpriteRenderer spriteRenderer;
-    private float driveTimer;
-    public float driveTimeThreshold = 3f;
+
     public float speed = 3f;
+    public float travelDistance = 5f;
+
+    private Vector2 startPosition;
+
     void Start()
     {
         cartBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        startPosition = cartBody.position;
 
         cartBody.velocity = new Vector2(speed, 0);
-        if (speed < 0)
-        {
-            speed = Mathf.Abs(speed);
-            spriteRenderer.flipX = false;
-        }
-        else
-        {
-            spriteRenderer.flipX = true;
-        }
+        UpdateSpriteDirection();
     }
 
     void Update()
     {
-        driveTimer += Time.deltaTime;
-        if (driveTimer >= driveTimeThreshold)
+        float distanceTraveled = Mathf.Abs(cartBody.position.x - startPosition.x);
+        if (distanceTraveled >= travelDistance)
         {
             TurnAround();
-            driveTimer = 0f;
         }
     }
 
     void TurnAround()
     {
-        if (cartBody.velocity.x > 0)
-        {
-            spriteRenderer.flipX = false;
-            cartBody.velocity = new Vector2(-speed, 0);
-        }
-        else if (cartBody.velocity.x < 0)
-        {
-            spriteRenderer.flipX = true;
-            cartBody.velocity = new Vector2(speed, 0);
-        }
-        
+        // Reverse direction
+        speed *= -1;
+        cartBody.velocity = new Vector2(speed, 0);
+        startPosition = cartBody.position; // Reset start point for next leg
+        UpdateSpriteDirection();
     }
 
+    void UpdateSpriteDirection()
+    {
+        spriteRenderer.flipX = speed > 0;
+    }
 }

@@ -13,12 +13,14 @@ public class Button : MonoBehaviour
     public AudioClip unpushClip;
 
     public bool isRedCoinButton;
+    public bool isOnePress;
     public GameObject[] redCoins;
     public GameObject specialCoin;
     private float redCoinTimer = 0f;
     private float redCoinThreshold = 6.5f;
     private bool isRedCoinActive = false;
     private bool redCoinComplete = false;
+    private bool isPressed = false;
     internal bool interactable;
 
     private void Update()
@@ -93,6 +95,11 @@ public class Button : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isPressed)
+        {
+            return;
+        }
+        isPressed = true;
         sr.sprite = pushedSprite;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.push, transform.position);
         if (isRedCoinButton && !isRedCoinActive)
@@ -108,7 +115,12 @@ public class Button : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.unpush, transform.position);
-        sr.sprite = unpushedSprite;
+        if (!isOnePress)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.unpush, transform.position);
+            sr.sprite = unpushedSprite;
+            isPressed = false;
+        }
+        
     }
 }
