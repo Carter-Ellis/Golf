@@ -21,6 +21,14 @@ public abstract class Ability
     public string description;
     [SerializeField] public Color color;
 
+    public static Dictionary<ABILITIES, int> maxChargesByType = new Dictionary<ABILITIES, int>()
+    {
+        { ABILITIES.FREEZE, 1 },
+        { ABILITIES.WIND, 1 },
+        { ABILITIES.TELEPORT, 1 },
+        { ABILITIES.BURST, 1 }
+    };
+
     public Ability()
     {
         name = GetName(type);
@@ -65,6 +73,12 @@ public abstract class Ability
             case ABILITIES.BURST: return "Unleash a rapid volley of high-velocity projectiles to swiftly attack and overwhelm enemies";
             default: return "";
         }
+    }
+
+    public static void SetMaxCharges(ABILITIES type, int value)
+    {
+        if (maxChargesByType.ContainsKey(type))
+            maxChargesByType[type] = value;
     }
 
     public abstract void onUse(Ball ball);

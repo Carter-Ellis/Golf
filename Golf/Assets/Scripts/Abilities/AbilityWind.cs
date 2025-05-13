@@ -5,8 +5,8 @@ using UnityEngine;
 public class AbilityWind : Ability
 {
     private int charges = 0;
-    private int maxCharges = 1;
     private float gustSpeed = 7f;
+
     public AbilityWind(Color color)
     {
         type = ABILITIES.WIND;
@@ -15,9 +15,10 @@ public class AbilityWind : Ability
         description = "Harness a powerful gust to significantly boost the ball's speed, propelling it forward with increased velocity";
         this.color = color;
     }
+
     public override void onPickup(Ball ball)
     {
-        charges = maxCharges;
+        charges = getMaxCharges(ball);
     }
 
     public override int getCharges(Ball ball)
@@ -27,16 +28,15 @@ public class AbilityWind : Ability
 
     public override int getMaxCharges(Ball ball)
     {
-        return maxCharges;
+        return Ability.maxChargesByType[ABILITIES.WIND];
     }
 
     public override void onRecharge(Ball ball)
     {
-        if (charges < maxCharges) 
+        if (charges < getMaxCharges(ball))
         {
             charges++;
         }
-        
     }
 
     public override void onUse(Ball ball)
@@ -46,19 +46,13 @@ public class AbilityWind : Ability
         {
             return;
         }
+
         charges--;
-        
+
         rb.AddForce(rb.velocity.normalized * gustSpeed, ForceMode2D.Impulse);
-
     }
 
-    public override void onFrame(Ball ball)
-    {
+    public override void onFrame(Ball ball) { }
 
-    }
-
-    public override void reset(Ball ball)
-    {
-        
-    }
+    public override void reset(Ball ball) { }
 }

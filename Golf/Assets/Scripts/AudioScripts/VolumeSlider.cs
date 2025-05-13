@@ -57,10 +57,10 @@ public class VolumeSlider : MonoBehaviour
 
     public void OnSliderValueChange()
     {
-        if (!isInitializing)
-        {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.tick, transform.position);
-        }
+        if (isInitializing) { return; }
+        
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.tick, transform.position);
+        
         
         switch (volumeType)
         {

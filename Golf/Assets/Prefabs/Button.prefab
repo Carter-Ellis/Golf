@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1779377175, guid: fc6ee4cc4f16b034888fd95a2c5ffb81, type: 3}
+  m_Sprite: {fileID: 1284696043, guid: 376cc79f038975545ab9da0407b913da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,7 +122,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.875, y: 0.9375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -144,7 +144,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  pushedSprite: {fileID: 683898464, guid: fc6ee4cc4f16b034888fd95a2c5ffb81, type: 3}
-  unpushedSprite: {fileID: -1779377175, guid: fc6ee4cc4f16b034888fd95a2c5ffb81, type: 3}
+  pushedSprite: {fileID: 77169963, guid: 376cc79f038975545ab9da0407b913da, type: 3}
+  unpushedSprite: {fileID: 1284696043, guid: 376cc79f038975545ab9da0407b913da, type: 3}
   pushClip: {fileID: 8300000, guid: 0adfe2ca18c520943829acba60c2893d, type: 3}
   unpushClip: {fileID: 8300000, guid: 2d32bb059d88b42478d6553417173664, type: 3}
+  isRedCoinButton: 0
+  isOnePress: 1
+  redCoins: []
+  specialCoin: {fileID: 0}

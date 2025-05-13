@@ -99,14 +99,16 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         camController = GameObject.FindAnyObjectByType<CameraController>();
         hasShot = true;
-        cursor.GetComponent<SpriteRenderer>().enabled = false;
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = numPoints;
         lineRenderer.startWidth = .25f;
         lineRenderer.endWidth = .25f;
         canPutt = true;
         isPuttCooldown = true;
-        
+
+        cursor.GetComponent<SpriteRenderer>().enabled = false;
+
+
     }
 
     private void Start()

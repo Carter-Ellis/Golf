@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -27,6 +28,20 @@ public class Inventory : MonoBehaviour
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
+
+    public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
+
+    public Dictionary<ABILITIES, int> maxChargesByType = new Dictionary<ABILITIES, int>()
+    {
+        { ABILITIES.FREEZE, 1 },
+        { ABILITIES.WIND, 1 },
+        { ABILITIES.TELEPORT, 1 },
+        { ABILITIES.BURST, 1 }
+    };
+
+    public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
+
+
     public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
     public int currentHeight = 0;
 
@@ -51,6 +66,9 @@ public class Inventory : MonoBehaviour
     [SerializeField] private TextMeshProUGUI coinTxt;
     [SerializeField] private TextMeshProUGUI strokeTxt;
 
+    [Header("Upgrades")]
+    [SerializeField] private GameObject upgrades;
+
     public Inventory()
     {
         unlockedAbilities = new List<Ability>();
@@ -59,14 +77,14 @@ public class Inventory : MonoBehaviour
     {
         popupController = FindObjectOfType<PopupController>();
         ball = GetComponent<Ball>();
-
         LoadPlayer();
         LoadZoom();
         ChangeCoinSprites();
         CheckPopup();
         clearPopups();
-        
-        
+        PopulateShop();
+        PopulateCharges();
+        SavePlayer();
     }
     private void ChangeCoinSprites()
     {
@@ -88,9 +106,52 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    private void CheckHats()
+    {
+        for (int i = 1; i < (int)Hat.TYPE.MAX_HATS; i++)
+        {
+            print(unlockedHats[(Hat.TYPE)i]);
+        }
+        for (int i = 1; i < (int)Hat.TYPE.MAX_HATS; i++)
+        {
+            unlockedHats[(Hat.TYPE)i] = false;
+        }
+
+    }
+
+    private void PopulateCharges()
+    {
+        Ability.maxChargesByType = maxChargesByType;
+    }
+
+    private void PopulateShop()
+    {
+        if (upgrades == null || upgrades.transform.childCount < 1) { return; }
+
+        foreach (Transform child in upgrades.transform)
+        {
+            UpgradeButton upgrade = child.GetComponent<UpgradeButton>();
+            int index = upgrade.transform.GetSiblingIndex();
+            if (!upgradeLevels.ContainsKey(index)) continue;
+            upgrade.upgradeLevel = upgradeLevels[upgrade.transform.GetSiblingIndex()];
+            int count = 0;
+            foreach (Image image in upgrade.progressSquares)
+            {
+                if (count < upgrade.upgradeLevel)
+                {
+                    image.sprite = upgrade.purchasedSquare;
+                    count++;
+                }
+                
+            }
+            
+
+        }
+    }
+
     private void CheckPopup()
     {
-        if (SceneManager.GetActiveScene().name == "Main Menu")
+        if (popupController == null || SceneManager.GetActiveScene().name == "Main Menu")
         {
             return;
         }
@@ -121,7 +182,6 @@ public class Inventory : MonoBehaviour
         {
             levelPopups[currentLevel] = true;
         }
-        SavePlayer();
     }
 
     private void SetCoinState(GameObject coin, GameObject coinMenu)
@@ -136,9 +196,11 @@ public class Inventory : MonoBehaviour
     {
         AbilityManager();
         DisplayAbility();
+
         if (coinTxt != null)
         {
             coinTxt.text = "" + coins;
+            
         }
         if (ball == null)
         {
@@ -192,7 +254,6 @@ public class Inventory : MonoBehaviour
     public void LoadPlayer()
     {
         //ErasePlayerData();
-        print("Player Loaded");
         PlayerData data = SaveSystem.LoadPlayer();
         if (data == null)
         {
@@ -222,6 +283,28 @@ public class Inventory : MonoBehaviour
         coinsCollected = data.coinsCollected;
 
         levelPopups = data.levelPopups;
+        if (data.upgradeLevels != null)
+        {
+            upgradeLevels = data.upgradeLevels;
+        }
+
+        if (data.maxChargesList != null && data.maxChargesList.Count > 0)
+        {
+            maxChargesByType = data.maxChargesList.ToDictionary(a => a.ability, a => a.charges);
+        }
+        else
+        {
+            Debug.LogWarning("maxChargesList was null or empty — initializing defaults.");
+            maxChargesByType = new Dictionary<ABILITIES, int>()
+            {
+                { ABILITIES.FREEZE, 1 },
+                { ABILITIES.WIND, 1 },
+                { ABILITIES.TELEPORT, 1 },
+                { ABILITIES.BURST, 1 }
+            };
+        }
+
+        unlockedHats = data.unlockedHats;
 
     }
 
@@ -269,9 +352,9 @@ public class Inventory : MonoBehaviour
         }
         if (unlockedAbilities.Count > 0)
         {
-            selectedAbilityTxt.text = "Ability: " + unlockedAbilities[indexOfAbility].name;
+            selectedAbilityTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball) + " " + unlockedAbilities[indexOfAbility].name;
             selectedAbilityTxt.color = unlockedAbilities[indexOfAbility].color;
-            //abilityChargesTxt.text = unlockedAbilities[indexOfAbility].chargeName + ": " + unlockedAbilities[indexOfAbility].getCharges(ball) + " of " + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
+            //abilityChargesTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
             //abilityChargesTxt.color = unlockedAbilities[indexOfAbility].color;
         }
     }
@@ -325,7 +408,6 @@ public class Inventory : MonoBehaviour
         {
             levelPopups[levelNumber] = false;
         }
-        SavePlayer();
     }
 
 }
