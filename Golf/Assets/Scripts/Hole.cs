@@ -27,8 +27,8 @@ public class Hole : MonoBehaviour
     public UnityEngine.UI.Button nextLevelButton;
 
     [SerializeField] private TextMeshProUGUI winTxt;
+    [SerializeField] private TextMeshProUGUI holeOnWinScreenTxt;
     [SerializeField] private TextMeshProUGUI parOnWinScreenTxt;
-    [SerializeField] private TextMeshProUGUI parUITxt;
     [SerializeField] private TextMeshProUGUI strokesTxt;
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
@@ -40,10 +40,9 @@ public class Hole : MonoBehaviour
         if (signTxt != null)
         {
             signTxt.text = "Par " + par;
-            parUITxt.text = "Par " + par;
             signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
         }
-        else if (parUITxt != null)
+        else
         {
             signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
         }
@@ -162,10 +161,12 @@ public class Hole : MonoBehaviour
 
             if (parOnWinScreenTxt != null)
             {
-                parOnWinScreenTxt.text = "Par: " + par;
+                parOnWinScreenTxt.text = "Par " + par;
             }
-            
-            strokesTxt.text = "Strokes: " + ball.strokes;
+
+            holeOnWinScreenTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
+
+            strokesTxt.text = "Strokes " + ball.strokes;
             
 
             inHole = true;

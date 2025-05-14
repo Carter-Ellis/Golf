@@ -18,7 +18,7 @@ public class ButtonAudio : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!gameObject.GetComponent<UnityEngine.UI.Button>().interactable) { return; }
-        if (clickSound.IsNull) { Debug.Log("No audio found."); return; }
+        if (clickSound.IsNull) { return; }
         AudioManager.instance.PlayOneShot(clickSound, transform.position);
     }
 }

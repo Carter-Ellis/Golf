@@ -67,6 +67,10 @@ public class Inventory : MonoBehaviour
     [SerializeField] private TextMeshProUGUI coinTxt;
     [SerializeField] private TextMeshProUGUI strokeTxt;
 
+    [Header("AbilityImages")]
+    [SerializeField] private Image abilityImage;
+    [SerializeField] private Sprite[] abilitySprites;
+
     [Header("Upgrades")]
     [SerializeField] private GameObject upgrades;
 
@@ -397,8 +401,10 @@ public class Inventory : MonoBehaviour
         }
         if (unlockedAbilities.Count > 0)
         {
-            selectedAbilityTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball) + " " + unlockedAbilities[indexOfAbility].name;
+            selectedAbilityTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
             selectedAbilityTxt.color = unlockedAbilities[indexOfAbility].color;
+            abilityImage.sprite = abilitySprites[indexOfAbility];
+            abilityImage.color = Color.white;
             //abilityChargesTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
             //abilityChargesTxt.color = unlockedAbilities[indexOfAbility].color;
         }

@@ -1690,6 +1690,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 587469995}
     - target: {fileID: 4333268201563155755, guid: 1355aa68d7010784a9b8770d71cf5a96, type: 3}
+      propertyPath: abilityImage
+      value: 
+      objectReference: {fileID: 1450739684}
+    - target: {fileID: 4333268201563155755, guid: 1355aa68d7010784a9b8770d71cf5a96, type: 3}
       propertyPath: abilityChargesTxt
       value: 
       objectReference: {fileID: 1472997893}
@@ -4488,7 +4492,7 @@ PrefabInstance:
     - target: {fileID: 2587498342059375768, guid: 6fcdf01fe71bf5a4eb04b17d54a44189, type: 3}
       propertyPath: parUITxt
       value: 
-      objectReference: {fileID: 1450739684}
+      objectReference: {fileID: 0}
     - target: {fileID: 2587498342059375768, guid: 6fcdf01fe71bf5a4eb04b17d54a44189, type: 3}
       propertyPath: scoreTxt
       value: 
@@ -4509,6 +4513,10 @@ PrefabInstance:
       propertyPath: parOnWinScreenTxt
       value: 
       objectReference: {fileID: 342859751}
+    - target: {fileID: 2587498342059375768, guid: 6fcdf01fe71bf5a4eb04b17d54a44189, type: 3}
+      propertyPath: holeOnWinScreenTxt
+      value: 
+      objectReference: {fileID: 4242620154573891410}
     - target: {fileID: 5672282934617642968, guid: 6fcdf01fe71bf5a4eb04b17d54a44189, type: 3}
       propertyPath: m_Name
       value: Hole with Flag
@@ -13397,13 +13405,13 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 4e80db439957b6d4b9b5a734abe71b04, type: 3}
 --- !u!114 &1450739684 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2830159390032255655, guid: 4e80db439957b6d4b9b5a734abe71b04, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7451925503156796972, guid: 4e80db439957b6d4b9b5a734abe71b04, type: 3}
   m_PrefabInstance: {fileID: 1450739683}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!223 &1450739685 stripped
@@ -20485,6 +20493,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78691b3cc20601c4c8959d2a4dc156d8, type: 3}
+--- !u!114 &4242620154573891410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 139814207917146185, guid: 78691b3cc20601c4c8959d2a4dc156d8, type: 3}
+  m_PrefabInstance: {fileID: 4242620154573891409}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4249001295032527215
 PrefabInstance:
   m_ObjectHideFlags: 0

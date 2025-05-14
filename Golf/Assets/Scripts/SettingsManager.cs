@@ -20,7 +20,10 @@ public class SettingsManager : MonoBehaviour
             {
                 soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
                 ball.isBallLocked = soundMenuCanvas.enabled;
-                
+                if (soundMenuCanvas.enabled)
+                {
+                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                }
             }
             return;
         }
@@ -34,6 +37,10 @@ public class SettingsManager : MonoBehaviour
             if (ball != null)
             {
                 ball.isBallLocked = soundMenuCanvas.enabled;
+                if (soundMenuCanvas.enabled)
+                {
+                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                }
             }   
             
         }
