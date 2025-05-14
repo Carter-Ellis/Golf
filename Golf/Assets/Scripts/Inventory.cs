@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static UnityEditor.Progress;
+using Unity.VisualScripting;
 
 public class Inventory : MonoBehaviour
 {
@@ -69,6 +70,34 @@ public class Inventory : MonoBehaviour
     [Header("Upgrades")]
     [SerializeField] private GameObject upgrades;
 
+    [Header("Cosmetics")]
+    [SerializeField] GameObject hatPos;
+    public Sprite hat;
+    public string hatName;
+    public Color hatColor;
+    public Hat.TYPE hatType;
+
+    private Vector2[] hatPositions = new Vector2[]
+    {
+        new Vector2(-.09369f,.28132f),
+        new Vector2(0,.375f),
+        new Vector2(0,.406f),
+        new Vector2(0,.34385f),
+        new Vector2(0,.406f),
+        new Vector2(0,.468f),
+        new Vector2(0,.312f),
+        new Vector2(0,.55f),
+        new Vector2(0,.437f),
+        new Vector2(0,.406f),
+        new Vector2(.09379f,.375f),
+        new Vector2(0,.5f),
+        new Vector2(.09372f,.34379f),
+        new Vector2(0,.406f),
+        new Vector2(0,.406f),
+        new Vector2(0,.375f),
+        new Vector2(.064f,.375f),
+    };
+
     public Inventory()
     {
         unlockedAbilities = new List<Ability>();
@@ -84,7 +113,19 @@ public class Inventory : MonoBehaviour
         clearPopups();
         PopulateShop();
         PopulateCharges();
+        DisplayHat();
         SavePlayer();
+    }
+
+    private void DisplayHat()
+    {
+        if (hatPos == null) { return; }
+        
+        SpriteRenderer sr = hatPos.GetComponent<SpriteRenderer>();
+        if (hatType == Hat.TYPE.NONE) { return; }
+        sr.transform.localPosition = new Vector3(hatPositions[(int)hatType - 1].x, hatPositions[(int)hatType - 1].y, -.01f);
+        sr.sprite = hat;
+        sr.color = hatColor;
     }
     private void ChangeCoinSprites()
     {
@@ -306,6 +347,10 @@ public class Inventory : MonoBehaviour
 
         unlockedHats = data.unlockedHats;
 
+        data.RestoreHatSprite();
+        hat = data.hat;
+        hatColor = data.hatColor.ToColor();
+        hatType = data.hatType;
     }
 
     public void ErasePlayerData()

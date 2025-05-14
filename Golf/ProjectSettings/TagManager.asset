@@ -17,6 +17,7 @@ TagManager:
   - Shop
   - BallMarker
   - Item
+  - Cosmetic
   layers:
   - Default
   - TransparentFX

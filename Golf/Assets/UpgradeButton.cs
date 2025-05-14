@@ -12,16 +12,17 @@ public class UpgradeButton : MonoBehaviour
     public UnityEngine.UI.Button button;
     private Inventory inv;
     private TextMeshProUGUI costTxt;
+    
 
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
         costTxt = GetComponentInChildren<TextMeshProUGUI>();
-        
     }
 
     private void Update()
     {
+
         if (costTxt == null)
         {
             Debug.Log("No textmesh pro in children");
@@ -38,12 +39,6 @@ public class UpgradeButton : MonoBehaviour
         
     }
 
-    public void Click()
-    {
-        UpgradeManager.Instance.SelectUpgrade(this);
-        FindObjectOfType<BuyButton>().SetItemSelected(true);
-    }
-
     public void TryPurchase()
     {
         if (upgradeLevel >= costs.Length) return;
@@ -52,6 +47,7 @@ public class UpgradeButton : MonoBehaviour
 
         if (inv.coins >= cost)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shopPurchase, transform.position);
             inv.coins -= cost;
             progressSquares[upgradeLevel].sprite = purchasedSquare;
             upgradeLevel++;
@@ -61,4 +57,5 @@ public class UpgradeButton : MonoBehaviour
             inv.SavePlayer();
         }
     }
+
 }

@@ -99,7 +99,6 @@ public class Hole : MonoBehaviour
                 if (ball.strokes == 1)
                 {
                     int level = SceneManager.GetActiveScene().buildIndex;
-                    print(level);
                     ball.GetComponent<Inventory>().unlockedHats[(Hat.TYPE)level] = true;
                 }
                 UnlockNewLevel();

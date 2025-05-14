@@ -5,41 +5,39 @@ using UnityEngine.SceneManagement;
 
 public static class SaveSystem
 {
-    public static void SavePlayer (Inventory inv)
+    public static void SavePlayer(Inventory inv)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-
         string path = Application.persistentDataPath + "/player.data";
-        FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(inv);
-
-        formatter.Serialize(stream, data);
-        stream.Close();
+        using (FileStream stream = new FileStream(path, FileMode.Create))
+        {
+            PlayerData data = new PlayerData(inv);
+            formatter.Serialize(stream, data);
+        }
     }
 
     public static void SaveZoom(float zoomLevel)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-
         string path = Application.persistentDataPath + "/zoom.data";
-        FileStream stream = new FileStream(path, FileMode.Create);
-        formatter.Serialize(stream, zoomLevel);
-        stream.Close();
+
+        using (FileStream stream = new FileStream(path, FileMode.Create))
+        {
+            formatter.Serialize(stream, zoomLevel);
+        }
     }
 
     public static float LoadZoom()
     {
-        
         string path = Application.persistentDataPath + "/zoom.data";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-
-            float zoomLevel = (float)formatter.Deserialize(stream);
-            stream.Close();
-            return zoomLevel;
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
+                return (float)formatter.Deserialize(stream);
+            }
         }
         else
         {
@@ -54,69 +52,74 @@ public static class SaveSystem
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
-
-            stream.Close();
-            return data;
-        } 
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
+                return formatter.Deserialize(stream) as PlayerData;
+            }
+        }
         else
         {
             Debug.Log("Save file not found in " + path);
             return null;
         }
     }
+
     public static void ErasePlayerData()
     {
         string path = Application.persistentDataPath + "/player.data";
-        if (File.Exists(path))
+        try
         {
-            File.Delete(path);
-            Scene currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(currentScene.name);
-            Debug.Log("Saved data cleared.");
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                Debug.Log("Saved data cleared.");
+            }
+            else
+            {
+                Debug.LogWarning("No saved data found to delete.");
+            }
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("Could not delete player data: " + e.Message);
+        }
 
-        }
-        else
-        {
-            Scene currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(currentScene.name);
-            Debug.LogWarning("No saved data found to delete.");
-        }
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
 
         if (AudioManager.instance != null)
         {
             AudioManager.instance.SetVolumes(1f, 1f, 1f, 1f);
             Debug.Log("Audio settings reset to default.");
         }
-
     }
 
     public static void EraseZoomData()
     {
         string path = Application.persistentDataPath + "/zoom.data";
-        if (File.Exists(path))
+        try
         {
-            File.Delete(path);
-            Scene currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(currentScene.name);
-            Debug.Log("Saved data cleared.");
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                Debug.Log("Zoom data cleared.");
+            }
+            else
+            {
+                Debug.LogWarning("No zoom data found to delete.");
+            }
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("Could not delete zoom data: " + e.Message);
+        }
 
-        }
-        else
-        {
-            Scene currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(currentScene.name);
-            Debug.LogWarning("No saved data found to delete.");
-        }
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
 
         if (AudioManager.instance != null)
         {
             AudioManager.instance.SetVolumes(1f, 1f, 1f, 1f);
-            Debug.Log("Audio settings reset to default.");
         }
-
     }
-
 }

@@ -10,15 +10,15 @@ public class ButtonAudio : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isSecretButton)
-        {
-            return;
-        }
+        if (isSecretButton || !gameObject.GetComponent<UnityEngine.UI.Button>().interactable) {  return; }
+
         AudioManager.instance.PlayOneShot(FMODEvents.instance.menuBlip, transform.position);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!gameObject.GetComponent<UnityEngine.UI.Button>().interactable) { return; }
+        if (clickSound.IsNull) { Debug.Log("No audio found."); return; }
         AudioManager.instance.PlayOneShot(clickSound, transform.position);
     }
 }

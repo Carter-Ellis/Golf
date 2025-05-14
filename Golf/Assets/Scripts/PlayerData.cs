@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 [System.Serializable]
 public class PlayerData
@@ -19,6 +21,12 @@ public class PlayerData
     public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
     public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
     public List<AbilityChargeData> maxChargesList = new List<AbilityChargeData>();
+
+    [NonSerialized] public Sprite hat;
+    public string hatName;
+    public Hat.TYPE hatType;
+
+    public SerializableColor hatColor;
 
     [System.Serializable]
     public struct AbilityChargeData
@@ -47,5 +55,42 @@ public class PlayerData
             .ToList();
 
         unlockedHats = inv.unlockedHats;
+
+        hat = inv.hat;
+        hatName = inv.hat != null ? inv.hat.name : null;
+
+        hatColor = new SerializableColor(inv.hatColor);
+
+        hatType = inv.hatType;
+    }
+
+    public void RestoreHatSprite()
+    {
+        if (!string.IsNullOrEmpty(hatName))
+        {
+            // Use LoadAll to support sub-sprites in a sprite sheet
+            Sprite[] allHats = Resources.LoadAll<Sprite>("Hats/Hats");
+            hat = allHats.FirstOrDefault(s => s.name == hatName);
+
+        }
+    }
+}
+
+[System.Serializable]
+public struct SerializableColor
+{
+    public float r, g, b, a;
+
+    public SerializableColor(Color color)
+    {
+        r = color.r;
+        g = color.g;
+        b = color.b;
+        a = color.a;
+    }
+
+    public Color ToColor()
+    {
+        return new Color(r, g, b, a);
     }
 }
