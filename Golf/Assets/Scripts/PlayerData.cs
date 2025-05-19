@@ -20,7 +20,10 @@ public class PlayerData
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
     public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
     public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
+    public Dictionary<int, bool> levelsCompleted = new Dictionary<int, bool>();
+
     public List<AbilityChargeData> maxChargesList = new List<AbilityChargeData>();
+    public List<ABILITIES> unlockedAbilityTypes = new List<ABILITIES>();
 
     [NonSerialized] public Sprite hat;
     public string hatName;
@@ -62,6 +65,11 @@ public class PlayerData
         hatColor = new SerializableColor(inv.hatColor);
 
         hatType = inv.hatType;
+
+        unlockedAbilityTypes = inv.unlockedAbilities.Select(a => a.type).ToList();
+
+        levelsCompleted = inv.levelsCompleted;
+
     }
 
     public void RestoreHatSprite()

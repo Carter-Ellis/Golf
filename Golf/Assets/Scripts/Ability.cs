@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 [System.Serializable]
 public enum ABILITIES
@@ -85,6 +86,7 @@ public abstract class Ability
 
     public abstract void onRecharge(Ball ball);
 
+    public abstract void setCharges(int amount);
     public abstract int getCharges(Ball ball);
 
     public abstract int getMaxCharges(Ball ball);

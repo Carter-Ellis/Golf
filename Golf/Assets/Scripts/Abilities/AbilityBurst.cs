@@ -45,7 +45,10 @@ public class AbilityBurst : Ability
             charges++;
         }
     }
-
+    public override void setCharges(int amount)
+    {
+        charges = amount;
+    }
     public override void onUse(Ball ball)
     {
         Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();

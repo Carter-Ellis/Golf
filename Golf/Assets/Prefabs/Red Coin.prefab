@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &366782041498105282
 Transform:
   m_ObjectHideFlags: 0
@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5403adf1fbb232642b2d141ac24fa86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRed: 1
+  coinNumber: 0
 --- !u!95 &2241279455765952019
 Animator:
   serializedVersion: 5
@@ -168,4 +170,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00adfd2fcdfb6244a051fd1517681a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasShine: 0
   shineAnimName: RedCoinShine

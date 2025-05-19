@@ -42,10 +42,6 @@ public class Hole : MonoBehaviour
             signTxt.text = "Par " + par;
             signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
         }
-        else
-        {
-            signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
-        }
         
     }
 
@@ -56,7 +52,9 @@ public class Hole : MonoBehaviour
             PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
             
         }
-        ball.GetComponent<Inventory>().SavePlayer();
+        Inventory inv = ball.GetComponent<Inventory>();
+        inv.levelsCompleted[SceneManager.GetActiveScene().buildIndex] = true;
+        inv.SavePlayer();
     }
 
     private void Update()
@@ -150,6 +148,13 @@ public class Hole : MonoBehaviour
             {
                 winTxt.fontSize = 80;
                 winTxt.text = "YOU WIN!";
+            }
+            else if (!ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(SceneManager.GetActiveScene().buildIndex) || ball.GetComponent<Inventory>().levelsCompleted[SceneManager.GetActiveScene().buildIndex])
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "You Lose! Too Many Strokes!";
             }
             else
             {

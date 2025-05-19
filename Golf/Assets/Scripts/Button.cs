@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
+using FMODUnity;
 
 public class Button : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class Button : MonoBehaviour
     private bool redCoinComplete = false;
     private bool isPressed = false;
     internal bool interactable;
+
+    private EventInstance door6Instance;
 
     private void Update()
     {
@@ -59,13 +63,18 @@ public class Button : MonoBehaviour
             }
         }
     }
+
     void SpawnRedCoins()
     {
         if (redCoinComplete)
         {
             return;
         }
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.door6sec, transform.position);
+
+        door6Instance = RuntimeManager.CreateInstance(FMODEvents.instance.door6sec);
+        door6Instance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        door6Instance.start();
+
         isRedCoinActive = true;
         foreach (GameObject redcoin in redCoins)
         {
@@ -80,7 +89,6 @@ public class Button : MonoBehaviour
 
     void DespawnRedCoins()
     {
-        
         foreach (GameObject redcoin in redCoins)
         {
             if (redcoin == null)
@@ -121,6 +129,14 @@ public class Button : MonoBehaviour
             sr.sprite = unpushedSprite;
             isPressed = false;
         }
-        
+    }
+
+    private void OnDisable()
+    {
+        if (door6Instance.isValid())
+        {
+            door6Instance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            door6Instance.release();
+        }
     }
 }

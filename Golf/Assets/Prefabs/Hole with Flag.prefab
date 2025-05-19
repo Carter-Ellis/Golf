@@ -134,15 +134,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31925d4690a52734aac305fff64d205e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  par: 2
+  par: 8
   ballOverHoleSpeed: 10
   inHole: 0
   inHoleSFX: {fileID: 8300000, guid: 6598c61eed4b4fc4d89b2dd82427b990, type: 3}
   animator: {fileID: 0}
   nextLevelButton: {fileID: 0}
   winTxt: {fileID: 0}
-  parOnSignTxt: {fileID: 0}
-  parUITxt: {fileID: 0}
+  holeOnWinScreenTxt: {fileID: 0}
+  parOnWinScreenTxt: {fileID: 0}
   strokesTxt: {fileID: 0}
   signTxt: {fileID: 0}
   signLevelTxt: {fileID: 0}
@@ -154,6 +154,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6947134281797004520}
     m_Modifications:
+    - target: {fileID: 4027851889916251680, guid: e3aae3da027e35d44928a00719ccfc52, type: 3}
+      propertyPath: m_TagString
+      value: Background
+      objectReference: {fileID: 0}
     - target: {fileID: 6976052699150218504, guid: e3aae3da027e35d44928a00719ccfc52, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0

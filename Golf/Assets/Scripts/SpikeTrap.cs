@@ -30,13 +30,10 @@ public class SpikeTrap : MonoBehaviour
         onSpikeTimer = onSpikeDamageTimer;
 
         instanceSet = FMODUnity.RuntimeManager.CreateInstance(spikeSetAudio);
-        Debug.Log("Instance Set Created: " + instanceSet.isValid()); // Log if instance is valid
 
         instanceAttack = FMODUnity.RuntimeManager.CreateInstance(spikeAttackAudio);
-        Debug.Log("Instance Attack Created: " + instanceAttack.isValid());
 
         instanceContract = FMODUnity.RuntimeManager.CreateInstance(spikeContractAudio);
-        Debug.Log("Instance Contract Created: " + instanceContract.isValid());
 
     }
 

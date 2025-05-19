@@ -8,7 +8,7 @@ public class TreeSway : MonoBehaviour
     private Ball ball;
     private float timer;
     private float rand;
-    private float swayRange = 100f;
+    private float swayRange = 25f;
     private bool isSwaying;
     public Animator leavesAnim;
     public Animator trunkAnim;

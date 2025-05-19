@@ -62,11 +62,13 @@ public class Ball : MonoBehaviour
     public bool isTraveling;
     bool isAiming;
     bool hasShot;
-    bool hasClickedBall;
+    
     int numPoints = 50;
     float timeStep = .05f;
+    public bool hasClickedBall;
     public bool canPutt;
     public bool isPuttCooldown;
+    public bool isTeleportReady;
     private bool isMouseButton1Held;
     public bool isBurst;
     private bool takingDamage;
@@ -166,7 +168,7 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !camController.isViewMode)
+        if (Input.GetMouseButtonDown(0) && !camController.isViewMode)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -193,7 +195,7 @@ public class Ball : MonoBehaviour
        
         ClickEnemy();
         
-        isMouseButton1Held = Input.GetMouseButton(0) || Input.GetMouseButton(1);
+        isMouseButton1Held = Input.GetMouseButton(0);
         
         
 
@@ -212,13 +214,14 @@ public class Ball : MonoBehaviour
         {
             objectSelected.onDeselect();
         }
+        bool isSelectable = true;
         if (component != null && (Selectable)component != objectSelected)
         {
-            ((Selectable)component).onSelect();
+            isSelectable = ((Selectable)component).onSelect();
             newSelected = component;
         }
 
-        if (newSelected == null || newSelected is not Selectable) {
+        if (newSelected == null || newSelected is not Selectable || !isSelectable) {
 
             objectSelected = null;
             camController.cam.Follow = this.transform;
@@ -437,6 +440,12 @@ public class Ball : MonoBehaviour
                 hasClickedBall = true;
                 break;
             }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            hasClickedBall = false;
+            cursor.GetComponent<SpriteRenderer>().enabled = false;
+            return;
         }
         if (hasClickedBall)
         {

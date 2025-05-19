@@ -14,6 +14,20 @@ public class SettingsManager : MonoBehaviour
     }
     private void Update()
     {
+
+        if (ball.isTeleportReady)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
+                if (soundMenuCanvas.enabled)
+                {
+                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                }
+            }
+            return;
+        }
+
         if (ball != null && ball.isTraveling)
         {
             if (Input.GetKeyDown(KeyCode.Escape))

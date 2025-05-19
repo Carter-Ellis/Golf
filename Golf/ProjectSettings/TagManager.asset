@@ -18,6 +18,7 @@ TagManager:
   - BallMarker
   - Item
   - Cosmetic
+  - Background
   layers:
   - Default
   - TransparentFX

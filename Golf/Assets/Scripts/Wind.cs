@@ -12,13 +12,14 @@ public class Wind : MonoBehaviour
     private ParticleSystem particleSys;
     private ParticleSystem.VelocityOverLifetimeModule velocityModule;
     private ParticleSystem.MainModule mainModule;
-    private float travelDist;
+    [SerializeField] private float particleLifetime = .5f;
+    private ParticleSystem.EmissionModule emissionModule;
+    [SerializeField] private float particlesPerSecond = 300f;
     void Start()
     {
         ball = FindObjectOfType<Ball>();
         particleSys = transform.GetChild(0).GetComponent<ParticleSystem>();
         boxCollider = GetComponent<BoxCollider2D>();
-        travelDist = boxCollider.size.x > boxCollider.size.y ? boxCollider.size.x : boxCollider.size.y;  
         mainModule = particleSys.main;
         velocityModule = particleSys.velocityOverLifetime;
 
@@ -28,14 +29,12 @@ public class Wind : MonoBehaviour
     {
         float rad = Mathf.Deg2Rad * transform.rotation.eulerAngles.z;
         Vector2 direction = (new Vector2((float)Mathf.Cos(rad), (float)Mathf.Sin(rad))).normalized;
-        float lifetime = travelDist / (blowingPower * 100);
-        float particleLife = lifetime;
       
-        mainModule.startLifetime = particleLife;
-        
-        
-        
-        
+        mainModule.startLifetime = particleLifetime;
+
+        emissionModule = particleSys.emission;
+        emissionModule.rateOverTime = particlesPerSecond;
+
         velocityModule.speedModifier = blowingPower * 20f;
         
         if (isBlowing && obj != null)

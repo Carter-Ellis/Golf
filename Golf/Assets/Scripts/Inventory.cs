@@ -29,8 +29,8 @@ public class Inventory : MonoBehaviour
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
-
     public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
+    public Dictionary<int, bool> levelsCompleted = new Dictionary<int, bool>();
 
     public Dictionary<ABILITIES, int> maxChargesByType = new Dictionary<ABILITIES, int>()
     {
@@ -102,10 +102,6 @@ public class Inventory : MonoBehaviour
         new Vector2(.064f,.375f),
     };
 
-    public Inventory()
-    {
-        unlockedAbilities = new List<Ability>();
-    }
     private void Start()
     {
         popupController = FindObjectOfType<PopupController>();
@@ -118,6 +114,7 @@ public class Inventory : MonoBehaviour
         PopulateShop();
         PopulateCharges();
         DisplayHat();
+
         SavePlayer();
     }
 
@@ -355,6 +352,25 @@ public class Inventory : MonoBehaviour
         hat = data.hat;
         hatColor = data.hatColor.ToColor();
         hatType = data.hatType;
+
+        unlockedAbilities = new List<Ability>();
+        foreach (var type in data.unlockedAbilityTypes)
+        {
+            if (indexOfAbility >= data.unlockedAbilityTypes.Count)
+            { 
+                break;
+            }
+
+            int maxCharges = data.maxChargesList.FirstOrDefault(c => c.ability == type).charges;
+            unlockedAbilities.Add(Ability.Create(type, Color.white));
+            Ability.SetMaxCharges(type, maxCharges);
+            unlockedAbilities[indexOfAbility].setCharges(maxCharges);
+            indexOfAbility++;
+        }
+        indexOfAbility = 0;
+
+        levelsCompleted = data.levelsCompleted;
+
     }
 
     public void ErasePlayerData()
@@ -372,6 +388,21 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && unlockedAbilities.Count > 0)
+        {
+            unlockedAbilities[indexOfAbility].onUse(ball);
+        }
+        if (unlockedAbilities.Count > 0)
+        {
+            unlockedAbilities[indexOfAbility].onFrame(ball);
+        }
+
+
+        if (ball.isTeleportReady)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].reset(ball);
@@ -383,15 +414,7 @@ public class Inventory : MonoBehaviour
             indexOfAbility = (unlockedAbilities.Count - 1 + indexOfAbility) % unlockedAbilities.Count;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && unlockedAbilities.Count > 0)
-        {
-            unlockedAbilities[indexOfAbility].onUse(ball);
-        }
-        if (unlockedAbilities.Count > 0)
-        {
-            unlockedAbilities[indexOfAbility].onFrame(ball);
-        }
-    }
+    }   
 
     private void DisplayAbility()
     {
@@ -399,7 +422,7 @@ public class Inventory : MonoBehaviour
         {
             return;
         }
-        if (unlockedAbilities.Count > 0)
+        if (unlockedAbilities.Count > 0 && selectedAbilityTxt != null && abilityImage != null)
         {
             selectedAbilityTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
             selectedAbilityTxt.color = unlockedAbilities[indexOfAbility].color;
@@ -416,6 +439,11 @@ public class Inventory : MonoBehaviour
         if (ability == null)
         {
             return;
+        }
+
+        if (unlockedAbilities == null)
+        {
+            unlockedAbilities = new List<Ability>();
         }
 
         foreach (Ability abil in unlockedAbilities)

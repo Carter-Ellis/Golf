@@ -14,18 +14,21 @@ public class AbilityFloatAndShine : MonoBehaviour
     private Animator animator;
     public bool hasShine;
     public string shineAnimName;
-    private bool activated;
-    void Start()
+
+    private void Awake()
     {
         startPos = transform.position.y;
-        animator = GetComponent<Animator>();
+    }
 
+    void Start()
+    {
+        
+        animator = GetComponent<Animator>();
         StartCoroutine(MoveUp());
     }
 
     private void OnEnable()
     {
-        startPos = transform.position.y;
         animator = GetComponent<Animator>();
 
         StartCoroutine(MoveUp());

@@ -1,5 +1,5 @@
 public interface Selectable
 {
-    public void onSelect();
+    public bool onSelect();
     public void onDeselect();
 }

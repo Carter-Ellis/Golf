@@ -354,6 +354,7 @@ MonoBehaviour:
   abilitySprites:
   - {fileID: 21300000, guid: 71c933dc9492c9f49a9cb5eec0f796d0, type: 3}
   - {fileID: -1475067724, guid: 83db8de336be4dd45a6637043bc302de, type: 3}
+  - {fileID: -1961607951, guid: 7003202fad35fc348b656a13a9708087, type: 3}
   upgrades: {fileID: 0}
   hatPos: {fileID: 7883308830938036564}
   hat: {fileID: 0}
@@ -496,8 +497,10 @@ MonoBehaviour:
   isBattleMode: 0
   isBallLocked: 0
   isTraveling: 0
+  hasClickedBall: 0
   canPutt: 0
   isPuttCooldown: 0
+  isTeleportReady: 0
   isBurst: 0
   maxHitSpeed: 15
   swingCooldownTxt: {fileID: 0}

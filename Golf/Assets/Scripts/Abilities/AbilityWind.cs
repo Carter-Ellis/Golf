@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class AbilityWind : Ability
 {
     private int charges = 0;
@@ -37,6 +37,11 @@ public class AbilityWind : Ability
         {
             charges++;
         }
+    }
+
+    public override void setCharges(int amount)
+    {
+        charges = amount;
     }
 
     public override void onUse(Ball ball)
