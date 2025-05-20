@@ -619,7 +619,7 @@ MonoBehaviour:
   - {fileID: 3533057328439609738}
   StringsBanks:
   - {fileID: 1118400143526593605}
-  cacheTime: 638830406692769440
+  cacheTime: 638832663330160996
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -744,9 +744,9 @@ MonoBehaviour:
   Path: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638717733296890887
+  lastModified: 638832567746628935
   FileSizes:
-  - Name: Desktop
+  - Name: 
     Value: 2908
   Exists: 1
 --- !u!114 &1385161026115930528
@@ -846,10 +846,8 @@ MonoBehaviour:
     1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638830406692769440
-  FileSizes:
-  - Name: Desktop
-    Value: 27699488
+  lastModified: 638832663330160996
+  FileSizes: []
   Exists: 1
 --- !u!114 &2781871004732926462
 MonoBehaviour:
@@ -949,10 +947,8 @@ MonoBehaviour:
   Path: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638717733296870934
-  FileSizes:
-  - Name: Desktop
-    Value: 1672
+  lastModified: 638832567746597082
+  FileSizes: []
   Exists: 1
 --- !u!114 &3691960937131047237
 MonoBehaviour:
@@ -996,10 +992,8 @@ MonoBehaviour:
   Path: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638717756142840508
-  FileSizes:
-  - Name: Desktop
-    Value: 926912
+  lastModified: 638832567749570268
+  FileSizes: []
   Exists: 1
 --- !u!114 &5944229386815654179
 MonoBehaviour:

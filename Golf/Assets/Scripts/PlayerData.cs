@@ -30,6 +30,9 @@ public class PlayerData
     public Hat.TYPE hatType;
 
     public SerializableColor hatColor;
+    public SerializableColor ballColor;
+
+    public bool isColorUnlocked;
 
     [System.Serializable]
     public struct AbilityChargeData
@@ -70,6 +73,8 @@ public class PlayerData
 
         levelsCompleted = inv.levelsCompleted;
 
+        ballColor = new SerializableColor(inv.ballColor);
+        isColorUnlocked = inv.isColorUnlocked;
     }
 
     public void RestoreHatSprite()

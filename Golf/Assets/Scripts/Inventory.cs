@@ -80,6 +80,8 @@ public class Inventory : MonoBehaviour
     public string hatName;
     public Color hatColor;
     public Hat.TYPE hatType;
+    public Color ballColor;
+    public bool isColorUnlocked;
 
     private Vector2[] hatPositions = new Vector2[]
     {
@@ -113,13 +115,15 @@ public class Inventory : MonoBehaviour
         clearPopups();
         PopulateShop();
         PopulateCharges();
-        DisplayHat();
+        DisplayCosmetics();
 
         SavePlayer();
     }
 
-    private void DisplayHat()
+    private void DisplayCosmetics()
     {
+        ball.GetComponent<SpriteRenderer>().color = ballColor;
+
         if (hatPos == null) { return; }
         
         SpriteRenderer sr = hatPos.GetComponent<SpriteRenderer>();
@@ -371,6 +375,8 @@ public class Inventory : MonoBehaviour
 
         levelsCompleted = data.levelsCompleted;
 
+        ballColor = data.ballColor.ToColor();
+        isColorUnlocked = data.isColorUnlocked;
     }
 
     public void ErasePlayerData()

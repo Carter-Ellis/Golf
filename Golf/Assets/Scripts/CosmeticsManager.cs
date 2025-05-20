@@ -8,16 +8,21 @@ public class CosmeticsManager : MonoBehaviour
 {
 
     [SerializeField] private Image hatImage;
+    [SerializeField] private Image ballImage;
     [SerializeField] private Image _lock;
+    [SerializeField] private Image ballLock;
     [SerializeField] private Image hatMirror;
     [SerializeField] private Color[] colors;
     [SerializeField] private Image colorCircle;
+    [SerializeField] private Image colorBallCircle;
     [SerializeField] private GameObject equipButton;
     [SerializeField] private GameObject unequipButton;
+
     public bool isEquipped;
     private Hat.TYPE type;
     private Inventory inv;
     private int colorIndex;
+    private int colorBallIndex;
     private Vector2[] mirrorPos = new Vector2[]
     {
         new Vector2(-15,-11),
@@ -64,9 +69,18 @@ public class CosmeticsManager : MonoBehaviour
                 break;
             }
         }
+        for (int i = 1; i < colors.Length; i++)
+        {
+            if (inv.ballColor == colors[i])
+            {
+                colorBallIndex = i;
+                break;
+            }
+        }
 
         changeHat(0);
         changeColor(0);
+        changeBallColor(0);
         if (isEquipped)
         {
             Equip();
@@ -106,7 +120,7 @@ public class CosmeticsManager : MonoBehaviour
         if (amount == 0) { return; }
         
 
-        if (hatImage.sprite == inv.hat && colors[colorIndex] == inv.hatColor)
+        if (hatImage.sprite == inv.hat && colors[colorIndex] == inv.hatColor && colors[colorBallIndex] == inv.ballColor)
         {
             equipButton.SetActive(false);
             unequipButton.SetActive(true);
@@ -120,7 +134,7 @@ public class CosmeticsManager : MonoBehaviour
         }
 
         //Check if locked
-        if (!_lock.enabled)
+        if (!ballLock.enabled && !_lock.enabled)
         {
             equipButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
         }
@@ -156,7 +170,7 @@ public class CosmeticsManager : MonoBehaviour
             unequipButton.SetActive(false);
             isEquipped = false;
         }
-        else if (hatImage.sprite == inv.hat && colors[colorIndex] == inv.hatColor)
+        else if (hatImage.sprite == inv.hat && colors[colorIndex] == inv.hatColor && colors[colorBallIndex] == inv.ballColor)
         {
             equipButton.SetActive(false);
             unequipButton.SetActive(true);
@@ -164,6 +178,58 @@ public class CosmeticsManager : MonoBehaviour
         }
 
         
+    }
+
+    private void changeBallColor(int amount)
+    {
+        if (colors.Length <= 0) { Debug.Log("No colors found."); return; }
+
+        colorBallIndex += amount;
+        if (colorBallIndex >= colors.Length)
+        {
+            colorBallIndex = 0;
+        }
+        if (colorBallIndex < 0)
+        {
+            colorBallIndex = colors.Length - 1;
+        }
+
+        ballImage.color = colors[colorBallIndex];
+        colorBallCircle.color = colors[colorBallIndex];
+
+        if (inv.isColorUnlocked || colors[colorBallIndex] == Color.white)
+        {
+            ballLock.enabled = false;
+        }
+        else
+        {
+            ballLock.enabled = true;
+        }
+
+        if (amount == 0) { return; }
+
+        if (colors[colorBallIndex] != inv.ballColor)
+        {
+            equipButton.SetActive(true);
+            unequipButton.SetActive(false);
+            isEquipped = false;
+        }
+        else if (hatImage.sprite == inv.hat && colors[colorIndex] == inv.hatColor && colors[colorBallIndex] == inv.ballColor)
+        {
+            equipButton.SetActive(false);
+            unequipButton.SetActive(true);
+            isEquipped = true;
+        }
+
+        if (!ballLock.enabled && !_lock.enabled)
+        {
+            equipButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+        }
+        else
+        {
+            equipButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
+        }
+
     }
 
     private void adjustHatPos(Hat.TYPE type, RectTransform rect)
@@ -180,6 +246,15 @@ public class CosmeticsManager : MonoBehaviour
         {
             rect.anchoredPosition = new Vector2(589.7999f, 10.89994f);
         }
+    }
+
+    public void BallColorRight()
+    {
+        changeBallColor(1);
+    }
+    public void BallColorLeft()
+    {
+        changeBallColor(-1);
     }
 
     public void GoColorRight()
@@ -205,6 +280,7 @@ public class CosmeticsManager : MonoBehaviour
     {
         inv.hat = hatImage.sprite;
         inv.hatColor = colors[colorIndex];
+        inv.ballColor = colors[colorBallIndex];
         inv.hatType = type;
         if (hatImage.sprite != null)
         {
@@ -231,6 +307,7 @@ public class CosmeticsManager : MonoBehaviour
     {
         inv.hat = null;
         inv.hatColor = Color.white;
+        inv.ballColor = Color.white;
         inv.hatName = "";
         inv.hatType = Hat.TYPE.NONE;
         equipButton.SetActive(true);
@@ -238,7 +315,7 @@ public class CosmeticsManager : MonoBehaviour
 
         hatMirror.sprite = null;
         hatMirror.color = Color.clear;
-
+        ballImage.color = Color.white;
 
 
         inv.SavePlayer();
