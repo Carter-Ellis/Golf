@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Hole : MonoBehaviour
 {
     Ball ball;
+    Inventory inv;
     CameraController camController;
     public int par = 4;
     public float ballOverHoleSpeed = 10f;
@@ -32,9 +33,12 @@ public class Hole : MonoBehaviour
     [SerializeField] private TextMeshProUGUI strokesTxt;
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
+    [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
+    private int[] costs = { 2, 5, 8, 12 };
     private void Awake()
     {
         ball = GameObject.FindObjectOfType<Ball>();
+        inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         if (signTxt != null)
@@ -107,7 +111,26 @@ public class Hole : MonoBehaviour
             animator.SetBool("Won", true);
             ball.gameObject.SetActive(false);
             inHole = false;
-            
+            for (int i = 0; i < 3; i++)
+            {
+                upgradeAvailableTxt.enabled = false;
+                int level = 0;
+                if (inv.upgradeLevels.ContainsKey(i))
+                {
+                    level = inv.upgradeLevels[i];
+                }
+
+                if (inv.coins >= costs[level])
+                {
+                    upgradeAvailableTxt.enabled = true;
+                }
+                if (upgradeAvailableTxt.enabled)
+                {
+                    break;
+                }
+
+            }
+
         }
         else
         {
@@ -146,10 +169,10 @@ public class Hole : MonoBehaviour
 
             if (ball.strokes <= par)
             {
-                winTxt.fontSize = 80;
+                winTxt.fontSize = 90;
                 winTxt.text = "YOU WIN!";
             }
-            else if (!ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(SceneManager.GetActiveScene().buildIndex) || ball.GetComponent<Inventory>().levelsCompleted[SceneManager.GetActiveScene().buildIndex])
+            else if (ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(SceneManager.GetActiveScene().buildIndex) && ball.GetComponent<Inventory>().levelsCompleted[SceneManager.GetActiveScene().buildIndex])
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;

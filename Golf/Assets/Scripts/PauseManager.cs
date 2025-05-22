@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI holeNumberTxt;
     [SerializeField] private TextMeshProUGUI parTxt;
     [SerializeField] private TextMeshProUGUI strokesTxt;
+    [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
+    private int[] costs = { 2, 5, 8, 12 };
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
@@ -37,6 +40,26 @@ public class PauseManager : MonoBehaviour
 
     public void UpdatePauseMenu()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            upgradeAvailableTxt.enabled = false;
+            int level = 0;
+            if (inv.upgradeLevels.ContainsKey(i))
+            {
+                level = inv.upgradeLevels[i];
+            }
+
+            if (inv.coins >= costs[level])
+            {
+                upgradeAvailableTxt.enabled = true;
+            }
+            if (upgradeAvailableTxt.enabled)
+            {
+                break;
+            }
+            
+        }
+
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
         if (inv.coinsCollected != null && inv.coinsCollected.ContainsKey(currentLevel))
         {

@@ -51,9 +51,19 @@ public class UpgradeButton : MonoBehaviour
             inv.coins -= cost;
             progressSquares[upgradeLevel].sprite = purchasedSquare;
             upgradeLevel++;
-
             inv.upgradeLevels[transform.GetSiblingIndex()] = upgradeLevel;
-            inv.maxChargesByType[(ABILITIES)transform.GetSiblingIndex()]++;
+
+            if ((ABILITIES)transform.GetSiblingIndex() == ABILITIES.TELEPORT)
+            {
+                inv.teleportRange += 2;
+                print("SETTING TELEPORT RANGE");
+            }
+            else
+            {
+                inv.maxChargesByType[(ABILITIES)transform.GetSiblingIndex()]++;
+            }
+            
+
             inv.SavePlayer();
         }
     }

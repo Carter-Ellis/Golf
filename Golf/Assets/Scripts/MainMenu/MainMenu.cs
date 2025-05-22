@@ -7,7 +7,6 @@ public class MainMenu : MonoBehaviour
 {
     public Canvas soundMenuCanvas;
     public Canvas mainMenu;
-    public GameObject title;
     public bool isActive = true;
     public void PlayGame()
     {
@@ -24,7 +23,6 @@ public class MainMenu : MonoBehaviour
         Ball ball = FindObjectOfType<Ball>();
         mainMenu.enabled = !mainMenu.enabled;
         isActive = !isActive;
-        title.SetActive(isActive);
         soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
         if (ball != null)
         {

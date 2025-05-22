@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BehindTree : MonoBehaviour
 {
-    private Ball ball;
     private SpriteRenderer trunkSr;
     private SpriteRenderer leavesSr;
     private float fadingSpeed = 0.05f;
@@ -23,7 +22,6 @@ public class BehindTree : MonoBehaviour
             return;
         }
         gameObject.SetActive(true);
-        ball = GameObject.FindObjectOfType<Ball>();
         leavesColor = transform.parent.GetChild(0).GetComponent<SpriteRenderer>().color;
         trunkColor = transform.parent.GetChild(1).GetComponent<SpriteRenderer>().color;
         leaves = transform.parent.GetChild(0).gameObject;
@@ -74,6 +72,7 @@ public class BehindTree : MonoBehaviour
             StartCoroutine(FadeToTransparent());
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject != null && collision.gameObject.tag == "Ball")

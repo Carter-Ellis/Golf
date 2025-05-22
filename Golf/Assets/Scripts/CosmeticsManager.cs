@@ -176,7 +176,6 @@ public class CosmeticsManager : MonoBehaviour
             unequipButton.SetActive(true);
             isEquipped = true;
         }
-
         
     }
 
@@ -203,7 +202,7 @@ public class CosmeticsManager : MonoBehaviour
         }
         else
         {
-            ballLock.enabled = true;
+            ballLock.enabled = false;
         }
 
         if (amount == 0) { return; }

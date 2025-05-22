@@ -41,6 +41,8 @@ public class PlayerData
         public int charges;
     }
 
+    public float teleportRange;
+
     public PlayerData(Inventory inv)
     {
         coins = inv.coins;
@@ -75,6 +77,8 @@ public class PlayerData
 
         ballColor = new SerializableColor(inv.ballColor);
         isColorUnlocked = inv.isColorUnlocked;
+
+        teleportRange = inv.teleportRange;
     }
 
     public void RestoreHatSprite()

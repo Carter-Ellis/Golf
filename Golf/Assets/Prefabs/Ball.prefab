@@ -361,6 +361,8 @@ MonoBehaviour:
   hatName: 
   hatColor: {r: 0, g: 0, b: 0, a: 0}
   hatType: 0
+  ballColor: {r: 0, g: 0, b: 0, a: 0}
+  isColorUnlocked: 0
 --- !u!114 &6036834513385240820
 MonoBehaviour:
   m_ObjectHideFlags: 0

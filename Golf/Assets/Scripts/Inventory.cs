@@ -5,8 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
-using Unity.VisualScripting;
 
 public class Inventory : MonoBehaviour
 {
@@ -73,6 +71,7 @@ public class Inventory : MonoBehaviour
 
     [Header("Upgrades")]
     [SerializeField] private GameObject upgrades;
+    public float teleportRange;
 
     [Header("Cosmetics")]
     [SerializeField] GameObject hatPos;
@@ -122,6 +121,10 @@ public class Inventory : MonoBehaviour
 
     private void DisplayCosmetics()
     {
+        if (ballColor.a < 1f)
+        {
+            ballColor = Color.white;
+        }
         ball.GetComponent<SpriteRenderer>().color = ballColor;
 
         if (hatPos == null) { return; }
@@ -168,6 +171,7 @@ public class Inventory : MonoBehaviour
     private void PopulateCharges()
     {
         Ability.maxChargesByType = maxChargesByType;
+
     }
 
     private void PopulateShop()
@@ -180,6 +184,7 @@ public class Inventory : MonoBehaviour
             int index = upgrade.transform.GetSiblingIndex();
             if (!upgradeLevels.ContainsKey(index)) continue;
             upgrade.upgradeLevel = upgradeLevels[upgrade.transform.GetSiblingIndex()];
+
             int count = 0;
             foreach (Image image in upgrade.progressSquares)
             {
@@ -357,6 +362,8 @@ public class Inventory : MonoBehaviour
         hatColor = data.hatColor.ToColor();
         hatType = data.hatType;
 
+        teleportRange = data.teleportRange;
+
         unlockedAbilities = new List<Ability>();
         foreach (var type in data.unlockedAbilityTypes)
         {
@@ -366,9 +373,10 @@ public class Inventory : MonoBehaviour
             }
 
             int maxCharges = data.maxChargesList.FirstOrDefault(c => c.ability == type).charges;
-            unlockedAbilities.Add(Ability.Create(type, Color.white));
             Ability.SetMaxCharges(type, maxCharges);
-            unlockedAbilities[indexOfAbility].setCharges(maxCharges);
+            Ability ability = Ability.Create(type, Color.white);
+            ability.onPickup(ball);
+            unlockedAbilities.Add(ability);
             indexOfAbility++;
         }
         indexOfAbility = 0;
@@ -377,6 +385,7 @@ public class Inventory : MonoBehaviour
 
         ballColor = data.ballColor.ToColor();
         isColorUnlocked = data.isColorUnlocked;
+
     }
 
     public void ErasePlayerData()
@@ -393,7 +402,7 @@ public class Inventory : MonoBehaviour
         {
             return;
         }
-
+        
         if (Input.GetKeyDown(KeyCode.Space) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].onUse(ball);

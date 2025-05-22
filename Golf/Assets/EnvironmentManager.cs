@@ -7,13 +7,14 @@ public class EnvironmentManager : MonoBehaviour
 {
     [SerializeField] private GameObject goose;
     [SerializeField] private BoxCollider2D gooseSpawn;
-    [SerializeField] private int minTime = 1;
-    [SerializeField] private int maxTime = 3;
+    [SerializeField] private int minTime = 20;
+    [SerializeField] private int maxTime = 60;
+    [SerializeField] private float flySpeed = 6;
     private int numGeese;
     private float timer;
+
     void Start()
     {
-        numGeese = Random.Range(4, 12);
         ResetTimer();
     }
 
@@ -30,19 +31,25 @@ public class EnvironmentManager : MonoBehaviour
     private void ResetTimer()
     {
         timer = Random.Range(minTime, maxTime);
+        numGeese = Random.Range(4, 12);
     }
 
     private void spawnGeese()
     {
         if (goose == null) { return; }
+        GameObject geeseGroup = new GameObject();
+        geeseGroup.transform.position = gooseSpawn.bounds.center;
+        Rigidbody2D rbody = geeseGroup.AddComponent<Rigidbody2D>();
+        rbody.isKinematic = true;
+
         for (int i = 0; i <  numGeese; i++)
         {
-            GameObject obj = Instantiate(goose, gooseSpawn.transform.position, Quaternion.identity);
-            obj.transform.position = GetRandomPointInBox();
-            obj.GetComponent<Rigidbody2D>().velocity = new Vector2(goose.GetComponent<Goose>().flySpeed, 0);
-            Destroy(obj, 30f);
+            GameObject obj = Instantiate(goose, GetRandomPointInBox(), Quaternion.identity);
+            obj.transform.SetParent(geeseGroup.transform, true);
         }
-        
+
+        rbody.velocity = new Vector2(flySpeed, 0);
+        Destroy(geeseGroup, 30f);
         
     }
     Vector3 GetRandomPointInBox()

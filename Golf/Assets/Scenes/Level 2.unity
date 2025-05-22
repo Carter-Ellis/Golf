@@ -9792,6 +9792,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pop Up
       objectReference: {fileID: 0}
+    - target: {fileID: 1658540748854498916, guid: d696248c3c439b94eb4262b9ed034c5d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4084914483813502852, guid: d696248c3c439b94eb4262b9ed034c5d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16172,6 +16176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map UI
       objectReference: {fileID: 0}
+    - target: {fileID: 2788060981879349140, guid: 9e552b4f2d9465f4798131896ea3c176, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6095339528716864658, guid: 9e552b4f2d9465f4798131896ea3c176, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16815,6 +16823,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 41919338586287056, guid: 95824b9da22649040ad60485d60e1389, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 61972718, guid: df9ccb8f60824ec4ea7805907fc0982d, type: 3}
     - target: {fileID: 1136441484732548064, guid: 95824b9da22649040ad60485d60e1389, type: 3}
       propertyPath: m_Name
       value: SoundMenuInGame
@@ -59920,6 +59932,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 470649940818698795, guid: 78691b3cc20601c4c8959d2a4dc156d8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 61972718, guid: df9ccb8f60824ec4ea7805907fc0982d, type: 3}
     - target: {fileID: 5287679864443128320, guid: 78691b3cc20601c4c8959d2a4dc156d8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -60244,6 +60260,10 @@ PrefabInstance:
     - target: {fileID: 1828537722854930782, guid: 4e80db439957b6d4b9b5a734abe71b04, type: 3}
       propertyPath: m_Name
       value: User Interface
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828537722854930782, guid: 4e80db439957b6d4b9b5a734abe71b04, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6892768821138172048, guid: 4e80db439957b6d4b9b5a734abe71b04, type: 3}
       propertyPath: m_Pivot.x

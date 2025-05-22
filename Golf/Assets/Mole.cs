@@ -22,6 +22,10 @@ public class Mole : MonoBehaviour
         {
             anim.SetBool("IsPopup", true);
             Vector3 pos = transform.position;
+            if (FindObjectOfType<Ball>() == null)
+            {
+                return;
+            }
             if (FindObjectOfType<Ball>().transform.position.y > transform.position.y)
             {
 

@@ -9,6 +9,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadShopScene()
     {
         isShopLoad = true;
+        print("YOo");
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
     }
 }

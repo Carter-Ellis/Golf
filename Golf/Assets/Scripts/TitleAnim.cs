@@ -8,6 +8,7 @@ public class TitleAnim : MonoBehaviour
     private float timer = 3f;
     private float timeThreshold = 3f;
     private bool isShining;
+    [SerializeField] private GameObject mainMenu;
     void Start()
     {
         isShining = false;
@@ -18,8 +19,6 @@ public class TitleAnim : MonoBehaviour
     }
     void Update()
     {
-        
-        
         timer += Time.deltaTime;
         
         if (timer > timeThreshold && !isShining)
