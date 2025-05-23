@@ -13,6 +13,7 @@ public class AbilityWind : Ability
         name = "Wind";
         chargeName = "Air Bags";
         description = "Harness a powerful gust to significantly boost the ball's speed, propelling it forward with increased velocity";
+        upgradeDescription = "Increases Wind count by 1";
         this.color = color;
     }
 

@@ -328,6 +328,7 @@ MonoBehaviour:
   indexOfAbility: 0
   currentLevel: 1
   coins: 0
+  totalCoins: 0
   maxAbilities: 3
   abilityCount: 0
   masterVol: 1
@@ -356,6 +357,7 @@ MonoBehaviour:
   - {fileID: -1475067724, guid: 83db8de336be4dd45a6637043bc302de, type: 3}
   - {fileID: -1961607951, guid: 7003202fad35fc348b656a13a9708087, type: 3}
   upgrades: {fileID: 0}
+  teleportRange: 0
   hatPos: {fileID: 7883308830938036564}
   hat: {fileID: 0}
   hatName: 
@@ -403,7 +405,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -993,7 +995,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

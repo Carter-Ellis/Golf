@@ -1077,6 +1077,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeType: 0
+  volumeSlider: {fileID: 0}
+  isInitializing: 0
 --- !u!1 &383382199
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,7 +2214,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2932,7 +2934,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3585,6 +3587,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeType: 3
+  volumeSlider: {fileID: 0}
+  isInitializing: 0
 --- !u!1 &1206030271
 GameObject:
   m_ObjectHideFlags: 0
@@ -4104,6 +4108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeType: 2
+  volumeSlider: {fileID: 0}
+  isInitializing: 0
 --- !u!1 &1348380420
 GameObject:
   m_ObjectHideFlags: 0
@@ -4399,7 +4405,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4855,12 +4861,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indexOfAbility: 0
+  currentLevel: 1
   coins: 200
+  totalCoins: 0
   maxAbilities: 3
   abilityCount: 0
+  masterVol: 1
+  musicVol: 1
+  SFXVol: 1
+  ambienceVol: 1
+  zoom: 5
+  heightLevels: 00000000010000000200000003000000
+  currentHeight: 0
+  coin1: {fileID: 0}
+  coin2: {fileID: 0}
+  coin3: {fileID: 0}
+  redCoinCount: 0
+  coin1Menu: {fileID: 0}
+  coin2Menu: {fileID: 0}
+  coin3Menu: {fileID: 0}
+  coinCollectedSprite: {fileID: 0}
+  coinSprite: {fileID: 0}
   selectedAbilityTxt: {fileID: 1348380422}
   abilityChargesTxt: {fileID: 1681841691}
   coinTxt: {fileID: 101499632}
+  strokeTxt: {fileID: 0}
+  abilityImage: {fileID: 0}
+  abilitySprites: []
+  upgrades: {fileID: 0}
+  teleportRange: 3
+  hatPos: {fileID: 0}
+  hat: {fileID: 0}
+  hatName: 
+  hatColor: {r: 0, g: 0, b: 0, a: 0}
+  hatType: 0
+  ballColor: {r: 0, g: 0, b: 0, a: 0}
+  isColorUnlocked: 0
 --- !u!1 &1548445137
 GameObject:
   m_ObjectHideFlags: 0
@@ -4914,7 +4950,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5493,7 +5529,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5709,7 +5745,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6416,6 +6452,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeType: 1
+  volumeSlider: {fileID: 0}
+  isInitializing: 0
 --- !u!4 &2104041748
 Transform:
   m_ObjectHideFlags: 0

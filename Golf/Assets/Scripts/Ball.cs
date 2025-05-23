@@ -404,6 +404,16 @@ public class Ball : MonoBehaviour
             }
             AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
         }
+        else if (collision.gameObject.tag == "Wood")
+        {
+            wallHits++;
+            float volume = rb.velocity.magnitude / 10;
+            if (volume > maxSFXVolume)
+            {
+                volume = maxSFXVolume;
+            }
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.woodHit, transform.position);
+        }
     }
 
     

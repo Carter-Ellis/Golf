@@ -160,6 +160,7 @@ public class Hole : MonoBehaviour
                 if (!inv.coinsCollected[currentLevel].Contains(3))
                 {
                     inv.coins += 1;
+                    inv.totalCoins += 1;
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
                 }
                 inv.coinsCollected[currentLevel].Add(3);

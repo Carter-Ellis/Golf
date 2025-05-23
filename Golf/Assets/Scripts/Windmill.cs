@@ -9,6 +9,7 @@ public class Windmill : MonoBehaviour
     void Start()
     {
         blades = transform.GetChild(0);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.windmill, transform.position);
     }
 
     void Update()

@@ -15,6 +15,7 @@ public class AbilityBurst : Ability
         name = "Burst";
         chargeName = "Shotgun Shells";
         description = "Unleash a rapid volley of high-velocity projectiles to swiftly attack and overwhelm enemies";
+        upgradeDescription = "Something.";
         this.color = color;
     }
 

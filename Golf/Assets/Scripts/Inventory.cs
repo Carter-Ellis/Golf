@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour
 
     public int currentLevel = 1;
     public int coins;
+    public int totalCoins;
     public int maxAbilities = 3;
     public int abilityCount = 0;
 
@@ -71,7 +72,7 @@ public class Inventory : MonoBehaviour
 
     [Header("Upgrades")]
     [SerializeField] private GameObject upgrades;
-    public float teleportRange;
+    public float teleportRange = 3f;
 
     [Header("Cosmetics")]
     [SerializeField] GameObject hatPos;
@@ -313,6 +314,7 @@ public class Inventory : MonoBehaviour
         }
 
         coins = data.coins;
+        totalCoins = data.totalCoins;
         currentLevel = data.currentLevel;
 
         foreach (VolumeSlider slider in FindObjectsOfType<VolumeSlider>())
@@ -362,6 +364,10 @@ public class Inventory : MonoBehaviour
         hatColor = data.hatColor.ToColor();
         hatType = data.hatType;
 
+        if (data.teleportRange == 0)
+        {
+            data.teleportRange = teleportRange;
+        }
         teleportRange = data.teleportRange;
 
         unlockedAbilities = new List<Ability>();

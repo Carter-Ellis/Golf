@@ -20,6 +20,7 @@ public abstract class Ability
     public string name;
     public string chargeName;
     public string description;
+    public string upgradeDescription;
     [SerializeField] public Color color;
 
     public static Dictionary<ABILITIES, int> maxChargesByType = new Dictionary<ABILITIES, int>()
@@ -72,6 +73,17 @@ public abstract class Ability
             case ABILITIES.WIND: return "Harness a powerful gust to significantly boost the ball's speed, propelling it forward with increased velocity";
             case ABILITIES.TELEPORT: return "Instantly transport the ball from one location to another for quick repositioning";
             case ABILITIES.BURST: return "Unleash a rapid volley of high-velocity projectiles to swiftly attack and overwhelm enemies";
+            default: return "";
+        }
+    }
+    public static string GetUpgradeDescription(ABILITIES type)
+    {
+        switch (type)
+        {
+            case ABILITIES.FREEZE: return "Gain +1 Freeze.";
+            case ABILITIES.WIND: return "Gain +1 Wind.";
+            case ABILITIES.TELEPORT: return "Increases Teleport range.";
+            case ABILITIES.BURST: return "Something";
             default: return "";
         }
     }

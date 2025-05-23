@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,10 +10,17 @@ public class LevelMenu : MonoBehaviour
     public UnityEngine.UI.Button[] buttons;
     public GameObject levelButtons;
     private Inventory inv;
+    [SerializeField] private TextMeshProUGUI totalCoinsTxt;
+    private int totalCoins;
     private void Start()
     {
         inv = FindObjectOfType<Ball>().GetComponent<Inventory>();
     }
+    private void Update()
+    {
+        totalCoinsTxt.text = inv.totalCoins + "/" + totalCoins;
+    }
+
     private void Awake()
     {
         ButtonsToArray();
@@ -44,6 +52,8 @@ public class LevelMenu : MonoBehaviour
         {
             buttons[i] = levelButtons.transform.GetChild(i).gameObject.GetComponent<UnityEngine.UI.Button>();
         }
+        totalCoins = buttons.Length * 3;
+        
     }
 
 }

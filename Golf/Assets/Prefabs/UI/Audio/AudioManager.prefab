@@ -325,3 +325,24 @@ MonoBehaviour:
       Data3: -827859839
       Data4: 1630205069
     Path: event:/SFX/map open sound
+  <geese>k__BackingField:
+    Guid:
+      Data1: -1651347210
+      Data2: 1138895969
+      Data3: 1928685705
+      Data4: 679449779
+    Path: event:/SFX/Geese
+  <woodHit>k__BackingField:
+    Guid:
+      Data1: -617209335
+      Data2: 1076276648
+      Data3: -1128142956
+      Data4: 2081077712
+    Path: event:/SFX/WoodHit
+  <windmill>k__BackingField:
+    Guid:
+      Data1: 473957242
+      Data2: 1222559699
+      Data3: -1605817190
+      Data4: 1382095878
+    Path: event:/SFX/Windmil/Windmill

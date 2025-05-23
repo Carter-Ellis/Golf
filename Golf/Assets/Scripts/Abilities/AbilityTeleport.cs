@@ -16,6 +16,7 @@ public class AbilityTeleport : Ability
         name = "Teleport";
         chargeName = "Tele Orbs";
         description = "Instantly transport the ball from one location to another for quick repositioning";
+        upgradeDescription = "Increase teleport range.";
         this.color = color;
     }
 
@@ -77,7 +78,7 @@ public class AbilityTeleport : Ability
             isReady = false;
             ball.isTeleportReady = false;
             ball.isBallLocked = false;
-            if (GameObject.Find("Pause Screen").gameObject.activeSelf)
+            if (GameObject.FindObjectOfType<PauseManager>().gameObject.activeSelf)
             {
                 ball.isBallLocked = false;
             }

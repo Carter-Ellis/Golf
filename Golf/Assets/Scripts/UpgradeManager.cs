@@ -59,6 +59,15 @@ public class UpgradeManager : MonoBehaviour
             }
             else
             {
+                if (!clicked.GetComponent<UnityEngine.UI.Button>().interactable)
+                {
+                    if (buyButton.GetComponent<BuyButton>())
+                    {
+                        buyButton.GetComponent<BuyButton>().SetItemSelected(false);
+                    }
+                    return;
+                }
+
                 //Upgrade selected
                 SelectUpgrade(clicked);
                 
@@ -99,6 +108,7 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
         selectedUpgrade = obj.GetComponent<UpgradeButton>();
+        
         if (selectedUpgrade == null)
         {
             selectedUpgrade = obj.GetComponentInParent<UpgradeButton>();

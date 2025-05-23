@@ -85,6 +85,15 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Map SFX")]
     [field: SerializeField] public EventReference mapOpen { get; private set; }
+    
+    [field: Header("Geese")]
+    [field: SerializeField] public EventReference geese { get; private set; }
+
+    [field: Header("Wood Hit")]
+    [field: SerializeField] public EventReference woodHit { get; private set; }
+
+    [field: Header("Windmill")]
+    [field: SerializeField] public EventReference windmill { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 

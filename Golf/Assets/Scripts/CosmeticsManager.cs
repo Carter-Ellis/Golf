@@ -47,7 +47,7 @@ public class CosmeticsManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return null;
-        type = Hat.TYPE.NONE + 1;
+        type = Hat.TYPE.NONE;
         inv = FindObjectOfType<Inventory>();
 
         isEquipped = false;
@@ -94,21 +94,29 @@ public class CosmeticsManager : MonoBehaviour
         type += amount;
         if ((int)type >= (int)Hat.TYPE.MAX_HATS)
         {
-            type = Hat.TYPE.NONE + 1;
+            type = Hat.TYPE.NONE;
         }
-        if ((int)type <= (int)Hat.TYPE.NONE)
+        if ((int)type < (int)Hat.TYPE.NONE)
         {
             type = Hat.TYPE.MAX_HATS - 1;
         }
 
         hatImage.sprite = Hat.GetSprite(type);
-        Vector2 spriteSize = hatImage.sprite.rect.size;
-        hatImage.rectTransform.sizeDelta = spriteSize * 10;
+        if (hatImage.sprite != null)
+        {
+            hatImage.color = colors[colorIndex];
+            Vector2 spriteSize = hatImage.sprite.rect.size;
+            hatImage.rectTransform.sizeDelta = spriteSize * 10;
 
-        adjustHatPos(type, hatImage.rectTransform);
+            adjustHatPos(type, hatImage.rectTransform);
+        }
+        else
+        {
+            hatImage.color = Color.clear;
+        }
 
         //Check if locked
-        if (inv.unlockedHats.ContainsKey(type) && inv.unlockedHats[type])
+        if (type == Hat.TYPE.NONE || (inv.unlockedHats.ContainsKey(type) && inv.unlockedHats[type]))
         {
             _lock.enabled = false;
         }
@@ -159,7 +167,10 @@ public class CosmeticsManager : MonoBehaviour
             colorIndex = colors.Length - 1;
         }
 
-        hatImage.color = colors[colorIndex];
+        if (hatImage.sprite != null)
+        {
+            hatImage.color = colors[colorIndex];
+        }
         colorCircle.color = colors[colorIndex];
 
         if (amount == 0) { return; }
@@ -193,8 +204,8 @@ public class CosmeticsManager : MonoBehaviour
             colorBallIndex = colors.Length - 1;
         }
 
-        ballImage.color = colors[colorBallIndex];
         colorBallCircle.color = colors[colorBallIndex];
+        ballImage.color = colors[colorBallIndex];
 
         if (inv.isColorUnlocked || colors[colorBallIndex] == Color.white)
         {
@@ -279,20 +290,26 @@ public class CosmeticsManager : MonoBehaviour
     {
         inv.hat = hatImage.sprite;
         inv.hatColor = colors[colorIndex];
+
         inv.ballColor = colors[colorBallIndex];
+        ballImage.color = colors[colorBallIndex];
         inv.hatType = type;
-        if (hatImage.sprite != null)
-        {
-            inv.hatName = hatImage.sprite.name;
-        }
 
         hatMirror.sprite = hatImage.sprite;
 
-        Vector2 spriteSize2 = hatMirror.sprite.rect.size;
-        hatMirror.rectTransform.sizeDelta = spriteSize2 * 10;
-        hatMirror.rectTransform.anchoredPosition = mirrorPos[(int)type - 1];
+        if (hatImage.sprite != null)
+        {
+            inv.hatName = hatImage.sprite.name;
+            Vector2 spriteSize2 = hatMirror.sprite.rect.size;
+            hatMirror.rectTransform.sizeDelta = spriteSize2 * 10;
+            hatMirror.rectTransform.anchoredPosition = mirrorPos[(int)type - 1];
+            hatMirror.color = colors[colorIndex];
+        }
+        else
+        {
+            hatMirror.color = Color.clear;
+        }
 
-        hatMirror.color = colors[colorIndex];
         if (FindObjectOfType<BuyButton>() == null) {
             equipButton.SetActive(false);
             unequipButton.SetActive(true);

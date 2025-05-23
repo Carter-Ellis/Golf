@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,7 +10,7 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] private BoxCollider2D gooseSpawn;
     [SerializeField] private int minTime = 20;
     [SerializeField] private int maxTime = 60;
-    [SerializeField] private float flySpeed = 6;
+    [SerializeField] private float flySpeed = 5;
     private int numGeese;
     private float timer;
 
@@ -47,6 +48,15 @@ public class EnvironmentManager : MonoBehaviour
             GameObject obj = Instantiate(goose, GetRandomPointInBox(), Quaternion.identity);
             obj.transform.SetParent(geeseGroup.transform, true);
         }
+
+        StudioEventEmitter emitter = geeseGroup.AddComponent<StudioEventEmitter>();
+        emitter.EventReference = FMODEvents.instance.geese;
+        emitter.PlayEvent = EmitterGameEvent.ObjectStart;
+        emitter.StopEvent = EmitterGameEvent.ObjectDestroy;
+        emitter.AllowFadeout = true;
+        emitter.EventInstance.setVolume(.9f);
+        emitter.Play();
+        
 
         rbody.velocity = new Vector2(flySpeed, 0);
         Destroy(geeseGroup, 30f);

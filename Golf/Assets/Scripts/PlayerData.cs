@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerData
 {
     public int coins;
+    public int totalCoins;
     public int currentLevel;
 
     public float zoom = 5f;
@@ -46,6 +47,7 @@ public class PlayerData
     public PlayerData(Inventory inv)
     {
         coins = inv.coins;
+        totalCoins = inv.totalCoins;
         currentLevel = inv.currentLevel;
 
         zoom = inv.zoom;
