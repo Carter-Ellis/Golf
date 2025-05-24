@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mole : MonoBehaviour
 {
-    [SerializeField] private int idleTime;
+    [SerializeField] private float idleTime;
     private float timer = 0;
     [SerializeField] private Animator anim;
     private CapsuleCollider2D cc;

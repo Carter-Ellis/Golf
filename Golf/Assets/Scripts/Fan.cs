@@ -59,12 +59,7 @@ public class Fan : MonoBehaviour, Selectable
 
     private void Update()
     {
-        if (ball == null) return;
-
-        if (!isSelectable)
-        {
-            ball.Select(null);
-        }
+        if (ball == null || !isSelectable) return;
 
         if (!isSelected)
         {

@@ -4876,7 +4876,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4922,3 +4922,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blowingPower: 0.07
+  particleLifetime: 0.5
+  particlesPerSecond: 300

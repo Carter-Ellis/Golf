@@ -46,8 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectors:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   coin: {fileID: 0}

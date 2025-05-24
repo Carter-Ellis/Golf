@@ -32,14 +32,6 @@ public class AbilityTeleport : Ability
 
     public override void onFrame(Ball ball)
     {
-        if (GameObject.FindObjectOfType<PauseManager>() == null || GameObject.FindObjectOfType<PauseManager>().GetComponent<Canvas>().enabled)
-        {
-            return;
-        }
-
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
         if (isReady)
         {
@@ -47,9 +39,25 @@ public class AbilityTeleport : Ability
         }
         else
         {
-            GameObject existing = GameObject.Find("TeleportCircle");
-            if (existing != null) GameObject.Destroy(existing);
+            return;
         }
+
+        if (charges <= 0)
+        {
+            return;
+        }
+
+        if (!Input.GetMouseButtonUp(0))
+        {
+            return;
+        }
+
+        if (GameObject.FindObjectOfType<PauseManager>() == null || GameObject.FindObjectOfType<PauseManager>().GetComponent<Canvas>().enabled)
+        {
+            return;
+        }
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         float distance = Vector2.Distance(mousePos, ball.transform.position);
         if (distance > maxTeleportRange)
@@ -57,36 +65,53 @@ public class AbilityTeleport : Ability
             return;
         }
 
-        if (isReady && Input.GetMouseButtonUp(0) &&
-            hit.collider != null && hit.collider.gameObject.CompareTag("Background"))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+
+        if (hits == null)
         {
-            if (charges <= 0)
-            {
-                return;
-            }
-
-            LayerMask blockingLayers = LayerMask.GetMask("Foreground");
-            Collider2D overlap = Physics2D.OverlapCircle(mousePos, 0.2f, blockingLayers);
-
-            if (overlap != null)
-            {
-                return;
-            }
-
-            ball.transform.position = mousePos;
-            charges--;
-            isReady = false;
-            ball.isTeleportReady = false;
-            ball.isBallLocked = false;
-            if (GameObject.FindObjectOfType<PauseManager>().gameObject.activeSelf)
-            {
-                ball.isBallLocked = false;
-            }
-
-            ball.GetComponent<SpriteRenderer>().color = ball.GetComponent<Inventory>().ballColor;
-            GameObject existing = GameObject.Find("TeleportCircle");
-            if (existing != null) GameObject.Destroy(existing);
+            return;
         }
+
+        bool hitBackground = false;
+        foreach (RaycastHit2D hit in hits) {
+
+            if (hit.collider == null) continue;
+            if (hit.collider.gameObject.CompareTag("Background"))
+            {
+                hitBackground = true;
+                break;
+            }
+
+        }
+
+        if (!hitBackground)
+        {
+            return;
+        }
+
+        LayerMask blockingLayers = LayerMask.GetMask("Foreground");
+        Collider2D overlap = Physics2D.OverlapCircle(mousePos, 0.2f, blockingLayers);
+
+        if (overlap != null)
+        {
+            return;
+        }
+
+        ball.transform.position = mousePos;
+        charges--;
+        isReady = false;
+        ball.isTeleportReady = false;
+        ball.isBallLocked = false;
+        if (GameObject.FindObjectOfType<PauseManager>().gameObject.activeSelf)
+        {
+            ball.isBallLocked = false;
+        }
+
+        ball.GetComponent<SpriteRenderer>().color = ball.GetComponent<Inventory>().ballColor;
+        GameObject existing = GameObject.Find("TeleportCircle");
+        if (existing != null) GameObject.Destroy(existing);
+
     }
 
     public override void onPickup(Ball ball)
@@ -139,6 +164,12 @@ public class AbilityTeleport : Ability
             ball.hasClickedBall = false;
             ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
         }
+        else
+        {
+            GameObject tpCircle = GameObject.Find("TeleportCircle");
+            if (tpCircle != null) GameObject.Destroy(tpCircle);
+        }
+
     }
 
     public override void reset(Ball ball)

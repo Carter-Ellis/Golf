@@ -36,7 +36,7 @@ public class Wind : MonoBehaviour
         emissionModule.rateOverTime = particlesPerSecond;
 
         velocityModule.speedModifier = blowingPower * 20f;
-        
+
         if (isBlowing && obj != null)
         {
             if (obj.gameObject.tag == "Ball" && ball.GetComponent<Rigidbody2D>().velocity.magnitude > .5f)
@@ -67,7 +67,6 @@ public class Wind : MonoBehaviour
         }
         obj = collision.gameObject;
         isBlowing = true;
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)

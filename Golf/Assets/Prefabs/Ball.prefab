@@ -278,7 +278,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2843446279047738482}
   - component: {fileID: 4333268201563155755}
-  - component: {fileID: 6036834513385240820}
   - component: {fileID: 5055157833523683041}
   - component: {fileID: 3337692955560286163}
   - component: {fileID: 5987861296526931403}
@@ -365,26 +364,6 @@ MonoBehaviour:
   hatType: 0
   ballColor: {r: 0, g: 0, b: 0, a: 0}
   isColorUnlocked: 0
---- !u!114 &6036834513385240820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3721559810071799873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b48b9cdd67d8d6740b160e04bba8fb1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dodgeTxt: {fileID: 0}
-  enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  moveSpeed: 4
-  punchDamage: 10
-  dodgeSpeed: 13
-  knockbackForce: 15
 --- !u!212 &5055157833523683041
 SpriteRenderer:
   m_ObjectHideFlags: 0

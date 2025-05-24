@@ -20,6 +20,7 @@ TagManager:
   - Cosmetic
   - Background
   - Wood
+  - Out Of Bounds
   layers:
   - Default
   - TransparentFX
