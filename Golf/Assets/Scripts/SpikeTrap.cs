@@ -13,6 +13,7 @@ public class SpikeTrap : MonoBehaviour
     public float attackTime = 3f;
     private bool isAttacking;
     private bool isSet;
+    public bool isAlwaysAttacking;
     private Animator anim;
 
 
@@ -68,7 +69,7 @@ public class SpikeTrap : MonoBehaviour
             }
 
         }
-        if (isAttacking && timer > attackTime && isSet)
+        if (isAttacking && timer > attackTime && isSet && !isAlwaysAttacking)
         {
             instanceContract.start();
             anim.SetTrigger("AttackIdle");

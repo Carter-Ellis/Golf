@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using FMOD.Studio;
 using UnityEngine.SceneManagement;
+using Cinemachine.Utility;
 
 public enum Direction
 {
@@ -71,9 +72,11 @@ public class Ball : MonoBehaviour
     public bool isTeleportReady;
     private bool isMouseButton1Held;
     public bool isBurst;
+    public bool isSelectFan;
     private bool takingDamage;
     private float damageTimer = 0f;
     public float maxHitSpeed = 15f;
+    private ParticleSystem ps;
 
     [Header("Swing Cooldown")]
     private float swingTimer = 0;
@@ -107,7 +110,8 @@ public class Ball : MonoBehaviour
         lineRenderer.endWidth = .25f;
         canPutt = true;
         isPuttCooldown = true;
-
+        //ps = GetComponentInChildren<ParticleSystem>();
+        //ps.gameObject.SetActive(false);
         cursor.GetComponent<SpriteRenderer>().enabled = false;
 
 
@@ -121,16 +125,21 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 20f);
         if (rb.velocity.magnitude < .5f)
         {
             rb.velocity = Vector2.zero;
             wallHits = 0;
         }
+        else if (rb.velocity.magnitude > 20f)
+        {
+            rb.velocity = rb.velocity.normalized * 20f;
+        }
     }
 
     void Update()
     {
+        didEnter = false;
+        didExit = false;
         checkDead();
         AnimateBall();
         //UpdateSound();
@@ -392,8 +401,11 @@ public class Ball : MonoBehaviour
 
     }
 
+    bool didEnter = false;
+    bool didExit = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (collision.gameObject.tag == "Wall")
         {
             wallHits++;
@@ -402,7 +414,11 @@ public class Ball : MonoBehaviour
             {
                 volume = maxSFXVolume;
             }
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
+            didEnter = true;
+            if (!didExit || !didEnter)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
+            }
         }
         else if (collision.gameObject.tag == "Wood")
         {
@@ -412,13 +428,21 @@ public class Ball : MonoBehaviour
             {
                 volume = maxSFXVolume;
             }
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.woodHit, transform.position);
+            if (!didExit || !didEnter)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.woodHit, transform.position);
+            }
         }
+
     }
 
-    
-    
-
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
+            didExit = true;
+        }
+    }
 
     void DrawTrajectory(Vector2 force)
     {

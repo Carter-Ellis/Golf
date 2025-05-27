@@ -85,12 +85,14 @@ public class Fan : MonoBehaviour, Selectable
         isSelected = !isSelected;
         gameObject.GetComponentInChildren<SpriteRenderer>().color = isSelected ? Color.green : Color.white;
         line.enabled = isSelected;
+        ball.isSelectFan = isSelected;
         return true;
     }
 
     public void onDeselect()
     {
         isSelected = false;
+        ball.isSelectFan = false;
         gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         line.enabled = false;
     }

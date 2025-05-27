@@ -557,22 +557,10 @@ PrefabInstance:
       propertyPath: selectedAbilityTxt
       value: 
       objectReference: {fileID: 979343194}
-    - target: {fileID: 4333268201563155755, guid: 1355aa68d7010784a9b8770d71cf5a96, type: 3}
-      propertyPath: abilitySprites.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4333268201563155755, guid: 1355aa68d7010784a9b8770d71cf5a96, type: 3}
-      propertyPath: abilitySprites.Array.data[2]
-      value: 
-      objectReference: {fileID: -1961607951, guid: 7003202fad35fc348b656a13a9708087, type: 3}
     - target: {fileID: 5987861296526931403, guid: 1355aa68d7010784a9b8770d71cf5a96, type: 3}
       propertyPath: cursor
       value: 
       objectReference: {fileID: 1604030241}
-    - target: {fileID: 5987861296526931403, guid: 1355aa68d7010784a9b8770d71cf5a96, type: 3}
-      propertyPath: isBattleMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5987861296526931403, guid: 1355aa68d7010784a9b8770d71cf5a96, type: 3}
       propertyPath: swingCooldownTxt
       value: 

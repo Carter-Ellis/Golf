@@ -86,8 +86,17 @@ public class CameraController : MonoBehaviour
 
             userInterface.enabled = false;
             mapViewUI.enabled = true;
+            if (ball.isSelectFan)
+            {
+                Selectable selected = ball.objectSelected;
 
-            followedObject = ball.transform;
+                // Convert Selectable to MonoBehaviour to access gameObject
+                followedObject = ((MonoBehaviour)selected).gameObject.transform;
+            }
+            else
+            {
+                followedObject = ball.transform;
+            }         
             cam.Follow = null;
             cam.m_Lens.OrthographicSize = mapViewSize;
             cam.transform.position = mapViewPos.position;
