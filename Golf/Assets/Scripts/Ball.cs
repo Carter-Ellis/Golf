@@ -127,6 +127,11 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isBattleMode && movement.magnitude > 0)
+        {
+            float speed = Mathf.Max(moveSpeed, rb.velocity.magnitude);
+            rb.velocity = (rb.velocity + movement.normalized * moveSpeed).normalized * speed;
+        }
         if (rb.velocity.magnitude < .5f)
         {
             rb.velocity = Vector2.zero;
@@ -136,11 +141,6 @@ public class Ball : MonoBehaviour
         {
             rb.velocity = rb.velocity.normalized * 20f;
         }
-        if (isBattleMode)
-        {
-            rb.velocity = movement.normalized * moveSpeed;
-        }
-        
 
     }
 
@@ -167,7 +167,6 @@ public class Ball : MonoBehaviour
         {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
-            return;
         }
         
         if (takingDamage)
