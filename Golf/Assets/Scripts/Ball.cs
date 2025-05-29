@@ -37,6 +37,8 @@ public class Ball : MonoBehaviour
     public LayerMask layerMask;
     public LayerMask ignoreRaycast;
 
+    public float moveSpeed = 5f;
+    private Vector2 movement;
 
     [Header("Ball Properties")]
     Ball ball;
@@ -134,6 +136,12 @@ public class Ball : MonoBehaviour
         {
             rb.velocity = rb.velocity.normalized * 20f;
         }
+        if (isBattleMode)
+        {
+            rb.velocity = movement.normalized * moveSpeed;
+        }
+        
+
     }
 
     void Update()
@@ -157,6 +165,8 @@ public class Ball : MonoBehaviour
 
         if (isBattleMode)
         {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
             return;
         }
         
@@ -405,7 +415,10 @@ public class Ball : MonoBehaviour
     bool didExit = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (isBattleMode)
+        {
+            return;
+        }
         if (collision.gameObject.tag == "Wall")
         {
             wallHits++;

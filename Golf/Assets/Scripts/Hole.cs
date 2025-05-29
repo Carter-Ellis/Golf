@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Hole : MonoBehaviour
+public class Hole : MonoBehaviour, ButtonTarget
 {
     Ball ball;
     Inventory inv;
@@ -239,4 +239,8 @@ public class Hole : MonoBehaviour
         }
     }
 
+    public void onPress()
+    {
+        this.GetComponent<SpriteRenderer>().color = Color.yellow;
+    }
 }

@@ -11,6 +11,7 @@ public class BreakableWall : MonoBehaviour
     private bool isBroken = false;
     [SerializeField] Sprite broken;
     [SerializeField] GameObject explosionPrefab;
+    [SerializeField] private bool isVertical;
     private void Awake()
     {
         ball = FindObjectOfType<Ball>();
@@ -52,6 +53,10 @@ public class BreakableWall : MonoBehaviour
         if (ballRB == null)
         {
             return 0;
+        }
+        if (isVertical)
+        {
+            return Mathf.Abs(ballRB.velocity.x);
         }
         return Mathf.Abs(ballRB.velocity.y);
     }

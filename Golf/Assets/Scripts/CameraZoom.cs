@@ -10,7 +10,7 @@ public class CameraZoom : MonoBehaviour
     CameraController camController;
     Inventory inv;
     [SerializeField] float sensitivity = 200f;
-    [SerializeField] float maxViewDistance = 10.6f;
+    private float maxViewDistance = 11.5f;
     [SerializeField] float minViewDistance = 2.9f;
     private float velocity = 0f;
     private float smoothTime = 0.15f;
