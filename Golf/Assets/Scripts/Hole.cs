@@ -24,6 +24,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     private bool isPlayingVoiceLine;
     public AudioClip inHoleSFX;
     public Animator animator;
+    private int currentLevel;
 
     public UnityEngine.UI.Button nextLevelButton;
 
@@ -97,7 +98,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             
             if (ball.strokes <= par)
             {
-                if (ball.strokes == 1)
+                if (inv.coinsCollected.ContainsKey(currentLevel) && inv.coinsCollected[currentLevel].Contains(1) && inv.coinsCollected[currentLevel].Contains(2) && inv.coinsCollected[currentLevel].Contains(3))
                 {
                     int level = SceneManager.GetActiveScene().buildIndex;
                     ball.GetComponent<Inventory>().unlockedHats[(Hat.TYPE)level] = true;
@@ -146,7 +147,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         {
             if (ball.strokes < par)
             {
-                int currentLevel = SceneManager.GetActiveScene().buildIndex;
+                currentLevel = SceneManager.GetActiveScene().buildIndex;
                 Inventory inv = ball.GetComponent<Inventory>();
                 if (inv.coinsCollected == null)
                 {

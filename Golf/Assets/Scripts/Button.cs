@@ -6,6 +6,8 @@ using FMODUnity;
 
 public class Button : MonoBehaviour
 {
+    private Inventory inv;
+
     private SpriteRenderer sr;
     public GameObject target;
     private ButtonTarget buttonTarget;
@@ -27,22 +29,29 @@ public class Button : MonoBehaviour
 
     private EventInstance door6Instance;
 
+    private void Start()
+    {
+        inv = FindObjectOfType<Inventory>();
+    }
+
     private void Update()
     {
         if (isRedCoinActive && !redCoinComplete)
         {
-            if (GameObject.FindObjectOfType<Inventory>().redCoinCount == redCoins.Length)
-            {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
-                specialCoin.SetActive(true);
-                redCoinComplete = true;
-            }
+            
             redCoinTimer += Time.deltaTime;
             if (redCoinTimer > redCoinThreshold)
             {
                 DespawnRedCoins();
                 redCoinTimer = 0f;
                 isRedCoinActive = false;
+            }
+            if (inv == null) { return; }
+            if (inv.redCoinCount == redCoins.Length)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
+                specialCoin.SetActive(true);
+                redCoinComplete = true;
             }
         }
     }
@@ -98,7 +107,11 @@ public class Button : MonoBehaviour
             }
             redcoin.SetActive(false);
         }
-        GameObject.FindObjectOfType<Inventory>().redCoinCount = 0;
+        if (GameObject.FindObjectOfType<Inventory>() == null)
+        {
+            return;
+        }
+        inv.redCoinCount = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
