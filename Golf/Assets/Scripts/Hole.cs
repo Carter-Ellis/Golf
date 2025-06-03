@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class Hole : MonoBehaviour, ButtonTarget
 {
@@ -25,6 +27,8 @@ public class Hole : MonoBehaviour, ButtonTarget
     public AudioClip inHoleSFX;
     public Animator animator;
     private int currentLevel;
+    private int holeNum;
+    private int runFinalHole = 3;
 
     public UnityEngine.UI.Button nextLevelButton;
 
@@ -41,24 +45,139 @@ public class Hole : MonoBehaviour, ButtonTarget
         ball = GameObject.FindObjectOfType<Ball>();
         inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
+
+        holeNum = int.Parse(getCourseNumber());
+
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         if (signTxt != null)
         {
             signTxt.text = "Par " + par;
-            signLevelTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
+            signLevelTxt.text = "Hole " + holeNum;
         }
         
     }
 
+    private string getCourseNumber()
+    {
+
+        string name = SceneManager.GetActiveScene().name;
+        int start = -1;
+        int end = name.Length;
+        for (int i = 0; i < name.Length; i++)
+        {
+            char c = name[i];
+            bool isNum = (c >= '0' && c <= '9');
+            if (start == -1)
+            {
+                if (isNum)
+                {
+                    start = i;
+                }
+            }
+            else
+            {
+                if (!isNum)
+                {
+                    end = i;
+                    break;
+                }
+            }
+        }
+        if (start < 0 || end - start < 0)
+        {
+            return "0";
+        }
+        return name.Substring(start, end - start);
+
+    }
+
     private void UnlockNewLevel()
     {
-        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex")) {
-            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 1);
+        if (holeNum >= PlayerPrefs.GetInt("ReachedIndex")) {
+            PlayerPrefs.SetInt("ReachedIndex", holeNum + 1);
             PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
             
         }
         Inventory inv = ball.GetComponent<Inventory>();
-        inv.levelsCompleted[SceneManager.GetActiveScene().buildIndex] = true;
+        inv.levelsCompleted[holeNum] = true;
+
+        if (inv.isCampaignMode)
+        {
+            inv.campaignCurrScore[holeNum] = ball.strokes;
+            if (holeNum == runFinalHole)
+            {
+                print("highscore set");
+                if (inv.campaignHighScore != null && inv.campaignHighScore.Count == runFinalHole)
+                {
+                    int highscore = 0;
+                    int currScore = 0;
+                    
+                    foreach (var kvp in inv.campaignHighScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        highscore += score;
+                    }
+                    foreach (var kvp in inv.campaignCurrScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        currScore += score;
+                    }
+                    if (currScore <= highscore)
+                    {
+                        
+                        inv.campaignHighScore = inv.campaignCurrScore;
+                    }
+
+                }
+                else
+                {
+                    inv.campaignHighScore = inv.campaignCurrScore;
+                }
+
+
+            }
+        }
+        else if (inv.isClassicMode)
+        {
+            inv.classicCurrScore[holeNum] = ball.strokes;
+            if (holeNum == runFinalHole)
+            {
+                if (inv.classicHighScore != null)
+                {
+                    int highscore = 0;
+                    int currScore = 0;
+                    foreach (var kvp in inv.classicHighScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        highscore += score;
+                    }
+                    foreach (var kvp in inv.classicCurrScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        currScore += score;
+                    }
+                    if (currScore <= highscore)
+                    {
+                        inv.classicHighScore = inv.classicCurrScore;
+                    }
+                }
+                else
+                {
+                    inv.classicHighScore = inv.classicCurrScore;
+                }
+            }
+            else if (inv.isCampSpeedMode)
+            {
+
+            }
+        
+        }
+
+
         inv.SavePlayer();
     }
 
@@ -96,14 +215,23 @@ public class Hole : MonoBehaviour, ButtonTarget
             AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
             isPlayingVoiceLine = true;
             
+            if (inv.isCampaignMode)
+            {
+                UnlockNewLevel();
+            }
+
             if (ball.strokes <= par)
             {
                 if (inv.coinsCollected.ContainsKey(currentLevel) && inv.coinsCollected[currentLevel].Contains(1) && inv.coinsCollected[currentLevel].Contains(2) && inv.coinsCollected[currentLevel].Contains(3))
                 {
-                    int level = SceneManager.GetActiveScene().buildIndex;
+                    int level = holeNum;
                     ball.GetComponent<Inventory>().unlockedHats[(Hat.TYPE)level] = true;
                 }
-                UnlockNewLevel();
+                if (!inv.isCampaignMode)
+                {
+                    UnlockNewLevel();
+                }
+                
             }
             camController.isWinScreen = true;
             camController.cam.Follow = null;
@@ -147,7 +275,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         {
             if (ball.strokes < par)
             {
-                currentLevel = SceneManager.GetActiveScene().buildIndex;
+                currentLevel = holeNum;
                 Inventory inv = ball.GetComponent<Inventory>();
                 if (inv.coinsCollected == null)
                 {
@@ -174,7 +302,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 winTxt.fontSize = 90;
                 winTxt.text = "YOU WIN!";
             }
-            else if (ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(SceneManager.GetActiveScene().buildIndex) && ball.GetComponent<Inventory>().levelsCompleted[SceneManager.GetActiveScene().buildIndex])
+            else if (ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(holeNum) && ball.GetComponent<Inventory>().levelsCompleted[holeNum])
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
@@ -194,7 +322,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 parOnWinScreenTxt.text = "Par " + par;
             }
 
-            holeOnWinScreenTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
+            holeOnWinScreenTxt.text = "Hole " + holeNum;
 
             strokesTxt.text = "Strokes " + ball.strokes;
             

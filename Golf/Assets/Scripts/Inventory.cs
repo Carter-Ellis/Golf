@@ -10,6 +10,11 @@ public class Inventory : MonoBehaviour
 {
     Ball ball;
     PopupController popupController;
+
+    public bool isCampaignMode;
+    public bool isCampSpeedMode;
+    public bool isClassicMode;
+
     public List<Ability> unlockedAbilities = new List<Ability>();
     public int indexOfAbility = 0;
 
@@ -41,6 +46,14 @@ public class Inventory : MonoBehaviour
 
     public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
 
+    public Dictionary<int, int> campaignHighScore = new Dictionary<int, int>();
+    public Dictionary<int, int> campaignCurrScore = new Dictionary<int, int>();
+
+    public Dictionary<int, int> campSpeedHighScore = new Dictionary<int, int>();
+    public Dictionary<int, int> campSpeedCurrScore = new Dictionary<int, int>();
+
+    public Dictionary<int, int> classicHighScore = new Dictionary<int, int>();
+    public Dictionary<int, int> classicCurrScore = new Dictionary<int, int>();
 
     public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
     public int currentHeight = 0;
@@ -116,6 +129,14 @@ public class Inventory : MonoBehaviour
         PopulateShop();
         PopulateCharges();
         DisplayCosmetics();
+        int highscore = 0;
+        foreach (var kvp in campaignHighScore)
+        {
+            int score = kvp.Value;
+            int level = kvp.Key;
+            highscore += score;
+            print("Level : " + level + " Score: " + score);
+        }
 
         SavePlayer();
     }
@@ -295,6 +316,8 @@ public class Inventory : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        isClassicMode = false;
+        isCampaignMode = false;
         SceneManager.LoadScene("Main Menu");
     }
 
@@ -339,6 +362,38 @@ public class Inventory : MonoBehaviour
         if (data.upgradeLevels != null)
         {
             upgradeLevels = data.upgradeLevels;
+        }
+
+        if (data.campaignHighScore != null)
+        {
+            
+            campaignHighScore = data.campaignHighScore;
+        }
+
+        if (data.campaignCurrScore != null)
+        {
+            campaignCurrScore = data.campaignCurrScore;
+        }
+
+        if (data.campSpeedHighScore != null)
+        {
+
+            campSpeedHighScore = data.campSpeedHighScore;
+        }
+
+        if (data.campSpeedCurrScore != null)
+        {
+            campSpeedCurrScore = data.campSpeedCurrScore;
+        }
+
+        if (classicHighScore != null)
+        {
+            classicHighScore = data.classicHighScore;
+        }
+
+        if (classicCurrScore != null)
+        {
+            classicCurrScore = data.classicCurrScore;
         }
 
         if (data.maxChargesList != null && data.maxChargesList.Count > 0)
@@ -391,6 +446,10 @@ public class Inventory : MonoBehaviour
 
         ballColor = data.ballColor.ToColor();
         isColorUnlocked = data.isColorUnlocked;
+
+        isCampaignMode = data.isCampaignMode;
+        isCampSpeedMode = data.isCampSpeedMode;
+        isClassicMode = data.isClassicMode;
 
     }
 

@@ -44,6 +44,12 @@ public class LevelMenu : MonoBehaviour
         SceneManager.LoadScene(levelName);
     }
 
+    public void OpenClassicLevel(int levelId)
+    {
+        string levelName = "Classic " + levelId;
+        SceneManager.LoadScene(levelName);
+    }
+
     private void ButtonsToArray()
     {
         int childCount = levelButtons.transform.childCount;
