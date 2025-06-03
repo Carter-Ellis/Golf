@@ -35,7 +35,7 @@ public class CameraZoom : MonoBehaviour
     {
 
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float scroll = PlayerInput.get(PlayerInput.Axis.ScrollWheel);
 
         if (scroll != 0)
         {
