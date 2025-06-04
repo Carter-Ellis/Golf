@@ -17,9 +17,12 @@ public class PlayerData
     public float SFXVol = 1f;
     public float ambienceVol = 1f;
 
+    public bool isWalkMode;
+
     public bool isCampaignMode;
     public bool isCampSpeedMode;
     public bool isClassicMode;
+    public bool isClassicSpeedMode;
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
@@ -30,11 +33,14 @@ public class PlayerData
     public Dictionary<int, int> campaignHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> campaignCurrScore = new Dictionary<int, int>();
 
-    public Dictionary<int, int> campSpeedHighScore = new Dictionary<int, int>();
-    public Dictionary<int, int> campSpeedCurrScore = new Dictionary<int, int>();
+    public Dictionary<int, float> campSpeedHighScore = new Dictionary<int, float>();
+    public Dictionary<int, float> campSpeedCurrScore = new Dictionary<int, float>();
 
     public Dictionary<int, int> classicHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> classicCurrScore = new Dictionary<int, int>();
+
+    public Dictionary<int, float> classicSpeedHighScore = new Dictionary<int, float>();
+    public Dictionary<int, float> classicSpeedCurrScore = new Dictionary<int, float>();
 
     public List<AbilityChargeData> maxChargesList = new List<AbilityChargeData>();
     public List<ABILITIES> unlockedAbilityTypes = new List<ABILITIES>();
@@ -76,11 +82,14 @@ public class PlayerData
         campaignHighScore = inv.campaignHighScore;
         campaignCurrScore = inv.campaignCurrScore;
 
-        campaignHighScore = inv.campSpeedHighScore;
+        campSpeedHighScore = inv.campSpeedHighScore;
         campSpeedCurrScore = inv.campSpeedCurrScore;
 
         classicHighScore = inv.classicHighScore;
         classicCurrScore = inv.classicCurrScore;
+
+        classicSpeedHighScore = inv.classicSpeedHighScore;
+        classicSpeedCurrScore = inv.classicSpeedCurrScore;
 
         maxChargesList = inv.maxChargesByType
             .Select(pair => new AbilityChargeData { ability = pair.Key, charges = pair.Value })
@@ -104,9 +113,12 @@ public class PlayerData
 
         teleportRange = inv.teleportRange;
 
+        isWalkMode = inv.isWalkMode;
+
         isCampaignMode = inv.isCampaignMode;
         isCampSpeedMode = inv.isCampSpeedMode;
         isClassicMode = inv.isClassicMode;
+        isClassicSpeedMode = inv.isClassicSpeedMode;
 
     }
 

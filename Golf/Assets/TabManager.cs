@@ -43,22 +43,24 @@ public class TabManager : MonoBehaviour
     private Image classicSpeedImage;
     private Image classicHardImage;
 
-    private void Start()
+    private void Awake()
     {
         if (graphicsButton != null)
         {
             graphicsImage = graphicsButton.GetComponent<Image>();
             audioImage = audioButton.GetComponent<Image>();
         }
-        
 
-        camp18Image = camp18Button.GetComponent<Image>();
-        print(camp18Image);
-        campSpeedImage = campSpeedButton.GetComponent<Image>();
-        campHardImage = campHardButton.GetComponent<Image>();
-        classic18Image = classic18Button.GetComponent<Image>();
-        classicSpeedImage = classicSpeedButton.GetComponent<Image>();
-        classicHardImage = classicHardButton.GetComponent<Image>();
+        if (camp18Button != null)
+        {
+            camp18Image = camp18Button.GetComponent<Image>();
+            campSpeedImage = campSpeedButton.GetComponent<Image>();
+            campHardImage = campHardButton.GetComponent<Image>();
+            classic18Image = classic18Button.GetComponent<Image>();
+            classicSpeedImage = classicSpeedButton.GetComponent<Image>();
+            classicHardImage = classicHardButton.GetComponent<Image>();
+        }
+        
     }
 
     public void AudioTabToggle()

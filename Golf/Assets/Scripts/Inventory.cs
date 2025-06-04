@@ -11,9 +11,12 @@ public class Inventory : MonoBehaviour
     Ball ball;
     PopupController popupController;
 
+    public bool isWalkMode;
+
     public bool isCampaignMode;
     public bool isCampSpeedMode;
     public bool isClassicMode;
+    public bool isClassicSpeedMode;
 
     public List<Ability> unlockedAbilities = new List<Ability>();
     public int indexOfAbility = 0;
@@ -49,11 +52,14 @@ public class Inventory : MonoBehaviour
     public Dictionary<int, int> campaignHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> campaignCurrScore = new Dictionary<int, int>();
 
-    public Dictionary<int, int> campSpeedHighScore = new Dictionary<int, int>();
-    public Dictionary<int, int> campSpeedCurrScore = new Dictionary<int, int>();
+    public Dictionary<int, float> campSpeedHighScore = new Dictionary<int, float>();
+    public Dictionary<int, float> campSpeedCurrScore = new Dictionary<int, float>();
 
     public Dictionary<int, int> classicHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> classicCurrScore = new Dictionary<int, int>();
+
+    public Dictionary<int, float> classicSpeedHighScore = new Dictionary<int, float>();
+    public Dictionary<int, float> classicSpeedCurrScore = new Dictionary<int, float>();
 
     public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
     public int currentHeight = 0;
@@ -117,6 +123,10 @@ public class Inventory : MonoBehaviour
         new Vector2(.064f,.375f),
     };
 
+    [Header("Speedrun")]
+    public float timer = 0f;
+    [SerializeField] private TextMeshProUGUI timerTxt;
+
     private void Start()
     {
         popupController = FindObjectOfType<PopupController>();
@@ -129,8 +139,23 @@ public class Inventory : MonoBehaviour
         PopulateShop();
         PopulateCharges();
         DisplayCosmetics();
+
+        GameObject time = GameObject.Find("Timer");
+        if (time != null)
+        {
+            timerTxt = time.GetComponent<TextMeshProUGUI>();
+            if (!isCampSpeedMode && !isClassicSpeedMode)
+            {
+                timerTxt.enabled = false;
+            }
+            else
+            {
+                timerTxt.enabled = true;
+            }
+        }
+
         int highscore = 0;
-        foreach (var kvp in campaignHighScore)
+        foreach (var kvp in classicHighScore)
         {
             int score = kvp.Value;
             int level = kvp.Key;
@@ -139,6 +164,15 @@ public class Inventory : MonoBehaviour
         }
 
         SavePlayer();
+    }
+
+    private void SpeedrunTimer()
+    {
+        if ((!isCampSpeedMode && !isClassicSpeedMode) || timerTxt == null) { return; }
+
+        timer += Time.deltaTime;
+        System.TimeSpan time = System.TimeSpan.FromSeconds(timer);
+        timerTxt.text = time.ToString(@"mm\:ss\.ff");
     }
 
     private void DisplayCosmetics()
@@ -269,6 +303,7 @@ public class Inventory : MonoBehaviour
     {
         AbilityManager();
         DisplayAbility();
+        SpeedrunTimer();
 
         if (coinTxt != null)
         {
@@ -386,6 +421,17 @@ public class Inventory : MonoBehaviour
             campSpeedCurrScore = data.campSpeedCurrScore;
         }
 
+        if (data.classicSpeedHighScore != null)
+        {
+
+            classicSpeedHighScore = data.classicSpeedHighScore;
+        }
+
+        if (data.classicSpeedCurrScore != null)
+        {
+            classicSpeedCurrScore = data.classicSpeedCurrScore;
+        }
+
         if (classicHighScore != null)
         {
             classicHighScore = data.classicHighScore;
@@ -447,10 +493,12 @@ public class Inventory : MonoBehaviour
         ballColor = data.ballColor.ToColor();
         isColorUnlocked = data.isColorUnlocked;
 
+        isWalkMode = data.isWalkMode;
+
         isCampaignMode = data.isCampaignMode;
         isCampSpeedMode = data.isCampSpeedMode;
         isClassicMode = data.isClassicMode;
-
+        isClassicSpeedMode = data.isClassicSpeedMode;
     }
 
     public void ErasePlayerData()

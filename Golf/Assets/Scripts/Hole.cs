@@ -28,7 +28,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     public Animator animator;
     private int currentLevel;
     private int holeNum;
-    private int runFinalHole = 3;
+    private int runFinalHole = 2;
 
     public UnityEngine.UI.Button nextLevelButton;
 
@@ -100,13 +100,11 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         Inventory inv = ball.GetComponent<Inventory>();
         inv.levelsCompleted[holeNum] = true;
-
         if (inv.isCampaignMode)
         {
             inv.campaignCurrScore[holeNum] = ball.strokes;
             if (holeNum == runFinalHole)
             {
-                print("highscore set");
                 if (inv.campaignHighScore != null && inv.campaignHighScore.Count == runFinalHole)
                 {
                     int highscore = 0;
@@ -142,9 +140,10 @@ public class Hole : MonoBehaviour, ButtonTarget
         else if (inv.isClassicMode)
         {
             inv.classicCurrScore[holeNum] = ball.strokes;
+            
             if (holeNum == runFinalHole)
             {
-                if (inv.classicHighScore != null)
+                if (inv.classicHighScore != null && inv.classicHighScore.Count == runFinalHole)
                 {
                     int highscore = 0;
                     int currScore = 0;
@@ -169,16 +168,83 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     inv.classicHighScore = inv.classicCurrScore;
                 }
-            }
-            else if (inv.isCampSpeedMode)
-            {
-
-            }
-        
+            } 
         }
+        else if (inv.isCampSpeedMode)
+        {
+            inv.campSpeedCurrScore[holeNum] = inv.timer;
+            if (holeNum == runFinalHole)
+            {
+                if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.Count == runFinalHole)
+                {
+                    float highscore = 0;
+                    float currScore = 0;
 
+                    foreach (var kvp in inv.campSpeedHighScore)
+                    {
+                        float score = kvp.Value;
+                        int level = kvp.Key;
+                        highscore += score;
+                    }
+                    foreach (var kvp in inv.campSpeedCurrScore)
+                    {
+                        float score = kvp.Value;
+                        int level = kvp.Key;
+                        currScore += score;
+                    }
 
+                    if (currScore <= highscore)
+                    {
+                        inv.campSpeedHighScore = inv.campSpeedCurrScore;
+                    }
+
+                }
+                else
+                {
+                    inv.campSpeedHighScore = inv.campSpeedCurrScore;
+                }
+            }
+
+        }
+        else if (inv.isClassicSpeedMode)
+        {
+            inv.classicSpeedCurrScore[holeNum] = inv.timer;
+            if (holeNum == runFinalHole)
+            {
+                print("classic speed saved;");
+                if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.Count == runFinalHole)
+                {
+                    float highscore = 0;
+                    float currScore = 0;
+
+                    foreach (var kvp in inv.classicSpeedHighScore)
+                    {
+                        float score = kvp.Value;
+                        int level = kvp.Key;
+                        highscore += score;
+                    }
+                    foreach (var kvp in inv.classicSpeedCurrScore)
+                    {
+                        float score = kvp.Value;
+                        int level = kvp.Key;
+                        currScore += score;
+                    }
+
+                    if (currScore <= highscore)
+                    {
+                        inv.classicSpeedHighScore = inv.classicSpeedCurrScore;
+                    }
+
+                }
+                else
+                {
+                    inv.classicSpeedHighScore = inv.classicSpeedCurrScore;
+                }
+            }
+
+        }
         inv.SavePlayer();
+
     }
 
     private void Update()
