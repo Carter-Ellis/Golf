@@ -40,7 +40,7 @@ public class PlayerInput : MonoBehaviour
     public static bool isController { get; private set; }
 
     private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
-    private static float cursorSpeed = 0.3f;
+    public static float cursorSpeed = 0.3f;
 
     void Update()
     {
