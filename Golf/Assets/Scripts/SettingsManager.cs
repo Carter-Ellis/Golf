@@ -15,7 +15,10 @@ public class SettingsManager : MonoBehaviour
     }
     private void Update()
     {
-
+        if (!soundMenuCanvas.gameObject.activeSelf)
+        {
+            return;
+        }
         if (ball.isTeleportReady)
         {
             if (PlayerInput.isDown(PlayerInput.Axis.Cancel))

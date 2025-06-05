@@ -19,7 +19,7 @@ public class AbilityPickup : MonoBehaviour
 
         if (playPickupAudio)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.menuOpen, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, transform.position);
         }
         
         if (inv.unlockedAbilities != null && inv.unlockedAbilities.Count > 0)

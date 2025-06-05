@@ -5156,6 +5156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601d2e914f9a5fa4aac2a5e7761b6e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWalkMode: 0
+  isCampaignMode: 0
+  isCampSpeedMode: 0
+  isClassicMode: 0
   indexOfAbility: 0
   currentLevel: 1
   coins: 0
@@ -5188,7 +5192,7 @@ MonoBehaviour:
   - {fileID: -1475067724, guid: 83db8de336be4dd45a6637043bc302de, type: 3}
   - {fileID: -1961607951, guid: 7003202fad35fc348b656a13a9708087, type: 3}
   upgrades: {fileID: 0}
-  teleportRange: 0
+  teleportRange: 3
   hatPos: {fileID: 7883308830938036564}
   hat: {fileID: 0}
   hatName: 
@@ -5196,6 +5200,8 @@ MonoBehaviour:
   hatType: 0
   ballColor: {r: 0, g: 0, b: 0, a: 0}
   isColorUnlocked: 0
+  timer: 0
+  timerTxt: {fileID: 0}
 --- !u!212 &5055157833523683041
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5302,7 +5308,7 @@ MonoBehaviour:
   ignoreRaycast:
     serializedVersion: 2
     m_Bits: 4
-  moveSpeed: 5
+  moveSpeed: 7
   animator: {fileID: 8195194255100573815}
   cursor: {fileID: 0}
   ballClone: {fileID: 3721559810071799873, guid: 836cd9449b106994dbe21e2cb7d698ce, type: 3}

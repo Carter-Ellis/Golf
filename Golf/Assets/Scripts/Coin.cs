@@ -10,10 +10,15 @@ public class Coin : MonoBehaviour
     public bool isRed;
     public int coinNumber;
 
-    private void Start()
+    private IEnumerator Start()
     {
         ball = FindObjectOfType<Ball>();
         inventory = ball.GetComponent<Inventory>();
+        yield return new WaitForSeconds(.0000001f);
+        if (!inventory.isFreeplayMode && !inventory.isCampaignMode && !inventory.isCampHardMode)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,7 +42,7 @@ public class Coin : MonoBehaviour
                 inventory.coinsCollected = new Dictionary<int, List<int>>();
             }
   
-            int currentLevel = SceneManager.GetActiveScene().buildIndex;
+            int currentLevel = FindObjectOfType<Hole>().holeNum;
 
             if (!inventory.coinsCollected.ContainsKey(currentLevel))
             {
@@ -46,9 +51,8 @@ public class Coin : MonoBehaviour
 
             if (!inventory.coinsCollected[currentLevel].Contains(coinNumber))
             {
-                inventory.coins++;
-                inventory.totalCoins++;
-                inventory.coinsCollected[currentLevel].Add(coinNumber);
+                print("coin " + coinNumber + " Added");
+                inventory.tempCollectedCoins.Add(coinNumber);
             }
 
             gameObject.SetActive(false);

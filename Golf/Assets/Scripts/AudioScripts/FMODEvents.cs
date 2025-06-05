@@ -95,6 +95,9 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Windmill")]
     [field: SerializeField] public EventReference windmill { get; private set; }
 
+    [field: Header("Freeze")]
+    [field: SerializeField] public EventReference freeze { get; private set; }
+
     public static FMODEvents instance { get; private set; }
 
     private void Awake()

@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
 
     public float normalViewSize = 15f;
     private float timer = 0;
-    private float reloadSceneTime = 2f;
+    private float reloadSceneTime = 1f;
 
     private bool isAdjustingDamp;
     private float dampTimer = 0f;

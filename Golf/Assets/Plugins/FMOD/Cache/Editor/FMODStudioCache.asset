@@ -670,13 +670,14 @@ MonoBehaviour:
   - {fileID: -8653749197178402667}
   - {fileID: 7460626126469004401}
   - {fileID: -6857469963900220882}
+  - {fileID: 6381143167563914261}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: 3533057328439609738}
   StringsBanks:
   - {fileID: 1118400143526593605}
-  cacheTime: 638835457613335469
+  cacheTime: 638846633091842298
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -801,10 +802,10 @@ MonoBehaviour:
   Path: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638835452568663916
+  lastModified: 638846633087474766
   FileSizes:
   - Name: 
-    Value: 3040
+    Value: 3088
   Exists: 1
 --- !u!114 &1385161026115930528
 MonoBehaviour:
@@ -1004,7 +1005,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638835452568646104
+  lastModified: 638846633087464790
   FileSizes: []
   Exists: 1
 --- !u!114 &3691960937131047237
@@ -1049,7 +1050,7 @@ MonoBehaviour:
   Path: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638835457613335469
+  lastModified: 638846633091842298
   FileSizes: []
   Exists: 1
 --- !u!114 &5944229386815654179
@@ -1124,6 +1125,33 @@ MonoBehaviour:
     Data2: 1250342497
     Data3: 1612710308
     Data4: -119883486
+  Banks:
+  - {fileID: 5232284419376942980}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6381143167563914261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Freeze
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Freeze
+  Guid:
+    Data1: -288569211
+    Data2: 1282425819
+    Data3: -1247338358
+    Data4: 1161438390
   Banks:
   - {fileID: 5232284419376942980}
   IsStream: 0

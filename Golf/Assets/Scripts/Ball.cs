@@ -21,6 +21,7 @@ public class Ball : MonoBehaviour
 {
 
     [Header("Ball Components")]
+    Inventory inv;
     public int strokes = 0;
 
     public int health = 100;
@@ -123,6 +124,8 @@ public class Ball : MonoBehaviour
     {
         ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
         CurrentDirection = Direction.South;
+        inv = GetComponent<Inventory>();
+        moveSpeed = 7;
     }
 
     private void FixedUpdate()
@@ -146,6 +149,7 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
+        isBattleMode = inv.isWalkMode;
         didEnter = false;
         didExit = false;
         checkDead();
@@ -182,6 +186,9 @@ public class Ball : MonoBehaviour
         {
             return;
         }
+
+        if (isBattleMode) { return; }
+
         if (PlayerInput.isDown(PlayerInput.Axis.Fire1) && !camController.isViewMode)
         {
             Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
@@ -207,7 +214,7 @@ public class Ball : MonoBehaviour
             }
         }
        
-        ClickEnemy();
+        //ClickEnemy();
         
         isMouseButton1Held = PlayerInput.get(PlayerInput.Axis.Fire1) != 0;
 
