@@ -12,7 +12,6 @@ public class CursorController : MonoBehaviour
     private void Start()
     {
         cursorImage = this.GetComponent<Image>();
-        PlayerInput.cursorSpeed = 0.6f;
     }
     void Update()
     {
@@ -37,7 +36,6 @@ public class CursorController : MonoBehaviour
 
     private void SimulateClick(Vector2 screenPosition)
     {
-        print("Simulate Click");
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
             position = screenPosition
@@ -48,8 +46,17 @@ public class CursorController : MonoBehaviour
 
         foreach (var result in results)
         {
-            print(result.gameObject.name);
             ExecuteEvents.Execute(result.gameObject, pointerData, ExecuteEvents.pointerClickHandler);
+            ExecuteEvents.Execute(result.gameObject, pointerData, ExecuteEvents.dragHandler);
+            if (result.gameObject.name == "Background")
+            {
+                GameObject parent = result.gameObject.transform.parent.gameObject;
+                if (parent != null)
+                {
+                    ExecuteEvents.Execute(parent, pointerData, ExecuteEvents.pointerClickHandler);
+                    ExecuteEvents.Execute(parent, pointerData, ExecuteEvents.dragHandler);
+                }
+            }
         }
     }
 

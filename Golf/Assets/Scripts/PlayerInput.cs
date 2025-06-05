@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour
         ScrollWheel,
         SwapUp,
         SwapDown,
+        Cancel,
         MAX_AXIS
     }
 
@@ -31,7 +32,8 @@ public class PlayerInput : MonoBehaviour
         "Fire4",
         "ScrollWheel",
         "SwapUp",
-        "SwapDown"
+        "SwapDown",
+        "Cancel"
     };
 
     private static float[,] axesValue = new float[(int)Axis.MAX_AXIS, 2];
@@ -40,7 +42,7 @@ public class PlayerInput : MonoBehaviour
     public static bool isController { get; private set; }
 
     private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
-    public static float cursorSpeed = 0.3f;
+    public static float cursorSpeed = 0.6f;
 
     void Update()
     {

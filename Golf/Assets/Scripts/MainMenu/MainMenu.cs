@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MainMenu : MonoBehaviour
 {
@@ -23,10 +24,11 @@ public class MainMenu : MonoBehaviour
         Ball ball = FindObjectOfType<Ball>();
         mainMenu.enabled = !mainMenu.enabled;
         isActive = !isActive;
-        soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
+        GameObject soundMenu = soundMenuCanvas.gameObject;
+        soundMenu.SetActive(!soundMenu.activeSelf);
         if (ball != null)
         {
-            ball.isBallLocked = soundMenuCanvas.enabled;
+            ball.isBallLocked = soundMenu.activeSelf;
         }
     }
 

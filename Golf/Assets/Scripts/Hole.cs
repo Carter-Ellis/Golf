@@ -35,12 +35,15 @@ public class Hole : MonoBehaviour, ButtonTarget
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
+    private CursorController cursor;
     private int[] costs = { 2, 5, 8, 12 };
     private void Awake()
     {
         ball = GameObject.FindObjectOfType<Ball>();
         inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
+        cursor = animator.GetComponentInChildren<CursorController>();
+        cursor.gameObject.SetActive(false);
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         if (signTxt != null)
         {
@@ -131,6 +134,9 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
             }
+
+            cursor.gameObject.SetActive(true);
+
 
         }
         else
