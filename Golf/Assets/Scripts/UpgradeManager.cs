@@ -22,7 +22,7 @@ public class UpgradeManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonUp(0)) // Left click
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire1)) // Left click
         {
             GameObject clicked = GetClickedUI();
 
@@ -32,7 +32,6 @@ public class UpgradeManager : MonoBehaviour
             }
 
             SelectUpgrade(null);
-
             // If you clicked outside any upgrade or the Buy button
             if (clicked == null || (!clicked.CompareTag("Item") && clicked.name != "Buy" && !clicked.CompareTag("Cosmetic")) )
             {
@@ -85,14 +84,23 @@ public class UpgradeManager : MonoBehaviour
     GameObject GetClickedUI()
     {
         PointerEventData pointer = new PointerEventData(EventSystem.current);
-        pointer.position = Input.mousePosition;
+        if (PlayerInput.isController)
+        {
+            pointer.position = new Vector2(Screen.width, Screen.height) - PlayerInput.cursorPosition;
+        }
+        else
+        {
+            pointer.position = PlayerInput.cursorPosition;
+        }
 
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointer, results);
 
-        if (results.Count > 0)
-            return results[0].gameObject;
-
+        int min = PlayerInput.isController ? 1 : 0;
+        if (results.Count > min)
+        {
+            return results[min].gameObject;
+        }
         return null;
     }
 
