@@ -484,9 +484,10 @@ public class Ball : MonoBehaviour
                 }
             }
         }
-        else if (!hasClickedBall)
+        else if (!hasClickedBall && PlayerInput.isDown(PlayerInput.Axis.Fire1))
         {
-            hasClickedBall = PlayerInput.isDown(PlayerInput.Axis.Fire1);
+            hasClickedBall = true;
+            PlayerInput.resetCursor();
         }
         if (PlayerInput.isDown(PlayerInput.Axis.Fire2))
         {

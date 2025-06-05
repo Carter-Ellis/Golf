@@ -14,6 +14,8 @@ public class PlayerInput : MonoBehaviour
         Fire3,
         Fire4,
         ScrollWheel,
+        SwapUp,
+        SwapDown,
         MAX_AXIS
     }
 
@@ -27,13 +29,18 @@ public class PlayerInput : MonoBehaviour
         "Fire2",
         "Fire3",
         "Fire4",
-        "ScrollWheel"
+        "ScrollWheel",
+        "SwapUp",
+        "SwapDown"
     };
 
     private static float[,] axesValue = new float[(int)Axis.MAX_AXIS, 2];
     private static bool[,] axesFrameDown = new bool[(int)Axis.MAX_AXIS, 2];
 
     public static bool isController { get; private set; }
+
+    private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
+    private static float cursorSpeed = 0.3f;
 
     void Update()
     {
@@ -64,12 +71,27 @@ public class PlayerInput : MonoBehaviour
 
         if (!usedKey && usedController)
         {
+            if (!isController)
+            {
+                resetCursor(); //Reset when switching to controller
+            }
             isController = true;
         }
         else if (usedKey && !usedController)
         {
             isController = false;
         }
+
+        if (isController)
+        {
+            Vector2 joystick = new Vector2(get(Axis.Horizontal), get(Axis.Vertical));
+            if (joystick.magnitude >= 0.1f)
+            {
+                _cursorPos += joystick * Time.deltaTime * cursorSpeed;
+                _cursorPos = new Vector2(Mathf.Clamp(_cursorPos.x, 0, 1), Mathf.Clamp(_cursorPos.y, 0, 1));
+            }
+        }
+
     }
 
     public static bool isDown(Axis axis)
@@ -84,15 +106,13 @@ public class PlayerInput : MonoBehaviour
 
     public static Vector2 cursorPosition { get
         {
-            if (isController)
-            {
-                return new Vector2((get(Axis.Horizontal) + 1) * Screen.width * 0.5f, (get(Axis.Vertical) + 1) * Screen.height * 0.5f);
-            }
-            else
-            {
-                return Input.mousePosition;
-            }
+            return isController ? (_cursorPos * new Vector2(Screen.width, Screen.height)) : Input.mousePosition;
         }
+    }
+
+    public static void resetCursor()
+    {
+        _cursorPos = new Vector2(0.5f, 0.5f);
     }
 
 }

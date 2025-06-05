@@ -409,7 +409,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         
-        if (Input.GetKeyDown(KeyCode.Space) && unlockedAbilities.Count > 0)
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire3) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].onUse(ball);
         }
@@ -424,12 +424,12 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && unlockedAbilities.Count > 0)
+        if (PlayerInput.isDown(PlayerInput.Axis.SwapUp) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].reset(ball);
             indexOfAbility = (indexOfAbility + 1) % unlockedAbilities.Count;
         }
-        if (Input.GetKeyDown(KeyCode.Q) && unlockedAbilities.Count > 0)
+        else if (PlayerInput.isDown(PlayerInput.Axis.SwapDown) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].reset(ball);
             indexOfAbility = (unlockedAbilities.Count - 1 + indexOfAbility) % unlockedAbilities.Count;
