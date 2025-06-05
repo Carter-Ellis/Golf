@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class AbilityFreeze : Ability
 {
@@ -49,6 +50,7 @@ public class AbilityFreeze : Ability
         {
             return;
         }
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, GameObject.FindObjectOfType<Ball>().transform.position);
         rb.velocity = Vector2.zero;
         charges -= 1;
     }

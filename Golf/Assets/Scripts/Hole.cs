@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +13,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     Inventory inv;
     CameraController camController;
     public int par = 4;
+    public float timeToBeat = 5f;
     public float ballOverHoleSpeed = 10f;
     public bool inHole;
     private float fallTime = .2f;
@@ -27,7 +28,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     public AudioClip inHoleSFX;
     public Animator animator;
     private int currentLevel;
-    private int holeNum;
+    public int holeNum;
     private int runFinalHole = 2;
 
     public UnityEngine.UI.Button nextLevelButton;
@@ -39,6 +40,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
+    public TextMeshProUGUI timeToBeatTxt;
     private int[] costs = { 2, 5, 8, 12 };
     private void Awake()
     {
@@ -46,9 +48,17 @@ public class Hole : MonoBehaviour, ButtonTarget
         inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
 
-        holeNum = int.Parse(getCourseNumber());
+        GameObject timeObject = GameObject.Find("Time To Beat");
 
+        if (timeObject != null)
+        {
+            timeToBeatTxt = timeObject.GetComponent<TextMeshProUGUI>();
+        }
+
+        holeNum = int.Parse(getCourseNumber());
+        currentLevel = holeNum;
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
         if (signTxt != null)
         {
             signTxt.text = "Par " + par;
@@ -93,13 +103,25 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     private void UnlockNewLevel()
     {
-        if (holeNum >= PlayerPrefs.GetInt("ReachedIndex")) {
-            PlayerPrefs.SetInt("ReachedIndex", holeNum + 1);
-            PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
-            
-        }
         Inventory inv = ball.GetComponent<Inventory>();
-        inv.levelsCompleted[holeNum] = true;
+        if (inv.isFreeplayMode)
+        {
+            inv.levelsCompleted[holeNum] = true;
+        }
+        
+        if (ball.strokes <= par)
+        {
+            foreach (int coin in inv.tempCollectedCoins)
+            {
+                if (!inv.coinsCollected[currentLevel].Contains(coin)) {
+                    inv.coins++;
+                    inv.totalCoins++;
+                    inv.coinsCollected[holeNum].Add(coin);
+                }
+                
+            }
+        }
+
         if (inv.isCampaignMode)
         {
             inv.campaignCurrScore[holeNum] = ball.strokes;
@@ -170,7 +192,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
             } 
         }
-        else if (inv.isCampSpeedMode)
+        else if (inv.isCampSpeedMode && !inv.isWalkMode)
         {
             inv.campSpeedCurrScore[holeNum] = inv.timer;
             if (holeNum == runFinalHole)
@@ -206,12 +228,11 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
 
         }
-        else if (inv.isClassicSpeedMode)
+        else if (inv.isClassicSpeedMode && !inv.isWalkMode)
         {
             inv.classicSpeedCurrScore[holeNum] = inv.timer;
             if (holeNum == runFinalHole)
             {
-                print("classic speed saved;");
                 if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.Count == runFinalHole)
                 {
                     float highscore = 0;
@@ -243,6 +264,81 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
 
         }
+        else if (inv.isCampHardMode)
+        {
+            inv.campHardCurrScore[holeNum] = ball.strokes;
+            if (holeNum == runFinalHole)
+            {
+                if (inv.campHardHighScore != null && inv.campHardHighScore.Count == runFinalHole)
+                {
+                    int highscore = 0;
+                    int currScore = 0;
+
+                    foreach (var kvp in inv.campHardHighScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        highscore += score;
+                    }
+                    foreach (var kvp in inv.campHardCurrScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        currScore += score;
+                    }
+                    if (currScore <= highscore)
+                    {
+
+                        inv.campHardHighScore = inv.campHardCurrScore;
+                    }
+
+                }
+                else
+                {
+                    inv.campHardHighScore = inv.campHardCurrScore;
+                }
+
+
+            }
+        }
+        else if (inv.isClassicHardMode)
+        {
+            inv.classicHardCurrScore[holeNum] = ball.strokes;
+            if (holeNum == runFinalHole)
+            {
+                if (inv.classicHardHighScore != null && inv.classicHardHighScore.Count == runFinalHole)
+                {
+                    int highscore = 0;
+                    int currScore = 0;
+
+                    foreach (var kvp in inv.classicHardHighScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        highscore += score;
+                    }
+                    foreach (var kvp in inv.classicHardCurrScore)
+                    {
+                        int score = kvp.Value;
+                        int level = kvp.Key;
+                        currScore += score;
+                    }
+                    if (currScore <= highscore)
+                    {
+
+                        inv.classicHardHighScore = inv.classicHardCurrScore;
+                    }
+
+                }
+                else
+                {
+                    inv.classicHardHighScore = inv.classicHardCurrScore;
+                }
+
+
+            }
+        }
+
         inv.SavePlayer();
 
     }
@@ -280,23 +376,28 @@ public class Hole : MonoBehaviour, ButtonTarget
             // Play inhole audio
             AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
             isPlayingVoiceLine = true;
-            
-            if (inv.isCampaignMode)
+
+            if (!inv.isFreeplayMode)
             {
                 UnlockNewLevel();
             }
 
             if (ball.strokes <= par)
             {
+
                 if (inv.coinsCollected.ContainsKey(currentLevel) && inv.coinsCollected[currentLevel].Contains(1) && inv.coinsCollected[currentLevel].Contains(2) && inv.coinsCollected[currentLevel].Contains(3))
-                {
+                {  
                     int level = holeNum;
+                    
                     ball.GetComponent<Inventory>().unlockedHats[(Hat.TYPE)level] = true;
+                    inv.SavePlayer();
                 }
-                if (!inv.isCampaignMode)
+                
+                if (inv.isFreeplayMode)
                 {
                     UnlockNewLevel();
                 }
+
                 
             }
             camController.isWinScreen = true;
@@ -333,6 +434,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             ball.transform.position = Vector2.MoveTowards(ball.transform.position, (Vector2)transform.position - new Vector2(0, .1f), fallSpeed * Time.deltaTime);
             ball.transform.root.localScale += scaleChange / fallTime * Time.deltaTime;
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -352,28 +454,58 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     inv.coinsCollected[currentLevel] = new List<int>();
                 }
-                if (!inv.coinsCollected[currentLevel].Contains(3))
+
+                if (!inv.coinsCollected[currentLevel].Contains(3) && (inv.isCampaignMode || inv.isFreeplayMode || inv.isCampHardMode))
                 {
                     inv.coins += 1;
                     inv.totalCoins += 1;
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
                 }
-                inv.coinsCollected[currentLevel].Add(3);
+                if (inv.isCampaignMode || inv.isFreeplayMode || inv.isCampHardMode)
+                {
+                    inv.coinsCollected[currentLevel].Add(3);
+                }
                 
-                
+
             }
 
-            if (ball.strokes <= par)
+            if (inv.isFreeplayMode && ball.strokes <= par)
             {
                 winTxt.fontSize = 90;
                 winTxt.text = "YOU WIN!";
             }
-            else if (ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(holeNum) && ball.GetComponent<Inventory>().levelsCompleted[holeNum])
+            else if (inv.isFreeplayMode && ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(holeNum) && ball.GetComponent<Inventory>().levelsCompleted[holeNum])
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "You Lose! Too Many Strokes!";
+            }
+            else if (inv.isCampaignMode)
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Campaign Mode";
+            }
+            else if (inv.isClassicMode)
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Classic Mode";
+            }
+            else if (inv.isCampSpeedMode)
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Campaign Speedrun";
+                if (inv.timer < timeToBeat)
+                {
+                    inv.campSpeedGoalsBeat[holeNum] = true;
+                }
+                
             }
             else
             {

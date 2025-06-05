@@ -346,3 +346,10 @@ MonoBehaviour:
       Data3: -1605817190
       Data4: 1382095878
     Path: event:/SFX/Windmil/Windmill
+  <freeze>k__BackingField:
+    Guid:
+      Data1: -288569211
+      Data2: 1282425819
+      Data3: -1247338358
+      Data4: 1161438390
+    Path: event:/SFX/Freeze

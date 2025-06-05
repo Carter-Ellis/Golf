@@ -18,11 +18,14 @@ public class PlayerData
     public float ambienceVol = 1f;
 
     public bool isWalkMode;
+    public bool isFreeplayMode;
 
     public bool isCampaignMode;
     public bool isCampSpeedMode;
+    public bool isCampHardMode;
     public bool isClassicMode;
     public bool isClassicSpeedMode;
+    public bool isClassicHardMode;
 
     public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
@@ -36,11 +39,19 @@ public class PlayerData
     public Dictionary<int, float> campSpeedHighScore = new Dictionary<int, float>();
     public Dictionary<int, float> campSpeedCurrScore = new Dictionary<int, float>();
 
+    public Dictionary<int, bool> campSpeedGoalsBeat = new Dictionary<int, bool>();
+
+    public Dictionary<int, int> campHardHighScore = new Dictionary<int, int>();
+    public Dictionary<int, int> campHardCurrScore = new Dictionary<int, int>();
+
     public Dictionary<int, int> classicHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> classicCurrScore = new Dictionary<int, int>();
 
     public Dictionary<int, float> classicSpeedHighScore = new Dictionary<int, float>();
     public Dictionary<int, float> classicSpeedCurrScore = new Dictionary<int, float>();
+
+    public Dictionary<int, int> classicHardHighScore = new Dictionary<int, int>();
+    public Dictionary<int, int> classicHardCurrScore = new Dictionary<int, int>();
 
     public List<AbilityChargeData> maxChargesList = new List<AbilityChargeData>();
     public List<ABILITIES> unlockedAbilityTypes = new List<ABILITIES>();
@@ -85,11 +96,17 @@ public class PlayerData
         campSpeedHighScore = inv.campSpeedHighScore;
         campSpeedCurrScore = inv.campSpeedCurrScore;
 
+        campHardHighScore = inv.campHardHighScore;
+        campHardCurrScore = inv.campHardCurrScore;
+
         classicHighScore = inv.classicHighScore;
         classicCurrScore = inv.classicCurrScore;
 
         classicSpeedHighScore = inv.classicSpeedHighScore;
         classicSpeedCurrScore = inv.classicSpeedCurrScore;
+
+        classicHardHighScore = inv.classicHardHighScore;
+        classicHardCurrScore = inv.classicHardCurrScore;
 
         maxChargesList = inv.maxChargesByType
             .Select(pair => new AbilityChargeData { ability = pair.Key, charges = pair.Value })
@@ -117,10 +134,14 @@ public class PlayerData
 
         isCampaignMode = inv.isCampaignMode;
         isCampSpeedMode = inv.isCampSpeedMode;
+        isCampHardMode = inv.isCampHardMode;
         isClassicMode = inv.isClassicMode;
         isClassicSpeedMode = inv.isClassicSpeedMode;
+        isClassicHardMode = inv.isClassicHardMode;
+        isFreeplayMode = inv.isFreeplayMode;
 
-    }
+        campSpeedGoalsBeat = inv.campSpeedGoalsBeat;
+}
 
     public void RestoreHatSprite()
     {

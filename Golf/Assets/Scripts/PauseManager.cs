@@ -32,7 +32,7 @@ public class PauseManager : MonoBehaviour
         if (holeNumberTxt == null || parTxt == null || strokesTxt == null || 
            ball == null || hole == null) { Debug.Log("PauseManager has null."); return; }
 
-        holeNumberTxt.text = "Hole " + SceneManager.GetActiveScene().buildIndex;
+        holeNumberTxt.text = "Hole " + FindObjectOfType<Hole>().holeNum;
         parTxt.text = "Par " + hole.par;
         strokesTxt.text = "Stroke " + ball.strokes;
 
@@ -60,7 +60,7 @@ public class PauseManager : MonoBehaviour
             
         }
 
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int currentLevel = FindObjectOfType<Hole>().holeNum;
         if (inv.coinsCollected != null && inv.coinsCollected.ContainsKey(currentLevel))
         {
             if (inv.coinsCollected[currentLevel].Contains(1) && goldCoin != null && coinDisplay1 != null)

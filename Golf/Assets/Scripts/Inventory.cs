@@ -12,11 +12,14 @@ public class Inventory : MonoBehaviour
     PopupController popupController;
 
     public bool isWalkMode;
+    public bool isFreeplayMode;
 
     public bool isCampaignMode;
     public bool isCampSpeedMode;
+    public bool isCampHardMode;
     public bool isClassicMode;
     public bool isClassicSpeedMode;
+    public bool isClassicHardMode;
 
     public List<Ability> unlockedAbilities = new List<Ability>();
     public int indexOfAbility = 0;
@@ -55,11 +58,19 @@ public class Inventory : MonoBehaviour
     public Dictionary<int, float> campSpeedHighScore = new Dictionary<int, float>();
     public Dictionary<int, float> campSpeedCurrScore = new Dictionary<int, float>();
 
+    public Dictionary<int, bool> campSpeedGoalsBeat = new Dictionary<int, bool>();
+
+    public Dictionary<int, int> campHardHighScore = new Dictionary<int, int>();
+    public Dictionary<int, int> campHardCurrScore = new Dictionary<int, int>();
+
     public Dictionary<int, int> classicHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> classicCurrScore = new Dictionary<int, int>();
 
     public Dictionary<int, float> classicSpeedHighScore = new Dictionary<int, float>();
     public Dictionary<int, float> classicSpeedCurrScore = new Dictionary<int, float>();
+
+    public Dictionary<int, int> classicHardHighScore = new Dictionary<int, int>();
+    public Dictionary<int, int> classicHardCurrScore = new Dictionary<int, int>();
 
     public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
     public int currentHeight = 0;
@@ -127,6 +138,8 @@ public class Inventory : MonoBehaviour
     public float timer = 0f;
     [SerializeField] private TextMeshProUGUI timerTxt;
 
+    public List<int> tempCollectedCoins = new List<int>();
+
     private void Start()
     {
         popupController = FindObjectOfType<PopupController>();
@@ -139,7 +152,7 @@ public class Inventory : MonoBehaviour
         PopulateShop();
         PopulateCharges();
         DisplayCosmetics();
-
+        SetGoal();
         GameObject time = GameObject.Find("Timer");
         if (time != null)
         {
@@ -154,16 +167,57 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        int highscore = 0;
-        foreach (var kvp in classicHighScore)
+        foreach (var kvp in campSpeedGoalsBeat)
         {
-            int score = kvp.Value;
+            bool score = kvp.Value;
             int level = kvp.Key;
-            highscore += score;
             print("Level : " + level + " Score: " + score);
         }
+            /*int highscore = 0;
+            foreach (var kvp in classicHighScore)
+            {
+                int score = kvp.Value;
+                int level = kvp.Key;
+                highscore += score;
+                print("Level : " + level + " Score: " + score);
+            }*/
 
-        SavePlayer();
+            SavePlayer();
+    }
+
+    private void SetGoal()
+    {
+        if (!isCampSpeedMode && !isClassicSpeedMode) { return; }
+
+        print(isCampSpeedMode);
+        Hole hole = FindObjectOfType<Hole>();
+        GameObject timeObject = GameObject.Find("Time To Beat");
+
+        if (timeObject != null)
+        {
+            hole.timeToBeatTxt = timeObject.GetComponent<TextMeshProUGUI>();
+        }
+        if (hole.timeToBeatTxt != null)
+        {
+            if (!isCampSpeedMode && !isClassicSpeedMode)
+            {
+                hole.timeToBeatTxt.enabled = false;
+            }
+            else
+            {
+                hole.timeToBeatTxt.enabled = true;
+                if (hole.timeToBeat / 10 >= 1)
+                {
+                    hole.timeToBeatTxt.text = "Goal: " + hole.timeToBeat.ToString() + ".00";
+                }
+                else
+                {
+                    hole.timeToBeatTxt.text = "Goal: 0" + hole.timeToBeat.ToString() + ".00";
+                }
+            }
+
+
+        }
     }
 
     private void SpeedrunTimer()
@@ -193,7 +247,7 @@ public class Inventory : MonoBehaviour
     }
     private void ChangeCoinSprites()
     {
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int currentLevel = FindObjectOfType<Hole>().holeNum;
         if (coinsCollected != null && coinsCollected.ContainsKey(currentLevel))
         {
             if (coinsCollected[currentLevel].Contains(1) && coin1 != null && coin1Menu != null)
@@ -307,7 +361,7 @@ public class Inventory : MonoBehaviour
 
         if (coinTxt != null)
         {
-            coinTxt.text = "" + coins;
+            coinTxt.text = "" + (coins + tempCollectedCoins.Count).ToString();
             
         }
         if (ball == null)
@@ -421,6 +475,17 @@ public class Inventory : MonoBehaviour
             campSpeedCurrScore = data.campSpeedCurrScore;
         }
 
+        if (data.campHardHighScore != null)
+        {
+
+            campHardHighScore = data.campHardHighScore;
+        }
+
+        if (data.campHardCurrScore != null)
+        {
+            campHardCurrScore = data.campHardCurrScore;
+        }
+
         if (data.classicSpeedHighScore != null)
         {
 
@@ -440,6 +505,22 @@ public class Inventory : MonoBehaviour
         if (classicCurrScore != null)
         {
             classicCurrScore = data.classicCurrScore;
+        }
+
+        if (data.classicHardHighScore != null)
+        {
+
+            classicHardHighScore = data.classicHardHighScore;
+        }
+
+        if (data.classicHardCurrScore != null)
+        {
+            classicHardCurrScore = data.classicHardCurrScore;
+        }
+
+        if (data.campSpeedGoalsBeat != null)
+        {
+            campSpeedGoalsBeat = data.campSpeedGoalsBeat;
         }
 
         if (data.maxChargesList != null && data.maxChargesList.Count > 0)
@@ -497,8 +578,11 @@ public class Inventory : MonoBehaviour
 
         isCampaignMode = data.isCampaignMode;
         isCampSpeedMode = data.isCampSpeedMode;
+        isCampHardMode = data.isCampHardMode;
         isClassicMode = data.isClassicMode;
         isClassicSpeedMode = data.isClassicSpeedMode;
+        isClassicHardMode = data.isClassicHardMode;
+        isFreeplayMode = data.isFreeplayMode;
     }
 
     public void ErasePlayerData()

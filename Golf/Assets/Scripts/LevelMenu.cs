@@ -18,13 +18,17 @@ public class LevelMenu : MonoBehaviour
     }
     private void Update()
     {
-        totalCoinsTxt.text = inv.totalCoins + "/" + totalCoins;
+        if (totalCoinsTxt != null)
+        {
+            totalCoinsTxt.text = inv.totalCoins + "/" + totalCoins;
+        }
+        
     }
 
     private void Awake()
     {
         ButtonsToArray();
-        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        int unlockedLevel = FindObjectOfType<Ball>().GetComponent<Inventory>().levelsCompleted.Count + 1;
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].interactable = false;
