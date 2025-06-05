@@ -404,7 +404,15 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.Follow = null;
             camController.cam.m_Lens.OrthographicSize = camController.mapViewSize;
             camController.cam.transform.position = camController.mapViewPos.position;
-            animator.SetBool("Won", true);
+            if (inv.isFreeplayMode || inv.isCampSpeedMode || inv.isClassicSpeedMode)
+            {
+                animator.SetBool("Won", true);
+            }
+            else
+            {
+                animator.SetBool("RunWon", true);
+            }
+            
             ball.gameObject.SetActive(false);
             inHole = false;
             for (int i = 0; i < 3; i++)
@@ -486,14 +494,14 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
-                winTxt.text = "Campaign Mode";
+                winTxt.text = "Campaign 18 Holes";
             }
             else if (inv.isClassicMode)
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
-                winTxt.text = "Classic Mode";
+                winTxt.text = "Classic 18 Holes";
             }
             else if (inv.isCampSpeedMode)
             {

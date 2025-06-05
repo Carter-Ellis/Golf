@@ -16,6 +16,8 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Image coinDisplay3;
     [SerializeField] private Sprite goldCoin;
     [SerializeField] private Sprite grayCoin;
+    [SerializeField] private GameObject resetButton;
+    [SerializeField] private GameObject shopButton;
 
     [Header("Level Description")]
     [SerializeField] private TextMeshProUGUI holeNumberTxt;
@@ -28,6 +30,8 @@ public class PauseManager : MonoBehaviour
         inv = FindObjectOfType<Inventory>();
         Hole hole = FindObjectOfType<Hole>();
         ball = FindObjectOfType<Ball>();
+        resetButton = transform.Find("RestartLevelButton").gameObject;
+        shopButton = transform.Find("ShopButton").gameObject;
 
         if (holeNumberTxt == null || parTxt == null || strokesTxt == null || 
            ball == null || hole == null) { Debug.Log("PauseManager has null."); return; }
@@ -40,6 +44,19 @@ public class PauseManager : MonoBehaviour
 
     public void UpdatePauseMenu()
     {
+
+        if (!inv.isFreeplayMode && !inv.isCampSpeedMode && !inv.isClassicSpeedMode)
+        {
+            resetButton.SetActive(false);
+        }
+
+        if (inv.isCampSpeedMode || inv.isClassicSpeedMode)
+        {
+            coinDisplay1.enabled = false;
+            coinDisplay2.enabled = false;
+            coinDisplay3.enabled = false;
+        }
+
         for (int i = 0; i < 3; i++)
         {
             upgradeAvailableTxt.enabled = false;
@@ -76,6 +93,13 @@ public class PauseManager : MonoBehaviour
                 coinDisplay3.GetComponent<Image>().sprite = goldCoin;
             }
         }
+
+        if (!inv.isFreeplayMode)
+        {
+            upgradeAvailableTxt.enabled = false;
+            shopButton.SetActive(false);
+        }
+
         if (ball == null)
         {
             Debug.Log("No ball found");

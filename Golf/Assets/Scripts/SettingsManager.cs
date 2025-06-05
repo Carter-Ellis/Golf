@@ -14,7 +14,10 @@ public class SettingsManager : MonoBehaviour
     }
     private void Update()
     {
-
+        if (!soundMenuCanvas.gameObject.activeSelf)
+        {
+            return;
+        }
         if (ball.isTeleportReady)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
