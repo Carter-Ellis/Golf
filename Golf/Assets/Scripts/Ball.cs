@@ -447,6 +447,19 @@ public class Ball : MonoBehaviour
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.woodHit, transform.position);
             }
         }
+        else if (collision.gameObject.tag == "Cobblestone")
+        {
+            wallHits++;
+            float volume = rb.velocity.magnitude / 10;
+            if (volume > maxSFXVolume)
+            {
+                volume = maxSFXVolume;
+            }
+            if (!didExit || !didEnter)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.cobbleHit, transform.position);
+            }
+        }
 
     }
 

@@ -185,6 +185,15 @@ public class Inventory : MonoBehaviour
             SavePlayer();
     }
 
+    public Ability getCurrentAbility()
+    {
+        if (unlockedAbilities.Count == 0)
+        {
+            return null;
+        }
+        return unlockedAbilities[indexOfAbility];
+    }
+
     private void SetGoal()
     {
         if (!isCampSpeedMode && !isClassicSpeedMode) { return; }

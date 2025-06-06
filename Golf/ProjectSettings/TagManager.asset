@@ -21,6 +21,7 @@ TagManager:
   - Background
   - Wood
   - Out Of Bounds
+  - Cobblestone
   layers:
   - Default
   - TransparentFX

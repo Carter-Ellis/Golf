@@ -412,11 +412,20 @@ public class Hole : MonoBehaviour, ButtonTarget
             {
                 animator.SetBool("Won", true);
             }
+            else if (holeNum == 18)
+            {
+                animator.SetBool("RunFinished", true);
+            }
             else
             {
                 animator.SetBool("RunWon", true);
             }
-            
+
+            Ability ability = inv.getCurrentAbility();
+            if (ability != null)
+            {
+                ability.onBallDisabled(ball);
+            }
             ball.gameObject.SetActive(false);
             inHole = false;
             for (int i = 0; i < 3; i++)
@@ -502,6 +511,11 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Campaign 18 Holes";
+                print("Hello");
+                if (holeNum == 18)
+                {
+                    winTxt.text = "You finished Campaign 18 Holes!";
+                }
             }
             else if (inv.isClassicMode)
             {
@@ -509,6 +523,12 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Classic 18 Holes";
+
+                if (holeNum == 18)
+                {
+                    winTxt.text = "You finished Classic 18 Holes!";
+                }
+
             }
             else if (inv.isCampSpeedMode)
             {
@@ -520,7 +540,12 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     inv.campSpeedGoalsBeat[holeNum] = true;
                 }
-                
+
+                if (holeNum == 18)
+                {
+                    winTxt.text = "You finished Campaign Speedrun!";
+                }
+
             }
             else
             {
@@ -529,6 +554,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 winTxt.fontSize = 50;
                 winTxt.text = "You Lose! Too Many Strokes!";
             }
+
 
             if (parOnWinScreenTxt != null)
             {

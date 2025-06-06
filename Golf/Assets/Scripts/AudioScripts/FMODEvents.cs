@@ -98,6 +98,15 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Freeze")]
     [field: SerializeField] public EventReference freeze { get; private set; }
 
+    [field: Header("Wall Break")]
+    [field: SerializeField] public EventReference wallBreak { get; private set; }
+
+    [field: Header("CobbleHit")]
+    [field: SerializeField] public EventReference cobbleHit { get; private set; }
+
+    [field: Header("Mole")]
+    [field: SerializeField] public EventReference moleCrawl { get; private set; }
+
     public static FMODEvents instance { get; private set; }
 
     private void Awake()

@@ -108,4 +108,7 @@ public abstract class Ability
     public abstract void reset(Ball ball);
 
     public abstract void onPickup(Ball ball);
+
+    public abstract void onBallDisabled(Ball ball);
+
 }

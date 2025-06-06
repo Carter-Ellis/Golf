@@ -110,8 +110,10 @@ public class AbilityTeleport : Ability
 
         ball.GetComponent<SpriteRenderer>().color = ball.GetComponent<Inventory>().ballColor;
         GameObject existing = GameObject.Find("TeleportCircle");
-        if (existing != null) GameObject.Destroy(existing);
-
+        if (existing != null)
+        {
+            GameObject.Destroy(existing);
+        }
     }
 
     public override void onPickup(Ball ball)
@@ -206,5 +208,15 @@ public class AbilityTeleport : Ability
 
         line.positionCount = segments;
         line.SetPositions(points);
+    }
+
+    public override void onBallDisabled(Ball ball)
+    {
+        Debug.Log("test");
+        GameObject existing = GameObject.Find("TeleportCircle");
+        if (existing != null)
+        {
+            GameObject.Destroy(existing);
+        }
     }
 }

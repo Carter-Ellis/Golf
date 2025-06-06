@@ -8,6 +8,7 @@ public class Mole : MonoBehaviour
     private float timer = 0;
     [SerializeField] private Animator anim;
     private CapsuleCollider2D cc;
+    private bool playedAudio;
     private void Start()
     {
         cc = GetComponent<CapsuleCollider2D>();
@@ -20,6 +21,12 @@ public class Mole : MonoBehaviour
         //Set idle to MolePopup
         if (timer > idleTime )
         {
+            if (!playedAudio)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.moleCrawl, transform.position);
+                playedAudio = true;
+            }
+
             anim.SetBool("IsPopup", true);
             Vector3 pos = transform.position;
             if (FindObjectOfType<Ball>() == null)
@@ -43,6 +50,7 @@ public class Mole : MonoBehaviour
         //Set MolePopup to idle
         if (stateInfo.IsName("MolePopup") && stateInfo.normalizedTime > 1f)
         {
+            playedAudio = false;
             anim.SetBool("IsPopup", false);
             timer = 0;
             cc.enabled = false;

@@ -353,3 +353,24 @@ MonoBehaviour:
       Data3: -1247338358
       Data4: 1161438390
     Path: event:/SFX/Freeze
+  <wallBreak>k__BackingField:
+    Guid:
+      Data1: -2121468958
+      Data2: 1329742028
+      Data3: -334041672
+      Data4: 1852691122
+    Path: event:/SFX/Wall Break
+  <cobbleHit>k__BackingField:
+    Guid:
+      Data1: 946894454
+      Data2: 1126846997
+      Data3: -1086767465
+      Data4: -1157108964
+    Path: event:/SFX/Cobble Hit
+  <moleCrawl>k__BackingField:
+    Guid:
+      Data1: 1854933199
+      Data2: 1156104121
+      Data3: 206152879
+      Data4: 1312330518
+    Path: event:/SFX/mole/Mole Crawl

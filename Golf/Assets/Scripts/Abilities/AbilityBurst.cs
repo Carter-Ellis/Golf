@@ -71,7 +71,9 @@ public class AbilityBurst : Ability
 
     public override void reset(Ball ball)
     {
-
     }
 
+    public override void onBallDisabled(Ball ball)
+    {
+    }
 }

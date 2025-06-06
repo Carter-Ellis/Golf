@@ -61,4 +61,8 @@ public class AbilityWind : Ability
     public override void onFrame(Ball ball) { }
 
     public override void reset(Ball ball) { }
+
+    public override void onBallDisabled(Ball ball)
+    {
+    }
 }

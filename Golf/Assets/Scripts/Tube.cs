@@ -67,6 +67,11 @@ public class Tube : MonoBehaviour
 
             if (ball.transform.localScale.x <= 0) {
                 ball.transform.position = Vector2.MoveTowards(ball.transform.position, exitPos, travelSpeed * Time.deltaTime);
+                Ability ability = ball.GetComponent<Inventory>().getCurrentAbility();
+                if (ability != null)
+                {
+                    ability.onBallDisabled(ball);
+                }
                 ball.gameObject.SetActive(false);
             }
             else
