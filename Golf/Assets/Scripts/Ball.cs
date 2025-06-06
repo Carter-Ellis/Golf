@@ -157,20 +157,16 @@ public class Ball : MonoBehaviour
         //UpdateSound();
         UpdateDirection(rb.velocity);
 
-        if (Input.GetKeyDown(KeyCode.R)) 
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire4)) 
         {
-            AudioManager.instance.CreateInstance(FMODEvents.instance.mapOpen);
+            //AudioManager.instance.CreateInstance(FMODEvents.instance.mapOpen);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        /*if (Input.GetKeyDown(KeyCode.B))
-        {
-            isBattleMode = !isBattleMode;
-        }*/
 
         if (isBattleMode)
         {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+            movement.x = PlayerInput.get(PlayerInput.Axis.Horizontal);
+            movement.y = PlayerInput.get(PlayerInput.Axis.Vertical);
         }
         
         if (takingDamage)
@@ -192,9 +188,10 @@ public class Ball : MonoBehaviour
         }
 
         if (isBattleMode) { return; }
-        if (Input.GetMouseButtonDown(0) && !camController.isViewMode)
+
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire1) && !camController.isViewMode)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
             bool didSelect = false;
             if (hit.collider != null)
@@ -219,9 +216,7 @@ public class Ball : MonoBehaviour
        
         //ClickEnemy();
         
-        isMouseButton1Held = Input.GetMouseButton(0);
-        
-        
+        isMouseButton1Held = PlayerInput.get(PlayerInput.Axis.Fire1) != 0;
 
         if (!camController.isViewMode)
         {
@@ -365,9 +360,9 @@ public class Ball : MonoBehaviour
     }
     void ClickEnemy()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        if (Input.GetMouseButtonDown(0) && hit.collider != null && hit.collider.tag == "Enemy")
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire1) && hit.collider != null && hit.collider.tag == "Enemy")
         {
             Enemy enemy = hit.collider.GetComponent<Enemy>();
             enemy.health -= ball.clickDamage;
@@ -481,19 +476,27 @@ public class Ball : MonoBehaviour
 
     void GrabBall()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
-        
-        foreach (RaycastHit2D hit in hits)
+        if (!PlayerInput.isController)
         {
+            Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
+            RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
 
-            if (isMouseButton1Held && hit.collider != null && hit.collider.tag == "Ball" && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ball"))
+            foreach (RaycastHit2D hit in hits)
             {
-                hasClickedBall = true;
-                break;
+
+                if (isMouseButton1Held && hit.collider != null && hit.collider.tag == "Ball" && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ball"))
+                {
+                    hasClickedBall = true;
+                    break;
+                }
             }
         }
-        if (Input.GetMouseButtonDown(1))
+        else if (!hasClickedBall && PlayerInput.isDown(PlayerInput.Axis.Fire1))
+        {
+            hasClickedBall = true;
+            PlayerInput.resetCursor();
+        }
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire2))
         {
             hasClickedBall = false;
             cursor.GetComponent<SpriteRenderer>().enabled = false;
@@ -523,7 +526,7 @@ public class Ball : MonoBehaviour
         }
         if (isAiming)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(PlayerInput.cursorPosition);
             Vector2 ballPos = ball.transform.position;
 
             Vector2 mousePosNormalized = (mousePos - ballPos).normalized;
@@ -548,7 +551,7 @@ public class Ball : MonoBehaviour
     {
         canPutt = false;
         isPuttCooldown = false;
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(PlayerInput.cursorPosition);
         Vector2 ballPos = ball.transform.position;
 
         Vector2 mousePosNormalized = (mousePos - ballPos).normalized;

@@ -40,6 +40,8 @@ public class Hole : MonoBehaviour, ButtonTarget
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
+
+    private CursorController cursor;
     public TextMeshProUGUI timeToBeatTxt;
     private int[] costs = { 2, 5, 8, 12 };
     private void Awake()
@@ -47,6 +49,9 @@ public class Hole : MonoBehaviour, ButtonTarget
         ball = GameObject.FindObjectOfType<Ball>();
         inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
+
+        cursor = animator.GetComponentInChildren<CursorController>();
+        cursor.gameObject.SetActive(false);
 
         GameObject timeObject = GameObject.Find("Time To Beat");
 
@@ -57,6 +62,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         holeNum = int.Parse(getCourseNumber());
         currentLevel = holeNum;
+        
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         if (signTxt != null)
@@ -404,6 +410,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.Follow = null;
             camController.cam.m_Lens.OrthographicSize = camController.mapViewSize;
             camController.cam.transform.position = camController.mapViewPos.position;
+
             if (inv.isFreeplayMode || inv.isCampSpeedMode || inv.isClassicSpeedMode)
             {
                 animator.SetBool("Won", true);
@@ -434,6 +441,9 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
             }
+
+            cursor.gameObject.SetActive(true);
+
 
         }
         else

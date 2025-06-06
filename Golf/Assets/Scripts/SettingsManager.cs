@@ -6,26 +6,28 @@ public class SettingsManager : MonoBehaviour
 {
     public Canvas soundMenuCanvas;
     private Ball ball;
+    private GameObject soundMenu;
+    private PauseManager pauseManager;
     
     private void Start()
     {
-        soundMenuCanvas.enabled = false;
         ball = GameObject.FindObjectOfType<Ball>();
+        soundMenu = soundMenuCanvas.gameObject;
+        pauseManager = GetComponent<PauseManager>();
+        pauseManager.initialize(soundMenu);
+        soundMenu.SetActive(false);
     }
     private void Update()
     {
-        if (!soundMenuCanvas.gameObject.activeSelf)
-        {
-            return;
-        }
+        
         if (ball.isTeleportReady)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (PlayerInput.isDown(PlayerInput.Axis.Cancel))
             {
-                soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
-                if (soundMenuCanvas.enabled)
+                soundMenu.SetActive(!soundMenu.activeSelf);
+                if (soundMenu.activeSelf)
                 {
-                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                    pauseManager.UpdatePauseMenu();
                 }
             }
             return;
@@ -33,30 +35,30 @@ public class SettingsManager : MonoBehaviour
 
         if (ball != null && ball.isTraveling)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (PlayerInput.isDown(PlayerInput.Axis.Cancel))
             {
-                soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
-                ball.isBallLocked = soundMenuCanvas.enabled;
-                if (soundMenuCanvas.enabled)
+                soundMenu.SetActive(!soundMenu.activeSelf);
+                ball.isBallLocked = soundMenu.activeSelf;
+                if (soundMenu.activeSelf)
                 {
-                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                    pauseManager.UpdatePauseMenu();
                 }
             }
             return;
         }
         if (ball != null && ball.GetComponent<Ball>().enabled != false && !ball.isActiveAndEnabled)
         {
-            soundMenuCanvas.enabled = false;
+            soundMenu.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && ball.isActiveAndEnabled)
+        if (PlayerInput.isDown(PlayerInput.Axis.Cancel) && ball.isActiveAndEnabled)
         {
-            soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
+            soundMenu.SetActive(!soundMenu.activeSelf);
             if (ball != null)
             {
-                ball.isBallLocked = soundMenuCanvas.enabled;
-                if (soundMenuCanvas.enabled)
+                ball.isBallLocked = soundMenu.activeSelf;
+                if (soundMenu.activeSelf)
                 {
-                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                    pauseManager.UpdatePauseMenu();
                 }
             }   
             
@@ -64,10 +66,10 @@ public class SettingsManager : MonoBehaviour
     }
     public void backButton()
     {
-        soundMenuCanvas.enabled = !soundMenuCanvas.enabled;
+        soundMenu.SetActive(!soundMenu.activeSelf);
         if (ball != null)
         {
-            ball.isBallLocked = soundMenuCanvas.enabled;
+            ball.isBallLocked = soundMenu.activeSelf;
         }
     }
 }

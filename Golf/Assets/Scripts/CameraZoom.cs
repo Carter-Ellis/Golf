@@ -9,7 +9,7 @@ public class CameraZoom : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera virtualCamera;
     CameraController camController;
     Inventory inv;
-    [SerializeField] float sensitivity = 200f;
+    private float sensitivity = 3000f;
     private float maxViewDistance = 11.5f;
     [SerializeField] float minViewDistance = 2.9f;
     private float velocity = 0f;
@@ -35,7 +35,7 @@ public class CameraZoom : MonoBehaviour
     {
 
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float scroll = PlayerInput.get(PlayerInput.Axis.ScrollWheel) * Time.deltaTime;
 
         if (scroll != 0)
         {
