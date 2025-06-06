@@ -9,9 +9,24 @@ public class CursorController : MonoBehaviour
 
     private Image cursorImage;
 
-    private void Start()
+    private void OnEnable()
+    {
+        PlayerInput.resetCursor();
+    }
+    private void Awake()
     {
         cursorImage = this.GetComponent<Image>();
+        if (PlayerInput.isController)
+        {
+            if (!cursorImage.enabled)
+            {
+                cursorImage.enabled = true;
+            }
+        }
+        else if (cursorImage.enabled)
+        {
+            cursorImage.enabled = false;
+        }
     }
     void Update()
     {

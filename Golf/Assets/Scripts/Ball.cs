@@ -167,6 +167,7 @@ public class Ball : MonoBehaviour
         {
             movement.x = PlayerInput.get(PlayerInput.Axis.Horizontal);
             movement.y = PlayerInput.get(PlayerInput.Axis.Vertical);
+            movement *= PlayerInput.isController ? -1 : 1;
         }
         
         if (takingDamage)

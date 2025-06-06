@@ -10,6 +10,7 @@ public class Coin : MonoBehaviour
     public bool isRed;
     public int coinNumber;
 
+
     private IEnumerator Start()
     {
         ball = FindObjectOfType<Ball>();

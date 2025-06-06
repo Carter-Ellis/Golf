@@ -52,7 +52,7 @@ public class AbilityTeleport : Ability
             return;
         }
 
-        if (GameObject.FindObjectOfType<PauseManager>() == null || GameObject.FindObjectOfType<PauseManager>().GetComponent<Canvas>().enabled)
+        if (GameObject.Find("Pause Screen") != null && GameObject.Find("Pause Screen").activeSelf)
         {
             return;
         }
@@ -103,7 +103,7 @@ public class AbilityTeleport : Ability
         isReady = false;
         ball.isTeleportReady = false;
         ball.isBallLocked = false;
-        if (GameObject.FindObjectOfType<PauseManager>().gameObject.activeSelf)
+        if (GameObject.Find("Pause Screen") != null && GameObject.Find("Pause Screen").activeSelf)
         {
             ball.isBallLocked = false;
         }
@@ -140,7 +140,7 @@ public class AbilityTeleport : Ability
 
     public override void onUse(Ball ball)
     {
-        if (GameObject.FindObjectOfType<PauseManager>() == null || GameObject.FindObjectOfType<PauseManager>().GetComponent<Canvas>().enabled)
+        if (GameObject.Find("Pause Screen") != null && GameObject.Find("Pause Screen").activeSelf)
         {
             return;
         }

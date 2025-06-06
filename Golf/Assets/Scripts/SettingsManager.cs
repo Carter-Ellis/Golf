@@ -37,6 +37,7 @@ public class SettingsManager : MonoBehaviour
         {
             if (PlayerInput.isDown(PlayerInput.Axis.Cancel))
             {
+                print("Heladasdlo");
                 soundMenu.SetActive(!soundMenu.activeSelf);
                 ball.isBallLocked = soundMenu.activeSelf;
                 if (soundMenu.activeSelf)
@@ -50,7 +51,7 @@ public class SettingsManager : MonoBehaviour
         {
             soundMenu.SetActive(false);
         }
-        if (PlayerInput.isDown(PlayerInput.Axis.Cancel) && ball.isActiveAndEnabled)
+        if (PlayerInput.isDown(PlayerInput.Axis.Cancel) && ball.isActiveAndEnabled && GameObject.Find("Menu Warning") == null)
         {
             soundMenu.SetActive(!soundMenu.activeSelf);
             if (ball != null)

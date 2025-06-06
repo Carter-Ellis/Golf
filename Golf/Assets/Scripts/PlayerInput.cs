@@ -44,7 +44,7 @@ public class PlayerInput : MonoBehaviour
     private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
     public static float cursorSpeed = 0.6f;
 
-    private void Awake()
+    private void OnEnable()
     {
         for (int i = 0; i < (int)Axis.MAX_AXIS; i++)
         {
@@ -53,6 +53,7 @@ public class PlayerInput : MonoBehaviour
             axesFrameDown[i, 0] = false;
             axesFrameDown[i, 1] = false;
         }
+        resetCursor();
     }
 
     void Update()

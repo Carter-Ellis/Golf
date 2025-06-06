@@ -390,6 +390,10 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             if (ball.strokes <= par)
             {
+                if (inv.isFreeplayMode)
+                {
+                    UnlockNewLevel();
+                }
 
                 if (inv.coinsCollected.ContainsKey(currentLevel) && inv.coinsCollected[currentLevel].Contains(1) && inv.coinsCollected[currentLevel].Contains(2) && inv.coinsCollected[currentLevel].Contains(3))
                 {  
@@ -398,13 +402,6 @@ public class Hole : MonoBehaviour, ButtonTarget
                     ball.GetComponent<Inventory>().unlockedHats[(Hat.TYPE)level] = true;
                     inv.SavePlayer();
                 }
-                
-                if (inv.isFreeplayMode)
-                {
-                    UnlockNewLevel();
-                }
-
-                
             }
             camController.isWinScreen = true;
             camController.cam.Follow = null;
