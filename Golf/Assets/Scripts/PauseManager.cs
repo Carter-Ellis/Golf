@@ -25,13 +25,13 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI strokesTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
     private int[] costs = { 2, 5, 8, 12 };
-    private void Start()
+    public void initialize(GameObject menu)
     {
         inv = FindObjectOfType<Inventory>();
         Hole hole = FindObjectOfType<Hole>();
         ball = FindObjectOfType<Ball>();
-        resetButton = transform.Find("RestartLevelButton").gameObject;
-        shopButton = transform.Find("ShopButton").gameObject;
+        resetButton = menu.gameObject.transform.Find("RestartLevelButton").gameObject;
+        shopButton = menu.gameObject.transform.Find("ShopButton").gameObject;
 
         if (holeNumberTxt == null || parTxt == null || strokesTxt == null || 
            ball == null || hole == null) { Debug.Log("PauseManager has null."); return; }

@@ -410,6 +410,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.Follow = null;
             camController.cam.m_Lens.OrthographicSize = camController.mapViewSize;
             camController.cam.transform.position = camController.mapViewPos.position;
+
             if (inv.isFreeplayMode || inv.isCampSpeedMode || inv.isClassicSpeedMode)
             {
                 animator.SetBool("Won", true);

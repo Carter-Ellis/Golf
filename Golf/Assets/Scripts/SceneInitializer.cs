@@ -36,7 +36,7 @@ public class SceneInitializer : MonoBehaviour
             childImage.enabled = false;
         }
 
-        if (inv.classicHighScore.Count == 18)
+        if (inv.classicHighScore != null && inv.classicHighScore.Count == 18)
         {
             classicHardcoreButton.interactable = true;
             Image childImage = classicHardcoreButton.transform.GetChild(0).GetComponent<Image>();

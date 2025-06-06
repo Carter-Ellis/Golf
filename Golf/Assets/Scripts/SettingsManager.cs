@@ -7,18 +7,19 @@ public class SettingsManager : MonoBehaviour
     public Canvas soundMenuCanvas;
     private Ball ball;
     private GameObject soundMenu;
+    private PauseManager pauseManager;
     
     private void Start()
     {
         ball = GameObject.FindObjectOfType<Ball>();
         soundMenu = soundMenuCanvas.gameObject;
+        pauseManager = GetComponent<PauseManager>();
+        pauseManager.initialize(soundMenu);
+        soundMenu.SetActive(false);
     }
     private void Update()
     {
-        if (!soundMenuCanvas.gameObject.activeSelf)
-        {
-            return;
-        }
+        
         if (ball.isTeleportReady)
         {
             if (PlayerInput.isDown(PlayerInput.Axis.Cancel))
@@ -26,7 +27,7 @@ public class SettingsManager : MonoBehaviour
                 soundMenu.SetActive(!soundMenu.activeSelf);
                 if (soundMenu.activeSelf)
                 {
-                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                    pauseManager.UpdatePauseMenu();
                 }
             }
             return;
@@ -40,7 +41,7 @@ public class SettingsManager : MonoBehaviour
                 ball.isBallLocked = soundMenu.activeSelf;
                 if (soundMenu.activeSelf)
                 {
-                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                    pauseManager.UpdatePauseMenu();
                 }
             }
             return;
@@ -57,7 +58,7 @@ public class SettingsManager : MonoBehaviour
                 ball.isBallLocked = soundMenu.activeSelf;
                 if (soundMenu.activeSelf)
                 {
-                    FindObjectOfType<PauseManager>().UpdatePauseMenu();
+                    pauseManager.UpdatePauseMenu();
                 }
             }   
             
