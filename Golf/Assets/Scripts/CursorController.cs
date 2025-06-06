@@ -8,6 +8,7 @@ public class CursorController : MonoBehaviour
 {
 
     private Image cursorImage;
+    private HashSet<GameObject> hovered = new HashSet<GameObject>();
 
     private void OnEnable()
     {
@@ -38,10 +39,7 @@ public class CursorController : MonoBehaviour
             }
             Vector2 position = new Vector2(Screen.width, Screen.height) - PlayerInput.cursorPosition;
             transform.position = position;
-            if (PlayerInput.isDown(PlayerInput.Axis.Fire1))
-            {
-                SimulateClick(position);
-            }
+            SimulateClick(position, PlayerInput.isDown(PlayerInput.Axis.Fire1));
         }
         else if (cursorImage.enabled)
         {
@@ -49,7 +47,7 @@ public class CursorController : MonoBehaviour
         }
     }
 
-    private void SimulateClick(Vector2 screenPosition)
+    private void SimulateClick(Vector2 screenPosition, bool isDown)
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
@@ -58,20 +56,48 @@ public class CursorController : MonoBehaviour
 
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
+        HashSet<GameObject> newHover = new HashSet<GameObject>();
 
         foreach (var result in results)
         {
-            ExecuteEvents.Execute(result.gameObject, pointerData, ExecuteEvents.pointerClickHandler);
-            ExecuteEvents.Execute(result.gameObject, pointerData, ExecuteEvents.dragHandler);
-            if (result.gameObject.name == "Background")
+
+            GameObject obj = result.gameObject;
+
+            mouseEvents(obj, pointerData, isDown, newHover, hovered);
+
+            if (obj.name == "Background")
             {
-                GameObject parent = result.gameObject.transform.parent.gameObject;
+                GameObject parent = obj.transform.parent.gameObject;
                 if (parent != null)
                 {
-                    ExecuteEvents.Execute(parent, pointerData, ExecuteEvents.pointerClickHandler);
-                    ExecuteEvents.Execute(parent, pointerData, ExecuteEvents.dragHandler);
+                    mouseEvents(parent, pointerData, isDown, newHover, hovered);
                 }
             }
+        }
+
+        foreach (GameObject obj in hovered)
+        {
+            if (!newHover.Contains(obj))
+            {
+                ExecuteEvents.Execute(obj, pointerData, ExecuteEvents.pointerExitHandler);
+            }
+        }
+
+        hovered = newHover;
+
+    }
+
+    private void mouseEvents(GameObject target, PointerEventData pointerData, bool isDown, HashSet<GameObject> newHover, HashSet<GameObject> oldHover)
+    {
+        newHover.Add(target);
+        if (isDown)
+        {
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerClickHandler);
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.dragHandler);
+        }
+        if (!oldHover.Contains(target))
+        {
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerEnterHandler);
         }
     }
 
