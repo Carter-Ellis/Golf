@@ -56,6 +56,7 @@ public class AbilityWind : Ability
         charges--;
 
         rb.AddForce(rb.velocity.normalized * gustSpeed, ForceMode2D.Impulse);
+        ball.DisplayParticles();
     }
 
     public override void onFrame(Ball ball) { }

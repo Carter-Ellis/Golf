@@ -5,6 +5,7 @@ using TMPro;
 using FMOD.Studio;
 using UnityEngine.SceneManagement;
 using Cinemachine.Utility;
+using Unity.VisualScripting;
 
 public enum Direction
 {
@@ -50,6 +51,7 @@ public class Ball : MonoBehaviour
     public GameObject cursor;
     public Selectable objectSelected;
     public Direction CurrentDirection { get; private set; }
+    [SerializeField] private float minSpeedForParticles = 5f;
 
     [Header("Burst")]
     public GameObject ballClone;
@@ -157,7 +159,7 @@ public class Ball : MonoBehaviour
         //UpdateSound();
         UpdateDirection(rb.velocity);
 
-        if (PlayerInput.isDown(PlayerInput.Axis.Fire4)) 
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire4) && !inv.isCampaignMode && !inv.isCampHardMode && !inv.isClassicMode && !inv.isClassicHardMode) 
         {
             //AudioManager.instance.CreateInstance(FMODEvents.instance.mapOpen);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -599,7 +601,62 @@ public class Ball : MonoBehaviour
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.hardSwing, transform.position);
         }
-        
+        DisplayParticles();
+    }
+
+    public void DisplayParticles()
+    {
+        var particles = transform.Find("Grass Particles").GetComponent<ParticleSystem>();
+        if (particles != null)
+        {
+            if (rb.velocity.magnitude > minSpeedForParticles && !particles.isPlaying)
+            {
+                var velocityModule = particles.velocityOverLifetime;
+                velocityModule.enabled = true;
+
+                // Set constant velocity based on ball velocity
+                velocityModule.x = new ParticleSystem.MinMaxCurve(-(rb.velocity.x / 2));
+                velocityModule.y = new ParticleSystem.MinMaxCurve(-(rb.velocity.y / 2));
+                velocityModule.z = new ParticleSystem.MinMaxCurve(0f);
+                particles.Play();
+            }
+            else if (rb.velocity.magnitude <= minSpeedForParticles && particles.isPlaying)
+            {
+                particles.Stop();
+            }
+        }
+    }
+
+    public void DisplayFreezeParticles()
+    {
+        var particles = transform.Find("Freeze Particles").GetComponent<ParticleSystem>();
+        if (particles != null)
+        {
+            if (!particles.isPlaying)
+            {
+                particles.Play();
+            }
+            else if (particles.isPlaying)
+            {
+                particles.Stop();
+            }
+        }
+    }
+
+    public void DisplayTeleportParticles()
+    {
+        var particles = transform.Find("Teleport Particles").GetComponent<ParticleSystem>();
+        if (particles != null)
+        {
+            if (!particles.isPlaying)
+            {
+                particles.Play();
+            }
+            else if (particles.isPlaying)
+            {
+                particles.Stop();
+            }
+        }
     }
 
     private void UpdateSound()

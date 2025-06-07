@@ -167,12 +167,12 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        foreach (var kvp in campSpeedGoalsBeat)
+        /*foreach (var kvp in campSpeedGoalsBeat)
         {
             bool score = kvp.Value;
             int level = kvp.Key;
             print("Level : " + level + " Score: " + score);
-        }
+        }*/
             /*int highscore = 0;
             foreach (var kvp in classicHighScore)
             {
@@ -219,6 +219,10 @@ public class Inventory : MonoBehaviour
                 {
                     hole.timeToBeatTxt.text = "Goal: " + hole.timeToBeat.ToString() + ".00";
                 }
+                else if (hole.timeToBeat != Mathf.Floor(hole.timeToBeat))
+                {
+                    hole.timeToBeatTxt.text = "Goal: 0" + hole.timeToBeat.ToString() + "0";
+                }
                 else
                 {
                     hole.timeToBeatTxt.text = "Goal: 0" + hole.timeToBeat.ToString() + ".00";
@@ -231,7 +235,7 @@ public class Inventory : MonoBehaviour
 
     private void SpeedrunTimer()
     {
-        if ((!isCampSpeedMode && !isClassicSpeedMode) || timerTxt == null) { return; }
+        if ((!isCampSpeedMode && !isClassicSpeedMode) || timerTxt == null || FindObjectOfType<Hole>().inHole) { return; }
 
         timer += Time.deltaTime;
         System.TimeSpan time = System.TimeSpan.FromSeconds(timer);

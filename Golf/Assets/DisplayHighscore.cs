@@ -32,7 +32,7 @@ public class DisplayHighscore : MonoBehaviour
 
     public void campaign18()
     {
-        if (inv.campaignHighScore != null && inv.campaignHighScore.Count != 18)
+        if (inv.campaignHighScore != null && inv.campaignHighScore.Count == 18)
         {
             int totalScore = 0;
             foreach (var kvp in inv.campaignHighScore)
@@ -58,7 +58,7 @@ public class DisplayHighscore : MonoBehaviour
 
     public void campSpeed()
     {
-        if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.Count != 18)
+        if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.Count == 18)
         {
             float totalScore = 0;
             foreach (var kvp in inv.campSpeedHighScore)
@@ -75,7 +75,7 @@ public class DisplayHighscore : MonoBehaviour
             if (inv.campSpeedHighScore.Count > 0)
             {
                 TimeSpan timeSpan = TimeSpan.FromSeconds(totalScore);
-                campSpeedBest.text = "Best Score: " + timeSpan.ToString(@"mm\:ss\.ff");
+                campSpeedBest.text = "Best Time: " + timeSpan.ToString(@"mm\:ss\.ff");
             }
 
         }
@@ -83,7 +83,7 @@ public class DisplayHighscore : MonoBehaviour
 
     public void campaignHardcore()
     {
-        if (inv.campHardHighScore != null && inv.campHardHighScore.Count != 18)
+        if (inv.campHardHighScore != null && inv.campHardHighScore.Count == 18)
         {
             int totalScore = 0;
             foreach (var kvp in inv.campHardHighScore)
@@ -110,7 +110,7 @@ public class DisplayHighscore : MonoBehaviour
     public void classic18()
     {
         
-        if (inv.classicHighScore != null && inv.classicHighScore.Count != 18)
+        if (inv.classicHighScore != null && inv.classicHighScore.Count == 18)
         {
             int totalScore = 0;
             
@@ -135,7 +135,8 @@ public class DisplayHighscore : MonoBehaviour
 
     public void classicSpeed()
     {
-        if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.Count != 18)
+        print(inv.classicSpeedHighScore.Count);
+        if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.Count == 18)
         {
             float totalScore = 0;
             foreach (var kvp in inv.classicSpeedHighScore)
@@ -145,14 +146,14 @@ public class DisplayHighscore : MonoBehaviour
                 totalScore += score;
 
                 TimeSpan timeSpan = TimeSpan.FromSeconds(score);
-                classicSpeedScores[level - 1].text = timeSpan.ToString(@"mm\:ss"); ;
-
+                classicSpeedScores[level - 1].text = timeSpan.ToString(@"ss\.ff");
+                classicSpeedScores[level - 1].fontSize = 10;
             }
 
             if (inv.classicSpeedHighScore.Count > 0)
             {
                 TimeSpan timeSpan = TimeSpan.FromSeconds(totalScore);
-                classicSpeedBest.text = "Best Score: " + timeSpan.ToString(@"mm\:ss\.ff");
+                classicSpeedBest.text = "Fastest Time: " + timeSpan.ToString(@"mm\.ss\.ff");
             }
 
         }
@@ -160,7 +161,7 @@ public class DisplayHighscore : MonoBehaviour
 
     public void classicHardcore()
     {
-        if (inv.classicHardHighScore != null && inv.classicHardHighScore.Count != 18)
+        if (inv.classicHardHighScore != null && inv.classicHardHighScore.Count == 18)
         {
             int totalScore = 0;
             foreach (var kvp in inv.classicHardHighScore)

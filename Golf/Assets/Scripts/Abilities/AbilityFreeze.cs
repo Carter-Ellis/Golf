@@ -50,6 +50,7 @@ public class AbilityFreeze : Ability
         {
             return;
         }
+        ball.DisplayFreezeParticles();
         AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, GameObject.FindObjectOfType<Ball>().transform.position);
         rb.velocity = Vector2.zero;
         charges -= 1;

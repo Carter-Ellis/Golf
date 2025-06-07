@@ -10,6 +10,8 @@ public class GolfCart : MonoBehaviour
     public float speed = 3f;
     public float travelDistance = 5f;
 
+    public ParticleSystem particleSystem;
+
     private Vector2 startPosition;
 
     void Start()
@@ -36,12 +38,37 @@ public class GolfCart : MonoBehaviour
         // Reverse direction
         speed *= -1;
         cartBody.velocity = new Vector2(speed, 0);
-        startPosition = cartBody.position; // Reset start point for next leg
+        startPosition = cartBody.position;
+
+        PlayParticlesOppositeDirection();
         UpdateSpriteDirection();
     }
 
     void UpdateSpriteDirection()
     {
         spriteRenderer.flipX = speed > 0;
+
+        // Flip particle system position by mirroring its local X
+        Vector3 localPos = particleSystem.transform.localPosition;
+        localPos.x = -Mathf.Abs(localPos.x) * Mathf.Sign(speed); // flip X based on speed
+        particleSystem.transform.localPosition = localPos;
+    }
+
+    void PlayParticlesOppositeDirection()
+    {
+        if (particleSystem == null)
+        {
+            Debug.LogWarning("No particle system assigned.");
+            return;
+        }
+
+        var velocityModule = particleSystem.velocityOverLifetime;
+        velocityModule.enabled = true;
+
+        // Emit opposite to current velocity
+        velocityModule.x = new ParticleSystem.MinMaxCurve(-speed / 2f); // Make the trail more visible
+        velocityModule.y = new ParticleSystem.MinMaxCurve(0f);
+
+        particleSystem.Play();
     }
 }

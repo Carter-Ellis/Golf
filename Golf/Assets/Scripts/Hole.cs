@@ -408,13 +408,18 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.m_Lens.OrthographicSize = camController.mapViewSize;
             camController.cam.transform.position = camController.mapViewPos.position;
 
-            if (inv.isFreeplayMode || inv.isCampSpeedMode || inv.isClassicSpeedMode)
+            
+            if (((holeNum == 18 && (inv.isCampSpeedMode || inv.isClassicSpeedMode)) && inv.timer < timeToBeat) || (!inv.isCampSpeedMode && !inv.isClassicSpeedMode && holeNum == 18))
+            {
+                animator.SetBool("RunFinished", true);
+            }
+            else if (inv.isFreeplayMode)
             {
                 animator.SetBool("Won", true);
             }
-            else if (holeNum == 18)
+            else if(inv.isCampSpeedMode || inv.isClassicSpeedMode)
             {
-                animator.SetBool("RunFinished", true);
+                animator.SetBool("SpeedrunWon", true);
             }
             else
             {
@@ -511,11 +516,54 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Campaign 18 Holes";
-                print("Hello");
+
                 if (holeNum == 18)
                 {
                     winTxt.text = "You finished Campaign 18 Holes!";
                 }
+            }
+            else if (inv.isCampSpeedMode)
+            {
+                nextLevelButton.interactable = false;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Too Slow!";
+                if (inv.timer < timeToBeat)
+                {
+                    winTxt.text = "Campaign Speedrun";
+                    nextLevelButton.interactable = true;
+                    inv.campSpeedGoalsBeat[holeNum] = true;
+                }
+
+                if (holeNum == 18 && inv.timer < timeToBeat)
+                {
+                    winTxt.text = "You finished Campaign Speedrun!";
+                }
+
+            }
+            else if (inv.isCampHardMode)
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Campaign Hardcore";
+
+                if (ball.strokes > par)
+                {
+                    winTxt.text = "Too Many Strokes!";
+                    nextLevelButton.interactable = false;
+
+                }
+                else 
+                {
+                    if (holeNum == 18)
+                    {
+                        winTxt.text = "You finished Campaign Hardcore!";
+                    }
+                    
+                }
+                
+
             }
             else if (inv.isClassicMode)
             {
@@ -530,21 +578,49 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
             }
-            else if (inv.isCampSpeedMode)
+            else if (inv.isClassicSpeedMode)
+            {
+                nextLevelButton.interactable = false;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Too Slow!";
+
+                print(inv.timer);
+                print(timeToBeat);
+                if (inv.timer < timeToBeat)
+                {
+                    winTxt.text = "Classic Speedrun";
+                    nextLevelButton.interactable = true;
+                    inv.campSpeedGoalsBeat[holeNum] = true;
+                }
+
+                if (holeNum == 18 && inv.timer < timeToBeat)
+                {
+                    winTxt.text = "You finished Classic Speedrun!";
+                }
+
+            }
+            else if (inv.isClassicHardMode)
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
-                winTxt.text = "Campaign Speedrun";
-                if (inv.timer < timeToBeat)
-                {
-                    inv.campSpeedGoalsBeat[holeNum] = true;
-                }
+                winTxt.text = "Classic Hardcore";
 
-                if (holeNum == 18)
+                if (ball.strokes > par)
                 {
-                    winTxt.text = "You finished Campaign Speedrun!";
+                    winTxt.text = "Too Many Strokes!";
+                    nextLevelButton.interactable = false;
+
                 }
+                else
+                {
+                    if (holeNum == 18)
+                    {
+                        winTxt.text = "You finished Classic Hardcore!";
+                    }
+                }
+                
 
             }
             else

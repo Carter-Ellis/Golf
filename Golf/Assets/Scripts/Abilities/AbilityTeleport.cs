@@ -99,6 +99,7 @@ public class AbilityTeleport : Ability
         }
 
         ball.transform.position = mousePos;
+        ball.DisplayTeleportParticles();
         charges--;
         isReady = false;
         ball.isTeleportReady = false;

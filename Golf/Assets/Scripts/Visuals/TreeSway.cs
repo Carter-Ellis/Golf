@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class TreeSway : MonoBehaviour
@@ -8,14 +7,24 @@ public class TreeSway : MonoBehaviour
     private Ball ball;
     private float timer;
     private float rand;
-    private float swayRange = 25f;
+    private float swayRange = 30f;
     private bool isSwaying;
+
     public Animator leavesAnim;
     public Animator trunkAnim;
+
+    // Add particle system for drizzle effect
+    public ParticleSystem drizzleParticles;
+
     void Start()
     {
         rand = Random.Range(0, swayRange);
         ball = GameObject.FindObjectOfType<Ball>();
+
+        if (drizzleParticles != null)
+        {
+            drizzleParticles.Stop();
+        }
     }
 
     void Update()
@@ -30,6 +39,18 @@ public class TreeSway : MonoBehaviour
             leavesAnim.SetBool("IsSwaying", true);
             trunkAnim.SetBool("IsSwaying", true);
             isSwaying = true;
+
+            // Start particles when sway starts
+            if (drizzleParticles != null && !drizzleParticles.isPlaying)
+            {
+                var velocityModule = drizzleParticles.velocityOverLifetime;
+                velocityModule.enabled = true;
+                velocityModule.x = new ParticleSystem.MinMaxCurve(1f);
+                velocityModule.y = new ParticleSystem.MinMaxCurve(-1f);
+                velocityModule.z = new ParticleSystem.MinMaxCurve(0f);
+
+                drizzleParticles.Play();
+            }
         }
         if (isSwaying)
         {
@@ -41,6 +62,12 @@ public class TreeSway : MonoBehaviour
                 trunkAnim.SetBool("IsSwaying", false);
                 rand = Random.Range(0, swayRange);
                 timer = 0;
+
+                // Stop particles when sway ends
+                if (drizzleParticles != null && drizzleParticles.isPlaying)
+                {
+                    drizzleParticles.Stop();
+                }
             }
         }
 
@@ -48,7 +75,7 @@ public class TreeSway : MonoBehaviour
         {
             return;
         }
-        //Put tree in front of ball or behind.
+        // Put tree in front of ball or behind.
         if (ball.transform.position.y > transform.position.y - .75f)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, -5f);
@@ -56,7 +83,6 @@ public class TreeSway : MonoBehaviour
         else
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
-        }     
-
+        }
     }
 }
