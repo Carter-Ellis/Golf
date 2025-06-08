@@ -50,6 +50,8 @@ public class Ball : MonoBehaviour
     public Animator animator;
     public GameObject cursor;
     public Selectable objectSelected;
+    private Fan[] allFans;
+
     public Direction CurrentDirection { get; private set; }
     [SerializeField] private float minSpeedForParticles = 5f;
 
@@ -127,6 +129,7 @@ public class Ball : MonoBehaviour
         CurrentDirection = Direction.South;
         inv = GetComponent<Inventory>();
         moveSpeed = 7;
+        allFans = GameObject.FindObjectsByType<Fan>(FindObjectsSortMode.InstanceID);
         ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
     }
 
@@ -192,7 +195,26 @@ public class Ball : MonoBehaviour
 
         if (isBattleMode) { return; }
 
-        if (PlayerInput.isDown(PlayerInput.Axis.Fire1) && !camController.isViewMode)
+        if (PlayerInput.isController)
+        {
+            if (!hasClickedBall && !camController.isViewMode && PlayerInput.isDown(PlayerInput.Axis.Fire2))
+            {
+                int index = -1;
+                if (objectSelected != null)
+                {
+                    for (int i = 0; i < allFans.Length; i++)
+                    {
+                        if (allFans[i] as Selectable == objectSelected)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+                pickFan(index);
+            }
+        }
+        else if (PlayerInput.isDown(PlayerInput.Axis.Fire1) && !camController.isViewMode)
         {
             Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -226,6 +248,24 @@ public class Ball : MonoBehaviour
             setPutt();
         }  
         
+    }
+
+    private void pickFan(int currentIndex)
+    {
+        bool found = false;
+        for (int i = currentIndex + 1; i < allFans.Length; i++)
+        {
+            if (Vector2.Distance(transform.position, allFans[i].transform.position) <= allFans[i].controlRadius)
+            {
+                found = true;
+                Select(allFans[i]);
+                break;
+            }
+        }
+        if (!found)
+        {
+            Select(null);
+        }
     }
 
     public void Select(Component component)
@@ -507,7 +547,7 @@ public class Ball : MonoBehaviour
                 }
             }
         }
-        else if (!hasClickedBall && PlayerInput.get(PlayerInput.Axis.Fire1) > 0)
+        else if (!hasClickedBall && PlayerInput.isDown(PlayerInput.Axis.Fire1))
         {
             hasClickedBall = true;
             PlayerInput.resetCursor();
