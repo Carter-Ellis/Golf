@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -536546807, guid: 4af970ed1a76914459535921ef5d0b97, type: 3}
-  m_Color: {r: 0.24705882, g: 0.6509804, b: 0.83137256, a: 1}
+  m_Color: {r: 0.03137255, g: 0.41960785, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -251,3 +251,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   broken: {fileID: 529744427, guid: 4af970ed1a76914459535921ef5d0b97, type: 3}
   explosionPrefab: {fileID: 2435705142180727484, guid: 10e424e0e99aeac4caff0b5c05db4661, type: 3}
+  isVertical: 0

@@ -13,5 +13,6 @@ public class Gate : MonoBehaviour, ButtonTarget
     {
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         anim.SetTrigger("OpenGate");
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.gateOpen, transform.position);
     }
 }

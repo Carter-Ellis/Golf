@@ -68,7 +68,7 @@ public class DisplayHighscore : MonoBehaviour
                 totalScore += score;
 
                 TimeSpan timeSpan = TimeSpan.FromSeconds(score);
-                campSpeedScores[level - 1].text = timeSpan.ToString(@"mm\:ss"); ;
+                campSpeedScores[level - 1].text = timeSpan.ToString(@"ss\.ff");
 
             }
 

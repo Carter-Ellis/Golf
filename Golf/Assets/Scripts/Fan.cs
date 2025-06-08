@@ -1,5 +1,7 @@
 using Cinemachine;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Fan : MonoBehaviour, Selectable
@@ -18,6 +20,7 @@ public class Fan : MonoBehaviour, Selectable
     public float rotationBounds = 90f;
     public bool isSelectable;
 
+    private EventInstance fanSFX;
     private LineRenderer line;
 
     private void Awake()
@@ -28,6 +31,10 @@ public class Fan : MonoBehaviour, Selectable
         cam = FindObjectOfType<CameraController>();
         center = transform.GetChild(0);
         origRotation = transform.rotation;
+
+        fanSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.fan);
+        fanSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        fanSFX.start();
 
         if (wind != null)
         {
