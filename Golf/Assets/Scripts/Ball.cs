@@ -124,10 +124,10 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {
-        ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
         CurrentDirection = Direction.South;
         inv = GetComponent<Inventory>();
         moveSpeed = 7;
+        ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
     }
 
     private void FixedUpdate()
@@ -159,7 +159,7 @@ public class Ball : MonoBehaviour
         //UpdateSound();
         UpdateDirection(rb.velocity);
 
-        if (PlayerInput.isDown(PlayerInput.Axis.Fire4) && !inv.isCampaignMode && !inv.isCampHardMode && !inv.isClassicMode && !inv.isClassicHardMode) 
+        if (PlayerInput.isDown(PlayerInput.Axis.Reset) && !inv.isCampaignMode && !inv.isCampHardMode && !inv.isClassicMode && !inv.isClassicHardMode) 
         {
             //AudioManager.instance.CreateInstance(FMODEvents.instance.mapOpen);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -507,7 +507,7 @@ public class Ball : MonoBehaviour
                 }
             }
         }
-        else if (!hasClickedBall && PlayerInput.isDown(PlayerInput.Axis.Fire1))
+        else if (!hasClickedBall && PlayerInput.get(PlayerInput.Axis.Fire1) > 0)
         {
             hasClickedBall = true;
             PlayerInput.resetCursor();

@@ -9,6 +9,7 @@ public class CursorController : MonoBehaviour
 
     private Image cursorImage;
     private HashSet<GameObject> hovered = new HashSet<GameObject>();
+    private bool dragging = false;
 
     private void OnEnable()
     {
@@ -39,16 +40,29 @@ public class CursorController : MonoBehaviour
             }
             Vector2 position = new Vector2(Screen.width, Screen.height) - PlayerInput.cursorPosition;
             transform.position = position;
-            SimulateClick(position, PlayerInput.isDown(PlayerInput.Axis.Fire1));
+            SimulateClick(position);
         }
         else if (cursorImage.enabled)
         {
             cursorImage.enabled = false;
+            dragging = false;
         }
     }
 
-    private void SimulateClick(Vector2 screenPosition, bool isDown)
+    private void SimulateClick(Vector2 screenPosition)
     {
+
+        bool isDown = PlayerInput.isDown(PlayerInput.Axis.Fire1);
+        bool isUp = PlayerInput.isUp(PlayerInput.Axis.Fire1);
+        if (isDown)
+        {
+            dragging = true;
+        }
+        else if (isUp)
+        {
+            dragging = false;
+        }
+
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
             position = screenPosition
@@ -63,14 +77,14 @@ public class CursorController : MonoBehaviour
 
             GameObject obj = result.gameObject;
 
-            mouseEvents(obj, pointerData, isDown, newHover, hovered);
+            mouseEvents(obj, pointerData, isDown, isUp, newHover, hovered);
 
             if (obj.name == "Background")
             {
                 GameObject parent = obj.transform.parent.gameObject;
                 if (parent != null)
                 {
-                    mouseEvents(parent, pointerData, isDown, newHover, hovered);
+                    mouseEvents(parent, pointerData, isDown, isUp, newHover, hovered);
                 }
             }
         }
@@ -87,12 +101,21 @@ public class CursorController : MonoBehaviour
 
     }
 
-    private void mouseEvents(GameObject target, PointerEventData pointerData, bool isDown, HashSet<GameObject> newHover, HashSet<GameObject> oldHover)
+    private void mouseEvents(GameObject target, PointerEventData pointerData, bool isDown, bool isUp, HashSet<GameObject> newHover, HashSet<GameObject> oldHover)
     {
         newHover.Add(target);
         if (isDown)
         {
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerClickHandler);
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.beginDragHandler);
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.dragHandler);
+        }
+        else if (isUp)
+        {
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.endDragHandler);
+        }
+        else if (dragging)
+        {
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.dragHandler);
         }
         if (!oldHover.Contains(target))

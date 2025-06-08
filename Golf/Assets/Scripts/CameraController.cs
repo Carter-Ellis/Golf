@@ -27,7 +27,6 @@ public class CameraController : MonoBehaviour
     private float dampTimer = 0f;
     private float dampTimerThreshold = .05f;
 
-    KeyCode mapKey = KeyCode.Tab;
     void Awake()
     {
         cam = GetComponent<CinemachineVirtualCamera>();
@@ -79,7 +78,7 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        if (ball != null && Input.GetKeyDown(mapKey) && !isViewMode) 
+        if (ball != null && PlayerInput.isDown(PlayerInput.Axis.Fire4) && !isViewMode) 
         {
             
             AudioManager.instance.PlayOneShot(FMODEvents.instance.mapOpen, transform.position);
@@ -103,7 +102,7 @@ public class CameraController : MonoBehaviour
             
             isViewMode = true;
         }
-        else if (ball != null && Input.GetKeyDown(mapKey))
+        else if (ball != null && PlayerInput.isDown(PlayerInput.Axis.Fire4))
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
             var transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
