@@ -605,7 +605,7 @@ public class Ball : MonoBehaviour
 
     void Shoot()
     {
-        canPutt = false;
+        hasClickedBall = false;
         isPuttCooldown = false;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(PlayerInput.cursorPosition);
         Vector2 ballPos = ball.transform.position;
