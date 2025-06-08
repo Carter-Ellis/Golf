@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
         SwapUp,
         SwapDown,
         Cancel,
+        Reset,
         MAX_AXIS
     }
 
@@ -33,11 +34,13 @@ public class PlayerInput : MonoBehaviour
         "ScrollWheel",
         "SwapUp",
         "SwapDown",
-        "Cancel"
+        "Cancel",
+         "Reset",
     };
 
     private static float[,] axesValue = new float[(int)Axis.MAX_AXIS, 2];
     private static bool[,] axesFrameDown = new bool[(int)Axis.MAX_AXIS, 2];
+    private static bool[,] axesFrameUp = new bool[(int)Axis.MAX_AXIS, 2];
 
     public static bool isController { get; private set; }
 
@@ -52,6 +55,8 @@ public class PlayerInput : MonoBehaviour
             axesValue[i, 1] = 0;
             axesFrameDown[i, 0] = false;
             axesFrameDown[i, 1] = false;
+            axesFrameUp[i, 0] = false;
+            axesFrameUp[i, 1] = false;
         }
         resetCursor();
     }
@@ -67,6 +72,7 @@ public class PlayerInput : MonoBehaviour
 
             float value = Input.GetAxis(axesNames[i]);
             axesFrameDown[i, 0] = (axesValue[i, 0] == 0f) && (value != 0);
+            axesFrameUp[i, 0] = (axesValue[i, 0] != 0f) && (value == 0);
             axesValue[i, 0] = value;
             if (axesFrameDown[i, 0])
             {
@@ -75,6 +81,7 @@ public class PlayerInput : MonoBehaviour
 
             value = Input.GetAxis(axesNames[i] + controllerSuffix);
             axesFrameDown[i, 1] = (axesValue[i, 1] == 0f) && (value != 0);
+            axesFrameUp[i, 1] = (axesValue[i, 1] != 0f) && (value == 0);
             axesValue[i, 1] = value;
             if (axesFrameDown[i, 1])
             {
@@ -111,6 +118,11 @@ public class PlayerInput : MonoBehaviour
     public static bool isDown(Axis axis)
     {
         return axesFrameDown[(int)axis, isController ? 1 : 0];
+    }
+
+    public static bool isUp(Axis axis)
+    {
+        return axesFrameUp[(int)axis, isController ? 1 : 0];
     }
 
     public static float get(Axis axis)

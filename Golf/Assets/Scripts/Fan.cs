@@ -116,8 +116,9 @@ public class Fan : MonoBehaviour, Selectable
 
     private void Rotate()
     {
-        bool left = Input.GetKey(KeyCode.A);
-        bool right = Input.GetKey(KeyCode.D);
+        float input = PlayerInput.get(PlayerInput.Axis.Horizontal) * (PlayerInput.isController ? 1 : -1);
+        bool left =  input > 0;
+        bool right = input < 0;
         UpdateSprite();
 
         if (left == right) return;
