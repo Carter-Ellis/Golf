@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
+
 [System.Serializable]
 public class AbilityWind : Ability
 {
@@ -53,10 +55,11 @@ public class AbilityWind : Ability
             return;
         }
 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.windAbility, GameObject.FindObjectOfType<Ball>().transform.position);
         charges--;
 
         rb.AddForce(rb.velocity.normalized * gustSpeed, ForceMode2D.Impulse);
-        ball.DisplayParticles();
+        ball.DisplayWindParticles();
     }
 
     public override void onFrame(Ball ball) { }

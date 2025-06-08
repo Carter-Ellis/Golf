@@ -161,7 +161,7 @@ public class Ball : MonoBehaviour
 
         if (PlayerInput.isDown(PlayerInput.Axis.Fire4) && !inv.isCampaignMode && !inv.isCampHardMode && !inv.isClassicMode && !inv.isClassicHardMode) 
         {
-            //AudioManager.instance.CreateInstance(FMODEvents.instance.mapOpen);
+            AudioManager.instance.StopAllSFXEvents();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -607,6 +607,29 @@ public class Ball : MonoBehaviour
     public void DisplayParticles()
     {
         var particles = transform.Find("Grass Particles").GetComponent<ParticleSystem>();
+        if (particles != null)
+        {
+            if (rb.velocity.magnitude > minSpeedForParticles && !particles.isPlaying)
+            {
+                var velocityModule = particles.velocityOverLifetime;
+                velocityModule.enabled = true;
+
+                // Set constant velocity based on ball velocity
+                velocityModule.x = new ParticleSystem.MinMaxCurve(-(rb.velocity.x / 2));
+                velocityModule.y = new ParticleSystem.MinMaxCurve(-(rb.velocity.y / 2));
+                velocityModule.z = new ParticleSystem.MinMaxCurve(0f);
+                particles.Play();
+            }
+            else if (rb.velocity.magnitude <= minSpeedForParticles && particles.isPlaying)
+            {
+                particles.Stop();
+            }
+        }
+    }
+
+    public void DisplayWindParticles()
+    {
+        var particles = transform.Find("Wind Particles").GetComponent<ParticleSystem>();
         if (particles != null)
         {
             if (rb.velocity.magnitude > minSpeedForParticles && !particles.isPlaying)

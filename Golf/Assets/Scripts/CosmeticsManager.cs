@@ -88,7 +88,7 @@ public class CosmeticsManager : MonoBehaviour
 
     }
 
-    private void changeHat(int amount)
+    public void changeHat(int amount)
     {
 
         type += amount;
@@ -190,7 +190,7 @@ public class CosmeticsManager : MonoBehaviour
         
     }
 
-    private void changeBallColor(int amount)
+    public void changeBallColor(int amount)
     {
         if (colors.Length <= 0) { Debug.Log("No colors found."); return; }
 
@@ -213,10 +213,10 @@ public class CosmeticsManager : MonoBehaviour
         }
         else
         {
-            ballLock.enabled = false;
+            ballLock.enabled = true;
         }
 
-        if (amount == 0) { return; }
+        //if (amount == 0) { return; }
 
         if (colors[colorBallIndex] != inv.ballColor)
         {

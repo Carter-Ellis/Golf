@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
     [Header("Volume")]
-    [Range(0,1)]
-    public float masterVolume = 1f;
-    [Range(0, 1)]
-    public float musicVolume = 1f;
-    [Range(0, 1)]
-    public float SFXVolume = 1f;
-    [Range(0, 1)]
-    public float ambienceVolume = 1f;
+    [Range(0, 1)] public float masterVolume = 1f;
+    [Range(0, 1)] public float musicVolume = 1f;
+    [Range(0, 1)] public float SFXVolume = 1f;
+    [Range(0, 1)] public float ambienceVolume = 1f;
 
     [Header("Shop")]
     public bool isShop;
@@ -33,7 +30,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject); // Prevent duplicates
             return;
@@ -42,14 +39,12 @@ public class AudioManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-
         eventInstances = new List<EventInstance>();
 
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
         SFXBus = RuntimeManager.GetBus("bus:/SFX");
         ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
-        
     }
 
     private void Start()
@@ -64,14 +59,7 @@ public class AudioManager : MonoBehaviour
             InitializeAmbience(FMODEvents.instance.ambience);
         }
 
-        if (isShop)
-        {
-            musicEventInstance.setParameterByName("IsShop", 1);
-        }
-        else
-        {
-            musicEventInstance.setParameterByName("IsShop", 0);
-        }
+        musicEventInstance.setParameterByName("IsShop", isShop ? 1 : 0);
     }
 
     private void Update()
@@ -81,6 +69,7 @@ public class AudioManager : MonoBehaviour
         SFXBus.setVolume(SFXVolume);
         ambienceBus.setVolume(ambienceVolume);
     }
+
     public void SetVolumes(float master, float music, float sfx, float ambience)
     {
         masterVolume = master;
@@ -93,6 +82,7 @@ public class AudioManager : MonoBehaviour
         SFXBus.setVolume(SFXVolume);
         ambienceBus.setVolume(ambienceVolume);
     }
+
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
@@ -117,18 +107,20 @@ public class AudioManager : MonoBehaviour
         return eventInstance;
     }
 
-    private void CleanUp()
+    public void StopAllSFXEvents()
     {
-        // Stop and release any created instances
-        foreach (EventInstance eventInstance in eventInstances)
+        for (int i = eventInstances.Count - 1; i >= 0; i--)
         {
-            eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            eventInstance.release();
-        }
-    }
+            EventInstance instance = eventInstances[i];
 
-    private void OnDestroy()
-    {
-        //CleanUp();
+            if (instance.getDescription(out EventDescription desc) == FMOD.RESULT.OK &&
+                desc.getPath(out string path) == FMOD.RESULT.OK &&
+                path.Contains("SFX"))
+            {
+                instance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                instance.release();
+                eventInstances.RemoveAt(i);
+            }
+        }
     }
 }

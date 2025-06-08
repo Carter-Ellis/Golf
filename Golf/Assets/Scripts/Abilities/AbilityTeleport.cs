@@ -98,6 +98,7 @@ public class AbilityTeleport : Ability
             return;
         }
 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.teleport, GameObject.FindObjectOfType<Ball>().transform.position);
         ball.transform.position = mousePos;
         ball.DisplayTeleportParticles();
         charges--;

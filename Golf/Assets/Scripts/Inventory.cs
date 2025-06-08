@@ -140,11 +140,17 @@ public class Inventory : MonoBehaviour
 
     public List<int> tempCollectedCoins = new List<int>();
 
+    private void Awake()
+    {
+        LoadPlayer();
+        popupController = FindObjectOfType<PopupController>();
+    }
+
     private void Start()
     {
-        popupController = FindObjectOfType<PopupController>();
+        
         ball = GetComponent<Ball>();
-        LoadPlayer();
+        
         LoadZoom();
         ChangeCoinSprites();
         CheckPopup();
@@ -198,7 +204,6 @@ public class Inventory : MonoBehaviour
     {
         if (!isCampSpeedMode && !isClassicSpeedMode) { return; }
 
-        print(isCampSpeedMode);
         Hole hole = FindObjectOfType<Hole>();
         GameObject timeObject = GameObject.Find("Time To Beat");
 
@@ -330,7 +335,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
-        if (popupController.popup != null)
+        /*if (popupController.popup != null)
         {
             ball.enabled = false;
         }
@@ -355,7 +360,7 @@ public class Inventory : MonoBehaviour
         else
         {
             levelPopups[currentLevel] = true;
-        }
+        }*/
     }
 
     private void SetCoinState(GameObject coin, GameObject coinMenu)

@@ -16,6 +16,7 @@ public class GolfCart : MonoBehaviour
 
     void Start()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.golfCart, transform.position);
         cartBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = cartBody.position;

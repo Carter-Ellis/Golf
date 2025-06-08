@@ -11,11 +11,11 @@ public class Coin : MonoBehaviour
     public int coinNumber;
 
 
-    private IEnumerator Start()
+    private void Start()
     {
         ball = FindObjectOfType<Ball>();
         inventory = ball.GetComponent<Inventory>();
-        yield return new WaitForSeconds(.0000001f);
+
         if (!inventory.isFreeplayMode && !inventory.isCampaignMode && !inventory.isCampHardMode)
         {
             gameObject.SetActive(false);

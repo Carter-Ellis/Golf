@@ -77,6 +77,10 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
             inv.SavePlayer();
         }
+        else
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.error, transform.position);
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     { 

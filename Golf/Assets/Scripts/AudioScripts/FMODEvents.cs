@@ -54,6 +54,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference menuBlip { get; private set; }
     [field: SerializeField] public EventReference menuOpen { get; private set; }
     [field: SerializeField] public EventReference menuClose { get; private set; }
+    [field: SerializeField] public EventReference error { get; private set; }
 
     [field: SerializeField] public EventReference tick { get; private set; }
 
@@ -106,6 +107,22 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Mole")]
     [field: SerializeField] public EventReference moleCrawl { get; private set; }
+    [field: SerializeField] public EventReference moleHit { get; private set; }
+
+    [field: Header("Wind Ability")]
+    [field: SerializeField] public EventReference windAbility { get; private set; }
+
+    [field: Header("Teleport")]
+    [field: SerializeField] public EventReference teleport { get; private set; }
+
+    [field: Header("Gate")]
+    [field: SerializeField] public EventReference gateOpen { get; private set; }
+
+    [field: Header("Golf Cart")]
+    [field: SerializeField] public EventReference golfCart { get; private set; }
+
+    [field: Header("Fan")]
+    [field: SerializeField] public EventReference fan { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 

@@ -68,4 +68,9 @@ public class Mole : MonoBehaviour
         popupParticles.Play(); 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.moleHit, transform.position);
+    }
+
 }

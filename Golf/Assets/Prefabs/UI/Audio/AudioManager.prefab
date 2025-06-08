@@ -241,6 +241,13 @@ MonoBehaviour:
       Data3: 1659313326
       Data4: -184129013
     Path: event:/SFX/Shop/MenuClose
+  <error>k__BackingField:
+    Guid:
+      Data1: 1555248161
+      Data2: 1095239936
+      Data3: 1453454482
+      Data4: -487203954
+    Path: event:/SFX/Shop/Error
   <tick>k__BackingField:
     Guid:
       Data1: 1074149037
@@ -366,7 +373,7 @@ MonoBehaviour:
       Data2: 1126846997
       Data3: -1086767465
       Data4: -1157108964
-    Path: event:/SFX/Cobble Hit
+    Path: event:/SFX/Gate/Cobble Hit
   <moleCrawl>k__BackingField:
     Guid:
       Data1: 1854933199
@@ -374,3 +381,45 @@ MonoBehaviour:
       Data3: 206152879
       Data4: 1312330518
     Path: event:/SFX/mole/Mole Crawl
+  <moleHit>k__BackingField:
+    Guid:
+      Data1: -1048297161
+      Data2: 1226357521
+      Data3: 1559382171
+      Data4: 88486615
+    Path: event:/SFX/Mole/Mole Hit
+  <windAbility>k__BackingField:
+    Guid:
+      Data1: 324895268
+      Data2: 1213337962
+      Data3: -1136155260
+      Data4: 1557571895
+    Path: event:/SFX/Wind
+  <teleport>k__BackingField:
+    Guid:
+      Data1: -213522983
+      Data2: 1321789892
+      Data3: -1179033977
+      Data4: -221256583
+    Path: event:/SFX/Teleport
+  <gateOpen>k__BackingField:
+    Guid:
+      Data1: -1901017799
+      Data2: 1261988517
+      Data3: 372543892
+      Data4: -52311400
+    Path: event:/SFX/Gate/Gate Open
+  <golfCart>k__BackingField:
+    Guid:
+      Data1: 347613370
+      Data2: 1205017265
+      Data3: 488287650
+      Data4: 2001212157
+    Path: event:/SFX/Golf Cart
+  <fan>k__BackingField:
+    Guid:
+      Data1: 172876682
+      Data2: 1101024933
+      Data3: 1055343759
+      Data4: -700637872
+    Path: event:/SFX/Fan/Fan 2
