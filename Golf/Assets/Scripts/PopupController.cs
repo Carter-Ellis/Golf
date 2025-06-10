@@ -39,6 +39,14 @@ public class PopupController : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (popup.activeSelf && PlayerInput.isController && PlayerInput.isDown(PlayerInput.Axis.Fire1))
+        {
+            disablePopup();
+        }
+    }
+
     public void disablePopup()
     {
         if (popup == null) { Debug.Log("Popup is null"); return; }
