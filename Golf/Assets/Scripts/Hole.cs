@@ -50,8 +50,11 @@ public class Hole : MonoBehaviour, ButtonTarget
         inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
 
-        cursor = animator.GetComponentInChildren<CursorController>();
-        cursor.gameObject.SetActive(false);
+        if (animator != null)
+        {
+            cursor = animator.GetComponentInChildren<CursorController>();
+            cursor.gameObject.SetActive(false);
+        }
 
         GameObject timeObject = GameObject.Find("Time To Beat");
 
@@ -62,8 +65,6 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         holeNum = int.Parse(getCourseNumber());
         currentLevel = holeNum;
-        
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         if (signTxt != null)
         {

@@ -107,8 +107,11 @@ public class Ball : MonoBehaviour
     [SerializeField] private AudioClip[] wallHitClips;
     private EventInstance ballRollSFX;
 
+    private bool isMainMenu;
+
     void Awake()
     {
+        isMainMenu = (SceneManager.GetActiveScene().name == "Main Menu");
         ball = GetComponent<Ball>();
         rb = GetComponent<Rigidbody2D>();
         camController = GameObject.FindAnyObjectByType<CameraController>();
@@ -121,7 +124,10 @@ public class Ball : MonoBehaviour
         isPuttCooldown = true;
         //ps = GetComponentInChildren<ParticleSystem>();
         //ps.gameObject.SetActive(false);
-        cursor.GetComponent<SpriteRenderer>().enabled = false;
+        if (cursor != null)
+        {
+            cursor.GetComponent<SpriteRenderer>().enabled = false;
+        }
 
 
     }
@@ -132,7 +138,7 @@ public class Ball : MonoBehaviour
         inv = GetComponent<Inventory>();
         moveSpeed = 7;
         allFans = GameObject.FindObjectsByType<Fan>(FindObjectsSortMode.InstanceID);
-        ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
+        //ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
     }
 
     private void FixedUpdate()
@@ -165,6 +171,10 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
+        if (isMainMenu)
+        {
+            return;
+        }
         if (isInputPaused) {
             if (pendingUnpause)
             {
