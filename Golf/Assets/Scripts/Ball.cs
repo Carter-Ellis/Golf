@@ -77,6 +77,8 @@ public class Ball : MonoBehaviour
     public bool canPutt;
     public bool isPuttCooldown;
     public bool isTeleportReady;
+    private bool isInputPaused;
+    private bool pendingUnpause;
     private bool isMouseButton1Held;
     public bool isBurst;
     public bool isSelectFan;
@@ -152,8 +154,25 @@ public class Ball : MonoBehaviour
 
     }
 
+    public void pause(bool isPaused)
+    {
+        pendingUnpause = !isPaused;
+        if (isPaused)
+        {
+            isInputPaused = true;
+        }
+    }
+
     void Update()
     {
+        if (isInputPaused) {
+            if (pendingUnpause)
+            {
+                isInputPaused = false;
+            }
+            return;
+        }
+
         isBattleMode = inv.isWalkMode;
         didEnter = false;
         didExit = false;
