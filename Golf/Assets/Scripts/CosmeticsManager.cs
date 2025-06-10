@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,11 @@ public class CosmeticsManager : MonoBehaviour
     private Inventory inv;
     private int colorIndex;
     private int colorBallIndex;
+
+    [SerializeField] private GameObject hatDescription;
+    [SerializeField] private TextMeshProUGUI holeNumTxt;
+    [SerializeField] private TextMeshProUGUI hatNameTxt;
+
     private Vector2[] mirrorPos = new Vector2[]
     {
         new Vector2(-15,-11),
@@ -44,9 +50,8 @@ public class CosmeticsManager : MonoBehaviour
         new Vector2(10,4),
     };
 
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return null;
         type = Hat.TYPE.NONE;
         inv = FindObjectOfType<Inventory>();
 
@@ -99,6 +104,17 @@ public class CosmeticsManager : MonoBehaviour
         if ((int)type < (int)Hat.TYPE.NONE)
         {
             type = Hat.TYPE.MAX_HATS - 1;
+        }
+
+        if (type == Hat.TYPE.NONE)
+        {
+            hatDescription.SetActive(false);
+        }
+        else
+        {
+            hatDescription.SetActive(true);
+            holeNumTxt.text = "Hole " + ((int)type).ToString();
+            hatNameTxt.text = ToTitleCase(type.ToString().ToLower());
         }
 
         hatImage.sprite = Hat.GetSprite(type);
@@ -205,7 +221,6 @@ public class CosmeticsManager : MonoBehaviour
         }
 
         colorBallCircle.color = colors[colorBallIndex];
-        ballImage.color = colors[colorBallIndex];
 
         if (inv.isColorUnlocked || colors[colorBallIndex] == Color.white)
         {
@@ -246,15 +261,15 @@ public class CosmeticsManager : MonoBehaviour
     {
         if (type == Hat.TYPE.NINJA)
         {
-            rect.anchoredPosition = new Vector2(584, 10.89994f);
+            rect.anchoredPosition = new Vector2(584, rect.anchoredPosition.y);
         }
         else if (type == Hat.TYPE.FEZ)
         {
-            rect.anchoredPosition = new Vector2(600, 10.89994f);
+            rect.anchoredPosition = new Vector2(600, rect.anchoredPosition.y);
         }
         else
         {
-            rect.anchoredPosition = new Vector2(589.7999f, 10.89994f);
+            rect.anchoredPosition = new Vector2(589.7999f, rect.anchoredPosition.y);
         }
     }
 
@@ -335,6 +350,12 @@ public class CosmeticsManager : MonoBehaviour
 
 
         inv.SavePlayer();
+    }
+
+    string ToTitleCase(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return input;
+        return char.ToUpper(input[0]) + input.Substring(1).ToLower();
     }
 
 }

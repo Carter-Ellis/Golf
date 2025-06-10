@@ -121,6 +121,7 @@ public class AbilityTeleport : Ability
     public override void onPickup(Ball ball)
     {
         charges = getMaxCharges(ball);
+
         float range = ball.GetComponent<Inventory>().teleportRange;
         maxTeleportRange = range <= 0 ? 3 : range;
     }
@@ -214,7 +215,6 @@ public class AbilityTeleport : Ability
 
     public override void onBallDisabled(Ball ball)
     {
-        Debug.Log("test");
         GameObject existing = GameObject.Find("TeleportCircle");
         if (existing != null)
         {

@@ -14,7 +14,7 @@ public class Hat : MonoBehaviour
         FROG,
         VIKING,
         CHEF,
-        CROWN,
+        MUSHROOM,
         HALO,
         CONE,
         PROPELLER,
@@ -23,8 +23,9 @@ public class Hat : MonoBehaviour
         FEZ,
         SOMBRERO,
         COWBOY,
-        CONICAL,
+        STRAW,
         SANTA,
+        CROWN,
         MAX_HATS
     }
 

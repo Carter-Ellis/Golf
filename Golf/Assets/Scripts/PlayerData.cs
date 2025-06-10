@@ -74,6 +74,8 @@ public class PlayerData
 
     public float teleportRange;
 
+    public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
+
     public PlayerData(Inventory inv)
     {
         coins = inv.coins;
@@ -141,6 +143,8 @@ public class PlayerData
         isFreeplayMode = inv.isFreeplayMode;
 
         campSpeedGoalsBeat = inv.campSpeedGoalsBeat;
+
+        achievements = inv.achievements;
 }
 
     public void RestoreHatSprite()

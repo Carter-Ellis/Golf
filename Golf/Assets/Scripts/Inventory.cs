@@ -140,17 +140,18 @@ public class Inventory : MonoBehaviour
 
     public List<int> tempCollectedCoins = new List<int>();
 
+    public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
+
     private void Awake()
     {
+        ball = GetComponent<Ball>();
         LoadPlayer();
         popupController = FindObjectOfType<PopupController>();
     }
 
     private void Start()
     {
-        
-        ball = GetComponent<Ball>();
-        
+
         LoadZoom();
         ChangeCoinSprites();
         CheckPopup();
@@ -601,6 +602,22 @@ public class Inventory : MonoBehaviour
         isClassicSpeedMode = data.isClassicSpeedMode;
         isClassicHardMode = data.isClassicHardMode;
         isFreeplayMode = data.isFreeplayMode;
+
+        if (data.achievements.Length > 0)
+        {
+            achievements = new bool[(int)Achievement.TYPE.MAX];
+
+            for (int i = 0; i < data.achievements.Length; i++)
+            {
+                achievements[i] = data.achievements[i];
+            }
+            
+        }
+        else
+        {
+            achievements = new bool[(int)Achievement.TYPE.MAX];
+        }
+        
     }
 
     public void ErasePlayerData()
