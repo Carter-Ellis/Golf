@@ -534,10 +534,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 0
-  HasPlatforms: 0
-  sourceProjectPath: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Golf-Audio-System.fspro
-  sourceBankPath: ../../../../Desktop/buddy buddyfive desktop folder/Golf-Audio-System/Build/Desktop
+  HasSourceProject: 1
+  HasPlatforms: 1
+  sourceProjectPath: Assets/Golf-Audio-System/Golf-Audio-System.fspro
+  sourceBankPath: Assets/Golf-Audio-System/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

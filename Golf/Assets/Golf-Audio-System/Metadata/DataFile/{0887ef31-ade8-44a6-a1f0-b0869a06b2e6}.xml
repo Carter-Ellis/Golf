@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{0887ef31-ade8-44a6-a1f0-b0869a06b2e6}">
+		<property name="assetPath">
+			<value>Mixer/MainMixer.mixer</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d8494cd1-52ad-4497-bcab-97c11a86bb1b}</destination>
+		</relationship>
+	</object>
+</objects>

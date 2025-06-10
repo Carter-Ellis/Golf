@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{0d172d73-bade-40c3-8c44-8d33fcf118a5}">
+		<property name="assetPath">
+			<value>Fan/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d8494cd1-52ad-4497-bcab-97c11a86bb1b}</destination>
+		</relationship>
+	</object>
+</objects>

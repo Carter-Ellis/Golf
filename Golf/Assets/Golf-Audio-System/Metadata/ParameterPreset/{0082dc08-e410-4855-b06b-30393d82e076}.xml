@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{0082dc08-e410-4855-b06b-30393d82e076}">
+		<property name="name">
+			<value>EQ Global</value>
+		</property>
+		<relationship name="folder">
+			<destination>{18f1913b-c8c4-4367-bfb6-b1060feae0ff}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{9837eb5c-55e8-4d5c-b818-584c4f043400}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{9837eb5c-55e8-4d5c-b818-584c4f043400}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{0b1c5403-e9a0-48cc-a498-a510bf6a885b}">
+		<property name="assetPath">
+			<value>Shop/CoinBag Shop Purchase 4.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.8461666666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d8494cd1-52ad-4497-bcab-97c11a86bb1b}</destination>
+		</relationship>
+	</object>
+</objects>
