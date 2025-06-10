@@ -603,7 +603,7 @@ public class Inventory : MonoBehaviour
         isClassicHardMode = data.isClassicHardMode;
         isFreeplayMode = data.isFreeplayMode;
 
-        if (data.achievements.Length > 0)
+        if (data.achievements != null && data.achievements.Length > 0)
         {
             achievements = new bool[(int)Achievement.TYPE.MAX];
 

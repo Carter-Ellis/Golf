@@ -14,10 +14,6 @@ public class OkButton : MonoBehaviour
 
     public void closePanel()
     {
-        transform.parent.gameObject.SetActive(false);
-        int level = SceneManager.GetActiveScene().buildIndex;
-        inv.levelPopups[level] = true;
-        FindObjectOfType<Ball>().enabled = true;
-        inv.SavePlayer();
+        FindObjectOfType<PopupController>().disablePopup();
     }
 }
