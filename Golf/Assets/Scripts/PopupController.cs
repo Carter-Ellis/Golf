@@ -37,6 +37,7 @@ public class PopupController : MonoBehaviour
 
             enablePopup();
             inv.levelPopups[level] = true;
+            inv.SavePlayer();
             return;
         }        
 
