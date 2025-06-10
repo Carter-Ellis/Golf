@@ -48,7 +48,6 @@ public class PopupController : MonoBehaviour
     public void enablePopup()
     {
         if (popup == null) { Debug.Log("Popup is null"); return; }
-        print("Hello");
         popup.SetActive(true);
     }
 

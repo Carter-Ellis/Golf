@@ -383,6 +383,19 @@ public class Hole : MonoBehaviour, ButtonTarget
             AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
             isPlayingVoiceLine = true;
 
+            if (ball.strokes == 0 && !inv.isCampSpeedMode && !inv.isClassicSpeedMode)
+            {
+                inv.achievements[(int)Achievement.TYPE.HOLEINNONE] = true;
+                
+            }
+
+            if (ball.strokes == 1)
+            {
+                inv.achievements[(int)Achievement.TYPE.HOLEINONE] = true;
+            }
+
+            inv.SavePlayer();
+
             if (!inv.isFreeplayMode)
             {
                 UnlockNewLevel();

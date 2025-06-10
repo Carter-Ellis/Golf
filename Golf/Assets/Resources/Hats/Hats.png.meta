@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8681db15cfa1ca44e9513ebbc801d72c
+guid: 6710b29d606d3b048b6ad84e0261bfde
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hats 1_0
+      name: Hats_0
       rect:
         serializedVersion: 2
         x: 2
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: caeeab44416f63f408e5a14c8298d3d7
-      internalID: 639766848
+      spriteID: 9e8beb6414d8b8b43bf20abd7d1d10c0
+      internalID: -2067788260
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_1
+      name: Hats_1
       rect:
         serializedVersion: 2
         x: 18
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a03a0e6e2c28e8469b0240aed34cd38
-      internalID: 1334520761
+      spriteID: 96ebcfb60600a9f4b854b48066a95b9e
+      internalID: -13565804
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_2
+      name: Hats_2
       rect:
         serializedVersion: 2
         x: 34
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96e3e01a9f8d18d49b8b4b790f9fa6b2
-      internalID: 1800500145
+      spriteID: ef341bc671f3cd94eb9ea97db6cb0d15
+      internalID: 1760943564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_3
+      name: Hats_3
       rect:
         serializedVersion: 2
         x: 50
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8f70ae214849204c8e78945faffaec7
-      internalID: 1139894961
+      spriteID: 8e1ae118f0f8fe846ae99258f6775b95
+      internalID: -698355466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_4
+      name: Hats_4
       rect:
         serializedVersion: 2
         x: 64
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab968e1fea4b45044b601c4f91ff0a34
-      internalID: 428884129
+      spriteID: 30faa059e7186c545be3a064bc020d0c
+      internalID: 1584147131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_5
+      name: Hats_5
       rect:
         serializedVersion: 2
         x: 81
@@ -242,20 +242,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 195d08bbd4324e34781871ffa9d004e5
-      internalID: 947452145
+      spriteID: 5d8b2b7bdefaf6b4292cad403b11d5d8
+      internalID: 1038316853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_6
+      name: Hats_6
       rect:
         serializedVersion: 2
         x: 2
         y: 52
         width: 12
-        height: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb2d9773858792f4aa017efc91594231
-      internalID: 1632201359
+      spriteID: 300b87c708ec1294aa186c249cac1e6c
+      internalID: -1520144940
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_7
+      name: Hats_7
       rect:
         serializedVersion: 2
         x: 19
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b9e291769d04734ba3c66409554c737
-      internalID: 1961775305
+      spriteID: 3671932ddb262f645b565aed50fcb06b
+      internalID: 964945694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_8
+      name: Hats_8
       rect:
         serializedVersion: 2
         x: 34
@@ -305,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 758aff36672aef346aeb113f2be59e63
-      internalID: -1683298207
+      spriteID: f74c729a516d13340b0a00e8a979056c
+      internalID: 1513379612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_9
+      name: Hats_9
       rect:
         serializedVersion: 2
         x: 50
@@ -326,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 772d875903fa4a84d8cdd69a8390d571
-      internalID: -949647374
+      spriteID: f48c79a0537b12d4ca58e06474474baa
+      internalID: 132074541
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_10
+      name: Hats_10
       rect:
         serializedVersion: 2
         x: 66
@@ -347,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63cd12b946b94af45a12347aa5f7447f
-      internalID: -689387119
+      spriteID: 465ecdbb2099c0c4ea734a428c2c4349
+      internalID: -1053231560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_11
+      name: Hats_11
       rect:
         serializedVersion: 2
         x: 80
@@ -368,14 +368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a11d421dec2231f4483b74509d61d2c8
-      internalID: 315990673
+      spriteID: b66b6017772c85b42932b429782937a7
+      internalID: 747459237
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_12
+      name: Hats_12
       rect:
         serializedVersion: 2
         x: 2
@@ -389,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b4051fbf7310234f9e2ca6518d5e548
-      internalID: -1642408472
+      spriteID: 43db6426432809f4f91f98b487dd0985
+      internalID: 458402171
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_13
+      name: Hats_13
       rect:
         serializedVersion: 2
         x: 16
@@ -410,18 +410,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c86faeaf3ee04db4db9619e9dfca9e0b
-      internalID: -280967029
+      spriteID: 420529f1ebb86fc49b74a58c5a1a3372
+      internalID: -177615046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_14
+      name: Hats_14
       rect:
         serializedVersion: 2
-        x: 49
-        y: 34
+        x: 33
+        y: 35
         width: 14
         height: 11
       alignment: 0
@@ -431,18 +431,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b0495e289f3ab74488acd32f8473741
-      internalID: 1829476461
+      spriteID: f9c6f33149ea1694bbb2e55ef38dd1dd
+      internalID: -1041279521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_15
+      name: Hats_15
       rect:
         serializedVersion: 2
-        x: 64
-        y: 36
+        x: 48
+        y: 37
         width: 16
         height: 10
       alignment: 0
@@ -452,18 +452,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63007b1c214dc0942a3f64d6e47af7ef
-      internalID: 2028497864
+      spriteID: 7e8ba4afd8044274598867136f964c38
+      internalID: -485713703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats 1_16
+      name: Hats_16
       rect:
         serializedVersion: 2
-        x: 81
-        y: 35
+        x: 65
+        y: 36
         width: 14
         height: 10
       alignment: 0
@@ -473,8 +473,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2ed68e995d546549b81b1665596e8d6
-      internalID: -267722777
+      spriteID: 19ceaeab2eb3d434493ff7edb88ae0b5
+      internalID: -1941768208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hats_17
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 36
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ebf72c3e870f8a46bd0ec5ac6484b22
+      internalID: -2135826764
       vertices: []
       indices: 
       edges: []
@@ -490,23 +511,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Hats 1_0: 639766848
-      Hats 1_1: 1334520761
-      Hats 1_10: -689387119
-      Hats 1_11: 315990673
-      Hats 1_12: -1642408472
-      Hats 1_13: -280967029
-      Hats 1_14: 1829476461
-      Hats 1_15: 2028497864
-      Hats 1_16: -267722777
-      Hats 1_2: 1800500145
-      Hats 1_3: 1139894961
-      Hats 1_4: 428884129
-      Hats 1_5: 947452145
-      Hats 1_6: 1632201359
-      Hats 1_7: 1961775305
-      Hats 1_8: -1683298207
-      Hats 1_9: -949647374
+      Hats_0: -2067788260
+      Hats_1: -13565804
+      Hats_10: -1053231560
+      Hats_11: 747459237
+      Hats_12: 458402171
+      Hats_13: -177615046
+      Hats_14: -1041279521
+      Hats_15: -485713703
+      Hats_16: -1941768208
+      Hats_17: -2135826764
+      Hats_2: 1760943564
+      Hats_3: -698355466
+      Hats_4: 1584147131
+      Hats_5: 1038316853
+      Hats_6: -1520144940
+      Hats_7: 964945694
+      Hats_8: 1513379612
+      Hats_9: 132074541
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
