@@ -14,6 +14,7 @@ public static class SaveSystem
         {
             PlayerData data = new PlayerData(inv);
             formatter.Serialize(stream, data);
+            stream.Close();
         }
     }
 
@@ -54,7 +55,9 @@ public static class SaveSystem
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(path, FileMode.Open))
             {
-                return formatter.Deserialize(stream) as PlayerData;
+                PlayerData result = formatter.Deserialize(stream) as PlayerData;
+                stream.Close();
+                return result;
             }
         }
         else

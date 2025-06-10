@@ -23,10 +23,6 @@ public class CameraZoom : MonoBehaviour
         {
             virtualCamera.m_Lens.OrthographicSize = inv.zoom;
         }
-        else if (SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            Debug.LogError("Missing Virtual Camera or Inventory object in CameraZoom script.");
-        }
         
         
     }
@@ -46,11 +42,6 @@ public class CameraZoom : MonoBehaviour
         }
         if (virtualCamera == null)
         {
-            if (SceneManager.GetActiveScene().buildIndex != 0)
-            {
-                Debug.LogError("Virtual Camera missing in CameraZoom script.");
-            } 
-            
             return;
         }
         if (camController.isViewMode || camController.isWinScreen)

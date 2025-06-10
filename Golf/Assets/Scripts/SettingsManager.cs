@@ -14,8 +14,14 @@ public class SettingsManager : MonoBehaviour
         ball = GameObject.FindObjectOfType<Ball>();
         soundMenu = soundMenuCanvas.gameObject;
         pauseManager = GetComponent<PauseManager>();
-        pauseManager.initialize(soundMenu);
-        soundMenu.SetActive(false);
+        if (pauseManager != null)
+        {
+            pauseManager.initialize(soundMenu);
+        }
+        if (soundMenu != null)
+        {
+            soundMenu.SetActive(false);
+        }
     }
     private void Update()
     {

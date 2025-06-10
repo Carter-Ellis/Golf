@@ -266,7 +266,9 @@ public class Inventory : MonoBehaviour
     }
     private void ChangeCoinSprites()
     {
-        int currentLevel = FindObjectOfType<Hole>().holeNum;
+        Hole hole = FindObjectOfType<Hole>();
+        if (hole == null) { return; }
+        int currentLevel = hole.holeNum;
         if (coinsCollected != null && coinsCollected.ContainsKey(currentLevel))
         {
             if (coinsCollected[currentLevel].Contains(1) && coin1 != null && coin1Menu != null)
@@ -452,35 +454,63 @@ public class Inventory : MonoBehaviour
         {
             slider.isInitializing = true;
         }
-        
+
 
         masterVol = data.masterVol;
         musicVol = data.musicVol;
         SFXVol = data.SFXVol;
         ambienceVol = data.ambienceVol;
 
-        AudioManager.instance.masterVolume = masterVol;
-        AudioManager.instance.musicVolume = musicVol;
-        AudioManager.instance.SFXVolume = SFXVol;
-        AudioManager.instance.ambienceVolume = ambienceVol;
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.masterVolume = masterVol;
+            AudioManager.instance.musicVolume = musicVol;
+            AudioManager.instance.SFXVolume = SFXVol;
+            AudioManager.instance.ambienceVolume = ambienceVol;
+        }
 
-        coinsCollected = data.coinsCollected;
+        if (data.coinsCollected != null)
+        {
+            coinsCollected = data.coinsCollected;
+        }
+        else
+        {
+            coinsCollected = new Dictionary<int, List<int>>();
+        }
 
-        levelPopups = data.levelPopups;
+        if (data.levelPopups != null)
+        {
+            levelPopups = data.levelPopups;
+        }
+        else
+        {
+            levelPopups = new Dictionary<int, bool>();
+        }
         if (data.upgradeLevels != null)
         {
             upgradeLevels = data.upgradeLevels;
         }
+        else
+        {
+            upgradeLevels = new Dictionary<int, int>();
+        }
 
         if (data.campaignHighScore != null)
         {
-            
             campaignHighScore = data.campaignHighScore;
+        }
+        else
+        {
+            campaignHighScore = new Dictionary<int, int>();
         }
 
         if (data.campaignCurrScore != null)
         {
             campaignCurrScore = data.campaignCurrScore;
+        }
+        else
+        {
+            campaignCurrScore = new Dictionary<int, int>();
         }
 
         if (data.campSpeedHighScore != null)
@@ -488,10 +518,18 @@ public class Inventory : MonoBehaviour
 
             campSpeedHighScore = data.campSpeedHighScore;
         }
+        else
+        {
+            campSpeedHighScore = new Dictionary<int, float>();
+        }
 
         if (data.campSpeedCurrScore != null)
         {
             campSpeedCurrScore = data.campSpeedCurrScore;
+        }
+        else
+        {
+            campSpeedCurrScore = new Dictionary<int, float>();
         }
 
         if (data.campHardHighScore != null)
@@ -499,10 +537,18 @@ public class Inventory : MonoBehaviour
 
             campHardHighScore = data.campHardHighScore;
         }
+        else
+        {
+            campHardHighScore = new Dictionary<int, int>();
+        }
 
         if (data.campHardCurrScore != null)
         {
             campHardCurrScore = data.campHardCurrScore;
+        }
+        else
+        {
+            campHardCurrScore = new Dictionary<int, int>();
         }
 
         if (data.classicSpeedHighScore != null)
@@ -510,20 +556,36 @@ public class Inventory : MonoBehaviour
 
             classicSpeedHighScore = data.classicSpeedHighScore;
         }
+        else
+        {
+            classicSpeedHighScore = new Dictionary<int, float>();
+        }
 
         if (data.classicSpeedCurrScore != null)
         {
             classicSpeedCurrScore = data.classicSpeedCurrScore;
         }
+        else
+        {
+            classicSpeedCurrScore = new Dictionary<int, float>();
+        }
 
-        if (classicHighScore != null)
+        if (data.classicHighScore != null)
         {
             classicHighScore = data.classicHighScore;
         }
+        else
+        {
+            classicHighScore = new Dictionary<int, int>();
+        }
 
-        if (classicCurrScore != null)
+        if (data.classicCurrScore != null)
         {
             classicCurrScore = data.classicCurrScore;
+        }
+        else
+        {
+            classicCurrScore = new Dictionary<int, int>();
         }
 
         if (data.classicHardHighScore != null)
@@ -531,15 +593,27 @@ public class Inventory : MonoBehaviour
 
             classicHardHighScore = data.classicHardHighScore;
         }
+        else
+        {
+            classicHardHighScore = new Dictionary<int, int>();
+        }
 
         if (data.classicHardCurrScore != null)
         {
             classicHardCurrScore = data.classicHardCurrScore;
         }
+        else
+        {
+            classicHardCurrScore = new Dictionary<int, int>();
+        }
 
         if (data.campSpeedGoalsBeat != null)
         {
             campSpeedGoalsBeat = data.campSpeedGoalsBeat;
+        }
+        else
+        {
+            campSpeedGoalsBeat = new Dictionary<int, bool>();
         }
 
         if (data.maxChargesList != null && data.maxChargesList.Count > 0)
@@ -558,11 +632,22 @@ public class Inventory : MonoBehaviour
             };
         }
 
-        unlockedHats = data.unlockedHats;
+        if (data.unlockedHats != null)
+        {
+            unlockedHats = data.unlockedHats;
+        }
+        else
+        {
+            unlockedHats = new Dictionary<Hat.TYPE, bool>();
+        }
 
         data.RestoreHatSprite();
         hat = data.hat;
         hatColor = data.hatColor.ToColor();
+        if (hatColor == null)
+        {
+            hatColor = Color.white;
+        }
         hatType = data.hatType;
 
         if (data.teleportRange == 0)
@@ -571,6 +656,10 @@ public class Inventory : MonoBehaviour
         }
         teleportRange = data.teleportRange;
 
+        if (data.unlockedAbilityTypes == null)
+        {
+            data.unlockedAbilityTypes = new List<ABILITIES>();
+        }
         unlockedAbilities = new List<Ability>();
         foreach (var type in data.unlockedAbilityTypes)
         {
@@ -588,9 +677,20 @@ public class Inventory : MonoBehaviour
         }
         indexOfAbility = 0;
 
-        levelsCompleted = data.levelsCompleted;
+        if (data.levelsCompleted != null)
+        {
+            levelsCompleted = data.levelsCompleted;
+        }
+        else
+        {
+            levelsCompleted = new Dictionary<int, bool>();
+        }
 
         ballColor = data.ballColor.ToColor();
+        if (ballColor == null)
+        {
+            ballColor = Color.white;
+        }
         isColorUnlocked = data.isColorUnlocked;
 
         isWalkMode = data.isWalkMode;
@@ -603,7 +703,7 @@ public class Inventory : MonoBehaviour
         isClassicHardMode = data.isClassicHardMode;
         isFreeplayMode = data.isFreeplayMode;
 
-        if (data.achievements.Length > 0)
+        if (data.achievements != null && data.achievements.Length > 0)
         {
             achievements = new bool[(int)Achievement.TYPE.MAX];
 
