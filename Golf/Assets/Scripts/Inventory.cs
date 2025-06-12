@@ -737,6 +737,7 @@ public class Inventory : MonoBehaviour
         
         if (PlayerInput.isDown(PlayerInput.Axis.Fire3) && unlockedAbilities.Count > 0)
         {
+            ball.ClearDots();
             unlockedAbilities[indexOfAbility].onUse(ball);
         }
         if (unlockedAbilities.Count > 0)

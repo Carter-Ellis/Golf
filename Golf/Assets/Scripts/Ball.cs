@@ -306,11 +306,14 @@ public class Ball : MonoBehaviour
         bool found = false;
         for (int i = currentIndex + 1; i < allFans.Length; i++)
         {
+  
             if (Vector2.Distance(transform.position, allFans[i].transform.position) <= allFans[i].controlRadius)
             {
-                found = true;
-                Select(allFans[i]);
-                break;
+                if (Select(allFans[i]))
+                {
+                    found = true;
+                    break;
+                }
             }
         }
         if (!found)
@@ -319,9 +322,8 @@ public class Ball : MonoBehaviour
         }
     }
 
-    public void Select(Component component)
+    public bool Select(Component component)
     {
-
         Component newSelected = null;
         if (objectSelected != null)
         {
@@ -335,16 +337,17 @@ public class Ball : MonoBehaviour
         }
 
         if (newSelected == null || newSelected is not Selectable || !isSelectable) {
-
             objectSelected = null;
             camController.cam.Follow = this.transform;
             ball.canPutt = true;
+            return false;
         }
         else
         {
             objectSelected = (Selectable)newSelected;
             camController.cam.Follow = newSelected.transform;
             ball.canPutt = false;
+            return true;
         }
     }
     public void SwingCooldown()
@@ -591,7 +594,7 @@ public class Ball : MonoBehaviour
         cursor.GetComponent<SpriteRenderer>().enabled = true;
     }
 
-    void ClearDots()
+    public void ClearDots()
     {
         foreach (var dotData in dots)
         {

@@ -57,7 +57,7 @@ public class AbilityTeleport : Ability
                 cursorDir.Normalize();
             }
             mousePos = ball.transform.position + cursorDir * maxTeleportRange;
-            ball.cursor.transform.position = (Vector2)mousePos;
+            ball.cursor.transform.position = new Vector3(mousePos.x, mousePos.y, -9.7f);
         }
         else
         {
@@ -80,8 +80,9 @@ public class AbilityTeleport : Ability
             return;
         }
 
-        Vector3 camPos = Camera.main.transform.position;
-        RaycastHit2D[] hits = Physics2D.RaycastAll(camPos, mousePos - camPos);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
 
         if (hits == null)
         {
@@ -90,8 +91,8 @@ public class AbilityTeleport : Ability
 
         bool hitBackground = false;
         foreach (RaycastHit2D hit in hits) {
-
             if (hit.collider == null) continue;
+
             if (hit.collider.gameObject.CompareTag("Background"))
             {
                 hitBackground = true;
@@ -115,6 +116,7 @@ public class AbilityTeleport : Ability
 
         AudioManager.instance.PlayOneShot(FMODEvents.instance.teleport, GameObject.FindObjectOfType<Ball>().transform.position);
         ball.transform.position = mousePos;
+        PlayerInput.cursorSpeed /= 2;
         ball.DisplayTeleportParticles();
         charges--;
         isReady = false;

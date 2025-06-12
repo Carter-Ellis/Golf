@@ -64,6 +64,9 @@ public class SettingsManager : MonoBehaviour
                 ball.isBallLocked = soundMenu.activeSelf;
                 if (soundMenu.activeSelf)
                 {
+                    ball.hasClickedBall = false;
+                    ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
+                    ball.ClearDots();
                     pauseManager.UpdatePauseMenu();
                 }
             }   
