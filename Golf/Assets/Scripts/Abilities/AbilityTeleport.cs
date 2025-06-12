@@ -183,6 +183,11 @@ public class AbilityTeleport : Ability
         isReady = false;
         ball.canPutt = true;
         sr.color = ball.GetComponent<Inventory>().ballColor;
+        GameObject existing = GameObject.Find("TeleportCircle");
+        if (existing != null)
+        {
+            GameObject.Destroy(existing);
+        }
     }
 
     private void DrawCircle(Vector3 center, float radius, int segments)
