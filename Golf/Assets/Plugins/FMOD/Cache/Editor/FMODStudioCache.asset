@@ -522,7 +522,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638851059412777496
+  lastModified: 638849290451375202
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -842,7 +842,7 @@ MonoBehaviour:
   - {fileID: -2382926633897921263}
   StringsBanks:
   - {fileID: 327917192201675269}
-  cacheTime: 638851059484934441
+  cacheTime: 638850988615176182
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -940,7 +940,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638851059412788687
+  lastModified: 638849290451395126
   FileSizes:
   - Name: Desktop
     Value: 3546
@@ -960,7 +960,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638851059484934441
+  lastModified: 638835426762266462
   FileSizes:
   - Name: Desktop
     Value: 28772640
@@ -1225,7 +1225,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638851059419933970
+  lastModified: 638850988615176182
   FileSizes:
   - Name: Desktop
     Value: 1786144

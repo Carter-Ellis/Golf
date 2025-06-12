@@ -14871,6 +14871,7 @@ MonoBehaviour:
   timer: 0
   timerTxt: {fileID: 0}
   tempCollectedCoins: 
+  achievements: 000000
 --- !u!212 &5055157833523683041
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14989,6 +14990,7 @@ MonoBehaviour:
   isBattleMode: 0
   isBallLocked: 0
   isTraveling: 0
+  dotPrefab: {fileID: 1044738372782656448, guid: 7d7cbc2e86264ec44bcb466012bbf257, type: 3}
   hasClickedBall: 0
   canPutt: 0
   isPuttCooldown: 0

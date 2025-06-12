@@ -6,6 +6,7 @@ using FMOD.Studio;
 using UnityEngine.SceneManagement;
 using Cinemachine.Utility;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public enum Direction
 {
@@ -70,8 +71,7 @@ public class Ball : MonoBehaviour
     public bool isTraveling;
     bool isAiming;
     bool hasShot;
-    
-    int numPoints = 50;
+
     float timeStep = .05f;
     public bool hasClickedBall;
     public bool canPutt;
@@ -86,6 +86,16 @@ public class Ball : MonoBehaviour
     private float damageTimer = 0f;
     public float maxHitSpeed = 15f;
     private ParticleSystem ps;
+
+    [Header("Dots")]
+    public GameObject dotPrefab;
+    private int numDots = 10;
+    private float speed = 4f;
+
+    private List<DotData> dots = new List<DotData>();
+    private Vector3 startPos;
+    private Vector3 targetPos;
+    private Vector3 direction;
 
     [Header("Swing Cooldown")]
     private float swingTimer = 0;
@@ -117,7 +127,7 @@ public class Ball : MonoBehaviour
         camController = GameObject.FindAnyObjectByType<CameraController>();
         hasShot = true;
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = numPoints;
+        lineRenderer.positionCount = numDots;
         lineRenderer.startWidth = .25f;
         lineRenderer.endWidth = .25f;
         canPutt = true;
@@ -136,6 +146,18 @@ public class Ball : MonoBehaviour
     {
         CurrentDirection = Direction.South;
         inv = GetComponent<Inventory>();
+        // Instantiate dots spaced out behind startPos
+        for (int i = 0; i < numDots; i++)
+        {
+            GameObject dot = Instantiate(dotPrefab);
+            dot.GetComponent<SpriteRenderer>().color = inv.ballColor;
+            dot.transform.parent = transform;
+            dot.SetActive(false);
+            float offset = i / (float)numDots;
+            dots.Add(new DotData(dot, offset));
+        }
+
+        
         moveSpeed = 7;
         allFans = GameObject.FindObjectsByType<Fan>(FindObjectsSortMode.InstanceID);
         //ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
@@ -544,19 +566,38 @@ public class Ball : MonoBehaviour
 
     void DrawTrajectory(Vector2 force)
     {
-        cursor.GetComponent<SpriteRenderer>().enabled = true;
-        lineRenderer.enabled = true;
-        Vector3[] points = new Vector3[numPoints];
-        Vector3 initialPosition = new Vector3(transform.position.x, transform.position.y, -9f);
-        Vector3 velocity = force;
+        startPos = transform.position;
+        targetPos = cursor.transform.position;
+        direction = (targetPos - startPos).normalized;
 
-        for (int i = 0; i < numPoints; i++)
+        float distance = Vector3.Distance(startPos, targetPos);
+        if (distance < 0.01f) distance = 0.01f; // Avoid division by zero
+
+        float progressSpeed = speed / distance;
+
+        foreach (var dotData in dots)
         {
-            float t = 5 * (int)(i / 5) * timeStep;
-            points[i] = initialPosition + velocity;
+            dotData.progress += progressSpeed * Time.deltaTime;
+            dotData.progress %= 1f;
+
+            float t = (dotData.progress + dotData.offset) % 1f;
+            Vector3 pos = Vector3.Lerp(startPos, targetPos, t);
+            pos.z = -9.7f;  // set z to desired value
+
+            dotData.dot.transform.position = pos;
+            dotData.dot.SetActive(true);
         }
-        cursor.transform.position = initialPosition + velocity;
-        //lineRenderer.SetPositions(points);
+
+        cursor.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    void ClearDots()
+    {
+        foreach (var dotData in dots)
+        {
+            dotData.dot.SetActive(false);
+        }
+        cursor.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void GrabBall()
@@ -616,6 +657,9 @@ public class Ball : MonoBehaviour
 
             Vector2 mousePosNormalized = (mousePos - ballPos).normalized;
 
+            Vector2 mirroredCursorPos = ballPos - (mousePos - ballPos);
+            cursor.transform.position = new Vector3(mirroredCursorPos.x, mirroredCursorPos.y, -9.71f);
+
             float distFromBall = Vector2.Distance(mousePos, ballPos);
             Vector2 force = -mousePosNormalized * distFromBall;
             DrawTrajectory(force);
@@ -634,6 +678,7 @@ public class Ball : MonoBehaviour
 
     void Shoot()
     {
+        ClearDots();
         hasClickedBall = false;
         isPuttCooldown = false;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(PlayerInput.cursorPosition);
@@ -768,6 +813,20 @@ public class Ball : MonoBehaviour
         {
             // Otherwise stop the SFX
             ballRollSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+    }
+
+    public class DotData
+    {
+        public GameObject dot;
+        public float progress;
+        public float offset = 1f;  // how much to delay its start
+
+        public DotData(GameObject dot, float offset)
+        {
+            this.dot = dot;
+            this.offset = offset;
+            this.progress = offset;  // start with the offset
         }
     }
 
