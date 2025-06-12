@@ -9,9 +9,9 @@ public class AbilityPickup : MonoBehaviour
     public bool isRecharge = false;
     public bool playPickupAudio = false;
     public bool isRefill = false;
-    float timer = 0f;
-    float refillTime = 3f;
-    bool used = false;
+    private float timer = 0f;
+    private float refillTime = 3f;
+    private bool used = false;
 
     private void Update()
     {
@@ -43,20 +43,16 @@ public class AbilityPickup : MonoBehaviour
         }
 
         Ability ability = inv.getCurrentAbility();
-        if (ability != null)
+        if (ability != null && ability.type != type)
         {
-            ability.onBallDisabled(ball);
+            ability.reset(ball);
         }
 
         if (playPickupAudio)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, transform.position);
         }
-        
-        if (inv.unlockedAbilities != null && inv.unlockedAbilities.Count > 0)
-        {
-            inv.unlockedAbilities[inv.indexOfAbility].reset(ball);
-        }
+
         if (isRecharge)
         {
             inv.RechargeAbility(type);

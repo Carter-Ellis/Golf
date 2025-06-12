@@ -626,6 +626,7 @@ public class Ball : MonoBehaviour
         {
             hasClickedBall = false;
             cursor.GetComponent<SpriteRenderer>().enabled = false;
+            ClearDots();
             return;
         }
         if (hasClickedBall)
