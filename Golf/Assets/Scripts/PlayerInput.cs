@@ -46,9 +46,11 @@ public class PlayerInput : MonoBehaviour
 
     private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
     public static float cursorSpeed = 0.6f;
+    private const float defaultCursorSpeed = 0.6f;
 
     private void OnEnable()
     {
+        cursorSpeed = defaultCursorSpeed;
         for (int i = 0; i < (int)Axis.MAX_AXIS; i++)
         {
             axesValue[i, 0] = 0;
@@ -133,6 +135,12 @@ public class PlayerInput : MonoBehaviour
     public static Vector2 cursorPosition { get
         {
             return isController ? (_cursorPos * new Vector2(Screen.width, Screen.height)) : Input.mousePosition;
+        }
+    }
+
+    public static Vector2 rawCursorPosition { get
+        {
+            return isController ? _cursorPos : Input.mousePosition;
         }
     }
 
