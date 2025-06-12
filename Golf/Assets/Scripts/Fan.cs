@@ -23,7 +23,7 @@ public class Fan : MonoBehaviour, Selectable
     private EventInstance fanSFX;
     private LineRenderer line;
 
-    private void Awake()
+    private void Start()
     {
         ball = FindObjectOfType<Ball>();
         wind = GetComponentInChildren<Wind>();
