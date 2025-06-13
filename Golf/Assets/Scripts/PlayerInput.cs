@@ -43,9 +43,9 @@ public class PlayerInput : MonoBehaviour
     private static bool[,] axesFrameUp = new bool[(int)Axis.MAX_AXIS, 2];
 
     public static bool isController { get; private set; }
+    public static float cursorSpeed = 0.6f;
 
     private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
-    public static float cursorSpeed = 0.6f;
     private const float defaultCursorSpeed = 0.6f;
 
     private void OnEnable()

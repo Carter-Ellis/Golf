@@ -10,7 +10,7 @@ public class CursorController : MonoBehaviour
     private Image cursorImage;
     private HashSet<GameObject> hovered = new HashSet<GameObject>();
     private bool dragging = false;
-    private float scrollSens = 5f;
+    private float scrollSens = 3000f;
 
     private void OnEnable()
     {
@@ -76,7 +76,7 @@ public class CursorController : MonoBehaviour
     {
 
         bool isDown = PlayerInput.isDown(PlayerInput.Axis.Fire1);
-        bool isUp = PlayerInput.isUp(PlayerInput.Axis.Fire1);
+        bool isUp = PlayerInput.isUp(PlayerInput.Axis.Fire1) && dragging;
         if (isDown)
         {
             dragging = true;
