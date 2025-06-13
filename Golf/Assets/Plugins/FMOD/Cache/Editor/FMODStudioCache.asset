@@ -321,6 +321,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4969260732975587229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/parfect
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/parfect
+  Guid:
+    Data1: 941210747
+    Data2: 1268852775
+    Data3: -1432407389
+    Data4: 503198731
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4674784861882732439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +549,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638849290451375202
+  lastModified: 638854342334977062
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -836,13 +863,16 @@ MonoBehaviour:
   - {fileID: 7899943109209832282}
   - {fileID: -7418008609481767640}
   - {fileID: -3454871107143727219}
+  - {fileID: 5246957280745255588}
+  - {fileID: -4969260732975587229}
+  - {fileID: 371802504618700355}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -2382926633897921263}
   StringsBanks:
   - {fileID: 327917192201675269}
-  cacheTime: 638850988615176182
+  cacheTime: 638854342336883430
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -940,11 +970,38 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638849290451395126
+  lastModified: 638854342335006987
   FileSizes:
   - Name: Desktop
-    Value: 3546
+    Value: 3692
   Exists: 1
+--- !u!114 &371802504618700355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/pathetic
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/pathetic
+  Guid:
+    Data1: 1524415135
+    Data2: 1172325935
+    Data3: -1974154055
+    Data4: 1164208991
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &389591723674447224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,7 +1017,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638835426762266462
+  lastModified: 638854330871114172
   FileSizes:
   - Name: Desktop
     Value: 28772640
@@ -1210,6 +1267,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &5246957280745255588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/excellent
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/excellent
+  Guid:
+    Data1: -122229411
+    Data2: 1330574573
+    Data3: 2106326442
+    Data4: 2052608498
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5890043130547251492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,10 +1309,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638850988615176182
+  lastModified: 638854342336883430
   FileSizes:
   - Name: Desktop
-    Value: 1786144
+    Value: 2092384
   Exists: 1
 --- !u!114 &5944229386815654179
 MonoBehaviour:

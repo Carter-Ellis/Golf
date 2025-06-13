@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -26,6 +27,11 @@ public class SettingsManager : MonoBehaviour
     private void Update()
     {
         
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            return;
+        }
+
         if (ball.isTeleportReady)
         {
             if (PlayerInput.isDown(PlayerInput.Axis.Cancel))

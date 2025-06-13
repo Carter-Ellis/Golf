@@ -74,9 +74,13 @@ public class FMODEvents : MonoBehaviour
 
     [field: SerializeField] public EventReference doubleBogey { get; private set; }
 
+    [field: SerializeField] public EventReference parthetic { get; private set; }
+
     [field: SerializeField] public EventReference eagle { get; private set; }
 
     [field: SerializeField] public EventReference par { get; private set; }
+    [field: SerializeField] public EventReference excellent { get; private set; }
+    [field: SerializeField] public EventReference parfect { get; private set; }
 
     [field: Header("Applause")]
     [field: SerializeField] public EventReference applause { get; private set; }

@@ -585,7 +585,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Classic 18 Holes";
-
+                print("Hello");
                 if (holeNum == 18)
                 {
                     winTxt.text = "You finished Classic 18 Holes!";
@@ -665,6 +665,11 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     private void PlayVoiceLine()
     {
+        if (ball.strokes == 1)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.parfect, transform.position);
+            return;
+        }
         if (ball.strokes == par + 1)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.bogey, transform.position);
@@ -684,6 +689,18 @@ public class Hole : MonoBehaviour, ButtonTarget
         else if (ball.strokes == par - 2)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.eagle, transform.position);
+            
+        }
+        else
+        {
+            if (ball.strokes > par)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.parthetic, transform.position);
+            }
+            else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.excellent, transform.position);
+            }
             
         }
     }

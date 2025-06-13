@@ -297,6 +297,13 @@ MonoBehaviour:
       Data3: -1353050961
       Data4: 1342122978
     Path: event:/SFX/ColinLines/db
+  <parthetic>k__BackingField:
+    Guid:
+      Data1: 1524415135
+      Data2: 1172325935
+      Data3: -1974154055
+      Data4: 1164208991
+    Path: event:/SFX/ColinLines/pathetic
   <eagle>k__BackingField:
     Guid:
       Data1: 176747763
@@ -311,6 +318,20 @@ MonoBehaviour:
       Data3: 1613100735
       Data4: -1038973158
     Path: event:/SFX/ColinLines/par
+  <excellent>k__BackingField:
+    Guid:
+      Data1: -122229411
+      Data2: 1330574573
+      Data3: 2106326442
+      Data4: 2052608498
+    Path: event:/SFX/ColinLines/excellent
+  <parfect>k__BackingField:
+    Guid:
+      Data1: 941210747
+      Data2: 1268852775
+      Data3: -1432407389
+      Data4: 503198731
+    Path: event:/SFX/ColinLines/parfect
   <applause>k__BackingField:
     Guid:
       Data1: 1303967632
