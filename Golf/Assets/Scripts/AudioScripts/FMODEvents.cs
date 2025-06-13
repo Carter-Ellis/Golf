@@ -130,7 +130,7 @@ public class FMODEvents : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.Log("Found more than one FMOD Events scrupt in the scene.");
+            //Debug.Log("Found more than one FMOD Events scrupt in the scene.");
         }
         instance = this;
     }

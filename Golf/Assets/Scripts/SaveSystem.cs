@@ -42,7 +42,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.Log("Zoom save file not found.");
+            //Debug.Log("Zoom save file not found.");
             return 5f; // Default zoom level
         }
     }
@@ -62,7 +62,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.Log("Save file not found in " + path);
+            //Debug.Log("Save file not found in " + path);
             return null;
         }
     }
@@ -75,11 +75,11 @@ public static class SaveSystem
             if (File.Exists(path))
             {
                 File.Delete(path);
-                Debug.Log("Saved data cleared.");
+                //Debug.Log("Saved data cleared.");
             }
             else
             {
-                Debug.LogWarning("No saved data found to delete.");
+                //Debug.LogWarning("No saved data found to delete.");
             }
         }
         catch (IOException e)
@@ -93,7 +93,7 @@ public static class SaveSystem
         if (AudioManager.instance != null)
         {
             AudioManager.instance.SetVolumes(1f, 1f, 1f, 1f);
-            Debug.Log("Audio settings reset to default.");
+            //Debug.Log("Audio settings reset to default.");
         }
     }
 
@@ -105,11 +105,11 @@ public static class SaveSystem
             if (File.Exists(path))
             {
                 File.Delete(path);
-                Debug.Log("Zoom data cleared.");
+                //Debug.Log("Zoom data cleared.");
             }
             else
             {
-                Debug.LogWarning("No zoom data found to delete.");
+                //Debug.LogWarning("No zoom data found to delete.");
             }
         }
         catch (IOException e)

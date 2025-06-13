@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class AbilityTeleport : Ability
 {
-    private GameObject ballMarker;
-    private int charges = 1;
     public bool isReady;
     public float maxTeleportRange = 3f;
+    private int charges = 1;
 
     public AbilityTeleport(Color color)
     {
@@ -47,7 +46,25 @@ public class AbilityTeleport : Ability
             return;
         }
 
-        if (!Input.GetMouseButtonUp(0))
+        Vector3 mousePos;
+        if (PlayerInput.isController)
+        {
+            //Convert cursor position from 0:1 to -1:1 range and invert
+            Vector3 cursorDir = -(PlayerInput.rawCursorPosition * 2f - new Vector2(1, 1));
+            //Normalize if too large to contain in circle
+            if (cursorDir.magnitude > 1f)
+            {
+                cursorDir.Normalize();
+            }
+            mousePos = ball.transform.position + cursorDir * maxTeleportRange;
+            ball.cursor.transform.position = new Vector3(mousePos.x, mousePos.y, -9.7f);
+        }
+        else
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        if (!PlayerInput.isUp(PlayerInput.Axis.Fire1))
         {
             return;
         }
@@ -57,15 +74,14 @@ public class AbilityTeleport : Ability
             return;
         }
 
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         float distance = Vector2.Distance(mousePos, ball.transform.position);
         if (distance > maxTeleportRange)
         {
             return;
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
         RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
 
         if (hits == null)
@@ -75,8 +91,8 @@ public class AbilityTeleport : Ability
 
         bool hitBackground = false;
         foreach (RaycastHit2D hit in hits) {
-
             if (hit.collider == null) continue;
+
             if (hit.collider.gameObject.CompareTag("Background"))
             {
                 hitBackground = true;
@@ -100,6 +116,7 @@ public class AbilityTeleport : Ability
 
         AudioManager.instance.PlayOneShot(FMODEvents.instance.teleport, GameObject.FindObjectOfType<Ball>().transform.position);
         ball.transform.position = mousePos;
+        PlayerInput.cursorSpeed /= 2;
         ball.DisplayTeleportParticles();
         charges--;
         isReady = false;
@@ -110,6 +127,7 @@ public class AbilityTeleport : Ability
             ball.isBallLocked = false;
         }
 
+        ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
         ball.GetComponent<SpriteRenderer>().color = ball.GetComponent<Inventory>().ballColor;
         GameObject existing = GameObject.Find("TeleportCircle");
         if (existing != null)
@@ -138,10 +156,6 @@ public class AbilityTeleport : Ability
     {
         charges = amount;
     }
-    /*public override void setRange(int amount)
-    {
-        maxTeleportRange = amount;
-    }*/
 
     public override void onUse(Ball ball)
     {
@@ -167,12 +181,16 @@ public class AbilityTeleport : Ability
         if (isReady)
         {
             ball.hasClickedBall = false;
-            ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
+            ball.cursor.GetComponent<SpriteRenderer>().enabled = PlayerInput.isController;
+            PlayerInput.resetCursor();
+            PlayerInput.cursorSpeed *= 2;
         }
         else
         {
+            ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
             GameObject tpCircle = GameObject.Find("TeleportCircle");
             if (tpCircle != null) GameObject.Destroy(tpCircle);
+            PlayerInput.cursorSpeed /= 2;
         }
 
     }
@@ -183,6 +201,11 @@ public class AbilityTeleport : Ability
         isReady = false;
         ball.canPutt = true;
         sr.color = ball.GetComponent<Inventory>().ballColor;
+        GameObject existing = GameObject.Find("TeleportCircle");
+        if (existing != null)
+        {
+            GameObject.Destroy(existing);
+        }
     }
 
     private void DrawCircle(Vector3 center, float radius, int segments)

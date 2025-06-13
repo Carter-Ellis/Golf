@@ -43,7 +43,6 @@ public class SettingsManager : MonoBehaviour
         {
             if (PlayerInput.isDown(PlayerInput.Axis.Cancel))
             {
-                print("Heladasdlo");
                 soundMenu.SetActive(!soundMenu.activeSelf);
                 ball.isBallLocked = soundMenu.activeSelf;
                 if (soundMenu.activeSelf)
@@ -65,6 +64,9 @@ public class SettingsManager : MonoBehaviour
                 ball.isBallLocked = soundMenu.activeSelf;
                 if (soundMenu.activeSelf)
                 {
+                    ball.hasClickedBall = false;
+                    ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
+                    ball.ClearDots();
                     pauseManager.UpdatePauseMenu();
                 }
             }   
