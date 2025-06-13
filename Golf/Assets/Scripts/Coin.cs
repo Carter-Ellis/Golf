@@ -52,7 +52,6 @@ public class Coin : MonoBehaviour
 
             if (!inventory.coinsCollected[currentLevel].Contains(coinNumber))
             {
-                print("coin " + coinNumber + " Added");
                 inventory.tempCollectedCoins.Add(coinNumber);
             }
 

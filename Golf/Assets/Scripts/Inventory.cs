@@ -140,6 +140,7 @@ public class Inventory : MonoBehaviour
 
     public List<int> tempCollectedCoins = new List<int>();
 
+    [HideInInspector]
     public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
 
     private void Awake()
@@ -438,17 +439,11 @@ public class Inventory : MonoBehaviour
     }
     public void LoadPlayer()
     {
-        //ErasePlayerData();
         PlayerData data = SaveSystem.LoadPlayer();
-        if (data == null)
-        {
-            Debug.Log("No data found when loaded.");
-            return;
-        }
 
-        coins = data.coins;
-        totalCoins = data.totalCoins;
-        currentLevel = data.currentLevel;
+        coins = data != null ? data.coins : 0;
+        totalCoins = data != null ? data.totalCoins : 0;
+        currentLevel = data != null ? data.currentLevel : 0;
 
         foreach (VolumeSlider slider in FindObjectsOfType<VolumeSlider>())
         {
@@ -456,10 +451,10 @@ public class Inventory : MonoBehaviour
         }
 
 
-        masterVol = data.masterVol;
-        musicVol = data.musicVol;
-        SFXVol = data.SFXVol;
-        ambienceVol = data.ambienceVol;
+        masterVol = data != null ? data.masterVol : 0;
+        musicVol = data != null ? data.musicVol : 0;
+        SFXVol = data != null ? data.SFXVol : 0;
+        ambienceVol = data != null ? data.ambienceVol : 0;
 
         if (AudioManager.instance != null)
         {
@@ -469,7 +464,7 @@ public class Inventory : MonoBehaviour
             AudioManager.instance.ambienceVolume = ambienceVol;
         }
 
-        if (data.coinsCollected != null)
+        if (data?.coinsCollected != null)
         {
             coinsCollected = data.coinsCollected;
         }
@@ -478,7 +473,7 @@ public class Inventory : MonoBehaviour
             coinsCollected = new Dictionary<int, List<int>>();
         }
 
-        if (data.levelPopups != null)
+        if (data?.levelPopups != null)
         {
             levelPopups = data.levelPopups;
         }
@@ -486,7 +481,7 @@ public class Inventory : MonoBehaviour
         {
             levelPopups = new Dictionary<int, bool>();
         }
-        if (data.upgradeLevels != null)
+        if (data?.upgradeLevels != null)
         {
             upgradeLevels = data.upgradeLevels;
         }
@@ -495,7 +490,7 @@ public class Inventory : MonoBehaviour
             upgradeLevels = new Dictionary<int, int>();
         }
 
-        if (data.campaignHighScore != null)
+        if (data?.campaignHighScore != null)
         {
             campaignHighScore = data.campaignHighScore;
         }
@@ -504,7 +499,7 @@ public class Inventory : MonoBehaviour
             campaignHighScore = new Dictionary<int, int>();
         }
 
-        if (data.campaignCurrScore != null)
+        if (data?.campaignCurrScore != null)
         {
             campaignCurrScore = data.campaignCurrScore;
         }
@@ -513,7 +508,7 @@ public class Inventory : MonoBehaviour
             campaignCurrScore = new Dictionary<int, int>();
         }
 
-        if (data.campSpeedHighScore != null)
+        if (data?.campSpeedHighScore != null)
         {
 
             campSpeedHighScore = data.campSpeedHighScore;
@@ -523,7 +518,7 @@ public class Inventory : MonoBehaviour
             campSpeedHighScore = new Dictionary<int, float>();
         }
 
-        if (data.campSpeedCurrScore != null)
+        if (data?.campSpeedCurrScore != null)
         {
             campSpeedCurrScore = data.campSpeedCurrScore;
         }
@@ -532,7 +527,7 @@ public class Inventory : MonoBehaviour
             campSpeedCurrScore = new Dictionary<int, float>();
         }
 
-        if (data.campHardHighScore != null)
+        if (data?.campHardHighScore != null)
         {
 
             campHardHighScore = data.campHardHighScore;
@@ -542,7 +537,7 @@ public class Inventory : MonoBehaviour
             campHardHighScore = new Dictionary<int, int>();
         }
 
-        if (data.campHardCurrScore != null)
+        if (data?.campHardCurrScore != null)
         {
             campHardCurrScore = data.campHardCurrScore;
         }
@@ -551,7 +546,7 @@ public class Inventory : MonoBehaviour
             campHardCurrScore = new Dictionary<int, int>();
         }
 
-        if (data.classicSpeedHighScore != null)
+        if (data?.classicSpeedHighScore != null)
         {
 
             classicSpeedHighScore = data.classicSpeedHighScore;
@@ -561,7 +556,7 @@ public class Inventory : MonoBehaviour
             classicSpeedHighScore = new Dictionary<int, float>();
         }
 
-        if (data.classicSpeedCurrScore != null)
+        if (data?.classicSpeedCurrScore != null)
         {
             classicSpeedCurrScore = data.classicSpeedCurrScore;
         }
@@ -570,7 +565,7 @@ public class Inventory : MonoBehaviour
             classicSpeedCurrScore = new Dictionary<int, float>();
         }
 
-        if (data.classicHighScore != null)
+        if (data?.classicHighScore != null)
         {
             classicHighScore = data.classicHighScore;
         }
@@ -579,7 +574,7 @@ public class Inventory : MonoBehaviour
             classicHighScore = new Dictionary<int, int>();
         }
 
-        if (data.classicCurrScore != null)
+        if (data?.classicCurrScore != null)
         {
             classicCurrScore = data.classicCurrScore;
         }
@@ -588,7 +583,7 @@ public class Inventory : MonoBehaviour
             classicCurrScore = new Dictionary<int, int>();
         }
 
-        if (data.classicHardHighScore != null)
+        if (data?.classicHardHighScore != null)
         {
 
             classicHardHighScore = data.classicHardHighScore;
@@ -598,7 +593,7 @@ public class Inventory : MonoBehaviour
             classicHardHighScore = new Dictionary<int, int>();
         }
 
-        if (data.classicHardCurrScore != null)
+        if (data?.classicHardCurrScore != null)
         {
             classicHardCurrScore = data.classicHardCurrScore;
         }
@@ -607,7 +602,7 @@ public class Inventory : MonoBehaviour
             classicHardCurrScore = new Dictionary<int, int>();
         }
 
-        if (data.campSpeedGoalsBeat != null)
+        if (data?.campSpeedGoalsBeat != null)
         {
             campSpeedGoalsBeat = data.campSpeedGoalsBeat;
         }
@@ -616,7 +611,7 @@ public class Inventory : MonoBehaviour
             campSpeedGoalsBeat = new Dictionary<int, bool>();
         }
 
-        if (data.maxChargesList != null && data.maxChargesList.Count > 0)
+        if (data?.maxChargesList != null && data.maxChargesList.Count > 0)
         {
             maxChargesByType = data.maxChargesList.ToDictionary(a => a.ability, a => a.charges);
         }
@@ -632,7 +627,7 @@ public class Inventory : MonoBehaviour
             };
         }
 
-        if (data.unlockedHats != null)
+        if (data?.unlockedHats != null)
         {
             unlockedHats = data.unlockedHats;
         }
@@ -641,43 +636,42 @@ public class Inventory : MonoBehaviour
             unlockedHats = new Dictionary<Hat.TYPE, bool>();
         }
 
-        data.RestoreHatSprite();
-        hat = data.hat;
-        hatColor = data.hatColor.ToColor();
-        if (hatColor == null)
-        {
-            hatColor = Color.white;
-        }
-        hatType = data.hatType;
+        data?.RestoreHatSprite();
+        hat = data?.hat;
+        hatColor = data != null ? data.hatColor.ToColor() : Color.white;
+        hatType = data != null ? data.hatType : Hat.TYPE.NONE;
 
-        if (data.teleportRange == 0)
+        if (data?.teleportRange == 0)
         {
             data.teleportRange = teleportRange;
         }
-        teleportRange = data.teleportRange;
+        teleportRange = data != null ? data.teleportRange : teleportRange;
 
-        if (data.unlockedAbilityTypes == null)
-        {
-            data.unlockedAbilityTypes = new List<ABILITIES>();
-        }
         unlockedAbilities = new List<Ability>();
-        foreach (var type in data.unlockedAbilityTypes)
+        if (data != null)
         {
-            if (indexOfAbility >= data.unlockedAbilityTypes.Count)
-            { 
-                break;
+            if (data.unlockedAbilityTypes == null)
+            {
+                data.unlockedAbilityTypes = new List<ABILITIES>();
             }
+            foreach (var type in data.unlockedAbilityTypes)
+            {
+                if (indexOfAbility >= data.unlockedAbilityTypes.Count)
+                {
+                    break;
+                }
 
-            int maxCharges = data.maxChargesList.FirstOrDefault(c => c.ability == type).charges;
-            Ability.SetMaxCharges(type, maxCharges);
-            Ability ability = Ability.Create(type, Color.white);
-            ability.onPickup(ball);
-            unlockedAbilities.Add(ability);
-            indexOfAbility++;
+                int maxCharges = data.maxChargesList.FirstOrDefault(c => c.ability == type).charges;
+                Ability.SetMaxCharges(type, maxCharges);
+                Ability ability = Ability.Create(type, Color.white);
+                ability.onPickup(ball);
+                unlockedAbilities.Add(ability);
+                indexOfAbility++;
+            }
+            indexOfAbility = 0;
         }
-        indexOfAbility = 0;
 
-        if (data.levelsCompleted != null)
+        if (data?.levelsCompleted != null)
         {
             levelsCompleted = data.levelsCompleted;
         }
@@ -686,24 +680,20 @@ public class Inventory : MonoBehaviour
             levelsCompleted = new Dictionary<int, bool>();
         }
 
-        ballColor = data.ballColor.ToColor();
-        if (ballColor == null)
-        {
-            ballColor = Color.white;
-        }
-        isColorUnlocked = data.isColorUnlocked;
+        ballColor = data != null ? data.ballColor.ToColor() : Color.white;
+        isColorUnlocked = data != null ? data.isColorUnlocked : false;
 
-        isWalkMode = data.isWalkMode;
+        isWalkMode = data != null ? data.isWalkMode : false;
 
-        isCampaignMode = data.isCampaignMode;
-        isCampSpeedMode = data.isCampSpeedMode;
-        isCampHardMode = data.isCampHardMode;
-        isClassicMode = data.isClassicMode;
-        isClassicSpeedMode = data.isClassicSpeedMode;
-        isClassicHardMode = data.isClassicHardMode;
-        isFreeplayMode = data.isFreeplayMode;
+        isCampaignMode = data != null ? data.isCampaignMode : false;
+        isCampSpeedMode = data != null ? data.isCampSpeedMode : false;
+        isCampHardMode = data != null ? data.isCampHardMode : false;
+        isClassicMode = data != null ? data.isClassicMode : false;
+        isClassicSpeedMode = data != null ? data.isClassicSpeedMode : false;
+        isClassicHardMode = data != null ? data.isClassicHardMode : false;
+        isFreeplayMode = data != null ? data.isFreeplayMode : false;
 
-        if (data.achievements != null && data.achievements.Length > 0)
+        if (data?.achievements != null && data.achievements.Length > 0)
         {
             achievements = new bool[(int)Achievement.TYPE.MAX];
 
@@ -737,6 +727,7 @@ public class Inventory : MonoBehaviour
         
         if (PlayerInput.isDown(PlayerInput.Axis.Fire3) && unlockedAbilities.Count > 0)
         {
+            ball.ClearDots();
             unlockedAbilities[indexOfAbility].onUse(ball);
         }
         if (unlockedAbilities.Count > 0)
