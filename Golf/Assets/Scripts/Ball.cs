@@ -72,7 +72,6 @@ public class Ball : MonoBehaviour
     bool isAiming;
     bool hasShot;
 
-    float timeStep = .05f;
     public bool hasClickedBall;
     public bool canPutt;
     public bool isPuttCooldown;

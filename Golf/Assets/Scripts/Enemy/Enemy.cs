@@ -6,9 +6,7 @@ public class Enemy : MonoBehaviour
 {
 
     [Header("Enemy Components")]
-    int _maxHealth = 100;
     public int health = 100;
-    int damage = 10;
     int damageThreshold = 8;
 
     [Header("Enemy Properties")]
