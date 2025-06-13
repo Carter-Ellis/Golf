@@ -9,6 +9,12 @@ public class MainMenu : MonoBehaviour
     public Canvas soundMenuCanvas;
     public Canvas mainMenu;
     public bool isActive = true;
+    private GameObject mainCursor;
+
+    private void Start()
+    {
+        mainCursor = GameObject.FindAnyObjectByType<CursorController>().gameObject;
+    }
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync("Level 1");
@@ -26,6 +32,7 @@ public class MainMenu : MonoBehaviour
         isActive = !isActive;
         GameObject soundMenu = soundMenuCanvas.gameObject;
         soundMenu.SetActive(!soundMenu.activeSelf);
+        mainCursor.SetActive(!mainCursor.activeSelf);
         if (ball != null)
         {
             ball.isBallLocked = soundMenu.activeSelf;

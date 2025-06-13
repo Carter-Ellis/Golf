@@ -287,19 +287,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void CheckHats()
-    {
-        for (int i = 1; i < (int)Hat.TYPE.MAX_HATS; i++)
-        {
-            print(unlockedHats[(Hat.TYPE)i]);
-        }
-        for (int i = 1; i < (int)Hat.TYPE.MAX_HATS; i++)
-        {
-            unlockedHats[(Hat.TYPE)i] = false;
-        }
-
-    }
-
     private void PopulateCharges()
     {
         Ability.maxChargesByType = maxChargesByType;
@@ -451,10 +438,10 @@ public class Inventory : MonoBehaviour
         }
 
 
-        masterVol = data != null ? data.masterVol : 0;
-        musicVol = data != null ? data.musicVol : 0;
-        SFXVol = data != null ? data.SFXVol : 0;
-        ambienceVol = data != null ? data.ambienceVol : 0;
+        masterVol = data != null ? data.masterVol : 1;
+        musicVol = data != null ? data.musicVol : 1;
+        SFXVol = data != null ? data.SFXVol : 1;
+        ambienceVol = data != null ? data.ambienceVol : 1;
 
         if (AudioManager.instance != null)
         {
@@ -617,7 +604,6 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("maxChargesList was null or empty — initializing defaults.");
             maxChargesByType = new Dictionary<ABILITIES, int>()
             {
                 { ABILITIES.FREEZE, 1 },

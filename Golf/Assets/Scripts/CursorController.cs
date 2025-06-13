@@ -10,6 +10,7 @@ public class CursorController : MonoBehaviour
     private Image cursorImage;
     private HashSet<GameObject> hovered = new HashSet<GameObject>();
     private bool dragging = false;
+    private float scrollSens = 3000f;
 
     private void OnEnable()
     {
@@ -41,6 +42,10 @@ public class CursorController : MonoBehaviour
             Vector2 position = new Vector2(Screen.width, Screen.height) - PlayerInput.cursorPosition;
             transform.position = position;
             SimulateClick(position);
+            if (PlayerInput.isDown(PlayerInput.Axis.Fire2))
+            {
+                BackButton(position);
+            }
         }
         else if (cursorImage.enabled)
         {
@@ -49,11 +54,29 @@ public class CursorController : MonoBehaviour
         }
     }
 
+    private void BackButton(Vector2 screenPosition)
+    {
+
+        GameObject backObj = GameObject.Find("Back");
+        var backButton = backObj?.GetComponent<UnityEngine.UI.Button>();
+        if (backButton == null)
+        {
+            return;
+        }
+
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = screenPosition,
+        };
+        ExecuteEvents.Execute(backObj, pointerData, ExecuteEvents.pointerClickHandler);
+
+    }
+
     private void SimulateClick(Vector2 screenPosition)
     {
 
         bool isDown = PlayerInput.isDown(PlayerInput.Axis.Fire1);
-        bool isUp = PlayerInput.isUp(PlayerInput.Axis.Fire1);
+        bool isUp = PlayerInput.isUp(PlayerInput.Axis.Fire1) && dragging;
         if (isDown)
         {
             dragging = true;
@@ -65,8 +88,13 @@ public class CursorController : MonoBehaviour
 
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
-            position = screenPosition
+            position = screenPosition,
         };
+        float scrollInput = PlayerInput.get(PlayerInput.Axis.ScrollWheel);
+        if (scrollInput != 0)
+        {
+            pointerData.scrollDelta = new Vector2(0, scrollInput * scrollSens * Time.deltaTime);
+        }
 
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
@@ -106,12 +134,14 @@ public class CursorController : MonoBehaviour
         newHover.Add(target);
         if (isDown)
         {
-            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerClickHandler);
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerDownHandler);
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.beginDragHandler);
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.dragHandler);
         }
         else if (isUp)
         {
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerClickHandler);
+            ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerUpHandler);
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.endDragHandler);
         }
         else if (dragging)
@@ -122,6 +152,7 @@ public class CursorController : MonoBehaviour
         {
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerEnterHandler);
         }
+        ExecuteEvents.Execute(target, pointerData, ExecuteEvents.scrollHandler);
     }
 
 }
