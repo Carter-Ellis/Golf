@@ -73,8 +73,8 @@ public class PlayerInput : MonoBehaviour
         {
 
             float value = Input.GetAxis(axesNames[i]);
-            axesFrameDown[i, 0] = (axesValue[i, 0] == 0f) && (value != 0);
-            axesFrameUp[i, 0] = (axesValue[i, 0] != 0f) && (value == 0);
+            axesFrameDown[i, 0] = Mathf.Approximately(axesValue[i, 0], 0f) && !Mathf.Approximately(value, 0f);
+            axesFrameUp[i, 0] = !Mathf.Approximately(axesValue[i, 0], 0f) && Mathf.Approximately(value, 0f);
             axesValue[i, 0] = value;
             if (axesFrameDown[i, 0])
             {
@@ -82,8 +82,8 @@ public class PlayerInput : MonoBehaviour
             }
 
             value = Input.GetAxis(axesNames[i] + controllerSuffix);
-            axesFrameDown[i, 1] = (axesValue[i, 1] == 0f) && (value != 0);
-            axesFrameUp[i, 1] = (axesValue[i, 1] != 0f) && (value == 0);
+            axesFrameDown[i, 1] = Mathf.Approximately(axesValue[i, 1], 0f) && !Mathf.Approximately(value, 0f);
+            axesFrameUp[i, 1] = !Mathf.Approximately(axesValue[i, 1], 0f) && Mathf.Approximately(value, 0f);
             axesValue[i, 1] = value;
             if (axesFrameDown[i, 1])
             {
