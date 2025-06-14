@@ -128,6 +128,9 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Fan")]
     [field: SerializeField] public EventReference fan { get; private set; }
 
+    [field: Header("Achievement")]
+    [field: SerializeField] public EventReference achievement { get; private set; }
+
     public static FMODEvents instance { get; private set; }
 
     private void Awake()

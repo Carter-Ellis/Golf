@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        mainCursor = GameObject.FindAnyObjectByType<CursorController>().gameObject;
+        mainCursor = GameObject.FindAnyObjectByType<CursorController>()?.gameObject;
     }
     public void PlayGame()
     {
@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
         isActive = !isActive;
         GameObject soundMenu = soundMenuCanvas.gameObject;
         soundMenu.SetActive(!soundMenu.activeSelf);
-        mainCursor.SetActive(!mainCursor.activeSelf);
+        mainCursor?.SetActive(!mainCursor.activeSelf);
         if (ball != null)
         {
             ball.isBallLocked = soundMenu.activeSelf;

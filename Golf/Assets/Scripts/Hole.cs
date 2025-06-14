@@ -381,18 +381,22 @@ public class Hole : MonoBehaviour, ButtonTarget
         if (ball.transform.localScale.x <= 0)
         {
             // Play inhole audio
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
             isPlayingVoiceLine = true;
 
-            if (ball.strokes == 0 && !inv.isCampSpeedMode && !inv.isClassicSpeedMode)
+            if (ball.strokes <= par)
             {
-                inv.achievements[(int)Achievement.TYPE.HOLEINNONE] = true;
-                
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
+            }
+
+            if (ball.strokes == 0 && !inv.isWalkMode)
+            {
+                Achievement.Give(Achievement.TYPE.HOLEINNONE);
+
             }
 
             if (ball.strokes == 1)
             {
-                inv.achievements[(int)Achievement.TYPE.HOLEINONE] = true;
+                Achievement.Give(Achievement.TYPE.HOLEINONE);
             }
 
             inv.SavePlayer();

@@ -75,4 +75,16 @@ public class Achievement : MonoBehaviour
         return descriptions[(int)type];
     }
 
+    public static void Give(TYPE type)
+    {
+        Inventory inv = GameObject.FindAnyObjectByType<Inventory>();
+        int index = (int)type;
+        if (inv.achievements[index])
+        {
+            return;
+        }
+        inv.achievements[index] = true;
+        AchievementGet.PlayAchievementGet(type);
+    }
+
 }
