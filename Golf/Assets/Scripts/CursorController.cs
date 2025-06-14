@@ -9,7 +9,7 @@ public class CursorController : MonoBehaviour
 
     private Image cursorImage;
     private HashSet<GameObject> hovered = new HashSet<GameObject>();
-    private bool dragging = false;
+    private bool isDragging = false;
     private float scrollSens = 3000f;
 
     private void OnEnable()
@@ -50,7 +50,7 @@ public class CursorController : MonoBehaviour
         else if (cursorImage.enabled)
         {
             cursorImage.enabled = false;
-            dragging = false;
+            isDragging = false;
         }
     }
 
@@ -74,16 +74,16 @@ public class CursorController : MonoBehaviour
 
     private void SimulateClick(Vector2 screenPosition)
     {
-
         bool isDown = PlayerInput.isDown(PlayerInput.Axis.Fire1);
-        bool isUp = PlayerInput.isUp(PlayerInput.Axis.Fire1) && dragging;
+        bool isUp = PlayerInput.isUp(PlayerInput.Axis.Fire1);
+        
         if (isDown)
         {
-            dragging = true;
+            isDragging = true;
         }
         else if (isUp)
         {
-            dragging = false;
+            isDragging = false;
         }
 
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
@@ -99,12 +99,10 @@ public class CursorController : MonoBehaviour
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
         HashSet<GameObject> newHover = new HashSet<GameObject>();
-
         foreach (var result in results)
         {
 
             GameObject obj = result.gameObject;
-
             mouseEvents(obj, pointerData, isDown, isUp, newHover, hovered);
 
             if (obj.name == "Background")
@@ -144,7 +142,7 @@ public class CursorController : MonoBehaviour
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerUpHandler);
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.endDragHandler);
         }
-        else if (dragging)
+        else if (isDragging)
         {
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.dragHandler);
         }
