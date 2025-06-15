@@ -9,12 +9,15 @@ public class SettingsManager : MonoBehaviour
     private Ball ball;
     private GameObject soundMenu;
     private PauseManager pauseManager;
-    
+    private PopupController popupController;
+
     private void Start()
     {
         ball = GameObject.FindObjectOfType<Ball>();
         soundMenu = soundMenuCanvas.gameObject;
         pauseManager = GetComponent<PauseManager>();
+        popupController = FindObjectOfType<PopupController>();
+
         if (pauseManager != null)
         {
             pauseManager.initialize(soundMenu);
@@ -28,6 +31,11 @@ public class SettingsManager : MonoBehaviour
     {
         
         if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            return;
+        }
+
+        if (popupController != null && popupController.popup.activeSelf)
         {
             return;
         }

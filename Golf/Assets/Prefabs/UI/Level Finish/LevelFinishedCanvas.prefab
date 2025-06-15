@@ -856,7 +856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1169220651, guid: c2512d408b44da74d809eba535024a02, type: 3}
+  m_Sprite: {fileID: -2111568507, guid: 7ef6b86cc6152ba468c755dc54a59ed8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1632,7 +1632,7 @@ PrefabInstance:
     - target: {fileID: 385732323686680156, guid: 6c5597dee0995a5499db1054cb468520, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 61972718, guid: df9ccb8f60824ec4ea7805907fc0982d, type: 3}
+      objectReference: {fileID: -1485040520, guid: 6de2855c5c994b04f8889a3b23b0ca3f, type: 3}
     - target: {fileID: 1076693089771697234, guid: 6c5597dee0995a5499db1054cb468520, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1926,7 +1926,7 @@ PrefabInstance:
     - target: {fileID: 9183855797587048152, guid: d86c651e0ce27ca4a8294dbc6d3035ec, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -519067413, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+      objectReference: {fileID: 247766255, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2044,7 +2044,7 @@ PrefabInstance:
     - target: {fileID: 6113290174680123936, guid: 4f71d91a0b168654cac458de446fd516, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -572677057, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+      objectReference: {fileID: 1957845787, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2078,7 +2078,7 @@ PrefabInstance:
     - target: {fileID: 2309141806148176446, guid: bc0b9b7f7c65c45408b3843dab200e08, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 136710819, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+      objectReference: {fileID: -512381776, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
     - target: {fileID: 5857298680123712785, guid: bc0b9b7f7c65c45408b3843dab200e08, type: 3}
       propertyPath: m_Name
       value: RestartLevelButton

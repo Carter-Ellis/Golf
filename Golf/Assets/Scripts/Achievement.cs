@@ -22,6 +22,20 @@ public class Achievement : MonoBehaviour
         ALL_HOLE_IN_ONE,
         HOLE9_GUESS,
         BOUNCER_USE,
+        WHACK_A_MOLE,
+        JORDAN,
+        IS_THIS_IT,
+        GOLF_CART_JOCKEY,
+        CLOSE_CALL,
+        ALL_MY_POWER,
+        PLANTS_VS_GOLFBALLS,
+        SLOW_THERE_BUDDY,
+        CASEOH,
+        DIGITAL_STYLE,
+        PIXEL_PENNY_PARFECT,
+        THE_BIG_ONE,
+        BACK_TO_THE_BACK,
+        TORNADO,
         MAX
     }
 
@@ -43,6 +57,20 @@ public class Achievement : MonoBehaviour
         "All Holes In One",
         "Lucky Guess",
         "Pinball Wizard",
+        "Whack-a-mole",
+        "Jordan's Achievement",
+        "Is This It?",
+        "Golf Cart Jockey",
+        "Close Call",
+        "All My Power Combine",
+        "Plants vs. Golfballs",
+        "Slow There Buddy",
+        "CaseOh",
+        "Digital Style",
+        "Pixel Penny Parfect",
+        "The Big One",
+        "Back To The Back",
+        "How About A Tornado Patrick?"
 };
 
     private static string[] descriptions =
@@ -63,7 +91,21 @@ public class Achievement : MonoBehaviour
         "Score a hole-in-one on every hole.",
         "Complete hole 9 without pressing the button.",
         "Use a bouncer 100 times in one life.",
-};
+        "Hit 3 different moles in 1 putt.",
+        "Get over par and collect no coins.",
+        "On Campaign hole 9 go into the wrong goal.",
+        "Get hit 20 times by the same golf cart.",
+        "Use the freeze ability next to a spike trap.",
+        "Max out abilities.",
+        "Run into a tree 10 times.",
+        "Go too fast over the hole.",
+        "Eat all the apples on Campaign hole 10.",
+        "Unlock all cosmetics.",
+        "Obtain all coins.",
+        "Eat the giant apple.",
+        "Reset 50 times.",
+        "Click on a fan 100 times."
+    };
 
     public static string GetName(TYPE type)
     {

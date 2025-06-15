@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1872451665, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+  m_Sprite: {fileID: 15481125, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -466,7 +466,6 @@ GameObject:
   - component: {fileID: 6282497331878112335}
   - component: {fileID: 4839423818829821675}
   - component: {fileID: 1026186975423588161}
-  - component: {fileID: 4164716064471140208}
   m_Layer: 0
   m_Name: SoundMenuInGame
   m_TagString: Untagged
@@ -574,29 +573,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4164716064471140208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136441484732548064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1a8283f6488d34280d9c79d5536b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinDisplay1: {fileID: 8571438292338181743}
-  coinDisplay2: {fileID: 8782759579054965817}
-  coinDisplay3: {fileID: 1859387160006652125}
-  goldCoin: {fileID: 2117289527, guid: d2f75b85b4a340440b356beb35de0f38, type: 3}
-  grayCoin: {fileID: 21300000, guid: 76e7419728ab26f4690c0794ba801805, type: 3}
-  resetButton: {fileID: 0}
-  shopButton: {fileID: 0}
-  holeNumberTxt: {fileID: 1309246082838997156}
-  parTxt: {fileID: 6884229988835787066}
-  strokesTxt: {fileID: 8677704886949141472}
-  upgradeAvailableTxt: {fileID: 7503244212013953435}
 --- !u!1 &1461706801204923954
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +949,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1872451665, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+  m_Sprite: {fileID: 15481125, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1347,7 +1323,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 732737320, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+  m_Sprite: {fileID: -956670149, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2419,7 +2395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1872451665, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+  m_Sprite: {fileID: 15481125, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3336,7 +3312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1169220651, guid: c2512d408b44da74d809eba535024a02, type: 3}
+  m_Sprite: {fileID: -2111568507, guid: 7ef6b86cc6152ba468c755dc54a59ed8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3715,7 +3691,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1872451665, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+  m_Sprite: {fileID: 15481125, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3748,7 +3724,7 @@ PrefabInstance:
     - target: {fileID: 385732323686680156, guid: 6c5597dee0995a5499db1054cb468520, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 61972718, guid: df9ccb8f60824ec4ea7805907fc0982d, type: 3}
+      objectReference: {fileID: -1485040520, guid: 6de2855c5c994b04f8889a3b23b0ca3f, type: 3}
     - target: {fileID: 1076693089771697234, guid: 6c5597dee0995a5499db1054cb468520, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3914,7 +3890,7 @@ PrefabInstance:
     - target: {fileID: 2309141806148176446, guid: bc0b9b7f7c65c45408b3843dab200e08, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 136710819, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+      objectReference: {fileID: -512381776, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
     - target: {fileID: 5857298680123712785, guid: bc0b9b7f7c65c45408b3843dab200e08, type: 3}
       propertyPath: m_Name
       value: RestartLevelButton
@@ -4164,7 +4140,7 @@ PrefabInstance:
     - target: {fileID: 9183855797587048152, guid: d86c651e0ce27ca4a8294dbc6d3035ec, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -519067413, guid: 8762fcef0e8961e4685b55da815c6f83, type: 3}
+      objectReference: {fileID: 247766255, guid: 4c60bfd69961d3348b942a7980c3acaf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
