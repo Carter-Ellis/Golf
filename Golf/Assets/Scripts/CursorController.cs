@@ -10,7 +10,6 @@ public class CursorController : MonoBehaviour
     private Image cursorImage;
     private HashSet<GameObject> hovered = new HashSet<GameObject>();
     private bool isDragging = false;
-    private float scrollSens = 3000f;
 
     private void OnEnable()
     {
@@ -90,11 +89,6 @@ public class CursorController : MonoBehaviour
         {
             position = screenPosition,
         };
-        float scrollInput = PlayerInput.get(PlayerInput.Axis.ScrollWheel);
-        if (scrollInput != 0)
-        {
-            pointerData.scrollDelta = new Vector2(0, scrollInput * scrollSens * Time.deltaTime);
-        }
 
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
@@ -150,7 +144,6 @@ public class CursorController : MonoBehaviour
         {
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerEnterHandler);
         }
-        ExecuteEvents.Execute(target, pointerData, ExecuteEvents.scrollHandler);
     }
 
 }

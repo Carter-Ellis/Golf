@@ -56,7 +56,7 @@ public class AbilityTeleport : Ability
             {
                 cursorDir.Normalize();
             }
-            mousePos = ball.transform.position + cursorDir * maxTeleportRange;
+            mousePos = ball.transform.position + cursorDir * (maxTeleportRange - 0.01f);
             ball.cursor.transform.position = new Vector3(mousePos.x, mousePos.y, -9.7f);
         }
         else
