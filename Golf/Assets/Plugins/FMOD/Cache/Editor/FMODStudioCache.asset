@@ -156,8 +156,8 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 5.15
+  MaxDistance: 60
   Length: 7653
 --- !u!114 &-7187301522603174016
 MonoBehaviour:
@@ -210,8 +210,8 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters: []
-  MinDistance: 9
-  MaxDistance: 25
+  MinDistance: 3.95
+  MaxDistance: 30
   Length: 30000
 --- !u!114 &-6658157434718990235
 MonoBehaviour:
@@ -504,9 +504,36 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 35
+  MinDistance: 0
+  MaxDistance: 25
   Length: 17568
+--- !u!114 &-3422051679359827010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Shop Music
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Shop Music
+  Guid:
+    Data1: 949989042
+    Data2: 1279110181
+    Data3: -1382966374
+    Data4: 410533165
+  Banks:
+  - {fileID: 389591723674447224}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 131328
 --- !u!114 &-2426589835655340309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,7 +576,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638854394060514535
+  lastModified: 638856870281414427
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -740,8 +767,8 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters: []
-  MinDistance: 5
-  MaxDistance: 50
+  MinDistance: 3.9
+  MaxDistance: 35
   Length: 0
 --- !u!114 &-136777269012555911
 MonoBehaviour:
@@ -867,13 +894,15 @@ MonoBehaviour:
   - {fileID: -4969260732975587229}
   - {fileID: 371802504618700355}
   - {fileID: 6990928610770344242}
+  - {fileID: -3422051679359827010}
+  - {fileID: 739910007760059452}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -2382926633897921263}
   StringsBanks:
   - {fileID: 327917192201675269}
-  cacheTime: 638854406974894732
+  cacheTime: 638856874033337612
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -971,10 +1000,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638854394060544455
+  lastModified: 638856870281444346
   FileSizes:
   - Name: Desktop
-    Value: 3746
+    Value: 3844
   Exists: 1
 --- !u!114 &371802504618700355
 MonoBehaviour:
@@ -1018,10 +1047,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638854330871114172
+  lastModified: 638856874033337612
   FileSizes:
   - Name: Desktop
-    Value: 28772640
+    Value: 30083360
   Exists: 1
 --- !u!114 &420839407750736933
 MonoBehaviour:
@@ -1050,6 +1079,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 17568
+--- !u!114 &739910007760059452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Main Menu Music
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Main Menu Music
+  Guid:
+    Data1: -127302372
+    Data2: 1261182925
+    Data3: -147931209
+    Data4: -262935708
+  Banks:
+  - {fileID: 389591723674447224}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 112032
 --- !u!114 &1385161026115930528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,7 +1215,7 @@ MonoBehaviour:
   - {fileID: 8303783976882578339}
   MinDistance: 1
   MaxDistance: 20
-  Length: 165808
+  Length: 8000
 --- !u!114 &2857347305509877892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,7 +1366,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638854406974894732
+  lastModified: 638856357467275158
   FileSizes:
   - Name: Desktop
     Value: 2122752

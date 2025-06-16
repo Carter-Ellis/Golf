@@ -27,6 +27,8 @@ public class AudioManager : MonoBehaviour
 
     private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
+    private EventInstance mainMusicInstance;
+    private EventInstance shopMusicInstance;
 
     private void Awake()
     {
@@ -49,7 +51,11 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        if (!musicEventInstance.isValid())
+        if (SceneManager.GetActiveScene().name == "Main Menu" && !mainMusicInstance.isValid())
+        {
+            InitializeMusic(FMODEvents.instance.mainMusic);
+        }
+        else if (!musicEventInstance.isValid())
         {
             InitializeMusic(FMODEvents.instance.music);
         }
@@ -123,4 +129,44 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+
+    public void StartMainMusic()
+    {
+        if (!musicEventInstance.isValid())
+        {
+            InitializeMusic(FMODEvents.instance.music);
+        }
+    }
+
+    public void StopMusic()
+    {
+        if (musicEventInstance.isValid())
+        {
+            musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            musicEventInstance.release();
+            musicEventInstance = default;
+        }
+    }
+
+    public void PlayShopMusic(Vector3 position)
+    {
+        if (shopMusicInstance.isValid()) return;
+
+        shopMusicInstance = CreateInstance(FMODEvents.instance.shopMusic);
+        shopMusicInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
+        shopMusicInstance.start();
+    }
+
+    public void StopShopMusic()
+    {
+        if (shopMusicInstance.isValid())
+        {
+            shopMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            shopMusicInstance.release();
+            shopMusicInstance = default;
+        }
+    }
+
+
 }

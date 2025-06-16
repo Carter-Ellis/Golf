@@ -33,7 +33,6 @@ public class ShopTrigger : MonoBehaviour
             }
             else
             {
-                print("Hello");
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
             }
 
@@ -58,6 +57,18 @@ public class ShopTrigger : MonoBehaviour
             isInRange = true;
         }
         
+    }
+
+    public void LoadShop()
+    {
+        AudioManager.instance.StopMusic();
+        AudioManager.instance.PlayShopMusic(transform.position);
+    }
+
+    public void CloseShop()
+    {
+        AudioManager.instance.StopShopMusic();
+        AudioManager.instance.StartMainMusic();
     }
 
 }

@@ -115,6 +115,13 @@ MonoBehaviour:
       Data3: -1528716889
       Data4: 1822776150
     Path: event:/Music/World 1 Music
+  <mainMusic>k__BackingField:
+    Guid:
+      Data1: -127302372
+      Data2: 1261182925
+      Data3: -147931209
+      Data4: -262935708
+    Path: event:/Music/Main Menu Music
   <ambience>k__BackingField:
     Guid:
       Data1: -1165163214
@@ -269,6 +276,13 @@ MonoBehaviour:
       Data3: 1034689946
       Data4: 305832917
     Path: event:/SFX/Shop/Purchase
+  <shopMusic>k__BackingField:
+    Guid:
+      Data1: 949989042
+      Data2: 1279110181
+      Data3: -1382966374
+      Data4: 410533165
+    Path: event:/Music/Shop Music
   <appleBite>k__BackingField:
     Guid:
       Data1: 1292482696
@@ -444,3 +458,10 @@ MonoBehaviour:
       Data3: 1055343759
       Data4: -700637872
     Path: event:/SFX/Fan/Fan 2
+  <achievement>k__BackingField:
+    Guid:
+      Data1: 639670839
+      Data2: 1207479913
+      Data3: -1421870920
+      Data4: 1107668975
+    Path: event:/SFX/Achievement

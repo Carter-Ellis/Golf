@@ -11,6 +11,7 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Music")]
     [field: SerializeField] public EventReference music { get; private set; }
+    [field: SerializeField] public EventReference mainMusic { get; private set; }
 
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference ambience { get; private set; }
@@ -63,6 +64,7 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Shop")]
     [field: SerializeField] public EventReference shopPurchase { get; private set; }
+    [field: SerializeField] public EventReference shopMusic { get; private set; }
 
     [field: Header("AppleBite")]
     [field: SerializeField] public EventReference appleBite { get; private set; }
