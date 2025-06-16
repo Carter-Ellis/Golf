@@ -4,6 +4,7 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class AudioManager : MonoBehaviour
 {
@@ -34,12 +35,15 @@ public class AudioManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Destroy(gameObject); // Prevent duplicates
+            Destroy(gameObject);
             return;
         }
 
+        Debug.Log("AudioManager Awake: Singleton initialized");
+
         instance = this;
         DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         eventInstances = new List<EventInstance>();
 
@@ -53,7 +57,7 @@ public class AudioManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Main Menu" && !mainMusicInstance.isValid())
         {
-            InitializeMusic(FMODEvents.instance.mainMusic);
+            InitializeMainMusic(FMODEvents.instance.mainMusic);
         }
         else if (!musicEventInstance.isValid())
         {
@@ -106,12 +110,27 @@ public class AudioManager : MonoBehaviour
         musicEventInstance.start();
     }
 
+    private void InitializeMainMusic(EventReference musicEventReference)
+    {
+        mainMusicInstance = CreateInstance(musicEventReference);
+        mainMusicInstance.start();
+    }
+
     public EventInstance CreateInstance(EventReference eventReference)
     {
+        Debug.Log($"Attempting to create instance for: {eventReference.Path}");
+
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
+
+
+        // Ensure eventInstances is not null
+        if (eventInstances == null)
+            eventInstances = new List<EventInstance>();
+
         eventInstances.Add(eventInstance);
         return eventInstance;
     }
+
 
     public void StopAllSFXEvents()
     {
@@ -130,24 +149,55 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            instance.StartMainMusic();
+        }
+        else
+        {
+            instance.StartGameMusic();
+        }
+    }
 
     public void StartMainMusic()
     {
-        if (!musicEventInstance.isValid())
-        {
-            InitializeMusic(FMODEvents.instance.music);
-        }
+        print("startmainmusic");
+        StopMusic();
+        InitializeMainMusic(FMODEvents.instance.mainMusic);
+    }
+
+    public void StartGameMusic()
+    {
+        if (musicEventInstance.isValid()) return;
+
+        StopMusic();
+        print("STARTGAMEMUSIC");
+        musicEventInstance = CreateInstance(FMODEvents.instance.music);
+        musicEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        musicEventInstance.start();
     }
 
     public void StopMusic()
     {
-        if (musicEventInstance.isValid())
+        if (mainMusicInstance.isValid())
         {
+            Debug.Log("Stopping Main Menu Music");
+            mainMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            mainMusicInstance.release();
+            mainMusicInstance = default;
+        }
+        print("Audio ID: " + this.GetInstanceID());
+        if (musicEventInstance.isValid() || true)
+        {
+            Debug.Log("Stopping Game Music");
             musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             musicEventInstance.release();
             musicEventInstance = default;
         }
     }
+
 
     public void PlayShopMusic(Vector3 position)
     {
