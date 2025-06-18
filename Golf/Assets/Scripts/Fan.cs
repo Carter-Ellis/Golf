@@ -22,6 +22,7 @@ public class Fan : MonoBehaviour, Selectable
 
     private EventInstance fanSFX;
     private LineRenderer line;
+    private int clickCount;
 
     private void Start()
     {
@@ -89,10 +90,23 @@ public class Fan : MonoBehaviour, Selectable
     public bool onSelect()
     {
         if (!isSelectable) { return false; }
+        
         isSelected = !isSelected;
+        if (isSelected)
+        {
+            clickCount++;
+        }
+
         gameObject.GetComponentInChildren<SpriteRenderer>().color = isSelected ? Color.green : Color.white;
         line.enabled = isSelected;
         ball.isSelectFan = isSelected;
+
+        if (ball != null && clickCount >= 20 && !ball.GetComponent<Inventory>().achievements[(int)Achievement.TYPE.TORNADO])
+        {
+            Achievement.Give(Achievement.TYPE.TORNADO);
+            ball.GetComponent<Inventory>().SavePlayer();
+        }
+
         return true;
     }
 

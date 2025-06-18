@@ -24,7 +24,7 @@ public class Button : MonoBehaviour
     private float redCoinThreshold = 6.5f;
     private bool isRedCoinActive = false;
     private bool redCoinComplete = false;
-    private bool isPressed = false;
+    public bool isPressed = false;
     internal bool interactable;
 
     private EventInstance door6Instance;

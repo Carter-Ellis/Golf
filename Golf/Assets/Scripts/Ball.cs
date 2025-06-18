@@ -118,6 +118,10 @@ public class Ball : MonoBehaviour
 
     private bool isMainMenu;
 
+    [Header("Achievement Variables")]
+    private HashSet<GameObject> moleHits = new HashSet<GameObject>();
+    public bool closeToSpike = false;
+
     void Awake()
     {
         isMainMenu = (SceneManager.GetActiveScene().name == "Main Menu");
@@ -212,9 +216,18 @@ public class Ball : MonoBehaviour
         //UpdateSound();
         UpdateDirection(rb.velocity);
 
+        if (inv.numResets >= 50 && !inv.achievements[(int)Achievement.TYPE.BACK_TO_THE_BACK])
+        {
+            Achievement.Give(Achievement.TYPE.BACK_TO_THE_BACK);
+            inv.SavePlayer();
+
+        }
+
         if (PlayerInput.isDown(PlayerInput.Axis.Reset) && !inv.isCampaignMode && !inv.isCampHardMode && !inv.isClassicMode && !inv.isClassicHardMode) 
         {
             AudioManager.instance.StopAllSFXEvents();
+            inv.numResets++;
+            inv.SavePlayer();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -555,6 +568,16 @@ public class Ball : MonoBehaviour
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.cobbleHit, transform.position);
             }
         }
+        else if (collision.gameObject.tag == "Mole" && !inv.achievements[(int)Achievement.TYPE.WHACK_A_MOLE])
+        {
+            moleHits.Add(collision.gameObject);
+            if (moleHits.Count >= 5)
+            {
+                Achievement.Give(Achievement.TYPE.WHACK_A_MOLE);
+                inv.SavePlayer();
+            }
+            
+        }
 
     }
 
@@ -684,6 +707,12 @@ public class Ball : MonoBehaviour
         ClearDots();
         hasClickedBall = false;
         isPuttCooldown = false;
+
+        if (!inv.achievements[(int)Achievement.TYPE.WHACK_A_MOLE])
+        {
+            moleHits.Clear();
+        }
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(PlayerInput.cursorPosition);
         Vector2 ballPos = ball.transform.position;
 

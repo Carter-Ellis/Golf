@@ -50,6 +50,11 @@ public class AbilityFreeze : Ability
         {
             return;
         }
+        if (ball.closeToSpike && !ball.GetComponent<Inventory>().achievements[(int)Achievement.TYPE.CLOSE_CALL])
+        {
+            Achievement.Give(Achievement.TYPE.CLOSE_CALL);
+            ball.GetComponent<Inventory>().SavePlayer();
+        }
         ball.DisplayFreezeParticles();
         AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, GameObject.FindObjectOfType<Ball>().transform.position);
         rb.velocity = Vector2.zero;

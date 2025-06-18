@@ -9,6 +9,7 @@ public class TreeSway : MonoBehaviour
     private float rand;
     private float swayRange = 30f;
     private bool isSwaying;
+    private int ballHitCount = 0;
 
     public Animator leavesAnim;
     public Animator trunkAnim;
@@ -85,4 +86,18 @@ public class TreeSway : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ball")
+        {
+            ballHitCount++;
+            if (ballHitCount == 10 && !FindObjectOfType<Inventory>().achievements[(int)Achievement.TYPE.PLANTS_VS_GOLFBALLS])
+            {
+                Achievement.Give(Achievement.TYPE.PLANTS_VS_GOLFBALLS);
+                FindObjectOfType<Inventory>().SavePlayer();
+            }
+        }
+    }
+
 }

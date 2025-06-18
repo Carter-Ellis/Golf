@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
+    private Ball ball;
+
     private float timer = 0f;
     private float onSpikeTimer = 0f;
     public float onSpikeDamageTimer = 2f;
@@ -15,7 +17,7 @@ public class SpikeTrap : MonoBehaviour
     private bool isSet;
     public bool isAlwaysAttacking;
     private Animator anim;
-
+    private bool entered;
 
     private FMOD.Studio.EventInstance instanceSet;
     private FMOD.Studio.EventInstance instanceAttack;
@@ -28,6 +30,7 @@ public class SpikeTrap : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
+        ball = FindObjectOfType<Ball>();
         onSpikeTimer = onSpikeDamageTimer;
 
         instanceSet = FMODUnity.RuntimeManager.CreateInstance(spikeSetAudio);
@@ -43,6 +46,28 @@ public class SpikeTrap : MonoBehaviour
         instanceSet.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         instanceAttack.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         instanceContract.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        
+        if (ball != null)
+        {
+            float distance = Vector2.Distance(
+                new Vector2(ball.transform.position.x, ball.transform.position.y),
+                new Vector2(transform.position.x, transform.position.y)
+            );
+
+            if (distance < 1.5 && isAttacking)
+            {
+                ball.closeToSpike = true;
+                entered = true;
+            }
+            else
+            {
+                if (entered)
+                {
+                    ball.closeToSpike = false;
+                    entered = false;
+                }
+            }
+        } 
 
         timer += Time.deltaTime;
         if (timer > idleTime && !isSet)

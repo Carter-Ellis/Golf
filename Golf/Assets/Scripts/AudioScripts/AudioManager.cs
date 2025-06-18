@@ -39,7 +39,6 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("AudioManager Awake: Singleton initialized");
 
         instance = this;
         DontDestroyOnLoad(gameObject);
@@ -118,7 +117,6 @@ public class AudioManager : MonoBehaviour
 
     public EventInstance CreateInstance(EventReference eventReference)
     {
-        Debug.Log($"Attempting to create instance for: {eventReference.Path}");
 
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
 
@@ -163,7 +161,6 @@ public class AudioManager : MonoBehaviour
 
     public void StartMainMusic()
     {
-        print("startmainmusic");
         StopMusic();
         InitializeMainMusic(FMODEvents.instance.mainMusic);
     }
@@ -173,7 +170,6 @@ public class AudioManager : MonoBehaviour
         if (musicEventInstance.isValid()) return;
 
         StopMusic();
-        print("STARTGAMEMUSIC");
         musicEventInstance = CreateInstance(FMODEvents.instance.music);
         musicEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         musicEventInstance.start();
@@ -183,15 +179,12 @@ public class AudioManager : MonoBehaviour
     {
         if (mainMusicInstance.isValid())
         {
-            Debug.Log("Stopping Main Menu Music");
             mainMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             mainMusicInstance.release();
             mainMusicInstance = default;
         }
-        print("Audio ID: " + this.GetInstanceID());
         if (musicEventInstance.isValid() || true)
         {
-            Debug.Log("Stopping Game Music");
             musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             musicEventInstance.release();
             musicEventInstance = default;

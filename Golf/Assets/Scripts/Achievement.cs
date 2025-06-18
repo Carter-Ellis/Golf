@@ -57,13 +57,13 @@ public class Achievement : MonoBehaviour
         "All Holes In One",
         "Lucky Guess",
         "Pinball Wizard",
-        "Whack-a-mole",
+        "Whack-A-Mole",
         "Jordan's Achievement",
         "Is This It?",
         "Golf Cart Jockey",
         "Close Call",
         "All My Power Combine",
-        "Plants vs. Golfballs",
+        "Plants Vs. Golfballs",
         "Slow There Buddy",
         "CaseOh",
         "Digital Style",
@@ -77,26 +77,26 @@ public class Achievement : MonoBehaviour
     {
         "Complete a hole without ever hitting the ball. Clubless mode does not count.",
         "Complete a hole with only one stroke.",
-        "Complete a hardcore campaign run.",
-        "Complete all 18 holes in a campaign run.",
-        "Complete a campaign run within the time limit.",
-        "Complete a campaign run without using any clubs.",
-        "Complete a campaign run in freeplay mode.",
-        "Complete a hardcore run of a classic course.",
-        "Complete all 18 holes in a classic course.",
-        "Complete a classic course within the time limit.",
-        "Complete a classic course without using any clubs.",
-        "Complete a classic course in freeplay mode.",
-        "Complete hole 11 without eating the apple on the tee.",
+        "Complete a Hardcore Campaign run.",
+        "Complete all 18 holes in a Campaign run.",
+        "Complete a Campaign Speedrun.",
+        "Complete a Campaign Speedrun without using any clubs.",
+        "Complete Campaign Freeplay mode.",
+        "Complete a Hardcore Classic run.",
+        "Complete all 18 holes in a Classic run.",
+        "Complete a Classic Speedrun.",
+        "Complete a Classic Speedrun without using any clubs.",
+        "Complete a Classic Freeplay mode.",
+        "Complete Campaign hole 11 with par or less without eating the apple on the tee.",
         "Score a hole-in-one on every hole.",
-        "Complete hole 9 without pressing the button.",
+        "Complete Campaign hole 9 with par or less without pressing the button.",
         "Use a bouncer 100 times in one life.",
-        "Hit 3 different moles in 1 putt.",
+        "Hit 5 different moles in 1 putt.",
         "Get over par and collect no coins.",
         "On Campaign hole 9 go into the wrong goal.",
         "Get hit 20 times by the same golf cart.",
-        "Use the freeze ability next to a spike trap.",
-        "Max out abilities.",
+        "Use the freeze ability next to a spike trap that is attacking.",
+        "Max out all of the abilities.",
         "Run into a tree 10 times.",
         "Go too fast over the hole.",
         "Eat all the apples on Campaign hole 10.",
@@ -104,7 +104,7 @@ public class Achievement : MonoBehaviour
         "Obtain all coins.",
         "Eat the giant apple.",
         "Reset 50 times.",
-        "Click on a fan 100 times."
+        "Click on a fan 20 times."
     };
 
     public static string GetName(TYPE type)
@@ -121,10 +121,17 @@ public class Achievement : MonoBehaviour
     {
         Inventory inv = GameObject.FindAnyObjectByType<Inventory>();
         int index = (int)type;
+
+        if (!SteamIntegration.IsThisSteamAchUnlocked(type))
+        {
+            SteamIntegration.UnlockSteamAch(type);
+        }
         if (inv.achievements[index])
         {
             return;
         }
+        
+        
         inv.achievements[index] = true;
         AchievementGet.PlayAchievementGet(type);
     }

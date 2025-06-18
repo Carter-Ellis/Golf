@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4898198865459751608}
   m_Layer: 0
   m_Name: FakeFlag
-  m_TagString: Untagged
+  m_TagString: Fake Flag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

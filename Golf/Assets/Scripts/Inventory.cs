@@ -140,8 +140,14 @@ public class Inventory : MonoBehaviour
 
     public List<int> tempCollectedCoins = new List<int>();
 
+    [Header("Achievement Variables")]
+    public int numBounces;
+    public int numResets;
+
     [HideInInspector]
     public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
+
+    
 
     private void Awake()
     {
@@ -191,6 +197,11 @@ public class Inventory : MonoBehaviour
             }*/
 
             SavePlayer();
+    }
+
+    public void ClearAchievements()
+    {
+        achievements = new bool[(int)Achievement.TYPE.MAX];
     }
 
     public Ability getCurrentAbility()
@@ -364,9 +375,22 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            ClearAchievements();
+            SavePlayer();
+        }
+
         AbilityManager();
         DisplayAbility();
         SpeedrunTimer();
+
+        //CHANGE TOTAL COINS IF ADD MORE LEVELS!
+        if (totalCoins >= 54 && !achievements[(int)Achievement.TYPE.PIXEL_PENNY_PARFECT])
+        {
+            Achievement.Give(Achievement.TYPE.PIXEL_PENNY_PARFECT);
+            SavePlayer();
+        }
 
         if (coinTxt != null)
         {
@@ -693,7 +717,9 @@ public class Inventory : MonoBehaviour
         {
             achievements = new bool[(int)Achievement.TYPE.MAX];
         }
-        
+
+        numResets = data.numResets;
+
     }
 
     public void ErasePlayerData()

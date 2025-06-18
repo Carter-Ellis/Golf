@@ -94,6 +94,8 @@ public class Tube : MonoBehaviour
             return;
         }
 
+        
+
         if (collision.gameObject.tag == "Interactable")
         {
             GameObject iball = collision.gameObject;
@@ -105,6 +107,13 @@ public class Tube : MonoBehaviour
         if (collision.gameObject.tag != "Ball"|| collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > ballOverHoleSpeed)
         {
             return;
+        }
+        Transform parent = transform.parent;
+
+        if (parent != null && parent.tag == "Fake Flag" && !ball.GetComponent<Inventory>().achievements[(int)Achievement.TYPE.IS_THIS_IT])
+        {
+            Achievement.Give(Achievement.TYPE.IS_THIS_IT);
+            ball.GetComponent<Inventory>().SavePlayer();
         }
         ball.GetComponent<Inventory>().currentHeight += AscendAmount;
         if (!played)

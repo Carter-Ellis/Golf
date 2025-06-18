@@ -7,7 +7,14 @@ public class CoinCollector : MonoBehaviour
 
     public Collider2D[] collectors = new Collider2D[0];
     public Coin coin;
+    public bool isAchievement;
     private bool allCollected = false;
+    private Inventory inv;
+
+    private void Start()
+    {
+        inv = FindObjectOfType<Inventory>();
+    }
 
     private void Update()
     {
@@ -26,6 +33,13 @@ public class CoinCollector : MonoBehaviour
         {
             coin.transform.position = this.transform.position;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.shopPurchase, transform.position);
+
+            if (isAchievement && !inv.achievements[(int)Achievement.TYPE.CASEOH])
+            {
+                Achievement.Give(Achievement.TYPE.CASEOH);
+                inv.SavePlayer();
+            }
+
         }
     }
 

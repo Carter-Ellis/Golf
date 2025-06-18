@@ -76,6 +76,8 @@ public class PlayerData
 
     public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
 
+    public int numResets;
+
     public PlayerData(Inventory inv)
     {
         coins = inv.coins;
@@ -145,6 +147,7 @@ public class PlayerData
         campSpeedGoalsBeat = inv.campSpeedGoalsBeat;
 
         achievements = inv.achievements;
+        numResets = inv.numResets;
 }
 
     public void RestoreHatSprite()

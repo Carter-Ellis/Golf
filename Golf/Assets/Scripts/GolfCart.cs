@@ -6,6 +6,7 @@ public class GolfCart : MonoBehaviour
 {
     Rigidbody2D cartBody;
     SpriteRenderer spriteRenderer;
+    private Inventory inv;
 
     public float speed = 3f;
     public float travelDistance = 5f;
@@ -13,6 +14,8 @@ public class GolfCart : MonoBehaviour
     public ParticleSystem particleSys;
 
     private Vector2 startPosition;
+    private float ballHits;
+    
 
     void Start()
     {
@@ -20,6 +23,7 @@ public class GolfCart : MonoBehaviour
         cartBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = cartBody.position;
+        inv = FindObjectOfType<Inventory>();
 
         cartBody.velocity = new Vector2(speed, 0);
         UpdateSpriteDirection();
@@ -72,4 +76,18 @@ public class GolfCart : MonoBehaviour
 
         particleSys.Play();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ball")
+        {
+            ballHits++;
+            if (ballHits >= 20 && !inv.achievements[(int)Achievement.TYPE.GOLF_CART_JOCKEY])
+            {
+                Achievement.Give(Achievement.TYPE.GOLF_CART_JOCKEY);
+                inv.SavePlayer();
+            }
+        }
+    }
+
 }

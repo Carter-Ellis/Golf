@@ -30,7 +30,6 @@ public class Hole : MonoBehaviour, ButtonTarget
     private int currentLevel;
     public int holeNum;
     private int runFinalHole = 2;
-
     public UnityEngine.UI.Button nextLevelButton;
 
     [SerializeField] private TextMeshProUGUI winTxt;
@@ -40,6 +39,10 @@ public class Hole : MonoBehaviour, ButtonTarget
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
+
+    [Header("Achievement Objects")]
+    [SerializeField] private GameObject appleAchievement;
+    [SerializeField] private Button hole9Button;
 
     private CursorController cursor;
     public TextMeshProUGUI timeToBeatTxt;
@@ -116,6 +119,16 @@ public class Hole : MonoBehaviour, ButtonTarget
             inv.levelsCompleted[holeNum] = true;
         }
         
+        if (appleAchievement != null)
+        {
+            Achievement.Give(Achievement.TYPE.APPLE_TEE);
+        }
+
+        if (hole9Button != null && !hole9Button.isPressed)
+        {
+            Achievement.Give(Achievement.TYPE.HOLE9_GUESS);
+        }
+
         if (ball.strokes <= par)
         {
             foreach (int coin in inv.tempCollectedCoins)
@@ -399,6 +412,11 @@ public class Hole : MonoBehaviour, ButtonTarget
                 Achievement.Give(Achievement.TYPE.HOLEINONE);
             }
 
+            if (ball.strokes > par && inv.tempCollectedCoins.Count == 0)
+            {
+                Achievement.Give(Achievement.TYPE.JORDAN);
+            }
+
             inv.SavePlayer();
 
             if (!inv.isFreeplayMode)
@@ -460,7 +478,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                     level = inv.upgradeLevels[i];
                 }
 
-                if (inv.coins >= costs[level])
+                if (level < costs.Length && inv.coins >= costs[level])
                 {
                     upgradeAvailableTxt.enabled = true;
                 }
@@ -518,6 +536,14 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             if (inv.isFreeplayMode && ball.strokes <= par)
             {
+                if (holeNum == 18 && SceneManager.GetActiveScene().name == "Level 18 Official")
+                {
+                    Achievement.Give(Achievement.TYPE.BEAT_CAMP_FREEPLAY);
+                }
+                else if (holeNum == 18 && SceneManager.GetActiveScene().name == "Classic 18")
+                {
+                    Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
+                }
                 winTxt.fontSize = 90;
                 winTxt.text = "YOU WIN!";
             }
@@ -537,6 +563,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
                 if (holeNum == 18)
                 {
+                    Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
                     winTxt.text = "You finished Campaign 18 Holes!";
                 }
             }
@@ -555,6 +582,15 @@ public class Hole : MonoBehaviour, ButtonTarget
 
                 if (holeNum == 18 && inv.timer < timeToBeat)
                 {
+                    if (inv.isWalkMode)
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_CLUBLESS);
+                    }
+                    else
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
+                    }
+                    
                     winTxt.text = "You finished Campaign Speedrun!";
                 }
 
@@ -576,6 +612,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     if (holeNum == 18)
                     {
+                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
                         winTxt.text = "You finished Campaign Hardcore!";
                     }
                     
@@ -592,6 +629,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 print("Hello");
                 if (holeNum == 18)
                 {
+                    Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
                     winTxt.text = "You finished Classic 18 Holes!";
                 }
 
@@ -614,7 +652,15 @@ public class Hole : MonoBehaviour, ButtonTarget
 
                 if (holeNum == 18 && inv.timer < timeToBeat)
                 {
-                    winTxt.text = "You finished Classic Speedrun!";
+                    if (inv.isWalkMode)
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
+                    }
+                    else
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
+                    }
+                        winTxt.text = "You finished Classic Speedrun!";
                 }
 
             }
@@ -635,6 +681,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     if (holeNum == 18)
                     {
+                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
                         winTxt.text = "You finished Classic Hardcore!";
                     }
                 }
@@ -663,6 +710,11 @@ public class Hole : MonoBehaviour, ButtonTarget
             inHole = true;
             ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
+        }
+        else if (!inv.achievements[(int)Achievement.TYPE.SLOW_THERE_BUDDY] && collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude >= ballOverHoleSpeed)
+        {
+            Achievement.Give(Achievement.TYPE.SLOW_THERE_BUDDY);
+            inv.SavePlayer();
         }
         
     }

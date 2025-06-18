@@ -22,6 +22,8 @@ TagManager:
   - Wood
   - Out Of Bounds
   - Cobblestone
+  - Mole
+  - Fake Flag
   layers:
   - Default
   - TransparentFX

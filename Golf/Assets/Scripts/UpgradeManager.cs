@@ -108,7 +108,7 @@ public class UpgradeManager : MonoBehaviour
     {
         if (selectedUpgrade != null)
         {
-            selectedUpgrade.GetComponent<Image>().color = Color.white;
+            selectedUpgrade.GetComponent<Image>().color = new Color(.7f, .7f, .7f);
         }
         if (obj == null)
         {
@@ -121,7 +121,7 @@ public class UpgradeManager : MonoBehaviour
         {
             selectedUpgrade = obj.GetComponentInParent<UpgradeButton>();
         }
-        selectedUpgrade.GetComponent<Image>().color = new Color(.7f, .7f, .7f);
+        selectedUpgrade.GetComponent<Image>().color = new Color(1f, 1f, 1f);
 
     }
 

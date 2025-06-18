@@ -27,9 +27,11 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             button.interactable = false;
             ColorBlock cb = button.colors;
-            cb.disabledColor = new Color(0,0,0,.5f);
+            cb.disabledColor = new Color(0,0,0,.9f);
             button.colors = cb;
+            
         }
+        gameObject.GetComponentInParent<Image>().color = new Color(.7f, .7f, .7f);
     }
 
     private void Update()
@@ -53,9 +55,12 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void TryPurchase()
     {
+        FindObjectOfType<CheckUpgrades>().checkUpgrades();
         if (upgradeLevel >= costs.Length) return;
 
         int cost = costs[upgradeLevel];
+
+        
 
         if (inv.coins >= cost)
         {
@@ -73,6 +78,7 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             {
                 inv.maxChargesByType[(ABILITIES)transform.GetSiblingIndex()]++;
             }
+
             
 
             inv.SavePlayer();
@@ -85,6 +91,14 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     { 
         descriptionPanel.SetActive(true);
+        if (!button.interactable)
+        {
+            descriptionTxt.text = "Locked";
+        }
+        else
+        {
+            descriptionTxt.text = "Upgrade Ability: \n" + Ability.GetUpgradeDescription((ABILITIES)transform.GetSiblingIndex());
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

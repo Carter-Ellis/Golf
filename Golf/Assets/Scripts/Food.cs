@@ -17,6 +17,7 @@ public class Food : MonoBehaviour
     private float fadeToTransparentAmount = 0f;
     public Sprite eatenApple;
     private bool eaten;
+    public bool isTheBigOne;
     void Start()
     {
         ball = FindObjectOfType<Ball>();
@@ -78,6 +79,12 @@ public class Food : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = eatenApple;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.appleBite, transform.position);
             eaten = true;
+
+            if (isTheBigOne && !ball.GetComponent<Inventory>().achievements[(int)Achievement.TYPE.THE_BIG_ONE])
+            {
+                Achievement.Give(Achievement.TYPE.THE_BIG_ONE);
+            }
+
         }
     }
 
