@@ -39,6 +39,19 @@ public class Hole : MonoBehaviour, ButtonTarget
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
+    private int winSayingIndex = 0;
+    private string[] winSayings =
+    {
+        "YOU WIN!",
+        "EXCELLENT!",
+        "GREAT JOB!",
+        "WELL DONE!",
+        "NICE WORK!",
+        "BRAVO!",
+        "TOO EASY!",
+        "IMPRESSIVE!",
+        "OUTSTANDING!",
+    };
 
     [Header("Achievement Objects")]
     [SerializeField] private GameObject appleAchievement;
@@ -74,7 +87,9 @@ public class Hole : MonoBehaviour, ButtonTarget
             signTxt.text = "Par " + par;
             signLevelTxt.text = "Hole " + holeNum;
         }
-        
+
+        winSayingIndex = UnityEngine.Random.Range(0, winSayings.Length);
+
     }
 
     private string getCourseNumber()
@@ -544,8 +559,8 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
                 }
-                winTxt.fontSize = 90;
-                winTxt.text = "YOU WIN!";
+                winTxt.fontSize = 75;
+                winTxt.text = winSayings[winSayingIndex];
             }
             else if (inv.isFreeplayMode && ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(holeNum) && ball.GetComponent<Inventory>().levelsCompleted[holeNum])
             {

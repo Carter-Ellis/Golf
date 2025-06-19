@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SteamIntegration : MonoBehaviour
@@ -17,34 +16,42 @@ public class SteamIntegration : MonoBehaviour
             return;
         }
 
-
         if (!steamInitialized)
         {
             try
             {
-                Steamworks.SteamClient.Init(3812820);
-                steamInitialized = true;
+                Steamworks.SteamClient.Init(3812820); // Use your actual AppID
+                steamInitialized = Steamworks.SteamClient.IsValid;
             }
             catch (System.Exception e)
             {
-                Debug.LogError("Steam init failed: " + e);
+                Debug.LogError("Steam init failed: " + e.Message);
+                steamInitialized = false;
             }
         }
     }
 
     private void Update()
     {
-        Steamworks.SteamClient.RunCallbacks();
+        if (steamInitialized)
+        {
+            Steamworks.SteamClient.RunCallbacks();
+        }
     }
 
     private void OnApplicationQuit()
     {
-        Steamworks.SteamClient.Shutdown();
-        steamInitialized = false;
+        if (steamInitialized)
+        {
+            Steamworks.SteamClient.Shutdown();
+            steamInitialized = false;
+        }
     }
 
     public static bool IsThisSteamAchUnlocked(Achievement.TYPE type)
     {
+        if (!steamInitialized) return false;
+
         string id = type.ToString();
         var ach = new Steamworks.Data.Achievement(id);
         Debug.Log($"Achievement {id} status: " + ach.State);
@@ -53,6 +60,8 @@ public class SteamIntegration : MonoBehaviour
 
     public static void UnlockSteamAch(Achievement.TYPE type)
     {
+        if (!steamInitialized) return;
+
         string id = type.ToString();
         var ach = new Steamworks.Data.Achievement(id);
         ach.Trigger();
@@ -62,6 +71,8 @@ public class SteamIntegration : MonoBehaviour
 
     public static void ClearSteamAchStatus(Achievement.TYPE type)
     {
+        if (!steamInitialized) return;
+
         string id = type.ToString();
         var ach = new Steamworks.Data.Achievement(id);
         ach.Clear();

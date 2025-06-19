@@ -53,14 +53,20 @@ public class Fan : MonoBehaviour, Selectable
         line.colorGradient = new Gradient
         {
             colorKeys = new GradientColorKey[] {
-        new GradientColorKey(Color.white, 0f),
-        new GradientColorKey(Color.white, 1f)
-    },
+                new GradientColorKey(Color.white, 0f),
+                new GradientColorKey(Color.white, 1f)
+            },
             alphaKeys = new GradientAlphaKey[] {
-        new GradientAlphaKey(.5f, 0f),
-        new GradientAlphaKey(0f, 1f)
-    }
+                new GradientAlphaKey(.5f, 0f),
+                new GradientAlphaKey(0f, 1f)
+            }
         };
+
+        if (!isSelectable)
+        {
+            spriteObj.GetComponent<SpriteRenderer>().color = new Color(.6f, .6f, .6f);
+        }
+        
 
         UpdateSprite();
     }

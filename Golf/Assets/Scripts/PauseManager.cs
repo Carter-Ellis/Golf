@@ -66,7 +66,7 @@ public class PauseManager : MonoBehaviour
                 level = inv.upgradeLevels[i];
             }
 
-            if (inv.coins >= costs[level])
+            if (level < costs.Length && inv.coins >= costs[level])
             {
                 upgradeAvailableTxt.enabled = true;
             }
