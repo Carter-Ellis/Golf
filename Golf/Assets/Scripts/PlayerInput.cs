@@ -35,7 +35,25 @@ public class PlayerInput : MonoBehaviour
         "SwapUp",
         "SwapDown",
         "Cancel",
-         "Reset",
+        "Reset",
+    };
+
+    private static Sprite[] sprites = null;
+    private static string spritePath = "ControlTipsUI";
+
+    private static int[,] spriteIndices =
+    {
+        { 7, 18 },
+        { 6, 18 },
+        { 8, 23 },
+        { 9, 37 },
+        { 0, 38 },
+        { 1, 36 },
+        { 10, 19 },
+        { 5, 21 },
+        { 4, 20 },
+        { 2, 27 },
+        { 3, 26 },
     };
 
     private static float[,] axesValue = new float[(int)Axis.MAX_AXIS, 2];
@@ -61,6 +79,38 @@ public class PlayerInput : MonoBehaviour
             axesFrameUp[i, 1] = false;
         }
         resetCursor();
+    }
+
+    private static void loadSprites()
+    {
+
+        if (sprites != null)
+        {
+            return;
+        }
+
+        sprites = Resources.LoadAll<Sprite>(spritePath);
+
+    }
+
+    public static Sprite getSprite(Axis axis)
+    {
+        loadSprites();
+        return sprites[spriteIndices[(int)axis, PlayerInput.isController ? 1 : 0]];
+    }
+
+    public static Axis getType(string axis)
+    {
+        Axis type = Axis.Fire1;
+        for (int i = 0; i < axesNames.Length; i++)
+        {
+            if (axesNames[i].Equals(axis))
+            {
+                type = (Axis)i;
+                break;
+            }
+        }
+        return type;
     }
 
     void Update()
@@ -99,10 +149,12 @@ public class PlayerInput : MonoBehaviour
                 resetCursor(); //Reset when switching to controller
             }
             isController = true;
+            OnControllerChange();
         }
         else if (usedKey && !usedController)
         {
             isController = false;
+            OnControllerChange();
         }
 
         if (isController)
@@ -115,6 +167,15 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
+    }
+
+    private static void OnControllerChange()
+    {
+        InputImageController[] imgCtrls = GameObject.FindObjectsByType<InputImageController>(FindObjectsSortMode.None);
+        foreach (InputImageController imgs in imgCtrls)
+        {
+            imgs.OnControllerChange();
+        }
     }
 
     public static bool isDown(Axis axis)
