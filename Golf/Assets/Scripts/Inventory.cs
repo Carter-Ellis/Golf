@@ -167,6 +167,8 @@ public class Inventory : MonoBehaviour
         PopulateCharges();
         DisplayCosmetics();
         SetGoal();
+        DisplayReset();
+
         GameObject time = GameObject.Find("Timer");
         if (time != null)
         {
@@ -211,6 +213,29 @@ public class Inventory : MonoBehaviour
             return null;
         }
         return unlockedAbilities[indexOfAbility];
+    }
+
+    public void DisplayReset()
+    {
+        GameObject reset = GameObject.Find("Reset");
+
+        
+
+        if (!isFreeplayMode && !isCampSpeedMode && !isCampSpeedMode) 
+        {
+
+            if (reset != null)
+            {
+                reset.SetActive(false);
+            }
+
+            return; 
+        }
+
+        if (reset != null)
+        {
+            reset.SetActive(true);
+        }
     }
 
     private void SetGoal()
