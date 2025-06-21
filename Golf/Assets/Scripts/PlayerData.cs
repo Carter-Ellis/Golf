@@ -78,6 +78,8 @@ public class PlayerData
 
     public int numResets;
 
+    public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
+
     public PlayerData(Inventory inv)
     {
         coins = inv.coins;
@@ -148,6 +150,9 @@ public class PlayerData
 
         achievements = inv.achievements;
         numResets = inv.numResets;
+
+        campSpeedFrames = inv.campSpeedFrames;
+
 }
 
     public void RestoreHatSprite()

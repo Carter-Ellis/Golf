@@ -136,6 +136,7 @@ public class Inventory : MonoBehaviour
 
     [Header("Speedrun")]
     public float timer = 0f;
+    public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
     [SerializeField] private TextMeshProUGUI timerTxt;
 
     public List<int> tempCollectedCoins = new List<int>();
@@ -708,6 +709,7 @@ public class Inventory : MonoBehaviour
 
         if (data?.levelsCompleted != null)
         {
+            print("loaded data frames!");
             levelsCompleted = data.levelsCompleted;
         }
         else
@@ -744,6 +746,16 @@ public class Inventory : MonoBehaviour
         }
 
         numResets = data.numResets;
+
+        if (data?.campSpeedFrames != null)
+        {
+
+            campSpeedFrames = data.campSpeedFrames;
+        }
+        else
+        {
+            campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
+        }
 
     }
 

@@ -14775,6 +14775,8 @@ GameObject:
   - component: {fileID: 6977114230261614422}
   - component: {fileID: 8195194255100573815}
   - component: {fileID: 8313746493718058787}
+  - component: {fileID: 4997921617019305943}
+  - component: {fileID: 8077776878925480396}
   m_Layer: 8
   m_Name: Ball
   m_TagString: Ball
@@ -14869,9 +14871,12 @@ MonoBehaviour:
   ballColor: {r: 0, g: 0, b: 0, a: 0}
   isColorUnlocked: 0
   timer: 0
+  frames: []
   timerTxt: {fileID: 0}
   tempCollectedCoins: 
-  achievements: 000000
+  numBounces: 0
+  numResets: 0
+  achievements: 
 --- !u!212 &5055157833523683041
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15027,6 +15032,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 69e64a9e94abce84aa02172b6d3b45ae, type: 3}
   - {fileID: 8300000, guid: 5a5bb7f7f28d5ad4c9ef63b5d6e61cd6, type: 3}
   - {fileID: 8300000, guid: 5c38c171a95665a498070e7002bfc79f, type: 3}
+  closeToSpike: 0
 --- !u!58 &582842698364151004
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -15206,6 +15212,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4984a40f55c3c3340ba976a1dce11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testAchievementID: 1
+--- !u!114 &4997921617019305943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721559810071799873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6dec038bcf769a4f8b335d490ada91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currFrames: []
+--- !u!114 &8077776878925480396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721559810071799873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabf0009a3d146a43a3ddb53123813bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghost: {fileID: 8411003669716853855, guid: df12ecd82222d5040b2c3043877fa307, type: 3}
 --- !u!1 &4801035157827570050
 GameObject:
   m_ObjectHideFlags: 0

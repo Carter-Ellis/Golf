@@ -15,6 +15,7 @@ public class Tube : MonoBehaviour
 
     public GameObject exit;
     private Ball ball;
+    private GhostRecorder ghostRecorder;
 
     private Vector3 exitPos;
     private Vector3 iExitPos;
@@ -42,6 +43,7 @@ public class Tube : MonoBehaviour
     public AudioClip enterSFX;
     public AudioClip exitSFX;
     public AudioClip[] tunnelHitSFX;
+
     void Start()
     {
         exitPos = exit.transform.GetChild(0).transform.position;
@@ -50,6 +52,7 @@ public class Tube : MonoBehaviour
         ball = FindObjectOfType<Ball>();
         travelSpeed = travelSpeed + Vector2.Distance(gameObject.transform.position, exitPos) / 4000;
         rand = Random.Range(playStartRange, playEndRange);
+        ghostRecorder = ball.GetComponent<GhostRecorder>();
     }
 
     void Update()
@@ -118,6 +121,7 @@ public class Tube : MonoBehaviour
         ball.GetComponent<Inventory>().currentHeight += AscendAmount;
         if (!played)
         {
+            ghostRecorder.isRecordingTunnel = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelEnter, transform.position);
             played = true;
         }

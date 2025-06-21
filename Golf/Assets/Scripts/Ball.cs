@@ -704,6 +704,7 @@ public class Ball : MonoBehaviour
 
     void Shoot()
     {
+        FindObjectOfType<GhostRecorder>().recordFrame();
         ClearDots();
         hasClickedBall = false;
         isPuttCooldown = false;

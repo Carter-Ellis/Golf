@@ -24,6 +24,7 @@ TagManager:
   - Cobblestone
   - Mole
   - Fake Flag
+  - Ghost
   layers:
   - Default
   - TransparentFX

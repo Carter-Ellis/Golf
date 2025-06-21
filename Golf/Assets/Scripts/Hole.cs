@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Cinemachine.DocumentationSortingAttribute;
@@ -588,6 +589,32 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Too Slow!";
+
+                //Save best ghost time:
+                if (inv.campSpeedFrames.ContainsKey(holeNum))
+                {
+                    List<GhostFrame> ghostFrames = inv.campSpeedFrames[holeNum];
+                    if (ghostFrames.Count > 0)
+                    {
+                        float totalTime = ghostFrames[ghostFrames.Count - 1].GetTime();
+                        var recorder = FindObjectOfType<GhostRecorder>();
+
+                        print("record time: " + totalTime);
+                        print("currTime: " + recorder.currFrames[recorder.currFrames.Count - 1].GetTime());
+                        if (totalTime > recorder.currFrames[recorder.currFrames.Count - 1].GetTime())
+                        {
+                            recorder.recordFrame();
+                            print("NEW RECORD");
+                            inv.campSpeedFrames[holeNum] = new List<GhostFrame>(recorder.currFrames);
+                        }
+                    }
+                }
+                else
+                {
+                    var recorder = FindObjectOfType<GhostRecorder>();
+                    inv.campSpeedFrames[holeNum] = new List<GhostFrame>(recorder.currFrames);
+                }
+
                 if (inv.timer < timeToBeat)
                 {
                     winTxt.text = "Campaign Speedrun";
