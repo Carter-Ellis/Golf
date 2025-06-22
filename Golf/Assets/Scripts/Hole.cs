@@ -230,37 +230,47 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         else if (inv.isCampSpeedMode && !inv.isWalkMode)
         {
-            inv.campSpeedCurrScore[holeNum] = inv.timer;
-            if (holeNum == runFinalHole)
+            
+            if (inv.campSpeedHighScore != null)
             {
-                if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.Count == runFinalHole)
+                /*float highscore = 0;
+                float currScore = 0;
+
+                foreach (var kvp in inv.campSpeedHighScore)
                 {
-                    float highscore = 0;
-                    float currScore = 0;
-
-                    foreach (var kvp in inv.campSpeedHighScore)
-                    {
-                        float score = kvp.Value;
-                        int level = kvp.Key;
-                        highscore += score;
-                    }
-                    foreach (var kvp in inv.campSpeedCurrScore)
-                    {
-                        float score = kvp.Value;
-                        int level = kvp.Key;
-                        currScore += score;
-                    }
-
-                    if (currScore <= highscore)
-                    {
-                        inv.campSpeedHighScore = inv.campSpeedCurrScore;
-                    }
-
+                    float score = kvp.Value;
+                    int level = kvp.Key;
+                    highscore += score;
                 }
-                else
+                foreach (var kvp in inv.campSpeedCurrScore)
+                {
+                    float score = kvp.Value;
+                    int level = kvp.Key;
+                    currScore += score;
+                }
+
+                if (currScore <= highscore)
                 {
                     inv.campSpeedHighScore = inv.campSpeedCurrScore;
+                }*/
+                
+
+                if (inv.campSpeedHighScore.ContainsKey(holeNum) && inv.timer < inv.campSpeedHighScore[holeNum])
+                {
+                    inv.campSpeedCurrScore[holeNum] = inv.timer;
+                    inv.campSpeedHighScore = inv.campSpeedCurrScore;
                 }
+                else if (!inv.campSpeedHighScore.ContainsKey(holeNum))
+                {
+                    inv.campSpeedCurrScore[holeNum] = inv.timer;
+                    inv.campSpeedHighScore = inv.campSpeedCurrScore;
+                }
+
+            }
+            else
+            {
+                inv.campSpeedCurrScore[holeNum] = inv.timer;
+                inv.campSpeedHighScore = inv.campSpeedCurrScore;
             }
 
         }
@@ -599,12 +609,10 @@ public class Hole : MonoBehaviour, ButtonTarget
                         float totalTime = ghostFrames[ghostFrames.Count - 1].GetTime();
                         var recorder = FindObjectOfType<GhostRecorder>();
 
-                        print("record time: " + totalTime);
-                        print("currTime: " + recorder.currFrames[recorder.currFrames.Count - 1].GetTime());
                         if (totalTime > recorder.currFrames[recorder.currFrames.Count - 1].GetTime())
                         {
                             recorder.recordFrame();
-                            print("NEW RECORD");
+
                             inv.campSpeedFrames[holeNum] = new List<GhostFrame>(recorder.currFrames);
                         }
                     }

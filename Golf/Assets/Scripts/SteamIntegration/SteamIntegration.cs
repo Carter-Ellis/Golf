@@ -54,7 +54,7 @@ public class SteamIntegration : MonoBehaviour
 
         string id = type.ToString();
         var ach = new Steamworks.Data.Achievement(id);
-        Debug.Log($"Achievement {id} status: " + ach.State);
+        //Debug.Log($"Achievement {id} status: " + ach.State);
         return ach.State;
     }
 

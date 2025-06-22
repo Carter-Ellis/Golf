@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -138,8 +139,9 @@ public class Inventory : MonoBehaviour
     public float timer = 0f;
     public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
     [SerializeField] private TextMeshProUGUI timerTxt;
-
+    private TextMeshProUGUI bestTimeTxt;
     public List<int> tempCollectedCoins = new List<int>();
+
 
     [Header("Achievement Variables")]
     public int numBounces;
@@ -169,6 +171,7 @@ public class Inventory : MonoBehaviour
         DisplayCosmetics();
         SetGoal();
         DisplayReset();
+        DisplayBestTime();
 
         GameObject time = GameObject.Find("Timer");
         if (time != null)
@@ -200,6 +203,25 @@ public class Inventory : MonoBehaviour
             }*/
 
             SavePlayer();
+    }
+
+    private void DisplayBestTime()
+    {
+        GameObject bestTimeObj = GameObject.Find("Best Time");
+
+        if (bestTimeObj != null)
+        {
+            bestTimeTxt = bestTimeObj.GetComponent<TextMeshProUGUI>();
+        }
+        int level = FindObjectOfType<Hole>().holeNum;
+
+        if (bestTimeTxt == null || !campSpeedHighScore.ContainsKey(level)) { return; }
+
+        double timeInSeconds = campSpeedHighScore[level];
+        print("Best time in Inventory start(): " + timeInSeconds);
+        TimeSpan timeSpan = TimeSpan.FromSeconds(timeInSeconds);
+        bestTimeTxt.text = "Best: " + timeSpan.ToString(@"mm\:ss\.ff");
+
     }
 
     public void ClearAchievements()
@@ -547,7 +569,6 @@ public class Inventory : MonoBehaviour
 
         if (data?.campSpeedHighScore != null)
         {
-
             campSpeedHighScore = data.campSpeedHighScore;
         }
         else
@@ -709,7 +730,6 @@ public class Inventory : MonoBehaviour
 
         if (data?.levelsCompleted != null)
         {
-            print("loaded data frames!");
             levelsCompleted = data.levelsCompleted;
         }
         else
@@ -745,7 +765,7 @@ public class Inventory : MonoBehaviour
             achievements = new bool[(int)Achievement.TYPE.MAX];
         }
 
-        numResets = data.numResets;
+        numResets = data != null ? data.numResets : 0;
 
         if (data?.campSpeedFrames != null)
         {

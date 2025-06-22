@@ -25,7 +25,6 @@ public class GhostPlayer : MonoBehaviour
         if (inv.campSpeedFrames.ContainsKey(holeNum))
         {
             frames = inv.campSpeedFrames[holeNum];
-            print("frames count: " + frames.Count);
         }
         
     }
