@@ -209,6 +209,12 @@ public class Inventory : MonoBehaviour
     {
         GameObject bestTimeObj = GameObject.Find("Best Time");
 
+        if (!isCampSpeedMode && !isClassicSpeedMode) { 
+            
+            bestTimeObj.SetActive(false); 
+            return; 
+        }
+
         if (bestTimeObj != null)
         {
             bestTimeTxt = bestTimeObj.GetComponent<TextMeshProUGUI>();
@@ -218,7 +224,7 @@ public class Inventory : MonoBehaviour
         if (bestTimeTxt == null || !campSpeedHighScore.ContainsKey(level)) { return; }
 
         double timeInSeconds = campSpeedHighScore[level];
-        print("Best time in Inventory start(): " + timeInSeconds);
+
         TimeSpan timeSpan = TimeSpan.FromSeconds(timeInSeconds);
         bestTimeTxt.text = "Best: " + timeSpan.ToString(@"mm\:ss\.ff");
 
@@ -263,10 +269,12 @@ public class Inventory : MonoBehaviour
 
     private void SetGoal()
     {
-        if (!isCampSpeedMode && !isClassicSpeedMode) { return; }
+        
 
         Hole hole = FindObjectOfType<Hole>();
         GameObject timeObject = GameObject.Find("Time To Beat");
+
+        if (!isCampSpeedMode && !isClassicSpeedMode) { timeObject.SetActive(false); return; }
 
         if (timeObject != null)
         {

@@ -58,7 +58,7 @@ public class DisplayHighscore : MonoBehaviour
 
     public void campSpeed()
     {
-        if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.Count == 18)
+        if (inv.campSpeedHighScore != null)
         {
             float totalScore = 0;
             foreach (var kvp in inv.campSpeedHighScore)
@@ -135,7 +135,7 @@ public class DisplayHighscore : MonoBehaviour
 
     public void classicSpeed()
     {
-        if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.Count == 18)
+        if (inv.classicSpeedHighScore != null)
         {
             float totalScore = 0;
             foreach (var kvp in inv.classicSpeedHighScore)
