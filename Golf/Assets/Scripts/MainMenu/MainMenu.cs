@@ -49,12 +49,16 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         mainCursor = GameObject.FindAnyObjectByType<CursorController>()?.gameObject;
-        for (int i = 0; i < stateScreens.Length; i++)
+        if (stateScreens != null)
         {
-            if (stateScreens[i].gameObject.activeSelf)
+            for (int i = 0; i < stateScreens.Length; i++)
             {
-                currentState = (State)i;
-                break;
+                GameObject obj = stateScreens[i]?.gameObject;
+                if (obj != null && obj.activeSelf)
+                {
+                    currentState = (State)i;
+                    break;
+                }
             }
         }
     }
