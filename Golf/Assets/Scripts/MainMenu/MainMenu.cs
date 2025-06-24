@@ -11,6 +11,52 @@ public class MainMenu : MonoBehaviour
     public bool isActive = true;
     private GameObject mainCursor;
 
+    public enum State
+    {
+        MAIN,
+        OPTIONS,
+        SHOP,
+        COSMETICS,
+        ACHIEVEMENTS,
+        RECORDS,
+        MODE_SELECT,
+        LEVEL_SELECT,
+        MAP_SELECT,
+        SPEEDRUN_SELECT,
+        MAX
+    };
+
+    [SerializeField]
+    private GameObject[] stateScreens = new GameObject[(int)State.MAX];
+    private State currentState = State.MAIN;
+
+    public enum Map
+    {
+        CAMPAIGN,
+        CLASSIC,
+        MAX
+    }
+
+    private string[] mapNames =
+    {
+        "Campaign",
+        "Classic"
+    };
+
+    private Map currentMap = Map.CAMPAIGN;
+
+    public enum Mode
+    {
+        HOLE18,
+        FREEPLAY,
+        SPEEDRUN,
+        CLUBLESS,
+        HARDCORE,
+        MAX
+    }
+
+    private Mode currentMode = Mode.HOLE18;
+
     private void Start()
     {
         mainCursor = GameObject.FindAnyObjectByType<CursorController>()?.gameObject;
@@ -23,6 +69,71 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void Play(int level)
+    {
+        Inventory inv = GameObject.FindObjectOfType<Inventory>();
+        bool isCamp = (currentMap == Map.CAMPAIGN);
+        bool isClassic = (currentMap == Map.CLASSIC);
+        inv.isFreeplayMode = currentMode == Mode.FREEPLAY;
+        inv.isWalkMode = currentMode == Mode.CLUBLESS;
+        inv.isCampaignMode = isCamp && (currentMode == Mode.HOLE18);
+        inv.isClassicMode = isClassic && (currentMode == Mode.HOLE18);
+        inv.isCampSpeedMode = isCamp && (currentMode == Mode.SPEEDRUN || currentMode == Mode.CLUBLESS);
+        inv.isClassicSpeedMode = isClassic && (currentMode == Mode.SPEEDRUN || currentMode == Mode.CLUBLESS);
+        inv.isCampHardMode = isCamp && (currentMode == Mode.HARDCORE);
+        inv.isClassicHardMode = isClassic && (currentMode == Mode.HARDCORE);
+        inv.SavePlayer();
+
+        SceneManager.LoadSceneAsync(mapNames[(int)currentMap] + " " + level);
+
+    }
+
+    public void GoTo(State state)
+    {
+        if (currentState == state)
+        {
+            return;
+        }
+
+        stateScreens[(int)currentState].SetActive(false);
+        stateScreens[(int)state].SetActive(true);
+        currentState = state;
+
+    }
+
+    public void GoTo(int state)
+    {
+        if (state < 0 || state >= (int)State.MAX)
+        {
+            return;
+        }
+
+        GoTo((State)state);
+
+    }
+
+    public void SetMode(int mode)
+    {
+        if (mode < 0 || mode >= (int)Mode.MAX)
+        {
+            return;
+        }
+
+        currentMode = (Mode)mode;
+
+    }
+
+    public void SetMap(int map)
+    {
+        if (map < 0 || map >= (int)Map.MAX)
+        {
+            return;
+        }
+
+        currentMap = (Map)map;
+
     }
 
     public void DisplayOptions()
