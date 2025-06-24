@@ -65,6 +65,7 @@ public class PlayerInput : MonoBehaviour
 
     private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
     private const float defaultCursorSpeed = 0.6f;
+    private Vector2 lastMousePos;
 
     private void OnEnable()
     {
@@ -142,16 +143,24 @@ public class PlayerInput : MonoBehaviour
 
         }
 
-        if (!usedKey && usedController)
+        if (!usedKey)
         {
-            if (!isController)
+            if (!Mathf.Approximately(lastMousePos.x, Input.mousePosition.x) ||
+                !Mathf.Approximately(lastMousePos.y, Input.mousePosition.y))
             {
-                resetCursor(); //Reset when switching to controller
+                usedKey = true;
+                lastMousePos = Input.mousePosition;
             }
+        }
+
+        if (!usedKey && usedController && !isController)
+        {
+            resetCursor(); //Reset when switching to controller
             isController = true;
             OnControllerChange();
+            
         }
-        else if (usedKey && !usedController)
+        else if (usedKey && !usedController && isController)
         {
             isController = false;
             OnControllerChange();
@@ -171,6 +180,7 @@ public class PlayerInput : MonoBehaviour
 
     private static void OnControllerChange()
     {
+        Cursor.visible = !isController;
         InputImageController[] imgCtrls = GameObject.FindObjectsByType<InputImageController>(FindObjectsSortMode.None);
         foreach (InputImageController imgs in imgCtrls)
         {
