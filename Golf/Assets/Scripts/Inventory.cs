@@ -211,7 +211,7 @@ public class Inventory : MonoBehaviour
 
         if (!isCampSpeedMode && !isClassicSpeedMode) { 
             
-            bestTimeObj.SetActive(false); 
+            bestTimeObj?.SetActive(false); 
             return; 
         }
 
@@ -274,7 +274,7 @@ public class Inventory : MonoBehaviour
         Hole hole = FindObjectOfType<Hole>();
         GameObject timeObject = GameObject.Find("Time To Beat");
 
-        if (!isCampSpeedMode && !isClassicSpeedMode) { timeObject.SetActive(false); return; }
+        if (!isCampSpeedMode && !isClassicSpeedMode) { timeObject?.SetActive(false); return; }
 
         if (timeObject != null)
         {
