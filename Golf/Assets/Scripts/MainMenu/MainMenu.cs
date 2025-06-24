@@ -30,20 +30,9 @@ public class MainMenu : MonoBehaviour
     private GameObject[] stateScreens = new GameObject[(int)State.MAX];
     private State currentState = State.MAIN;
 
-    public enum Map
-    {
-        CAMPAIGN,
-        CLASSIC,
-        MAX
-    }
 
-    private string[] mapNames =
-    {
-        "Campaign",
-        "Classic"
-    };
 
-    private Map currentMap = Map.CAMPAIGN;
+    private Map.TYPE currentMap = Map.TYPE.CAMPAIGN;
 
     public enum Mode
     {
@@ -74,8 +63,8 @@ public class MainMenu : MonoBehaviour
     public void Play(int level)
     {
         Inventory inv = GameObject.FindObjectOfType<Inventory>();
-        bool isCamp = (currentMap == Map.CAMPAIGN);
-        bool isClassic = (currentMap == Map.CLASSIC);
+        bool isCamp = (currentMap == Map.TYPE.CAMPAIGN);
+        bool isClassic = (currentMap == Map.TYPE.CLASSIC);
         inv.isFreeplayMode = currentMode == Mode.FREEPLAY;
         inv.isWalkMode = currentMode == Mode.CLUBLESS;
         inv.isCampaignMode = isCamp && (currentMode == Mode.HOLE18);
@@ -86,7 +75,7 @@ public class MainMenu : MonoBehaviour
         inv.isClassicHardMode = isClassic && (currentMode == Mode.HARDCORE);
         inv.SavePlayer();
 
-        SceneManager.LoadSceneAsync(mapNames[(int)currentMap] + " " + level);
+        SceneManager.LoadSceneAsync(Map.Name(currentMap) + " " + level);
 
     }
 
@@ -125,15 +114,25 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    public Mode GetMode()
+    {
+        return currentMode;
+    }
+
     public void SetMap(int map)
     {
-        if (map < 0 || map >= (int)Map.MAX)
+        if (map < 0 || map >= (int)Map.TYPE.MAX)
         {
             return;
         }
 
-        currentMap = (Map)map;
+        currentMap = (Map.TYPE)map;
 
+    }
+
+    public Map.TYPE GetMap()
+    {
+        return currentMap;
     }
 
     public void DisplayOptions()

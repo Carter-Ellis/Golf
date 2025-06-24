@@ -134,6 +134,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         {
             inv.levelsCompleted[holeNum] = true;
         }
+        inv.setLevelUnlocked(Map.getCurrent(), inv.getMode(), holeNum + 1);
         
         if (appleAchievement != null)
         {
@@ -562,7 +563,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             if (inv.isFreeplayMode && ball.strokes <= par)
             {
-                if (holeNum == 18 && SceneManager.GetActiveScene().name == "Level 18 Official")
+                if (holeNum == 18 && SceneManager.GetActiveScene().name == "Campaign 18")
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CAMP_FREEPLAY);
                 }

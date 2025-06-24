@@ -11,6 +11,7 @@ public class LevelMenu : MonoBehaviour
     public GameObject levelButtons;
     private Inventory inv;
     [SerializeField] private TextMeshProUGUI totalCoinsTxt;
+    [SerializeField] private Image totalCoinsImg;
     private int totalCoins;
     private void Start()
     {
@@ -25,33 +26,23 @@ public class LevelMenu : MonoBehaviour
         
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         ButtonsToArray();
-        int unlockedLevel = FindObjectOfType<Ball>().GetComponent<Inventory>().levelsCompleted.Count + 1;
+        MainMenu menu = FindObjectOfType<MainMenu>();
+        Inventory inv = FindObjectOfType<Inventory>();
+        Map.TYPE map = menu.GetMap();
+        MainMenu.Mode mode = menu.GetMode();
+        bool isFreePlay = mode == MainMenu.Mode.FREEPLAY;
         for (int i = 0; i < buttons.Length; i++)
         {
-            buttons[i].interactable = false;
-            
-            
-            buttons[i].GetComponent<ButtonAudio>().enabled = false;
+            bool unlocked = inv.isLevelUnlocked(map, mode, i+1);
+            buttons[i].interactable = unlocked;
+            buttons[i].GetComponent<ButtonAudio>().enabled = unlocked;
+            buttons[i].GetComponent<HoverFlag>().enabled = isFreePlay;
         }
-        for (int i = 0; i < unlockedLevel; i++)
-        {
-            buttons[i].GetComponent<ButtonAudio>().enabled = true;
-            buttons[i].interactable = true;
-        }
-    }
-    public void OpenLevel(int levelId)
-    {
-        string levelName = "Level " + levelId + " Official";
-        SceneManager.LoadScene(levelName);
-    }
-
-    public void OpenClassicLevel(int levelId)
-    {
-        string levelName = "Classic " + levelId;
-        SceneManager.LoadScene(levelName);
+        totalCoinsImg.enabled = isFreePlay;
+        totalCoinsTxt.enabled = isFreePlay;
     }
 
     private void ButtonsToArray()

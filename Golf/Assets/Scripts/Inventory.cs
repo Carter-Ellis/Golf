@@ -73,6 +73,8 @@ public class Inventory : MonoBehaviour
     public Dictionary<int, int> classicHardHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> classicHardCurrScore = new Dictionary<int, int>();
 
+    public List<bool[,]> unlockedLevels = new List<bool[,]>();
+
     public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
     public int currentHeight = 0;
 
@@ -750,6 +752,25 @@ public class Inventory : MonoBehaviour
             levelsCompleted = new Dictionary<int, bool>();
         }
 
+        if (data?.unlockedLevels == null)
+        {
+            unlockedLevels = new List<bool[,]>();
+        }
+        else
+        {
+            unlockedLevels = data.unlockedLevels;
+        }
+        for (int i = 0; i < (int)Map.TYPE.MAX; i++)
+        {
+            if (unlockedLevels.Count - 1 < i)
+            {
+                unlockedLevels.Add(new bool[3, 18]);
+                unlockedLevels[i][0, 0] = true;
+                unlockedLevels[i][1, 0] = true;
+                unlockedLevels[i][2, 0] = true;
+            }
+        }
+
         ballColor = data != null ? data.ballColor.ToColor() : Color.white;
         isColorUnlocked = data != null ? data.isColorUnlocked : false;
 
@@ -790,6 +811,64 @@ public class Inventory : MonoBehaviour
             campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
         }
 
+    }
+
+    public bool isLevelUnlocked(Map.TYPE map, MainMenu.Mode mode, int level)
+    {
+        return getLevelUnlockedBool(map, mode, level);
+    }
+
+    public void setLevelUnlocked(Map.TYPE map, MainMenu.Mode mode, int level, bool unlocked = true)
+    {
+        getLevelUnlockedBool(map, mode, level) = unlocked;
+    }
+
+    public MainMenu.Mode getMode()
+    {
+
+        if (isCampaignMode || isClassicMode)
+        {
+            return MainMenu.Mode.HOLE18;
+        }
+        if (isCampSpeedMode || isClassicSpeedMode)
+        {
+            return isWalkMode ? MainMenu.Mode.CLUBLESS : MainMenu.Mode.SPEEDRUN;
+        }
+        if (isFreeplayMode)
+        {
+            return MainMenu.Mode.FREEPLAY;
+        }
+        if (isCampHardMode || isClassicHardMode)
+        {
+            return MainMenu.Mode.HARDCORE;
+        }
+        return MainMenu.Mode.HOLE18;//Default
+
+    }
+
+    private bool blankRef;
+    private ref bool getLevelUnlockedBool(Map.TYPE map, MainMenu.Mode mode, int level)
+    {
+        if (mode != MainMenu.Mode.CLUBLESS && mode != MainMenu.Mode.SPEEDRUN &&
+            mode != MainMenu.Mode.FREEPLAY)
+        {
+            return ref blankRef;
+        }
+        if (level < 1 || level > 18)
+        {
+            return ref blankRef;
+        }
+        int modeIndex = 0;
+        switch (mode)
+        {
+            case MainMenu.Mode.SPEEDRUN:
+                modeIndex = 0; break;
+            case MainMenu.Mode.CLUBLESS:
+                modeIndex = 1; break;
+            case MainMenu.Mode.FREEPLAY:
+                modeIndex = 2; break;
+        }
+        return ref unlockedLevels[(int)map][modeIndex, level-1];
     }
 
     public void ErasePlayerData()

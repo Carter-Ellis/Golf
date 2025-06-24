@@ -56,6 +56,8 @@ public class PlayerData
     public List<AbilityChargeData> maxChargesList = new List<AbilityChargeData>();
     public List<ABILITIES> unlockedAbilityTypes = new List<ABILITIES>();
 
+    public List<bool[,]> unlockedLevels = new List<bool[,]>();
+
     [NonSerialized] public Sprite hat;
     public string hatName;
     public Hat.TYPE hatType;
@@ -152,6 +154,8 @@ public class PlayerData
         numResets = inv.numResets;
 
         campSpeedFrames = inv.campSpeedFrames;
+
+        unlockedLevels = inv.unlockedLevels;
 
 }
 
