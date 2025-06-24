@@ -274,7 +274,12 @@ public class Inventory : MonoBehaviour
         Hole hole = FindObjectOfType<Hole>();
         GameObject timeObject = GameObject.Find("Time To Beat");
 
-        if (!isCampSpeedMode && !isClassicSpeedMode) { timeObject?.SetActive(false); return; }
+        if (timeObject == null)
+        {
+            return;
+        }
+
+        if (!isCampSpeedMode && !isClassicSpeedMode) { timeObject.SetActive(false); return; }
 
         if (timeObject != null)
         {

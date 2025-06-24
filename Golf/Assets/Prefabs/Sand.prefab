@@ -326,5 +326,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45317854a5cfa614899d43e8850b879f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sandDrag: 8
+  sandDrag: 4.5
   minSpeedForParticles: 1
