@@ -95,7 +95,6 @@ public class CursorController : MonoBehaviour
         HashSet<GameObject> newHover = new HashSet<GameObject>();
         foreach (var result in results)
         {
-
             GameObject obj = result.gameObject;
             mouseEvents(obj, pointerData, isDown, isUp, newHover, hovered);
 
@@ -124,6 +123,7 @@ public class CursorController : MonoBehaviour
     private void mouseEvents(GameObject target, PointerEventData pointerData, bool isDown, bool isUp, HashSet<GameObject> newHover, HashSet<GameObject> oldHover)
     {
         newHover.Add(target);
+        pointerData.pointerEnter = target;
         if (isDown)
         {
             ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerDownHandler);
