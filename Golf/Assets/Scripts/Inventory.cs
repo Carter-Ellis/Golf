@@ -248,9 +248,13 @@ public class Inventory : MonoBehaviour
 
     public void DisplayReset()
     {
-        GameObject reset = GameObject.Find("Reset");
 
-        
+        if (Map.getCurrent() == Map.TYPE.MAX) //Not in a map
+        {
+            return;
+        }
+
+        GameObject reset = GameObject.Find("Reset");
 
         if (!isFreeplayMode && !isCampSpeedMode && !isCampSpeedMode) 
         {

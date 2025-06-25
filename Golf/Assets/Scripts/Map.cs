@@ -17,7 +17,7 @@ public class Map : MonoBehaviour
     {
         "Campaign",
         "Classic",
-        "Beach"
+        "Beach",
     };
 
     public static string Name(TYPE type)
@@ -29,7 +29,7 @@ public class Map : MonoBehaviour
     {
         string name = SceneManager.GetActiveScene().name;
         name = name.Substring(0, name.IndexOf(' '));
-        TYPE output = TYPE.CAMPAIGN;
+        TYPE output = TYPE.MAX;
         for (int i = 0; i < mapNames.Length; i++)
         {
             if (name.Equals(mapNames[i]))

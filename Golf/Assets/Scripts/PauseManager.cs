@@ -30,8 +30,8 @@ public class PauseManager : MonoBehaviour
         inv = FindObjectOfType<Inventory>();
         Hole hole = FindObjectOfType<Hole>();
         ball = FindObjectOfType<Ball>();
-        resetButton = menu.gameObject.transform.Find("RestartLevelButton").gameObject;
-        shopButton = menu.gameObject.transform.Find("ShopButton").gameObject;
+        resetButton = menu.gameObject.transform.Find("Audio").gameObject.transform.Find("RestartLevelButton").gameObject;
+        shopButton = menu.gameObject.transform.Find("Audio").gameObject.transform.Find("ShopButton").gameObject;
 
         if (holeNumberTxt == null || parTxt == null || strokesTxt == null || 
            ball == null || hole == null) { Debug.Log("PauseManager has null."); return; }

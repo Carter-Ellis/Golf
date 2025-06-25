@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
         LEVEL_SELECT,
         MAP_SELECT,
         SPEEDRUN_SELECT,
+        HOW_TO_PLAY,
         MAX
     };
 

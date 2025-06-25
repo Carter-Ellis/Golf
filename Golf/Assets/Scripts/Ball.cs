@@ -43,6 +43,10 @@ public class Ball : MonoBehaviour
     public float moveSpeed = 5f;
     private Vector2 movement;
 
+    private Slider swingCooldownSlider;
+    private Slider swingPowerSlider;
+
+
     [Header("Ball Properties")]
     Ball ball;
     Rigidbody2D rb;
@@ -98,8 +102,7 @@ public class Ball : MonoBehaviour
 
     [Header("Swing Cooldown")]
     private float swingTimer = 0;
-    private float swingCooldownTime = 3f;
-    [SerializeField] private TextMeshProUGUI swingCooldownTxt;
+    private float swingCooldownTime = 2f;
 
     [Header("TextDisplay")]
     [SerializeField] private TextMeshProUGUI healthTxt;
@@ -160,7 +163,10 @@ public class Ball : MonoBehaviour
             dots.Add(new DotData(dot, offset));
         }
 
-        
+        swingCooldownSlider = GameObject.Find("Swing Cooldown").GetComponent<Slider>();
+        swingCooldownSlider.gameObject.SetActive(false);
+        swingPowerSlider = GameObject.Find("Swing Power").GetComponent<Slider>();
+        swingPowerSlider.gameObject.SetActive(false);
         moveSpeed = 7;
         allFans = GameObject.FindObjectsByType<Fan>(FindObjectsSortMode.InstanceID);
         //ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
@@ -366,13 +372,15 @@ public class Ball : MonoBehaviour
     {
         if (!isPuttCooldown)
         {
+            
             swingTimer += Time.deltaTime;
-            swingCooldownTxt.text = (swingCooldownTime - (int)swingTimer).ToString();
+            swingCooldownSlider.value = (swingCooldownTime - swingTimer) / swingCooldownTime;
+
             if (swingTimer > swingCooldownTime || rb.velocity.magnitude == 0)
             {
                 isPuttCooldown = true;
                 swingTimer = 0f;
-                swingCooldownTxt.text = "";
+                swingCooldownSlider.gameObject.SetActive(false);
             }
         }
     }
@@ -687,7 +695,16 @@ public class Ball : MonoBehaviour
             cursor.transform.position = new Vector3(mirroredCursorPos.x, mirroredCursorPos.y, -9.71f);
 
             float distFromBall = Vector2.Distance(mousePos, ballPos);
+            if (distFromBall > maxHitSpeed)
+            {
+                distFromBall = maxHitSpeed;
+            }
+
             Vector2 force = -mousePosNormalized * distFromBall;
+
+            swingPowerSlider.gameObject.SetActive(true);
+            swingPowerSlider.value = force.magnitude / maxHitSpeed;
+
             DrawTrajectory(force);
         }
         else
@@ -706,6 +723,8 @@ public class Ball : MonoBehaviour
     {
         FindObjectOfType<GhostRecorder>().recordFrame();
         ClearDots();
+        swingPowerSlider.gameObject.SetActive(false);
+        swingCooldownSlider.gameObject.SetActive(true);
         hasClickedBall = false;
         isPuttCooldown = false;
 
