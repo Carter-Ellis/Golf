@@ -442,11 +442,11 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P))
+        /*if (Input.GetKeyUp(KeyCode.P))
         {
             ClearAchievements();
             SavePlayer();
-        }
+        }*/
 
         AbilityManager();
         DisplayAbility();

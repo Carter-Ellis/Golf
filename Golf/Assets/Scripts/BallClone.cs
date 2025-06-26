@@ -8,12 +8,14 @@ public class BallClone : MonoBehaviour
     private float timer;
     private float lifeTime = 4f;
     Ball ball;
+    Inventory inv;
     Rigidbody2D rb;
     public Animator animator;
     public bool isInteractable;
     void Start()
     {
         ball = GameObject.FindObjectOfType<Ball>();
+        inv = ball.GetComponent<Inventory>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -68,8 +70,12 @@ public class BallClone : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
+        if (inv.getMode() != MainMenu.Mode.CLUBLESS)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
+        }
     }
+       
 
 }
 

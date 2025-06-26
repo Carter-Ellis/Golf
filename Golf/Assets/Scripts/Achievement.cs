@@ -36,6 +36,7 @@ public class Achievement : MonoBehaviour
         THE_BIG_ONE,
         BACK_TO_THE_BACK,
         TORNADO,
+        APPLE_A_DAY,
         MAX
     }
 
@@ -70,7 +71,8 @@ public class Achievement : MonoBehaviour
         "Pixel Penny Parfect",
         "The Big One",
         "Back To The Back",
-        "How About A Tornado Patrick?"
+        "How About A Tornado Patrick?",
+        "An Apple A Day"
 };
 
     private static string[] descriptions =
@@ -104,7 +106,8 @@ public class Achievement : MonoBehaviour
         "Obtain all coins.",
         "Eat the giant apple.",
         "Reset 50 times.",
-        "Click on a fan 20 times."
+        "Click on a fan 20 times.",
+        "???"
     };
 
     public static string GetName(TYPE type)
@@ -120,6 +123,12 @@ public class Achievement : MonoBehaviour
     public static void Give(TYPE type)
     {
         Inventory inv = GameObject.FindAnyObjectByType<Inventory>();
+        
+        if (inv.getMode() == MainMenu.Mode.CLUBLESS && (type != Achievement.TYPE.BEAT_CAMP_CLUBLESS || type != Achievement.TYPE.BEAT_CLASSIC_CLUBLESS))
+        {
+            return;
+        }
+
         int index = (int)type;
 
         if (!SteamIntegration.IsThisSteamAchUnlocked(type))

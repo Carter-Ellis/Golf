@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Mole : MonoBehaviour
@@ -11,11 +9,13 @@ public class Mole : MonoBehaviour
     private CapsuleCollider2D cc;
     private float timer = 0f;
     private bool playedAudio = false;
+    private Inventory inv;
 
     private void Start()
     {
         cc = GetComponent<CapsuleCollider2D>();
         cc.enabled = false;
+        inv = FindObjectOfType<Inventory>();
     }
 
     void Update()
@@ -70,7 +70,11 @@ public class Mole : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.moleHit, transform.position);
+        if (inv.getMode() != MainMenu.Mode.CLUBLESS)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.moleHit, transform.position);
+        }
+        
     }
 
 }

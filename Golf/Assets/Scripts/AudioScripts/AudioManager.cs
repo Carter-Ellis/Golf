@@ -183,32 +183,29 @@ public class AudioManager : MonoBehaviour
             mainMusicInstance.release();
             mainMusicInstance = default;
         }
-        if (musicEventInstance.isValid() || true)
+        if (musicEventInstance.isValid())
         {
             musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             musicEventInstance.release();
             musicEventInstance = default;
         }
-    }
-
-
-    public void PlayShopMusic(Vector3 position)
-    {
-        if (shopMusicInstance.isValid()) return;
-
-        shopMusicInstance = CreateInstance(FMODEvents.instance.shopMusic);
-        shopMusicInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
-        shopMusicInstance.start();
-    }
-
-    public void StopShopMusic()
-    {
         if (shopMusicInstance.isValid())
         {
             shopMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             shopMusicInstance.release();
             shopMusicInstance = default;
         }
+    }
+
+
+    public void PlayShopMusic()
+    {
+        if (shopMusicInstance.isValid()) return;
+        StopMusic();
+
+        shopMusicInstance = CreateInstance(FMODEvents.instance.shopMusic);
+        shopMusicInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        shopMusicInstance.start();
     }
 
 

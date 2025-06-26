@@ -59,16 +59,4 @@ public class ShopTrigger : MonoBehaviour
         
     }
 
-    public void LoadShop()
-    {
-        AudioManager.instance.StopMusic();
-        AudioManager.instance.PlayShopMusic(transform.position);
-    }
-
-    public void CloseShop()
-    {
-        AudioManager.instance.StopShopMusic();
-        AudioManager.instance.StartMainMusic();
-    }
-
 }

@@ -156,8 +156,8 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters: []
-  MinDistance: 5.15
-  MaxDistance: 60
+  MinDistance: 4
+  MaxDistance: 30
   Length: 7653
 --- !u!114 &-7187301522603174016
 MonoBehaviour:
@@ -902,7 +902,7 @@ MonoBehaviour:
   - {fileID: -2382926633897921263}
   StringsBanks:
   - {fileID: 327917192201675269}
-  cacheTime: 638856874033337612
+  cacheTime: 638864839647951704
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -1366,7 +1366,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638856357467275158
+  lastModified: 638864839647951704
   FileSizes:
   - Name: Desktop
     Value: 2122752

@@ -44,7 +44,7 @@ public class Ball : MonoBehaviour
     private Vector2 movement;
 
     private Slider swingCooldownSlider;
-    private Slider swingPowerSlider;
+    public Slider swingPowerSlider;
 
 
     [Header("Ball Properties")]
@@ -163,10 +163,19 @@ public class Ball : MonoBehaviour
             dots.Add(new DotData(dot, offset));
         }
 
-        swingCooldownSlider = GameObject.Find("Swing Cooldown").GetComponent<Slider>();
-        swingCooldownSlider.gameObject.SetActive(false);
-        swingPowerSlider = GameObject.Find("Swing Power").GetComponent<Slider>();
-        swingPowerSlider.gameObject.SetActive(false);
+        swingCooldownSlider = GameObject.Find("Swing Cooldown")?.GetComponent<Slider>();
+        if (swingCooldownSlider != null)
+        {
+            swingCooldownSlider.gameObject.SetActive(false);
+        }
+        
+        swingPowerSlider = GameObject.Find("Swing Power")?.GetComponent<Slider>();
+
+        if (swingPowerSlider != null)
+        {
+            swingPowerSlider.gameObject.SetActive(false);
+        }
+        
         moveSpeed = 7;
         allFans = GameObject.FindObjectsByType<Fan>(FindObjectsSortMode.InstanceID);
         //ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
@@ -659,6 +668,7 @@ public class Ball : MonoBehaviour
         {
             hasClickedBall = false;
             cursor.GetComponent<SpriteRenderer>().enabled = false;
+            swingPowerSlider.gameObject.SetActive(false);
             ClearDots();
             return;
         }

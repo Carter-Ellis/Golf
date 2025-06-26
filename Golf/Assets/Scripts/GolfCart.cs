@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,19 +13,27 @@ public class GolfCart : MonoBehaviour
     public float speed = 3f;
     public float travelDistance = 5f;
 
-    public ParticleSystem particleSys;
+    private ParticleSystem particleSys;
 
     private Vector2 startPosition;
     private float ballHits;
-    
+
+    private EventInstance cartSFX;
 
     void Start()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.golfCart, transform.position);
+        // Removed PlayOneShot — we're already creating a manual instance below
+
         cartBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = cartBody.position;
         inv = FindObjectOfType<Inventory>();
+
+        particleSys = gameObject.transform.Find("Grass Particles Cart").GetComponent<ParticleSystem>();
+
+        cartSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.golfCart);
+        cartSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        cartSFX.start();
 
         cartBody.velocity = new Vector2(speed, 0);
         UpdateSpriteDirection();
@@ -36,6 +46,12 @@ public class GolfCart : MonoBehaviour
         {
             TurnAround();
         }
+
+        if (cartSFX.isValid())
+        {
+            cartSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        }
+
     }
 
     void TurnAround()
@@ -71,7 +87,7 @@ public class GolfCart : MonoBehaviour
         velocityModule.enabled = true;
 
         // Emit opposite to current velocity
-        velocityModule.x = new ParticleSystem.MinMaxCurve(-speed / 2f); // Make the trail more visible
+        velocityModule.x = new ParticleSystem.MinMaxCurve(-speed / 2f);
         velocityModule.y = new ParticleSystem.MinMaxCurve(0f);
 
         particleSys.Play();
@@ -90,4 +106,21 @@ public class GolfCart : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (cartSFX.isValid())
+        {
+            cartSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            cartSFX.release();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (cartSFX.isValid())
+        {
+            cartSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            cartSFX.release();
+        }
+    }
 }

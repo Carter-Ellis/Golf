@@ -21,6 +21,7 @@ public class MenuApple : MonoBehaviour
         image.sprite = eatenApple;
         button.enabled = false;
         audioButton.enabled = false;
+        Achievement.Give(Achievement.TYPE.APPLE_A_DAY);
     }
 
 }

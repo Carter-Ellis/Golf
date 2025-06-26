@@ -83,6 +83,11 @@ public class CameraController : MonoBehaviour
             
             AudioManager.instance.PlayOneShot(FMODEvents.instance.mapOpen, transform.position);
 
+            ball.hasClickedBall = false;
+            ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
+            ball.ClearDots();
+            ball.swingPowerSlider.gameObject.SetActive(false);
+
             userInterface.enabled = false;
             mapViewUI.enabled = true;
             if (ball.isSelectFan)
