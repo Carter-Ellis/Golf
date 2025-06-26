@@ -54,21 +54,12 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Main Menu" && !mainMusicInstance.isValid())
-        {
-            InitializeMainMusic(FMODEvents.instance.mainMusic);
-        }
-        else if (!musicEventInstance.isValid())
-        {
-            InitializeMusic(FMODEvents.instance.music);
-        }
 
         if (!ambienceEventInstance.isValid())
         {
             InitializeAmbience(FMODEvents.instance.ambience);
         }
 
-        musicEventInstance.setParameterByName("IsShop", isShop ? 1 : 0);
     }
 
     private void Update()
@@ -101,12 +92,6 @@ public class AudioManager : MonoBehaviour
     {
         ambienceEventInstance = CreateInstance(ambienceEventReference);
         ambienceEventInstance.start();
-    }
-
-    private void InitializeMusic(EventReference musicEventReference)
-    {
-        musicEventInstance = CreateInstance(musicEventReference);
-        musicEventInstance.start();
     }
 
     private void InitializeMainMusic(EventReference musicEventReference)
