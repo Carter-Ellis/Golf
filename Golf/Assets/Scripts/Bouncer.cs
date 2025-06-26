@@ -41,6 +41,7 @@ public class Bouncer : MonoBehaviour
             }
         }
         isBouncing = true;
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
         if (inv.getMode() != MainMenu.Mode.CLUBLESS)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);

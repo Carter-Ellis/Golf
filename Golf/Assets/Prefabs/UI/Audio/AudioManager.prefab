@@ -164,6 +164,20 @@ MonoBehaviour:
       Data3: -1989307518
       Data4: 1425531288
     Path: event:/SFX/InHole
+  <inHoleBad>k__BackingField:
+    Guid:
+      Data1: 2003655642
+      Data2: 1312113207
+      Data3: 2051000757
+      Data4: 392947413
+    Path: event:/SFX/InHoleBad
+  <overHole>k__BackingField:
+    Guid:
+      Data1: 1023545480
+      Data2: 1320825747
+      Data3: -331040866
+      Data4: -627186556
+    Path: event:/SFX/OverHole
   <tunnelEnter>k__BackingField:
     Guid:
       Data1: 1763086508

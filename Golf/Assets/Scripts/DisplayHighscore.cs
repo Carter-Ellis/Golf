@@ -72,10 +72,10 @@ public class DisplayHighscore : MonoBehaviour
 
             }
 
-            if (inv.campSpeedHighScore.Count > 0)
+            if (inv.campSpeedHighScore.Count > 0 && inv.campSpeedHighScore.Count == 18)
             {
                 TimeSpan timeSpan = TimeSpan.FromSeconds(totalScore);
-                campSpeedBest.text = "Best Time: " + timeSpan.ToString(@"mm\:ss\.ff");
+                campSpeedBest.text = "Fastest Time: " + timeSpan.ToString(@"mm\:ss\.ff");
             }
 
         }
@@ -149,7 +149,7 @@ public class DisplayHighscore : MonoBehaviour
                 classicSpeedScores[level - 1].fontSize = 10;
             }
 
-            if (inv.classicSpeedHighScore.Count > 0)
+            if (inv.classicSpeedHighScore.Count > 0 && inv.classicSpeedHighScore.Count == 18)
             {
                 TimeSpan timeSpan = TimeSpan.FromSeconds(totalScore);
                 classicSpeedBest.text = "Fastest Time: " + timeSpan.ToString(@"mm\.ss\.ff");

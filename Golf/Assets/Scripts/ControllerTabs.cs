@@ -35,8 +35,9 @@ public class ControllerTabs : MonoBehaviour
         {
             return;
         }
-
+        
         currentTab = (currentTab + tabChange) % buttons.Length;
+
         GameObject buttonObj = buttons[currentTab].gameObject;
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {

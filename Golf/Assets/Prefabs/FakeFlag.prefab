@@ -43,11 +43,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6976052699150218504, guid: e3aae3da027e35d44928a00719ccfc52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.277
+      value: 0.27691
       objectReference: {fileID: 0}
     - target: {fileID: 6976052699150218504, guid: e3aae3da027e35d44928a00719ccfc52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.108
+      value: -0.11993
       objectReference: {fileID: 0}
     - target: {fileID: 6976052699150218504, guid: e3aae3da027e35d44928a00719ccfc52, type: 3}
       propertyPath: m_LocalPosition.z
@@ -160,16 +160,20 @@ PrefabInstance:
       value: Tube Entrance
       objectReference: {fileID: 0}
     - target: {fileID: 7161445217940775320, guid: 0dd1369bedfa00144a9c54a158f04605, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 270806111, guid: 2e10d8e851349584caa0b90a042edf91, type: 3}
+    - target: {fileID: 7161445217940775320, guid: 0dd1369bedfa00144a9c54a158f04605, type: 3}
       propertyPath: m_Color.b
-      value: 0.5943396
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7161445217940775320, guid: 0dd1369bedfa00144a9c54a158f04605, type: 3}
       propertyPath: m_Color.g
-      value: 0.49583304
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7161445217940775320, guid: 0dd1369bedfa00144a9c54a158f04605, type: 3}
       propertyPath: m_Color.r
-      value: 0.45696867
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

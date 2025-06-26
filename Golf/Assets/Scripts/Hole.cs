@@ -420,12 +420,21 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         if (ball.transform.localScale.x <= 0)
         {
+
+            ball.cursor.SetActive(false);
+            ball.swingPowerSlider.gameObject.SetActive(false);
+
+
             // Play inhole audio
             isPlayingVoiceLine = true;
 
             if (ball.strokes <= par)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
+            }
+            else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleBad, transform.position);
             }
 
             if (ball.strokes == 0 && !inv.isWalkMode)
@@ -472,7 +481,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.transform.position = camController.mapViewPos.position;
 
             
-            if (((holeNum == 18 && (inv.isCampSpeedMode || inv.isClassicSpeedMode)) && inv.timer < timeToBeat) || (!inv.isCampSpeedMode && !inv.isClassicSpeedMode && holeNum == 18))
+            if ((holeNum == 18 && (inv.isCampSpeedMode || inv.isClassicSpeedMode) && inv.timer < timeToBeat) || (!inv.isCampSpeedMode && !inv.isClassicSpeedMode && holeNum == 18 && !inv.isFreeplayMode))
             {
                 animator.SetBool("RunFinished", true);
             }
@@ -762,10 +771,15 @@ public class Hole : MonoBehaviour, ButtonTarget
             ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
         }
-        else if (!inv.achievements[(int)Achievement.TYPE.SLOW_THERE_BUDDY] && collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude >= ballOverHoleSpeed)
+        else if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude >= ballOverHoleSpeed)
         {
-            Achievement.Give(Achievement.TYPE.SLOW_THERE_BUDDY);
-            inv.SavePlayer();
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.overHole, transform.position);
+            if (!inv.achievements[(int)Achievement.TYPE.SLOW_THERE_BUDDY])
+            {
+                Achievement.Give(Achievement.TYPE.SLOW_THERE_BUDDY);
+                inv.SavePlayer();
+            }
+            
         }
         
     }

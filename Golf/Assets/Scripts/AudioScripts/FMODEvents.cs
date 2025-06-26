@@ -26,6 +26,8 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("InHole SFX")]
     [field: SerializeField] public EventReference inHoleSound { get; private set; }
+    [field: SerializeField] public EventReference inHoleBad { get; private set; }
+    [field: SerializeField] public EventReference overHole { get; private set; }
 
     [field: Header("Tunnel Enter")]
     [field: SerializeField] public EventReference tunnelEnter { get; private set; }
