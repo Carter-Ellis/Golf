@@ -40,9 +40,21 @@ public class LevelMenu : MonoBehaviour
             buttons[i].interactable = unlocked;
             buttons[i].GetComponent<ButtonAudio>().enabled = unlocked;
             buttons[i].GetComponent<HoverFlag>().enabled = isFreePlay;
+            if (map == Map.TYPE.CLASSIC)
+            {
+                buttons[i].GetComponent<HoverFlag>().enabled = false;
+            }
         }
+
         totalCoinsImg.enabled = isFreePlay;
         totalCoinsTxt.enabled = isFreePlay;
+
+        if (map == Map.TYPE.CLASSIC)
+        {
+            totalCoinsImg.enabled = false;
+            totalCoinsTxt.enabled = false;
+        }
+
     }
 
     private void ButtonsToArray()

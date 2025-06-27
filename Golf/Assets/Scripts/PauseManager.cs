@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
@@ -50,7 +46,7 @@ public class PauseManager : MonoBehaviour
             resetButton.SetActive(false);
         }
 
-        if (inv.isCampSpeedMode || inv.isClassicSpeedMode)
+        if (inv.isCampSpeedMode || Map.getCurrent() == Map.TYPE.CLASSIC)
         {
             coinDisplay1.enabled = false;
             coinDisplay2.enabled = false;
@@ -102,7 +98,7 @@ public class PauseManager : MonoBehaviour
 
         if (ball == null)
         {
-            Debug.Log("No ball found");
+            
             return;
         }
         strokesTxt.text = "Stroke " + ball.strokes;

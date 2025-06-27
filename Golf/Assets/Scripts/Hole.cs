@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Profiling;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class Hole : MonoBehaviour, ButtonTarget
 {
@@ -134,6 +129,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         {
             inv.levelsCompleted[holeNum] = true;
         }
+
         inv.setLevelUnlocked(Map.getCurrent(), inv.getMode(), holeNum + 1);
         
         if (appleAchievement != null)
@@ -146,7 +142,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             Achievement.Give(Achievement.TYPE.HOLE9_GUESS);
         }
 
-        if (ball.strokes <= par)
+        if (ball.strokes <= par && Map.getCurrent() == Map.TYPE.CAMPAIGN)
         {
             foreach (int coin in inv.tempCollectedCoins)
             {
@@ -385,7 +381,6 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             }
         }
-
         inv.SavePlayer();
 
     }
@@ -483,18 +478,32 @@ public class Hole : MonoBehaviour, ButtonTarget
             
             if ((holeNum == 18 && (inv.isCampSpeedMode || inv.isClassicSpeedMode) && inv.timer < timeToBeat) || (!inv.isCampSpeedMode && !inv.isClassicSpeedMode && holeNum == 18 && !inv.isFreeplayMode))
             {
+                print("hello");
                 animator.SetBool("RunFinished", true);
             }
             else if (inv.isFreeplayMode)
             {
-                animator.SetBool("Won", true);
+                if (holeNum == 18)
+                {
+                    animator.SetBool("18HoleWin", true);
+                }
+                else if (Map.getCurrent() == Map.TYPE.CLASSIC)
+                {          
+                        animator.SetBool("SpeedrunWon", true);
+                }
+                else
+                {
+                        animator.SetBool("Won", true);
+                }
             }
             else if(inv.isCampSpeedMode || inv.isClassicSpeedMode)
             {
+                print("Hello3");
                 animator.SetBool("SpeedrunWon", true);
             }
             else
             {
+                print("Hello4");
                 animator.SetBool("RunWon", true);
             }
 
@@ -542,7 +551,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     {
         if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
         {
-            if (ball.strokes < par)
+            if (ball.strokes < par && Map.getCurrent() == Map.TYPE.CAMPAIGN)
             {
                 currentLevel = holeNum;
                 Inventory inv = ball.GetComponent<Inventory>();
@@ -556,16 +565,15 @@ public class Hole : MonoBehaviour, ButtonTarget
                     inv.coinsCollected[currentLevel] = new List<int>();
                 }
 
-                if (!inv.coinsCollected[currentLevel].Contains(3) && (inv.isCampaignMode || inv.isFreeplayMode || inv.isCampHardMode))
+                if (!inv.coinsCollected[currentLevel].Contains(3))
                 {
                     inv.coins += 1;
                     inv.totalCoins += 1;
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
                 }
-                if (inv.isCampaignMode || inv.isFreeplayMode || inv.isCampHardMode)
-                {
-                    inv.coinsCollected[currentLevel].Add(3);
-                }
+
+                inv.coinsCollected[currentLevel].Add(3);
+                
                 
 
             }
@@ -583,8 +591,9 @@ public class Hole : MonoBehaviour, ButtonTarget
                 winTxt.fontSize = 75;
                 winTxt.text = winSayings[winSayingIndex];
             }
-            else if (inv.isFreeplayMode && ball.GetComponent<Inventory>().levelsCompleted.ContainsKey(holeNum) && ball.GetComponent<Inventory>().levelsCompleted[holeNum])
+            else if (inv.isLevelUnlocked(Map.getCurrent(), MainMenu.Mode.FREEPLAY, holeNum + 1))
             {
+
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
