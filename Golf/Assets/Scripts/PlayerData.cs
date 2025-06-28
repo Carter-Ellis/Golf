@@ -80,6 +80,7 @@ public class PlayerData
 
     public int numResets;
 
+    public List<List<GhostFrame>[,]> speedrunFrames = new List<List<GhostFrame>[,]>();
     public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
 
     public PlayerData(Inventory inv)
@@ -153,6 +154,7 @@ public class PlayerData
         achievements = inv.achievements;
         numResets = inv.numResets;
 
+        speedrunFrames = inv.speedrunFrames;
         campSpeedFrames = inv.campSpeedFrames;
 
         unlockedLevels = inv.unlockedLevels;

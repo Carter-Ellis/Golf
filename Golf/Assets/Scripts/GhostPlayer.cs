@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GhostPlayer : MonoBehaviour
@@ -22,16 +23,13 @@ public class GhostPlayer : MonoBehaviour
         inv = FindObjectOfType<Inventory>();
         holeNum = FindObjectOfType<Hole>().holeNum;
 
-        if (inv.campSpeedFrames.ContainsKey(holeNum))
-        {
-            frames = inv.campSpeedFrames[holeNum];
-        }
+        frames = inv.getGhostFrames();
         
     }
 
     void Update()
     {
-        if (frames == null || frames.Count < 2 || !inv.isCampSpeedMode)
+        if (frames == null || frames.Count < 2 || (inv.getMode() != MainMenu.Mode.SPEEDRUN && inv.getMode() != MainMenu.Mode.CLUBLESS))
             return;
 
         if (tunnelTimer < tunnelTime)

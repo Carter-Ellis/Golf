@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
 {
     Ball ball;
     PopupController popupController;
+    GhostRecorder ghostRecorder;
 
     public bool isWalkMode;
     public bool isFreeplayMode;
@@ -139,9 +140,11 @@ public class Inventory : MonoBehaviour
 
     [Header("Speedrun")]
     public float timer = 0f;
+    public List<List<GhostFrame>[,]> speedrunFrames = new List<List<GhostFrame>[,]>();
     public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
     [SerializeField] private TextMeshProUGUI timerTxt;
     private TextMeshProUGUI bestTimeTxt;
+
     public List<int> tempCollectedCoins = new List<int>();
 
 
@@ -174,6 +177,8 @@ public class Inventory : MonoBehaviour
         SetGoal();
         DisplayReset();
         DisplayBestTime();
+
+        ghostRecorder = gameObject.GetComponent<GhostRecorder>();
 
         GameObject time = GameObject.Find("Timer");
         if (time != null)
@@ -222,11 +227,11 @@ public class Inventory : MonoBehaviour
             bestTimeTxt = bestTimeObj.GetComponent<TextMeshProUGUI>();
         }
         int level = FindObjectOfType<Hole>().holeNum;
+        List<GhostFrame> ghostFrames = getGhostFrames();
+        if (bestTimeTxt == null || ghostFrames == null) { return; }
 
-        if (bestTimeTxt == null || !campSpeedHighScore.ContainsKey(level)) { return; }
 
-        double timeInSeconds = campSpeedHighScore[level];
-
+        float timeInSeconds = ghostFrames[ghostFrames.Count - 1].GetTime();
         TimeSpan timeSpan = TimeSpan.FromSeconds(timeInSeconds);
         bestTimeTxt.text = "Best: " + timeSpan.ToString(@"mm\:ss\.ff");
 
@@ -320,10 +325,9 @@ public class Inventory : MonoBehaviour
 
     private void SpeedrunTimer()
     {
-        if ((!isCampSpeedMode && !isClassicSpeedMode) || timerTxt == null || FindObjectOfType<Hole>().inHole) { return; }
+        if ((!isCampSpeedMode && !isClassicSpeedMode) || timerTxt == null) { return; }
 
-        timer += Time.deltaTime;
-        System.TimeSpan time = System.TimeSpan.FromSeconds(timer);
+        System.TimeSpan time = System.TimeSpan.FromSeconds(ghostRecorder.timeElapsed);
         timerTxt.text = time.ToString(@"mm\:ss\.ff");
     }
 
@@ -775,6 +779,22 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        if (data?.speedrunFrames != null)
+        {
+            speedrunFrames = data.speedrunFrames;
+        }
+        else
+        {
+            speedrunFrames = new List<List<GhostFrame>[,]>();
+        }
+        for (int i = 0; i < (int)Map.TYPE.MAX; i++)
+        {
+            if (speedrunFrames.Count - 1 < i)
+            {
+                speedrunFrames.Add(new List<GhostFrame>[2,18]);
+            }
+        }
+
         ballColor = data != null ? data.ballColor.ToColor() : Color.white;
         isColorUnlocked = data != null ? data.isColorUnlocked : false;
 
@@ -817,6 +837,57 @@ public class Inventory : MonoBehaviour
 
     }
 
+    public List<GhostFrame> getGhostFrames()
+    {
+        return getGhostFramesRef();
+    }
+
+    public void setGhostFrames(List<GhostFrame> frames)
+    {
+        getGhostFramesRef() = frames;
+    }
+
+    private List<GhostFrame> blankGhostFrames;
+    private ref List<GhostFrame> getGhostFramesRef()
+    {
+        Map.TYPE map = Map.getCurrent();
+        MainMenu.Mode mode = getMode();
+        int holeNum = getHole();
+        int modeIndex = -1;
+        if (mode == MainMenu.Mode.SPEEDRUN)
+        {
+            modeIndex = 0;
+        }
+        else if (mode == MainMenu.Mode.CLUBLESS)
+        {
+            modeIndex = 1;
+        }
+        if (modeIndex != -1 && speedrunFrames != null)
+        {
+            return ref speedrunFrames[(int)map][modeIndex, holeNum];
+        }
+        return ref blankGhostFrames;
+    }
+
+    public int getHole()
+    {
+        string name = SceneManager.GetActiveScene().name;
+        int numIndex = name.LastIndexOf(' ') + 1;
+        if (numIndex >= name.Length)
+        {
+            return 0;
+        }
+        string level = name.Substring(numIndex, name.Length - numIndex);
+        try
+        {
+            return int.Parse(level);
+        }
+        catch (Exception)
+        {
+            return 0;
+        }
+    }
+
     public bool isLevelUnlocked(Map.TYPE map, MainMenu.Mode mode, int level)
     {
         return getLevelUnlockedBool(map, mode, level);
@@ -856,10 +927,12 @@ public class Inventory : MonoBehaviour
         if (mode != MainMenu.Mode.CLUBLESS && mode != MainMenu.Mode.SPEEDRUN &&
             mode != MainMenu.Mode.FREEPLAY)
         {
+            blankRef = false;
             return ref blankRef;
         }
         if (level < 1 || level > 18)
         {
+            blankRef = false;
             return ref blankRef;
         }
         int modeIndex = 0;

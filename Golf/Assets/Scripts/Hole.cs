@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FMOD;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     Ball ball;
     Inventory inv;
     CameraController camController;
+    GhostRecorder ghostRecorder;
     public int par = 4;
     public float timeToBeat = 5f;
     public float ballOverHoleSpeed = 10f;
@@ -59,6 +61,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     private void Awake()
     {
         ball = GameObject.FindObjectOfType<Ball>();
+        ghostRecorder = ball.GetComponent<GhostRecorder>();
         inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
 
@@ -227,83 +230,37 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         else if (inv.isCampSpeedMode && !inv.isWalkMode)
         {
-            
-            if (inv.campSpeedHighScore != null)
+            List<GhostFrame> ghostFrames = inv.getGhostFrames();
+            if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.ContainsKey(holeNum))
             {
-                /*float highscore = 0;
-                float currScore = 0;
-
-                foreach (var kvp in inv.campSpeedHighScore)
+                if (ghostFrames != null && inv.campSpeedHighScore.ContainsKey(holeNum) && ghostFrames[ghostFrames.Count - 1].GetTime() < inv.campSpeedHighScore[holeNum])
                 {
-                    float score = kvp.Value;
-                    int level = kvp.Key;
-                    highscore += score;
-                }
-                foreach (var kvp in inv.campSpeedCurrScore)
-                {
-                    float score = kvp.Value;
-                    int level = kvp.Key;
-                    currScore += score;
-                }
-
-                if (currScore <= highscore)
-                {
-                    inv.campSpeedHighScore = inv.campSpeedCurrScore;
-                }*/
-                
-
-                if (inv.campSpeedHighScore.ContainsKey(holeNum) && inv.timer < inv.campSpeedHighScore[holeNum])
-                {
-                    inv.campSpeedCurrScore[holeNum] = inv.timer;
+                    inv.campSpeedCurrScore[holeNum] = ghostFrames[ghostFrames.Count - 1].GetTime();
                     inv.campSpeedHighScore = inv.campSpeedCurrScore;
                 }
-                else if (!inv.campSpeedHighScore.ContainsKey(holeNum))
-                {
-                    inv.campSpeedCurrScore[holeNum] = inv.timer;
-                    inv.campSpeedHighScore = inv.campSpeedCurrScore;
-                }
-
             }
             else
             {
-                inv.campSpeedCurrScore[holeNum] = inv.timer;
+                inv.campSpeedCurrScore[holeNum] = ghostFrames[ghostFrames.Count - 1].GetTime();
                 inv.campSpeedHighScore = inv.campSpeedCurrScore;
             }
 
         }
         else if (inv.isClassicSpeedMode && !inv.isWalkMode)
         {
-            inv.classicSpeedCurrScore[holeNum] = inv.timer;
-            if (holeNum == runFinalHole)
+            List<GhostFrame> ghostFrames = inv.getGhostFrames();
+            if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.ContainsKey(holeNum))
             {
-                if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.Count == runFinalHole)
+                if (ghostFrames != null && inv.classicSpeedHighScore.ContainsKey(holeNum) && ghostFrames[ghostFrames.Count - 1].GetTime() < inv.classicSpeedHighScore[holeNum])
                 {
-                    float highscore = 0;
-                    float currScore = 0;
-
-                    foreach (var kvp in inv.classicSpeedHighScore)
-                    {
-                        float score = kvp.Value;
-                        int level = kvp.Key;
-                        highscore += score;
-                    }
-                    foreach (var kvp in inv.classicSpeedCurrScore)
-                    {
-                        float score = kvp.Value;
-                        int level = kvp.Key;
-                        currScore += score;
-                    }
-
-                    if (currScore <= highscore)
-                    {
-                        inv.classicSpeedHighScore = inv.classicSpeedCurrScore;
-                    }
-
-                }
-                else
-                {
+                    inv.classicSpeedCurrScore[holeNum] = ghostFrames[ghostFrames.Count - 1].GetTime();
                     inv.classicSpeedHighScore = inv.classicSpeedCurrScore;
                 }
+            }
+            else
+            {
+                inv.classicSpeedCurrScore[holeNum] = ghostFrames[ghostFrames.Count - 1].GetTime();
+                inv.classicSpeedHighScore = inv.classicSpeedCurrScore;
             }
 
         }
@@ -478,7 +435,6 @@ public class Hole : MonoBehaviour, ButtonTarget
             
             if ((holeNum == 18 && (inv.isCampSpeedMode || inv.isClassicSpeedMode) && inv.timer < timeToBeat) || (!inv.isCampSpeedMode && !inv.isClassicSpeedMode && holeNum == 18 && !inv.isFreeplayMode))
             {
-                print("hello");
                 animator.SetBool("RunFinished", true);
             }
             else if (inv.isFreeplayMode)
@@ -498,12 +454,10 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if(inv.isCampSpeedMode || inv.isClassicSpeedMode)
             {
-                print("Hello3");
                 animator.SetBool("SpeedrunWon", true);
             }
             else
             {
-                print("Hello4");
                 animator.SetBool("RunWon", true);
             }
 
@@ -551,6 +505,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     {
         if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
         {
+            
             if (ball.strokes < par && Map.getCurrent() == Map.TYPE.CAMPAIGN)
             {
                 currentLevel = holeNum;
@@ -575,6 +530,34 @@ public class Hole : MonoBehaviour, ButtonTarget
                 inv.coinsCollected[currentLevel].Add(3);
                 
                 
+
+            }
+
+            // Save ghost frames
+            if ((inv.getMode() == MainMenu.Mode.SPEEDRUN || inv.getMode() == MainMenu.Mode.CLUBLESS) && !inHole)
+            {
+                inHole = true;
+                
+                List<GhostFrame> ghostFrames = inv.getGhostFrames();
+                if (ghostFrames != null)
+                {
+                    if (ghostFrames.Count > 0) 
+                    {
+                        float totalTime = ghostFrames[ghostFrames.Count - 1].GetTime();
+
+                        if (totalTime > ghostRecorder.timeElapsed)
+                        {
+                            ghostRecorder.recordFrame();
+                            inv.setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames));
+                        }
+                    }
+                }
+                else
+                {
+                    ghostRecorder.recordFrame();
+                    inv.setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames));
+                }
+                ghostRecorder.isRecording = false;
 
             }
 
@@ -614,53 +597,34 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if (inv.isCampSpeedMode)
             {
-                nextLevelButton.interactable = false;
+                nextLevelButton.interactable = inv.isLevelUnlocked(Map.getCurrent(), MainMenu.Mode.SPEEDRUN, holeNum + 1);
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Too Slow!";
 
-                //Save best ghost time:
-                if (inv.campSpeedFrames.ContainsKey(holeNum))
-                {
-                    List<GhostFrame> ghostFrames = inv.campSpeedFrames[holeNum];
-                    if (ghostFrames.Count > 0)
-                    {
-                        float totalTime = ghostFrames[ghostFrames.Count - 1].GetTime();
-                        var recorder = FindObjectOfType<GhostRecorder>();
+                List<GhostFrame> currFrames = ghostRecorder.currFrames;
+                float time = currFrames[currFrames.Count - 1].GetTime();
 
-                        if (totalTime > recorder.currFrames[recorder.currFrames.Count - 1].GetTime())
-                        {
-                            recorder.recordFrame();
-
-                            inv.campSpeedFrames[holeNum] = new List<GhostFrame>(recorder.currFrames);
-                        }
-                    }
-                }
-                else
-                {
-                    var recorder = FindObjectOfType<GhostRecorder>();
-                    inv.campSpeedFrames[holeNum] = new List<GhostFrame>(recorder.currFrames);
-                }
-
-                if (inv.timer < timeToBeat)
+                if (!nextLevelButton.interactable && time < timeToBeat)
                 {
                     winTxt.text = "Campaign Speedrun";
                     nextLevelButton.interactable = true;
                     inv.campSpeedGoalsBeat[holeNum] = true;
-                }
 
-                if (holeNum == 18 && inv.timer < timeToBeat)
-                {
-                    if (inv.isWalkMode)
+                    if (holeNum == 18)
                     {
-                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_CLUBLESS);
+                        if (inv.isWalkMode)
+                        {
+                            Achievement.Give(Achievement.TYPE.BEAT_CAMP_CLUBLESS);
+                        }
+                        else
+                        {
+                            Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
+                        }
+
+                        winTxt.text = "You finished Campaign Speedrun!";
                     }
-                    else
-                    {
-                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
-                    }
-                    
-                    winTxt.text = "You finished Campaign Speedrun!";
+
                 }
 
             }
@@ -695,7 +659,6 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Classic 18 Holes";
-                print("Hello");
                 if (holeNum == 18)
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
@@ -705,31 +668,32 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if (inv.isClassicSpeedMode)
             {
-                nextLevelButton.interactable = false;
+                nextLevelButton.interactable = inv.isLevelUnlocked(Map.getCurrent(), MainMenu.Mode.SPEEDRUN, holeNum + 1);
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Too Slow!";
 
-                print(inv.timer);
-                print(timeToBeat);
-                if (inv.timer < timeToBeat)
+                List<GhostFrame> currFrames = ghostRecorder.currFrames;
+                float time = currFrames[currFrames.Count - 1].GetTime();
+                if (!nextLevelButton.interactable && time < timeToBeat)
                 {
                     winTxt.text = "Classic Speedrun";
                     nextLevelButton.interactable = true;
                     inv.campSpeedGoalsBeat[holeNum] = true;
-                }
 
-                if (holeNum == 18 && inv.timer < timeToBeat)
-                {
-                    if (inv.isWalkMode)
+                    if (holeNum == 18)
                     {
-                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
-                    }
-                    else
-                    {
-                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
-                    }
+                        if (inv.isWalkMode)
+                        {
+                            Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
+                        }
+                        else
+                        {
+                            Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
+                        }
                         winTxt.text = "You finished Classic Speedrun!";
+                    }
+
                 }
 
             }

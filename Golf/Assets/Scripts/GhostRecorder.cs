@@ -4,13 +4,31 @@ using UnityEngine;
 public class GhostRecorder : MonoBehaviour
 {
     public List<GhostFrame> currFrames = new List<GhostFrame>();
-    private float timeElapsed = 0f;
+    public float timeElapsed = 0f;
     private float lastFrameTime = 0f;
     private float frameCaptureRate = 0.08f;
     public bool isRecordingTunnel = false;
+    public bool isRecording
+    {
+        get { return _isRecording; }
+        set
+        {
+            _isRecording = value;
+            if (!_isRecording && currFrames.Count > 0)
+            {
+                timeElapsed = currFrames[currFrames.Count - 1].GetTime();
+            }
+        }
+    }
+    private bool _isRecording = true;
 
     private void Start()
     {
+        MainMenu.Mode mode = FindObjectOfType<Inventory>().getMode();
+        if (mode != MainMenu.Mode.SPEEDRUN && mode != MainMenu.Mode.CLUBLESS)
+        {
+            isRecording = false;
+        }
         recordFrame();
     }
 
@@ -21,11 +39,17 @@ public class GhostRecorder : MonoBehaviour
 
     public void recordFrame()
     {
+        if (!isRecording)
+        {
+            return;
+        }
         timeElapsed += Time.fixedDeltaTime;
+
         if (lastFrameTime + frameCaptureRate > timeElapsed)
         {
             return;
         }
+
         lastFrameTime = timeElapsed;
         currFrames.Add(new GhostFrame(transform.position, timeElapsed, isRecordingTunnel));
         if (isRecordingTunnel)
