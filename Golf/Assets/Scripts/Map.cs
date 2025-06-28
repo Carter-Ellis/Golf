@@ -30,6 +30,11 @@ public class Map
         get { return getCurrent(); }
     }
 
+    public static int hole
+    {
+        get { return getHole(); }
+    }
+
     private static TYPE getCurrent()
     {
         string name = SceneManager.GetActiveScene().name;
@@ -44,6 +49,25 @@ public class Map
             }
         }
         return output;
+    }
+
+    private static int getHole()
+    {
+        string name = SceneManager.GetActiveScene().name;
+        int numIndex = name.LastIndexOf(' ') + 1;
+        if (numIndex >= name.Length)
+        {
+            return 0;
+        }
+        string level = name.Substring(numIndex, name.Length - numIndex);
+        try
+        {
+            return int.Parse(level);
+        }
+        catch (System.Exception)
+        {
+            return 0;
+        }
     }
 
 }

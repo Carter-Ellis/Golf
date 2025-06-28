@@ -70,7 +70,7 @@ public class Mole : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (inv.getMode() != GameMode.TYPE.CLUBLESS)
+        if (GameMode.current != GameMode.TYPE.CLUBLESS)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.moleHit, transform.position);
         }

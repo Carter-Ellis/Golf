@@ -42,7 +42,7 @@ public class Bouncer : MonoBehaviour
         }
         isBouncing = true;
         //AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
-        if (inv.getMode() != GameMode.TYPE.CLUBLESS)
+        if (GameMode.current != GameMode.TYPE.CLUBLESS)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
         }

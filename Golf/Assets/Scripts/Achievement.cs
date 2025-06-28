@@ -124,7 +124,7 @@ public class Achievement : MonoBehaviour
     {
         Inventory inv = GameObject.FindAnyObjectByType<Inventory>();
         
-        if (inv.getMode() == GameMode.TYPE.CLUBLESS && (type != Achievement.TYPE.BEAT_CAMP_CLUBLESS || type != Achievement.TYPE.BEAT_CLASSIC_CLUBLESS))
+        if (GameMode.current == GameMode.TYPE.CLUBLESS && (type != Achievement.TYPE.BEAT_CAMP_CLUBLESS || type != Achievement.TYPE.BEAT_CLASSIC_CLUBLESS))
         {
             return;
         }

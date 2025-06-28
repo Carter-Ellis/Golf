@@ -18,16 +18,6 @@ public class SceneInitializer : MonoBehaviour
         
         Inventory inv = FindObjectOfType<Inventory>();
 
-        inv.isClassicMode = false;
-        inv.isClassicSpeedMode = false;
-        inv.isCampaignMode = false;
-        inv.isWalkMode = false;
-        inv.isCampSpeedMode = false;
-        inv.isClassicHardMode = false;
-        inv.isCampHardMode = false;
-        inv.isFreeplayMode = false;
-        inv.SavePlayer();
-
         if (inv.totalCoins >= unlockHardcoreAmount)
         {
             

@@ -13,16 +13,6 @@ public class Inventory : MonoBehaviour
     PopupController popupController;
     GhostRecorder ghostRecorder;
 
-    public bool isWalkMode;
-    public bool isFreeplayMode;
-
-    public bool isCampaignMode;
-    public bool isCampSpeedMode;
-    public bool isCampHardMode;
-    public bool isClassicMode;
-    public bool isClassicSpeedMode;
-    public bool isClassicHardMode;
-
     public List<Ability> unlockedAbilities = new List<Ability>();
     public int indexOfAbility = 0;
 
@@ -184,7 +174,7 @@ public class Inventory : MonoBehaviour
         if (time != null)
         {
             timerTxt = time.GetComponent<TextMeshProUGUI>();
-            if (!isCampSpeedMode && !isClassicSpeedMode)
+            if (!GameMode.isAnySpeedrun())
             {
                 timerTxt.enabled = false;
             }
@@ -194,29 +184,15 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        /*foreach (var kvp in campSpeedGoalsBeat)
-        {
-            bool score = kvp.Value;
-            int level = kvp.Key;
-            print("Level : " + level + " Score: " + score);
-        }*/
-            /*int highscore = 0;
-            foreach (var kvp in classicHighScore)
-            {
-                int score = kvp.Value;
-                int level = kvp.Key;
-                highscore += score;
-                print("Level : " + level + " Score: " + score);
-            }*/
+        SavePlayer();
 
-            SavePlayer();
     }
 
     private void DisplayBestTime()
     {
         GameObject bestTimeObj = GameObject.Find("Best Time");
 
-        if (!isCampSpeedMode && !isClassicSpeedMode) { 
+        if (!GameMode.isAnySpeedrun()) { 
             
             bestTimeObj?.SetActive(false); 
             return; 
@@ -261,7 +237,7 @@ public class Inventory : MonoBehaviour
 
         GameObject reset = GameObject.Find("Reset");
 
-        if (!isFreeplayMode && !isCampSpeedMode && !isCampSpeedMode) 
+        if ((GameMode.current != GameMode.TYPE.FREEPLAY) && !GameMode.isAnySpeedrun()) 
         {
 
             if (reset != null)
@@ -290,7 +266,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        if (!isCampSpeedMode && !isClassicSpeedMode) { timeObject.SetActive(false); return; }
+        if (!GameMode.isAnySpeedrun()) { timeObject.SetActive(false); return; }
 
         if (timeObject != null)
         {
@@ -298,7 +274,7 @@ public class Inventory : MonoBehaviour
         }
         if (hole.timeToBeatTxt != null)
         {
-            if (!isCampSpeedMode && !isClassicSpeedMode)
+            if (!GameMode.isAnySpeedrun())
             {
                 hole.timeToBeatTxt.enabled = false;
             }
@@ -325,7 +301,7 @@ public class Inventory : MonoBehaviour
 
     private void SpeedrunTimer()
     {
-        if ((!isCampSpeedMode && !isClassicSpeedMode) || timerTxt == null) { return; }
+        if ((!GameMode.isAnySpeedrun()) || timerTxt == null) { return; }
 
         System.TimeSpan time = System.TimeSpan.FromSeconds(ghostRecorder.timeElapsed);
         timerTxt.text = time.ToString(@"mm\:ss\.ff");
@@ -509,8 +485,6 @@ public class Inventory : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        isClassicMode = false;
-        isCampaignMode = false;
         SceneManager.LoadScene("Main Menu");
     }
 
@@ -798,16 +772,6 @@ public class Inventory : MonoBehaviour
         ballColor = data != null ? data.ballColor.ToColor() : Color.white;
         isColorUnlocked = data != null ? data.isColorUnlocked : false;
 
-        isWalkMode = data != null ? data.isWalkMode : false;
-
-        isCampaignMode = data != null ? data.isCampaignMode : false;
-        isCampSpeedMode = data != null ? data.isCampSpeedMode : false;
-        isCampHardMode = data != null ? data.isCampHardMode : false;
-        isClassicMode = data != null ? data.isClassicMode : false;
-        isClassicSpeedMode = data != null ? data.isClassicSpeedMode : false;
-        isClassicHardMode = data != null ? data.isClassicHardMode : false;
-        isFreeplayMode = data != null ? data.isFreeplayMode : false;
-
         if (data?.achievements != null && data.achievements.Length > 0)
         {
             achievements = new bool[(int)Achievement.TYPE.MAX];
@@ -851,8 +815,8 @@ public class Inventory : MonoBehaviour
     private ref List<GhostFrame> getGhostFramesRef()
     {
         Map.TYPE map = Map.current;
-        GameMode.TYPE mode = getMode();
-        int holeNum = getHole();
+        GameMode.TYPE mode = GameMode.current;
+        int holeNum = Map.hole;
         int modeIndex = -1;
         if (mode == GameMode.TYPE.SPEEDRUN)
         {
@@ -869,25 +833,6 @@ public class Inventory : MonoBehaviour
         return ref blankGhostFrames;
     }
 
-    public int getHole()
-    {
-        string name = SceneManager.GetActiveScene().name;
-        int numIndex = name.LastIndexOf(' ') + 1;
-        if (numIndex >= name.Length)
-        {
-            return 0;
-        }
-        string level = name.Substring(numIndex, name.Length - numIndex);
-        try
-        {
-            return int.Parse(level);
-        }
-        catch (Exception)
-        {
-            return 0;
-        }
-    }
-
     public bool isLevelUnlocked(Map.TYPE map, GameMode.TYPE mode, int level)
     {
         return getLevelUnlockedBool(map, mode, level);
@@ -896,29 +841,6 @@ public class Inventory : MonoBehaviour
     public void setLevelUnlocked(Map.TYPE map, GameMode.TYPE mode, int level, bool unlocked = true)
     {
         getLevelUnlockedBool(map, mode, level) = unlocked;
-    }
-
-    public GameMode.TYPE getMode()
-    {
-
-        if (isCampaignMode || isClassicMode)
-        {
-            return GameMode.TYPE.HOLE18;
-        }
-        if (isCampSpeedMode || isClassicSpeedMode)
-        {
-            return isWalkMode ? GameMode.TYPE.CLUBLESS : GameMode.TYPE.SPEEDRUN;
-        }
-        if (isFreeplayMode)
-        {
-            return GameMode.TYPE.FREEPLAY;
-        }
-        if (isCampHardMode || isClassicHardMode)
-        {
-            return GameMode.TYPE.HARDCORE;
-        }
-        return GameMode.TYPE.HOLE18;//Default
-
     }
 
     private bool blankRef;

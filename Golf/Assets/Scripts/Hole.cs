@@ -28,6 +28,8 @@ public class Hole : MonoBehaviour, ButtonTarget
     private int currentLevel;
     public int holeNum;
     private int runFinalHole = 2;
+    private Map.TYPE currentMap;
+    private GameMode.TYPE currentMode;
     public UnityEngine.UI.Button nextLevelButton;
 
     [SerializeField] private TextMeshProUGUI winTxt;
@@ -60,6 +62,8 @@ public class Hole : MonoBehaviour, ButtonTarget
     private int[] costs = { 2, 5, 8, 12 };
     private void Awake()
     {
+        currentMap = Map.current;
+        currentMode = GameMode.current;
         ball = GameObject.FindObjectOfType<Ball>();
         ghostRecorder = ball.GetComponent<GhostRecorder>();
         inv = ball.GetComponent<Inventory>();
@@ -78,7 +82,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             timeToBeatTxt = timeObject.GetComponent<TextMeshProUGUI>();
         }
 
-        holeNum = int.Parse(getCourseNumber());
+        holeNum = Map.hole;
         currentLevel = holeNum;
 
         if (signTxt != null)
@@ -91,49 +95,16 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     }
 
-    private string getCourseNumber()
-    {
-
-        string name = SceneManager.GetActiveScene().name;
-        int start = -1;
-        int end = name.Length;
-        for (int i = 0; i < name.Length; i++)
-        {
-            char c = name[i];
-            bool isNum = (c >= '0' && c <= '9');
-            if (start == -1)
-            {
-                if (isNum)
-                {
-                    start = i;
-                }
-            }
-            else
-            {
-                if (!isNum)
-                {
-                    end = i;
-                    break;
-                }
-            }
-        }
-        if (start < 0 || end - start < 0)
-        {
-            return "0";
-        }
-        return name.Substring(start, end - start);
-
-    }
-
     private void UnlockNewLevel()
     {
         Inventory inv = ball.GetComponent<Inventory>();
-        if (inv.isFreeplayMode)
+        GameMode.TYPE currentMode = GameMode.current;
+        if (currentMode == GameMode.TYPE.FREEPLAY)
         {
             inv.levelsCompleted[holeNum] = true;
         }
 
-        inv.setLevelUnlocked(Map.current, GameMode.current, holeNum + 1);
+        inv.setLevelUnlocked(currentMap, GameMode.current, holeNum + 1);
         
         if (appleAchievement != null)
         {
@@ -145,7 +116,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             Achievement.Give(Achievement.TYPE.HOLE9_GUESS);
         }
 
-        if (ball.strokes <= par && Map.current == Map.TYPE.CAMPAIGN)
+        if (ball.strokes <= par && currentMap == Map.TYPE.CAMPAIGN)
         {
             foreach (int coin in inv.tempCollectedCoins)
             {
@@ -158,7 +129,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
         }
 
-        if (inv.isCampaignMode)
+        if ((currentMap == Map.TYPE.CAMPAIGN) && (currentMode == GameMode.TYPE.HOLE18))
         {
             inv.campaignCurrScore[holeNum] = ball.strokes;
             if (holeNum == runFinalHole)
@@ -195,7 +166,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             }
         }
-        else if (inv.isClassicMode)
+        else if ((currentMap == Map.TYPE.CLASSIC) && (currentMode == GameMode.TYPE.HOLE18))
         {
             inv.classicCurrScore[holeNum] = ball.strokes;
             
@@ -228,7 +199,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
             } 
         }
-        else if (inv.isCampSpeedMode && !inv.isWalkMode)
+        else if ((currentMap == Map.TYPE.CAMPAIGN) && (currentMode == GameMode.TYPE.SPEEDRUN))
         {
             List<GhostFrame> ghostFrames = inv.getGhostFrames();
             if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.ContainsKey(holeNum))
@@ -246,7 +217,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
 
         }
-        else if (inv.isClassicSpeedMode && !inv.isWalkMode)
+        else if ((currentMap == Map.TYPE.CLASSIC) && (currentMode == GameMode.TYPE.SPEEDRUN))
         {
             List<GhostFrame> ghostFrames = inv.getGhostFrames();
             if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.ContainsKey(holeNum))
@@ -264,7 +235,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
 
         }
-        else if (inv.isCampHardMode)
+        else if ((currentMap == Map.TYPE.CAMPAIGN) && (currentMode == GameMode.TYPE.HARDCORE))
         {
             inv.campHardCurrScore[holeNum] = ball.strokes;
             if (holeNum == runFinalHole)
@@ -301,7 +272,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             }
         }
-        else if (inv.isClassicHardMode)
+        else if ((currentMap == Map.TYPE.CLASSIC) && (currentMode == GameMode.TYPE.HARDCORE))
         {
             inv.classicHardCurrScore[holeNum] = ball.strokes;
             if (holeNum == runFinalHole)
@@ -389,7 +360,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleBad, transform.position);
             }
 
-            if (ball.strokes == 0 && !inv.isWalkMode)
+            if (ball.strokes == 0 && (GameMode.current != GameMode.TYPE.CLUBLESS))
             {
                 Achievement.Give(Achievement.TYPE.HOLEINNONE);
 
@@ -407,14 +378,14 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             inv.SavePlayer();
 
-            if (!inv.isFreeplayMode)
+            if (GameMode.current != GameMode.TYPE.FREEPLAY)
             {
                 UnlockNewLevel();
             }
 
             if (ball.strokes <= par)
             {
-                if (inv.isFreeplayMode)
+                if (GameMode.current == GameMode.TYPE.FREEPLAY)
                 {
                     UnlockNewLevel();
                 }
@@ -432,12 +403,12 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.m_Lens.OrthographicSize = camController.mapViewSize;
             camController.cam.transform.position = camController.mapViewPos.position;
 
-            
-            if ((holeNum == 18 && (inv.isCampSpeedMode || inv.isClassicSpeedMode) && inv.timer < timeToBeat) || (!inv.isCampSpeedMode && !inv.isClassicSpeedMode && holeNum == 18 && !inv.isFreeplayMode))
+            bool isSpeedrunning = GameMode.isAnySpeedrun();
+            if (holeNum == 18 && ((isSpeedrunning && inv.timer < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
             {
                 animator.SetBool("RunFinished", true);
             }
-            else if (inv.isFreeplayMode)
+            else if (GameMode.current == GameMode.TYPE.FREEPLAY)
             {
                 if (holeNum == 18)
                 {
@@ -452,7 +423,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                         animator.SetBool("Won", true);
                 }
             }
-            else if(inv.isCampSpeedMode || inv.isClassicSpeedMode)
+            else if (isSpeedrunning)
             {
                 animator.SetBool("SpeedrunWon", true);
             }
@@ -534,7 +505,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
 
             // Save ghost frames
-            if ((inv.getMode() == GameMode.TYPE.SPEEDRUN || inv.getMode() == GameMode.TYPE.CLUBLESS) && !inHole)
+            if (GameMode.isAnySpeedrun() && !inHole)
             {
                 inHole = true;
                 
@@ -561,7 +532,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             }
 
-            if (inv.isFreeplayMode && ball.strokes <= par)
+            if ((GameMode.current == GameMode.TYPE.FREEPLAY) && ball.strokes <= par)
             {
                 if (holeNum == 18 && SceneManager.GetActiveScene().name == "Campaign 18")
                 {
@@ -582,7 +553,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 winTxt.fontSize = 50;
                 winTxt.text = "You Lose! Too Many Strokes!";
             }
-            else if (inv.isCampaignMode)
+            else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.current == GameMode.TYPE.HOLE18)
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
@@ -595,7 +566,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                     winTxt.text = "You finished Campaign 18 Holes!";
                 }
             }
-            else if (inv.isCampSpeedMode)
+            else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.isAnySpeedrun())
             {
                 nextLevelButton.interactable = inv.isLevelUnlocked(Map.current, GameMode.TYPE.SPEEDRUN, holeNum + 1);
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
@@ -613,7 +584,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
                     if (holeNum == 18)
                     {
-                        if (inv.isWalkMode)
+                        if (GameMode.current == GameMode.TYPE.CLUBLESS)
                         {
                             Achievement.Give(Achievement.TYPE.BEAT_CAMP_CLUBLESS);
                         }
@@ -628,7 +599,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
             }
-            else if (inv.isCampHardMode)
+            else if ((currentMap == Map.TYPE.CAMPAIGN) && (currentMode == GameMode.TYPE.HARDCORE))
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
@@ -653,7 +624,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 
 
             }
-            else if (inv.isClassicMode)
+            else if (currentMap == Map.TYPE.CLASSIC && currentMode == GameMode.TYPE.HOLE18)
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
@@ -666,7 +637,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
             }
-            else if (inv.isClassicSpeedMode)
+            else if (currentMap == Map.TYPE.CLASSIC && GameMode.isAnySpeedrun())
             {
                 nextLevelButton.interactable = inv.isLevelUnlocked(Map.current, GameMode.TYPE.SPEEDRUN, holeNum + 1);
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
@@ -683,7 +654,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
                     if (holeNum == 18)
                     {
-                        if (inv.isWalkMode)
+                        if (GameMode.current == GameMode.TYPE.CLUBLESS)
                         {
                             Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
                         }
@@ -697,7 +668,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
             }
-            else if (inv.isClassicHardMode)
+            else if (currentMap == Map.TYPE.CLASSIC && currentMode == GameMode.TYPE.HARDCORE)
             {
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;

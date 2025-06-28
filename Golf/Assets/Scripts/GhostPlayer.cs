@@ -26,7 +26,7 @@ public class GhostPlayer : MonoBehaviour
 
     void Update()
     {
-        if (frames == null || frames.Count < 2 || (inv.getMode() != GameMode.TYPE.SPEEDRUN && inv.getMode() != GameMode.TYPE.CLUBLESS))
+        if (frames == null || frames.Count < 2 || !GameMode.isAnySpeedrun())
             return;
 
         if (tunnelTimer < tunnelTime)

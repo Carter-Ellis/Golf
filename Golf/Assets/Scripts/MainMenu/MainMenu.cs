@@ -64,24 +64,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play(int level)
     {
-        Inventory inv = GameObject.FindObjectOfType<Inventory>();
-        bool isCamp = (currentMap == Map.TYPE.CAMPAIGN);
-        bool isClassic = (currentMap == Map.TYPE.CLASSIC);
-
-        GameMode.TYPE currentMode = GameMode.current;
-
-        inv.isFreeplayMode = currentMode == GameMode.TYPE.FREEPLAY;
-        inv.isWalkMode = currentMode == GameMode.TYPE.CLUBLESS;
-        inv.isCampaignMode = isCamp && (currentMode == GameMode.TYPE.HOLE18);
-        inv.isClassicMode = isClassic && (currentMode == GameMode.TYPE.HOLE18);
-        inv.isCampSpeedMode = isCamp && (currentMode == GameMode.TYPE.SPEEDRUN || currentMode == GameMode.TYPE.CLUBLESS);
-        inv.isClassicSpeedMode = isClassic && (currentMode == GameMode.TYPE.SPEEDRUN || currentMode == GameMode.TYPE.CLUBLESS);
-        inv.isCampHardMode = isCamp && (currentMode == GameMode.TYPE.HARDCORE);
-        inv.isClassicHardMode = isClassic && (currentMode == GameMode.TYPE.HARDCORE);
-        inv.SavePlayer();
-
         SceneManager.LoadSceneAsync(Map.name(currentMap) + " " + level);
-
     }
 
     public void GoTo(State state)
