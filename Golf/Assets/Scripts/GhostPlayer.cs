@@ -8,20 +8,17 @@ public class GhostPlayer : MonoBehaviour
     private List<GhostFrame> frames;
     public float playbackSpeed = 1f;
 
-    private int holeNum = 0;
     private int currentFrame = 0;
     private float playbackTime = 0f;
 
     private float tunnelTimer = 2f;
     private float tunnelTime = 2f;
-    private bool isPausedForTunnel = false;
     private float timer = .2f;
     private float exitTime = .2f;
 
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
-        holeNum = FindObjectOfType<Hole>().holeNum;
 
         frames = inv.getGhostFrames();
         
@@ -29,7 +26,7 @@ public class GhostPlayer : MonoBehaviour
 
     void Update()
     {
-        if (frames == null || frames.Count < 2 || (inv.getMode() != MainMenu.Mode.SPEEDRUN && inv.getMode() != MainMenu.Mode.CLUBLESS))
+        if (frames == null || frames.Count < 2 || (inv.getMode() != GameMode.TYPE.SPEEDRUN && inv.getMode() != GameMode.TYPE.CLUBLESS))
             return;
 
         if (tunnelTimer < tunnelTime)

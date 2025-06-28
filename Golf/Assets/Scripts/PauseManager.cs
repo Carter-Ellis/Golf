@@ -46,7 +46,7 @@ public class PauseManager : MonoBehaviour
             resetButton.SetActive(false);
         }
 
-        if (inv.isCampSpeedMode || Map.getCurrent() == Map.TYPE.CLASSIC)
+        if (inv.isCampSpeedMode || Map.current == Map.TYPE.CLASSIC)
         {
             coinDisplay1.enabled = false;
             coinDisplay2.enabled = false;

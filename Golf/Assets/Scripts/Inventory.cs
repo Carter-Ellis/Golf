@@ -254,7 +254,7 @@ public class Inventory : MonoBehaviour
     public void DisplayReset()
     {
 
-        if (Map.getCurrent() == Map.TYPE.MAX) //Not in a map
+        if (Map.current == Map.TYPE.MAX) //Not in a map
         {
             return;
         }
@@ -850,15 +850,15 @@ public class Inventory : MonoBehaviour
     private List<GhostFrame> blankGhostFrames;
     private ref List<GhostFrame> getGhostFramesRef()
     {
-        Map.TYPE map = Map.getCurrent();
-        MainMenu.Mode mode = getMode();
+        Map.TYPE map = Map.current;
+        GameMode.TYPE mode = getMode();
         int holeNum = getHole();
         int modeIndex = -1;
-        if (mode == MainMenu.Mode.SPEEDRUN)
+        if (mode == GameMode.TYPE.SPEEDRUN)
         {
             modeIndex = 0;
         }
-        else if (mode == MainMenu.Mode.CLUBLESS)
+        else if (mode == GameMode.TYPE.CLUBLESS)
         {
             modeIndex = 1;
         }
@@ -888,44 +888,44 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool isLevelUnlocked(Map.TYPE map, MainMenu.Mode mode, int level)
+    public bool isLevelUnlocked(Map.TYPE map, GameMode.TYPE mode, int level)
     {
         return getLevelUnlockedBool(map, mode, level);
     }
 
-    public void setLevelUnlocked(Map.TYPE map, MainMenu.Mode mode, int level, bool unlocked = true)
+    public void setLevelUnlocked(Map.TYPE map, GameMode.TYPE mode, int level, bool unlocked = true)
     {
         getLevelUnlockedBool(map, mode, level) = unlocked;
     }
 
-    public MainMenu.Mode getMode()
+    public GameMode.TYPE getMode()
     {
 
         if (isCampaignMode || isClassicMode)
         {
-            return MainMenu.Mode.HOLE18;
+            return GameMode.TYPE.HOLE18;
         }
         if (isCampSpeedMode || isClassicSpeedMode)
         {
-            return isWalkMode ? MainMenu.Mode.CLUBLESS : MainMenu.Mode.SPEEDRUN;
+            return isWalkMode ? GameMode.TYPE.CLUBLESS : GameMode.TYPE.SPEEDRUN;
         }
         if (isFreeplayMode)
         {
-            return MainMenu.Mode.FREEPLAY;
+            return GameMode.TYPE.FREEPLAY;
         }
         if (isCampHardMode || isClassicHardMode)
         {
-            return MainMenu.Mode.HARDCORE;
+            return GameMode.TYPE.HARDCORE;
         }
-        return MainMenu.Mode.HOLE18;//Default
+        return GameMode.TYPE.HOLE18;//Default
 
     }
 
     private bool blankRef;
-    private ref bool getLevelUnlockedBool(Map.TYPE map, MainMenu.Mode mode, int level)
+    private ref bool getLevelUnlockedBool(Map.TYPE map, GameMode.TYPE mode, int level)
     {
-        if (mode != MainMenu.Mode.CLUBLESS && mode != MainMenu.Mode.SPEEDRUN &&
-            mode != MainMenu.Mode.FREEPLAY)
+        if (mode != GameMode.TYPE.CLUBLESS && mode != GameMode.TYPE.SPEEDRUN &&
+            mode != GameMode.TYPE.FREEPLAY)
         {
             blankRef = false;
             return ref blankRef;
@@ -938,11 +938,11 @@ public class Inventory : MonoBehaviour
         int modeIndex = 0;
         switch (mode)
         {
-            case MainMenu.Mode.SPEEDRUN:
+            case GameMode.TYPE.SPEEDRUN:
                 modeIndex = 0; break;
-            case MainMenu.Mode.CLUBLESS:
+            case GameMode.TYPE.CLUBLESS:
                 modeIndex = 1; break;
-            case MainMenu.Mode.FREEPLAY:
+            case GameMode.TYPE.FREEPLAY:
                 modeIndex = 2; break;
         }
         return ref unlockedLevels[(int)map][modeIndex, level-1];

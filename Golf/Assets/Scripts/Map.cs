@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Map : MonoBehaviour
+public class Map
 {
     public enum TYPE
     {
@@ -20,16 +20,21 @@ public class Map : MonoBehaviour
         "Beach",
     };
 
-    public static string Name(TYPE type)
+    public static string name(TYPE type)
     {
         return mapNames[(int)type];
     }
 
-    public static TYPE getCurrent()
+    public static TYPE current
+    {
+        get { return getCurrent(); }
+    }
+
+    private static TYPE getCurrent()
     {
         string name = SceneManager.GetActiveScene().name;
         name = name.Substring(0, name.IndexOf(' '));
-        TYPE output = TYPE.MAX;
+        TYPE output = TYPE.CAMPAIGN;
         for (int i = 0; i < mapNames.Length; i++)
         {
             if (name.Equals(mapNames[i]))

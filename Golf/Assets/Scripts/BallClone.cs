@@ -70,7 +70,7 @@ public class BallClone : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (inv.getMode() != MainMenu.Mode.CLUBLESS)
+        if (inv.getMode() != GameMode.TYPE.CLUBLESS)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
         }

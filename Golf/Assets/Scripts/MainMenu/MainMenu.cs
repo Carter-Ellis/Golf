@@ -34,21 +34,7 @@ public class MainMenu : MonoBehaviour
     private GameObject[] stateScreens = new GameObject[(int)State.MAX];
     private State currentState = State.MAIN;
 
-
-
     private Map.TYPE currentMap = Map.TYPE.CAMPAIGN;
-
-    public enum Mode
-    {
-        HOLE18,
-        FREEPLAY,
-        SPEEDRUN,
-        CLUBLESS,
-        HARDCORE,
-        MAX
-    }
-
-    private Mode currentMode = Mode.HOLE18;
 
     private void Start()
     {
@@ -81,17 +67,20 @@ public class MainMenu : MonoBehaviour
         Inventory inv = GameObject.FindObjectOfType<Inventory>();
         bool isCamp = (currentMap == Map.TYPE.CAMPAIGN);
         bool isClassic = (currentMap == Map.TYPE.CLASSIC);
-        inv.isFreeplayMode = currentMode == Mode.FREEPLAY;
-        inv.isWalkMode = currentMode == Mode.CLUBLESS;
-        inv.isCampaignMode = isCamp && (currentMode == Mode.HOLE18);
-        inv.isClassicMode = isClassic && (currentMode == Mode.HOLE18);
-        inv.isCampSpeedMode = isCamp && (currentMode == Mode.SPEEDRUN || currentMode == Mode.CLUBLESS);
-        inv.isClassicSpeedMode = isClassic && (currentMode == Mode.SPEEDRUN || currentMode == Mode.CLUBLESS);
-        inv.isCampHardMode = isCamp && (currentMode == Mode.HARDCORE);
-        inv.isClassicHardMode = isClassic && (currentMode == Mode.HARDCORE);
+
+        GameMode.TYPE currentMode = GameMode.current;
+
+        inv.isFreeplayMode = currentMode == GameMode.TYPE.FREEPLAY;
+        inv.isWalkMode = currentMode == GameMode.TYPE.CLUBLESS;
+        inv.isCampaignMode = isCamp && (currentMode == GameMode.TYPE.HOLE18);
+        inv.isClassicMode = isClassic && (currentMode == GameMode.TYPE.HOLE18);
+        inv.isCampSpeedMode = isCamp && (currentMode == GameMode.TYPE.SPEEDRUN || currentMode == GameMode.TYPE.CLUBLESS);
+        inv.isClassicSpeedMode = isClassic && (currentMode == GameMode.TYPE.SPEEDRUN || currentMode == GameMode.TYPE.CLUBLESS);
+        inv.isCampHardMode = isCamp && (currentMode == GameMode.TYPE.HARDCORE);
+        inv.isClassicHardMode = isClassic && (currentMode == GameMode.TYPE.HARDCORE);
         inv.SavePlayer();
 
-        SceneManager.LoadSceneAsync(Map.Name(currentMap) + " " + level);
+        SceneManager.LoadSceneAsync(Map.name(currentMap) + " " + level);
 
     }
 
@@ -147,18 +136,13 @@ public class MainMenu : MonoBehaviour
 
     public void SetMode(int mode)
     {
-        if (mode < 0 || mode >= (int)Mode.MAX)
+        if (mode < 0 || mode >= (int)GameMode.TYPE.MAX)
         {
             return;
         }
 
-        currentMode = (Mode)mode;
+        GameMode.current = (GameMode.TYPE)mode;
 
-    }
-
-    public Mode GetMode()
-    {
-        return currentMode;
     }
 
     public void SetMap(int map)
