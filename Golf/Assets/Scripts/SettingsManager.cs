@@ -82,6 +82,8 @@ public class SettingsManager : MonoBehaviour
                     ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
                     ball.ClearDots();
                     ball.swingPowerSlider.gameObject.SetActive(false);
+                    ball.powerTxt.gameObject.SetActive(false);
+                    ball.cancelImage.SetActive(false);
                     pauseManager.UpdatePauseMenu();
                 }
             }   
