@@ -93,6 +93,7 @@ public class Inventory : MonoBehaviour
     [Header("Coin Sprites")]
     public Sprite coinCollectedSprite;
     public Sprite coinSprite;
+    private Image coinImage;
 
     [Header("TextDisplay")]
     [SerializeField] public TextMeshProUGUI selectedAbilityTxt;
@@ -162,6 +163,8 @@ public class Inventory : MonoBehaviour
         ball = GetComponent<Ball>();
         LoadPlayer();
         popupController = FindObjectOfType<PopupController>();
+        DisplayReset();
+        DisplayCoins();
     }
 
     private void Start()
@@ -175,7 +178,7 @@ public class Inventory : MonoBehaviour
         PopulateCharges();
         DisplayCosmetics();
         SetGoal();
-        DisplayReset();
+        
         DisplayBestTime();
 
         ghostRecorder = gameObject.GetComponent<GhostRecorder>();
@@ -442,6 +445,19 @@ public class Inventory : MonoBehaviour
         coin.GetComponent<SpriteRenderer>().sprite = coinCollectedSprite;
         coinMenu.GetComponent<Image>().sprite = coinSprite;
         
+    }
+
+    private void DisplayCoins()
+    {
+        coinImage = GameObject.Find("Coin Image")?.GetComponent<Image>();
+        if (getMode() == MainMenu.Mode.SPEEDRUN || getMode() == MainMenu.Mode.CLUBLESS || Map.getCurrent() == Map.TYPE.CLASSIC)
+        {
+            if (coinImage != null && coinTxt != null)
+            {
+                coinImage.enabled = false;
+                coinTxt.enabled = false;
+            }
+        }
     }
 
     private void Update()
@@ -850,6 +866,10 @@ public class Inventory : MonoBehaviour
     private List<GhostFrame> blankGhostFrames;
     private ref List<GhostFrame> getGhostFramesRef()
     {
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            return ref blankGhostFrames;
+        }
         Map.TYPE map = Map.getCurrent();
         MainMenu.Mode mode = getMode();
         int holeNum = getHole();

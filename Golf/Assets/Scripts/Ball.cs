@@ -43,8 +43,10 @@ public class Ball : MonoBehaviour
     public float moveSpeed = 5f;
     private Vector2 movement;
 
+    public TextMeshProUGUI powerTxt;
     private Slider swingCooldownSlider;
     public Slider swingPowerSlider;
+    public GameObject cancelImage;
 
 
     [Header("Ball Properties")]
@@ -163,12 +165,33 @@ public class Ball : MonoBehaviour
             dots.Add(new DotData(dot, offset));
         }
 
+        cancelImage = GameObject.Find("User Interface")?.transform.Find("Fire2")?.gameObject;
+
+        if (cancelImage != null)
+        {
+            GameObject resetImage = GameObject.Find("Reset");
+
+            if (resetImage == null)
+            {
+                cancelImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(-254, cancelImage.GetComponent<RectTransform>().anchoredPosition.y);
+            }
+
+            cancelImage.SetActive(false);
+        }
+
         swingCooldownSlider = GameObject.Find("Swing Cooldown")?.GetComponent<Slider>();
         if (swingCooldownSlider != null)
         {
             swingCooldownSlider.gameObject.SetActive(false);
         }
-        
+
+        powerTxt = GameObject.Find("Power Txt")?.GetComponent<TextMeshProUGUI>();
+
+        if (powerTxt != null)
+        {
+            powerTxt.gameObject.SetActive(false);
+        }
+
         swingPowerSlider = GameObject.Find("Swing Power")?.GetComponent<Slider>();
 
         if (swingPowerSlider != null)
@@ -669,6 +692,8 @@ public class Ball : MonoBehaviour
             hasClickedBall = false;
             cursor.GetComponent<SpriteRenderer>().enabled = false;
             swingPowerSlider.gameObject.SetActive(false);
+            powerTxt.gameObject.SetActive(false);
+            cancelImage.SetActive(false);
             ClearDots();
             return;
         }
@@ -713,8 +738,10 @@ public class Ball : MonoBehaviour
             Vector2 force = -mousePosNormalized * distFromBall;
 
             swingPowerSlider.gameObject.SetActive(true);
+            powerTxt.gameObject.SetActive(true);
             swingPowerSlider.value = force.magnitude / maxHitSpeed;
-
+            powerTxt.text = force.magnitude.ToString("F1");
+            cancelImage.SetActive(true);
             DrawTrajectory(force);
         }
         else
@@ -725,6 +752,7 @@ public class Ball : MonoBehaviour
         {
             hasShot = true;
             hasClickedBall = false;
+            
             Shoot();
         }
     }
@@ -734,6 +762,8 @@ public class Ball : MonoBehaviour
         FindObjectOfType<GhostRecorder>().recordFrame();
         ClearDots();
         swingPowerSlider.gameObject.SetActive(false);
+        powerTxt.gameObject.SetActive(false);
+        cancelImage.SetActive(false);
         swingCooldownSlider.gameObject.SetActive(true);
         hasClickedBall = false;
         isPuttCooldown = false;
@@ -757,9 +787,13 @@ public class Ball : MonoBehaviour
 
         Vector2 force = -mousePosNormalized * distFromBall;
         
-        if (force.magnitude > 0)
+        if (force.magnitude >= 0.1f)
         {
             strokes++;
+        }
+        else
+        {
+            return;
         }
            
         rb.AddForce(force, ForceMode2D.Impulse);
