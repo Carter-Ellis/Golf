@@ -742,8 +742,9 @@ public class Ball : MonoBehaviour
 
             swingPowerSlider.gameObject.SetActive(true);
             powerTxt.gameObject.SetActive(true);
-            swingPowerSlider.value = force.magnitude / maxHitSpeed;
-            powerTxt.text = force.magnitude.ToString("F1");
+            float ratio = force.magnitude / maxHitSpeed;
+            swingPowerSlider.value = ratio;
+            powerTxt.text = (ratio * 100f).ToString("F0") + "%";
             cancelImage.SetActive(true);
             DrawTrajectory(force);
         }
