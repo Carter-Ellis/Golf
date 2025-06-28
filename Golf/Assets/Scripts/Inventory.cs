@@ -426,7 +426,7 @@ public class Inventory : MonoBehaviour
     private void DisplayCoins()
     {
         coinImage = GameObject.Find("Coin Image")?.GetComponent<Image>();
-        if (getMode() == MainMenu.Mode.SPEEDRUN || getMode() == MainMenu.Mode.CLUBLESS || Map.getCurrent() == Map.TYPE.CLASSIC)
+        if (GameMode.isAnySpeedrun() || Map.current == Map.TYPE.CLASSIC)
         {
             if (coinImage != null && coinTxt != null)
             {
