@@ -91,6 +91,7 @@ public class Ball : MonoBehaviour
     private float damageTimer = 0f;
     public float maxHitSpeed = 15f;
     private ParticleSystem ps;
+    private Map.TYPE currentMap;
 
     [Header("Dots")]
     public GameObject dotPrefab;
@@ -152,6 +153,7 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {
+        currentMap = Map.current;
         CurrentDirection = Direction.South;
         inv = GetComponent<Inventory>();
         // Instantiate dots spaced out behind startPos
@@ -246,9 +248,10 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        isBattleMode = inv.isWalkMode;
+        isBattleMode = (GameMode.current == GameMode.TYPE.CLUBLESS);
         didEnter = false;
         didExit = false;
+        GameMode.TYPE currentMode = GameMode.current;
         checkDead();
         AnimateBall();
         //UpdateSound();
@@ -261,7 +264,7 @@ public class Ball : MonoBehaviour
 
         }
 
-        if (PlayerInput.isDown(PlayerInput.Axis.Reset) && !inv.isCampaignMode && !inv.isCampHardMode && !inv.isClassicMode && !inv.isClassicHardMode) 
+        if (PlayerInput.isDown(PlayerInput.Axis.Reset) && currentMode != GameMode.TYPE.HOLE18 && currentMode != GameMode.TYPE.HARDCORE) 
         {
             AudioManager.instance.StopAllSFXEvents();
             inv.numResets++;
@@ -739,8 +742,9 @@ public class Ball : MonoBehaviour
 
             swingPowerSlider.gameObject.SetActive(true);
             powerTxt.gameObject.SetActive(true);
-            swingPowerSlider.value = force.magnitude / maxHitSpeed;
-            powerTxt.text = force.magnitude.ToString("F1");
+            float ratio = force.magnitude / maxHitSpeed;
+            swingPowerSlider.value = ratio;
+            powerTxt.text = (ratio * 100f).ToString("F0") + "%";
             cancelImage.SetActive(true);
             DrawTrajectory(force);
         }

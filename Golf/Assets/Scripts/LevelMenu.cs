@@ -32,8 +32,8 @@ public class LevelMenu : MonoBehaviour
         MainMenu menu = FindObjectOfType<MainMenu>();
         Inventory inv = FindObjectOfType<Inventory>();
         Map.TYPE map = menu.GetMap();
-        MainMenu.Mode mode = menu.GetMode();
-        bool isFreePlay = mode == MainMenu.Mode.FREEPLAY;
+        GameMode.TYPE mode = GameMode.current;
+        bool isFreePlay = mode == GameMode.TYPE.FREEPLAY;
         for (int i = 0; i < buttons.Length; i++)
         {
             bool unlocked = inv.isLevelUnlocked(map, mode, i+1);

@@ -24,8 +24,7 @@ public class GhostRecorder : MonoBehaviour
 
     private void Start()
     {
-        MainMenu.Mode mode = FindObjectOfType<Inventory>().getMode();
-        if (mode != MainMenu.Mode.SPEEDRUN && mode != MainMenu.Mode.CLUBLESS)
+        if (!GameMode.isAnySpeedrun())
         {
             isRecording = false;
         }

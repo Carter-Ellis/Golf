@@ -41,12 +41,12 @@ public class PauseManager : MonoBehaviour
     public void UpdatePauseMenu()
     {
 
-        if (!inv.isFreeplayMode && !inv.isCampSpeedMode && !inv.isClassicSpeedMode)
+        if ((GameMode.current != GameMode.TYPE.FREEPLAY) && !GameMode.isAnySpeedrun())
         {
             resetButton.SetActive(false);
         }
 
-        if (inv.isCampSpeedMode || Map.getCurrent() == Map.TYPE.CLASSIC)
+        if (GameMode.isAnySpeedrun() || Map.current == Map.TYPE.CLASSIC)
         {
             coinDisplay1.enabled = false;
             coinDisplay2.enabled = false;
@@ -90,7 +90,7 @@ public class PauseManager : MonoBehaviour
             }
         }
 
-        if (!inv.isFreeplayMode)
+        if (GameMode.current != GameMode.TYPE.FREEPLAY)
         {
             upgradeAvailableTxt.enabled = false;
             shopButton.SetActive(false);

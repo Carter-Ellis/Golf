@@ -16,7 +16,8 @@ public class Coin : MonoBehaviour
         ball = FindObjectOfType<Ball>();
         inventory = ball.GetComponent<Inventory>();
 
-        if (!inventory.isFreeplayMode && !inventory.isCampaignMode && !inventory.isCampHardMode)
+        GameMode.TYPE mode = GameMode.current;
+        if ((mode == GameMode.TYPE.SPEEDRUN) || (mode == GameMode.TYPE.CLUBLESS))
         {
             gameObject.SetActive(false);
         }

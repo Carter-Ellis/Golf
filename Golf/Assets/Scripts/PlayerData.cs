@@ -139,16 +139,6 @@ public class PlayerData
 
         teleportRange = inv.teleportRange;
 
-        isWalkMode = inv.isWalkMode;
-
-        isCampaignMode = inv.isCampaignMode;
-        isCampSpeedMode = inv.isCampSpeedMode;
-        isCampHardMode = inv.isCampHardMode;
-        isClassicMode = inv.isClassicMode;
-        isClassicSpeedMode = inv.isClassicSpeedMode;
-        isClassicHardMode = inv.isClassicHardMode;
-        isFreeplayMode = inv.isFreeplayMode;
-
         campSpeedGoalsBeat = inv.campSpeedGoalsBeat;
 
         achievements = inv.achievements;

@@ -17,7 +17,7 @@ public class PopupController : MonoBehaviour
         
         if (popup != null)
         {
-            if(inv.isCampSpeedMode || inv.isClassicSpeedMode || inv.isCampHardMode || inv.isClassicHardMode)
+            if(GameMode.isAnySpeedrun())
             {
                 popup.SetActive(false);
                 return;
