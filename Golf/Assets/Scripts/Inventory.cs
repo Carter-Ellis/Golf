@@ -900,7 +900,7 @@ public class Inventory : MonoBehaviour
     private void AbilityManager()
     {
 
-        if (unlockedAbilities == null)
+        if (unlockedAbilities == null || Map.current == Map.TYPE.CLASSIC)
         {
             return;
         }
@@ -936,7 +936,7 @@ public class Inventory : MonoBehaviour
 
     private void DisplayAbility()
     {
-        if (unlockedAbilities == null)
+        if (unlockedAbilities == null || Map.current == Map.TYPE.CLASSIC)
         {
             return;
         }
