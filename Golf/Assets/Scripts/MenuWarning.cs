@@ -6,11 +6,22 @@ using UnityEngine.SceneManagement;
 public class MenuWarning : MonoBehaviour
 {
 
-    [SerializeField] private GameObject menuWarning;
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject winCanvas;
+    private static GameObject menuWarning;
+    private static GameObject pauseMenu;
+    private static GameObject winCanvas;
 
-    public void warningOpen()
+    private void Awake()
+    {
+        menuWarning = GameObject.Find("Menu Warning");
+        pauseMenu = GameObject.Find("Pause Screen");
+        winCanvas = GameObject.Find("LevelFinishedCanvas");
+        menuWarning.SetActive(false);
+        print("menu warning " + menuWarning);
+        print("menu [pause " + pauseMenu);
+        print("level finish canvas " + winCanvas);
+    }
+
+    public static void warningOpen()
     {
         if (GameMode.isAnySpeedrun() || GameMode.current == GameMode.TYPE.FREEPLAY)
         {
@@ -18,6 +29,7 @@ public class MenuWarning : MonoBehaviour
         }
         else
         {
+            
             winCanvas.SetActive(false);
             pauseMenu.SetActive(false);
             menuWarning.SetActive(true);
