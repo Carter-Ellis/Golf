@@ -603,7 +603,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638865531012494633
+  lastModified: 638868968782703534
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -952,13 +952,15 @@ MonoBehaviour:
   - {fileID: 739910007760059452}
   - {fileID: -2052996369377873216}
   - {fileID: -2778700431476125355}
+  - {fileID: 186538832908839141}
+  - {fileID: 6911870697662646261}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -2382926633897921263}
   StringsBanks:
   - {fileID: 327917192201675269}
-  cacheTime: 638865531013782176
+  cacheTime: 638868968830566542
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -987,6 +989,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &186538832908839141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Beach Music
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Beach Music
+  Guid:
+    Data1: 1779793243
+    Data2: 1334850287
+    Data3: -806083400
+    Data4: -209626308
+  Banks:
+  - {fileID: 389591723674447224}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1125
 --- !u!114 &277786182806412892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1056,10 +1085,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638865531012514574
+  lastModified: 638868968782733447
   FileSizes:
   - Name: Desktop
-    Value: 3928
+    Value: 4018
   Exists: 1
 --- !u!114 &371802504618700355
 MonoBehaviour:
@@ -1103,10 +1132,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638856874033337612
+  lastModified: 638868968830566542
   FileSizes:
   - Name: Desktop
-    Value: 30083360
+    Value: 34795584
   Exists: 1
 --- !u!114 &420839407750736933
 MonoBehaviour:
@@ -1589,6 +1618,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &6911870697662646261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambience/Beach
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/Beach
+  Guid:
+    Data1: -423178322
+    Data2: 1142745800
+    Data3: 531202961
+    Data4: -1371400933
+  Banks:
+  - {fileID: 389591723674447224}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 224376
 --- !u!114 &6990928610770344242
 MonoBehaviour:
   m_ObjectHideFlags: 0

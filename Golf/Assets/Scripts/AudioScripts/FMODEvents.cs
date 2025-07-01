@@ -12,9 +12,11 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Music")]
     [field: SerializeField] public EventReference music { get; private set; }
     [field: SerializeField] public EventReference mainMusic { get; private set; }
+    [field: SerializeField] public EventReference beachMusic { get; private set; }
 
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference ambience { get; private set; }
+    [field: SerializeField] public EventReference beachAmbience { get; private set; }
 
     [field: Header("DoorSFX")]
     [field: SerializeField] public EventReference door6sec { get; private set; }

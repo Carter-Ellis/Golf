@@ -16,9 +16,6 @@ public class MenuWarning : MonoBehaviour
         pauseMenu = GameObject.Find("Pause Screen");
         winCanvas = GameObject.Find("LevelFinishedCanvas");
         menuWarning.SetActive(false);
-        print("menu warning " + menuWarning);
-        print("menu [pause " + pauseMenu);
-        print("level finish canvas " + winCanvas);
     }
 
     public static void warningOpen()

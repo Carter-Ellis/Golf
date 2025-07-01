@@ -69,7 +69,6 @@ public class MainMenu : MonoBehaviour
 
     public void GoTo(State state)
     {
-        print("setting state 2" + state);
         if (currentState == state)
         {
             return;
@@ -169,12 +168,10 @@ public class MainMenu : MonoBehaviour
 
         if (GameMode.current == GameMode.TYPE.HOLE18 || GameMode.current == GameMode.TYPE.HARDCORE)
         {
-            print("setting state " + state);
             GoTo((State)state);
         }
         else
         {
-            print("main menu!");
             SceneManager.LoadScene("Main Menu");
         }
     }

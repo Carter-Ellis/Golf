@@ -3108,7 +3108,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6167987906088177891, guid: 5d3c9d01ccae05f4481ca27e5730aecb, type: 3}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: backButton
         m_Mode: 1

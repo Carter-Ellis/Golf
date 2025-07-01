@@ -31,6 +31,8 @@ public class AudioManager : MonoBehaviour
     private EventInstance mainMusicInstance;
     private EventInstance shopMusicInstance;
 
+    private EventReference currentAmbience;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -38,11 +40,10 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-
         instance = this;
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
 
         eventInstances = new List<EventInstance>();
 
@@ -52,15 +53,6 @@ public class AudioManager : MonoBehaviour
         ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
     }
 
-    private void Start()
-    {
-
-        if (!ambienceEventInstance.isValid())
-        {
-            InitializeAmbience(FMODEvents.instance.ambience);
-        }
-
-    }
 
     private void Update()
     {
@@ -134,7 +126,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (SceneManager.GetActiveScene().name == "Main Menu")
+        if (scene.name == "Main Menu")
         {
             instance.StartMainMusic();
         }
@@ -142,6 +134,9 @@ public class AudioManager : MonoBehaviour
         {
             instance.StartGameMusic();
         }
+
+        StartAmbience();
+
     }
 
     public void StartMainMusic()
@@ -155,9 +150,19 @@ public class AudioManager : MonoBehaviour
         if (musicEventInstance.isValid()) return;
 
         StopMusic();
-        musicEventInstance = CreateInstance(FMODEvents.instance.music);
-        musicEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-        musicEventInstance.start();
+        if (Map.current == Map.TYPE.BEACH)
+        {
+            musicEventInstance = CreateInstance(FMODEvents.instance.beachMusic);
+            musicEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(Vector3.zero));
+            musicEventInstance.start();
+        }
+        else
+        {
+            musicEventInstance = CreateInstance(FMODEvents.instance.music);
+            musicEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(Vector3.zero));
+            musicEventInstance.start();
+        }
+        
     }
 
     public void StopMusic()
@@ -185,13 +190,48 @@ public class AudioManager : MonoBehaviour
 
     public void PlayShopMusic()
     {
-        if (shopMusicInstance.isValid()) return;
         StopMusic();
 
         shopMusicInstance = CreateInstance(FMODEvents.instance.shopMusic);
-        shopMusicInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        shopMusicInstance.set3DAttributes(RuntimeUtils.To3DAttributes(Vector3.zero));
         shopMusicInstance.start();
     }
 
+    public void StartAmbience()
+    {
+        EventReference eventRef;
+
+        if (Map.current == Map.TYPE.BEACH)
+        {
+            eventRef = FMODEvents.instance.beachAmbience;
+        }
+        else
+        {
+            eventRef = FMODEvents.instance.ambience;
+        }
+
+        if (eventRef.Guid == currentAmbience.Guid)
+        {
+            return; //Don't start ambience if same
+        }
+        StopAmbience();
+        currentAmbience = eventRef;
+
+        ambienceEventInstance = CreateInstance(eventRef);
+        ambienceEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(Vector3.zero));
+        ambienceEventInstance.start();
+    }
+
+
+    public void StopAmbience()
+    {
+        if (ambienceEventInstance.isValid())
+        {
+            ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            ambienceEventInstance.release();
+            ambienceEventInstance = default;
+        }
+        currentAmbience = default;
+    }
 
 }

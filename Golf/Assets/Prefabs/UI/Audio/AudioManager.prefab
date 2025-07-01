@@ -122,6 +122,13 @@ MonoBehaviour:
       Data3: -147931209
       Data4: -262935708
     Path: event:/Music/Main Menu Music
+  <beachMusic>k__BackingField:
+    Guid:
+      Data1: 1779793243
+      Data2: 1334850287
+      Data3: -806083400
+      Data4: -209626308
+    Path: event:/Music/Beach Music
   <ambience>k__BackingField:
     Guid:
       Data1: -1165163214
@@ -129,6 +136,13 @@ MonoBehaviour:
       Data3: 923135633
       Data4: 280572043
     Path: event:/Ambience/Outside
+  <beachAmbience>k__BackingField:
+    Guid:
+      Data1: -423178322
+      Data2: 1142745800
+      Data3: 531202961
+      Data4: -1371400933
+    Path: event:/Ambience/Beach
   <door6sec>k__BackingField:
     Guid:
       Data1: 777624729

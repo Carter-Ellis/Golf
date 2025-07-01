@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Water Splash
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: -2057406024, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 786076943, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: -691257056, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 1575507040, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: -939281383, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: -87407312, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 303968281, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: -1627691945, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 1727911368, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 452553540, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 84650112, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: -94996522, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: -601099042, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: -136729396, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 17058894, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  - {fileID: 1862090540, guid: c0950c292f207b941bcfb8afbb5f4b7d, type: 3}
+  m_MinSpeed: 6
+  m_MaxSpeed: 6
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 2
+  m_TileAnimationFlags: 0

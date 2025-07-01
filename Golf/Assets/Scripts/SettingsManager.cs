@@ -92,6 +92,8 @@ public class SettingsManager : MonoBehaviour
     }
     public void backButton()
     {
+        
+        soundMenu = GameObject.Find("Pause Screen").gameObject;
         soundMenu.SetActive(!soundMenu.activeSelf);
         if (ball != null)
         {
