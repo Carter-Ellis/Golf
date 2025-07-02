@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CursorController : MonoBehaviour
 {
 
+    public bool isFunctional = true;
     private Image cursorImage;
     private HashSet<GameObject> hovered = new HashSet<GameObject>();
     private bool isDragging = false;
@@ -40,10 +41,13 @@ public class CursorController : MonoBehaviour
             }
             Vector2 position = new Vector2(Screen.width, Screen.height) - PlayerInput.cursorPosition;
             transform.position = position;
-            SimulateClick(position);
-            if (PlayerInput.isDown(PlayerInput.Axis.Fire2))
+            if (isFunctional)
             {
-                BackButton(position);
+                SimulateClick(position);
+                if (PlayerInput.isDown(PlayerInput.Axis.Fire2))
+                {
+                    BackButton(position);
+                }
             }
         }
         else if (cursorImage.enabled)
