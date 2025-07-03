@@ -14,12 +14,31 @@ public class MapData
     }
     private bool[,] unlockedLevels = new bool[3, 18];
     private List<GhostFrame>[,] ghostFrames = new List<GhostFrame>[2, 18];
+    private bool[,] coinsCollected = new bool[18, 3];
 
     public MapData(Map.TYPE type)
     {
 
         this.type = type;
 
+    }
+
+    public bool isCoinCollected(int hole, int coinNum)
+    {
+        if (hole < 1 || hole > 18 || coinNum < 1 || coinNum > 3)
+        {
+            return false;
+        }
+        return coinsCollected[hole - 1, coinNum - 1];
+    }
+
+    public void setCoinCollected(int hole, int coinNum, bool value = true)
+    {
+        if (hole < 1 || hole > 18 || coinNum < 1 || coinNum > 3)
+        {
+            return;
+        }
+        coinsCollected[hole - 1, coinNum - 1] = value;
     }
 
     public bool isLevelUnlocked(GameMode.TYPE mode, int hole)

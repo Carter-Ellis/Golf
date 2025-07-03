@@ -74,20 +74,18 @@ public class PauseManager : MonoBehaviour
         }
 
         int currentLevel = FindObjectOfType<Hole>().holeNum;
-        if (inv.coinsCollected != null && inv.coinsCollected.ContainsKey(currentLevel))
+        MapData mapData = Map.getCurrent();
+        if (mapData.isCoinCollected(currentLevel, 1) && goldCoin != null && coinDisplay1 != null)
         {
-            if (inv.coinsCollected[currentLevel].Contains(1) && goldCoin != null && coinDisplay1 != null)
-            {
-                coinDisplay1.GetComponent<Image>().sprite = goldCoin;
-            }
-            if (inv.coinsCollected[currentLevel].Contains(2) && goldCoin != null && coinDisplay1 != null)
-            {
-                coinDisplay2.GetComponent<Image>().sprite = goldCoin;
-            }
-            if (inv.coinsCollected[currentLevel].Contains(3) && goldCoin != null && coinDisplay1 != null)
-            {
-                coinDisplay3.GetComponent<Image>().sprite = goldCoin;
-            }
+            coinDisplay1.GetComponent<Image>().sprite = goldCoin;
+        }
+        if (mapData.isCoinCollected(currentLevel, 2) && goldCoin != null && coinDisplay1 != null)
+        {
+            coinDisplay2.GetComponent<Image>().sprite = goldCoin;
+        }
+        if (mapData.isCoinCollected(currentLevel, 3) && goldCoin != null && coinDisplay1 != null)
+        {
+            coinDisplay3.GetComponent<Image>().sprite = goldCoin;
         }
 
         if (GameMode.current != GameMode.TYPE.FREEPLAY)

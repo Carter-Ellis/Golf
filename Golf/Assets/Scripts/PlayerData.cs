@@ -17,17 +17,6 @@ public class PlayerData
     public float SFXVol = 1f;
     public float ambienceVol = 1f;
 
-    public bool isWalkMode;
-    public bool isFreeplayMode;
-
-    public bool isCampaignMode;
-    public bool isCampSpeedMode;
-    public bool isCampHardMode;
-    public bool isClassicMode;
-    public bool isClassicSpeedMode;
-    public bool isClassicHardMode;
-
-    public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
     public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
     public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
@@ -79,7 +68,6 @@ public class PlayerData
     public int numResets;
     
     public List<MapData> mapData = new List<MapData>();
-    public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
 
     public PlayerData(Inventory inv)
     {
@@ -93,7 +81,6 @@ public class PlayerData
         SFXVol = inv.SFXVol;
         ambienceVol = inv.ambienceVol;
 
-        coinsCollected = inv.coinsCollected;
         levelPopups = inv.levelPopups;
         upgradeLevels = inv.upgradeLevels;
 
@@ -143,7 +130,6 @@ public class PlayerData
         numResets = inv.numResets;
 
         mapData = Map.getAll();
-        campSpeedFrames = inv.campSpeedFrames;
 
 }
 

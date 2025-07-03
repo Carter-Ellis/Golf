@@ -130,12 +130,14 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         if (ball.strokes <= par && currentMap == Map.TYPE.CAMPAIGN)
         {
+            MapData mapData = Map.get(currentMap);
             foreach (int coin in inv.tempCollectedCoins)
             {
-                if (!inv.coinsCollected[currentLevel].Contains(coin)) {
+                if (!mapData.isCoinCollected(currentLevel, coin)) 
+                {
                     inv.coins++;
                     inv.totalCoins++;
-                    inv.coinsCollected[holeNum].Add(coin);
+                    mapData.setCoinCollected(currentLevel, coin);
                 }
                 
             }
@@ -404,7 +406,10 @@ public class Hole : MonoBehaviour, ButtonTarget
                     UnlockNewLevel();
                 }
 
-                if (inv.coinsCollected.ContainsKey(currentLevel) && inv.coinsCollected[currentLevel].Contains(1) && inv.coinsCollected[currentLevel].Contains(2) && inv.coinsCollected[currentLevel].Contains(3))
+                MapData mapData = Map.get(currentMap);
+                if (mapData.isCoinCollected(currentLevel, 1)
+                    && mapData.isCoinCollected(currentLevel, 2)
+                    && mapData.isCoinCollected(currentLevel, 3))
                 {  
                     int level = holeNum;
                     
@@ -491,30 +496,18 @@ public class Hole : MonoBehaviour, ButtonTarget
         if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
         {
             
-            if (ball.strokes < par && Map.current == Map.TYPE.CAMPAIGN)
+            if (ball.strokes < par && currentMap == Map.TYPE.CAMPAIGN)
             {
                 currentLevel = holeNum;
                 Inventory inv = ball.GetComponent<Inventory>();
-                if (inv.coinsCollected == null)
-                {
-                    inv.coinsCollected = new Dictionary<int, List<int>>();
-                }
-
-                if (!inv.coinsCollected.ContainsKey(currentLevel))
-                {
-                    inv.coinsCollected[currentLevel] = new List<int>();
-                }
-
-                if (!inv.coinsCollected[currentLevel].Contains(3))
+                MapData mapData = Map.get(currentMap);
+                if (!mapData.isCoinCollected(currentLevel, 3))
                 {
                     inv.coins += 1;
                     inv.totalCoins += 1;
+                    mapData.setCoinCollected(currentLevel, 3);
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
                 }
-
-                inv.coinsCollected[currentLevel].Add(3);
-                
-                
 
             }
 

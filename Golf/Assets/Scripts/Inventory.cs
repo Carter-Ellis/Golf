@@ -29,7 +29,6 @@ public class Inventory : MonoBehaviour
 
     public float zoom = 5f;
 
-    public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
     public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
     public Dictionary<int, bool> levelsCompleted = new Dictionary<int, bool>();
@@ -129,7 +128,6 @@ public class Inventory : MonoBehaviour
 
     [Header("Speedrun")]
     public float timer = 0f;
-    public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
     [SerializeField] private TextMeshProUGUI timerTxt;
     private TextMeshProUGUI bestTimeTxt;
 
@@ -143,7 +141,8 @@ public class Inventory : MonoBehaviour
     [HideInInspector]
     public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
 
-    
+    private Map.TYPE currentMap;
+    private int holeNum;
 
     private void Awake()
     {
@@ -156,6 +155,9 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+
+        currentMap = Map.current;
+        holeNum = Map.hole;
 
         LoadZoom();
         ChangeCoinSprites();
@@ -322,23 +324,18 @@ public class Inventory : MonoBehaviour
     }
     private void ChangeCoinSprites()
     {
-        Hole hole = FindObjectOfType<Hole>();
-        if (hole == null) { return; }
-        int currentLevel = hole.holeNum;
-        if (coinsCollected != null && coinsCollected.ContainsKey(currentLevel))
+        MapData map = Map.get(currentMap);
+        if (map.isCoinCollected(holeNum, 1) && coin1 != null && coin1Menu != null)
         {
-            if (coinsCollected[currentLevel].Contains(1) && coin1 != null && coin1Menu != null)
-            {
-                SetCoinState(coin1, coin1Menu);
-            }
-            if (coinsCollected[currentLevel].Contains(2) && coin2 != null && coin2Menu != null)
-            {
-                SetCoinState(coin2, coin2Menu);
-            }
-            if (coinsCollected[currentLevel].Contains(3) && coin3 != null && coin3Menu != null)
-            {
-                SetCoinState(coin3, coin3Menu);
-            }
+            SetCoinState(coin1, coin1Menu);
+        }
+        if (map.isCoinCollected(holeNum, 2) && coin2 != null && coin2Menu != null)
+        {
+            SetCoinState(coin2, coin2Menu);
+        }
+        if (map.isCoinCollected(holeNum, 3) && coin3 != null && coin3Menu != null)
+        {
+            SetCoinState(coin3, coin3Menu);
         }
     }
 
@@ -528,15 +525,6 @@ public class Inventory : MonoBehaviour
             AudioManager.instance.musicVolume = musicVol;
             AudioManager.instance.SFXVolume = SFXVol;
             AudioManager.instance.ambienceVolume = ambienceVol;
-        }
-
-        if (data?.coinsCollected != null)
-        {
-            coinsCollected = data.coinsCollected;
-        }
-        else
-        {
-            coinsCollected = new Dictionary<int, List<int>>();
         }
 
         if (data?.levelPopups != null)
@@ -780,16 +768,6 @@ public class Inventory : MonoBehaviour
         }
 
         numResets = data != null ? data.numResets : 0;
-
-        if (data?.campSpeedFrames != null)
-        {
-
-            campSpeedFrames = data.campSpeedFrames;
-        }
-        else
-        {
-            campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
-        }
 
     }
 
