@@ -132,23 +132,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-
-        if (Steamworks.SteamUtils.IsOverlayEnabled)
-        {
-            if (!isInSteamOverlay)
-            {
-                isInSteamOverlay = true;
-                onPause(true);
-            }
-        }
-        else
-        {
-            if (isInSteamOverlay)
-            {
-                isInSteamOverlay = false;
-                onPause(false);
-            }
-        }
+        checkSteamOverlay();
 
         if (isInSteamOverlay)
         {
@@ -214,6 +198,29 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
+    }
+
+    private void checkSteamOverlay()
+    {
+        if (Steamworks.SteamClient.IsValid)
+        {
+            if (Steamworks.SteamUtils.IsOverlayEnabled)
+            {
+                if (!isInSteamOverlay)
+                {
+                    isInSteamOverlay = true;
+                    onPause(true);
+                }
+            }
+            else
+            {
+                if (isInSteamOverlay)
+                {
+                    isInSteamOverlay = false;
+                    onPause(false);
+                }
+            }
+        }
     }
 
     private static void OnControllerChange()
