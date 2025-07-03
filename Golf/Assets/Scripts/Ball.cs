@@ -204,6 +204,9 @@ public class Ball : MonoBehaviour
         moveSpeed = 7;
         allFans = GameObject.FindObjectsByType<Fan>(FindObjectsSortMode.InstanceID);
         //ballRollSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.ballRollSFX);
+
+        isBattleMode = (GameMode.current == GameMode.TYPE.CLUBLESS);
+
     }
 
     private void FixedUpdate()
@@ -248,7 +251,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        isBattleMode = (GameMode.current == GameMode.TYPE.CLUBLESS);
+        
         didEnter = false;
         didExit = false;
         GameMode.TYPE currentMode = GameMode.current;

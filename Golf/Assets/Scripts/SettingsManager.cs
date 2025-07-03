@@ -69,7 +69,16 @@ public class SettingsManager : MonoBehaviour
 
     public void pause()
     {
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            return;
+        }
         soundMenu.SetActive(!soundMenu.activeSelf);
+
+        if (pauseManager == null)
+        {
+            return;
+        }
         if (soundMenu.activeSelf)
         {
             pauseManager.UpdatePauseMenu();

@@ -138,6 +138,7 @@ public class AbilityTeleport : Ability
 
     public override void onPickup(Ball ball)
     {
+
         charges = getMaxCharges(ball);
 
         float range = ball.GetComponent<Inventory>().teleportRange;

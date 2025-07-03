@@ -22,6 +22,7 @@ public class MenuApple : MonoBehaviour
         button.enabled = false;
         audioButton.enabled = false;
         Achievement.Give(Achievement.TYPE.APPLE_A_DAY);
+        FindObjectOfType<Inventory>().SavePlayer();
     }
 
 }

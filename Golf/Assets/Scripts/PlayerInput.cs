@@ -1,3 +1,4 @@
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,6 +73,15 @@ public class PlayerInput : MonoBehaviour
     private void OnEnable()
     {
         clearInput();
+    }
+
+    private void Awake()
+    {
+        SteamFriends.OnGameOverlayActivated += (bool active) =>
+        {
+            isInSteamOverlay = active;
+            onPause(active);
+        };
     }
 
     private void clearInput()

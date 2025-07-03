@@ -122,4 +122,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Beach 1.unity
     guid: 71d9c85a8abc6e042a138b0a8f1ed998
+  - enabled: 1
+    path: Assets/Scenes/Beach 2.unity
+    guid: ba6caa0e3be7ead4388c3f7b342654bc
   m_configObjects: {}

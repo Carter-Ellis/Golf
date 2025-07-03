@@ -21,6 +21,7 @@ public class AbilityWind : Ability
 
     public override void onPickup(Ball ball)
     {
+        
         charges = getMaxCharges(ball);
     }
 
