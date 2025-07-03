@@ -128,7 +128,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             Achievement.Give(Achievement.TYPE.HOLE9_GUESS);
         }
 
-        if (ball.strokes <= par && currentMap == Map.TYPE.CAMPAIGN)
+        if (ball.strokes <= par && currentMap != Map.TYPE.CLASSIC)
         {
             MapData mapData = Map.get(currentMap);
             foreach (int coin in inv.tempCollectedCoins)
