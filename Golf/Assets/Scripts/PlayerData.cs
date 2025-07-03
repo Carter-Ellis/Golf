@@ -56,8 +56,6 @@ public class PlayerData
     public List<AbilityChargeData> maxChargesList = new List<AbilityChargeData>();
     public List<ABILITIES> unlockedAbilityTypes = new List<ABILITIES>();
 
-    public List<bool[,]> unlockedLevels = new List<bool[,]>();
-
     [NonSerialized] public Sprite hat;
     public string hatName;
     public Hat.TYPE hatType;
@@ -79,8 +77,8 @@ public class PlayerData
     public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
 
     public int numResets;
-
-    public List<List<GhostFrame>[,]> speedrunFrames = new List<List<GhostFrame>[,]>();
+    
+    public List<MapData> mapData = new List<MapData>();
     public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
 
     public PlayerData(Inventory inv)
@@ -144,10 +142,8 @@ public class PlayerData
         achievements = inv.achievements;
         numResets = inv.numResets;
 
-        speedrunFrames = inv.speedrunFrames;
+        mapData = Map.getAll();
         campSpeedFrames = inv.campSpeedFrames;
-
-        unlockedLevels = inv.unlockedLevels;
 
 }
 

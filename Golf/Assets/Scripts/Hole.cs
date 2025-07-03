@@ -104,7 +104,19 @@ public class Hole : MonoBehaviour, ButtonTarget
             inv.levelsCompleted[holeNum] = true;
         }
 
-        inv.setLevelUnlocked(currentMap, GameMode.current, holeNum + 1);
+        bool shouldUnlock = true;
+        if (GameMode.isAnySpeedrun() && ghostRecorder.currFrames != null)
+        {
+            float time = ghostRecorder.currFrames[ghostRecorder.currFrames.Count - 1].GetTime();
+            if (time > timeToBeat)
+            {
+                shouldUnlock = false;
+            }
+        }
+        if (shouldUnlock)
+        {
+            Map.get(currentMap).setLevelUnlocked(currentMode, holeNum + 1);
+        }
         
         if (appleAchievement != null)
         {
@@ -201,10 +213,10 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         else if ((currentMap == Map.TYPE.CAMPAIGN) && (currentMode == GameMode.TYPE.SPEEDRUN))
         {
-            List<GhostFrame> ghostFrames = inv.getGhostFrames();
+            List<GhostFrame> ghostFrames = ghostRecorder.currFrames;
             if (inv.campSpeedHighScore != null && inv.campSpeedHighScore.ContainsKey(holeNum))
             {
-                if (ghostFrames != null && inv.campSpeedHighScore.ContainsKey(holeNum) && ghostFrames[ghostFrames.Count - 1].GetTime() < inv.campSpeedHighScore[holeNum])
+                if (ghostFrames != null && ghostFrames[ghostFrames.Count - 1].GetTime() < inv.campSpeedHighScore[holeNum])
                 {
                     inv.campSpeedCurrScore[holeNum] = ghostFrames[ghostFrames.Count - 1].GetTime();
                     inv.campSpeedHighScore = inv.campSpeedCurrScore;
@@ -219,10 +231,10 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         else if ((currentMap == Map.TYPE.CLASSIC) && (currentMode == GameMode.TYPE.SPEEDRUN))
         {
-            List<GhostFrame> ghostFrames = inv.getGhostFrames();
+            List<GhostFrame> ghostFrames = ghostRecorder.currFrames;
             if (inv.classicSpeedHighScore != null && inv.classicSpeedHighScore.ContainsKey(holeNum))
             {
-                if (ghostFrames != null && inv.classicSpeedHighScore.ContainsKey(holeNum) && ghostFrames[ghostFrames.Count - 1].GetTime() < inv.classicSpeedHighScore[holeNum])
+                if (ghostFrames != null && ghostFrames[ghostFrames.Count - 1].GetTime() < inv.classicSpeedHighScore[holeNum])
                 {
                     inv.classicSpeedCurrScore[holeNum] = ghostFrames[ghostFrames.Count - 1].GetTime();
                     inv.classicSpeedHighScore = inv.classicSpeedCurrScore;
@@ -511,7 +523,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             {
                 inHole = true;
                 
-                List<GhostFrame> ghostFrames = inv.getGhostFrames();
+                List<GhostFrame> ghostFrames = Map.get(currentMap).getGhostFrames(currentMode, holeNum);
                 if (ghostFrames != null)
                 {
                     if (ghostFrames.Count > 0) 
@@ -521,14 +533,14 @@ public class Hole : MonoBehaviour, ButtonTarget
                         if (totalTime > ghostRecorder.timeElapsed)
                         {
                             ghostRecorder.recordFrame();
-                            inv.setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames));
+                            Map.get(currentMap).setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames), currentMode, holeNum);
                         }
                     }
                 }
                 else
                 {
                     ghostRecorder.recordFrame();
-                    inv.setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames));
+                    Map.get(currentMap).setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames), currentMode, holeNum);
                 }
                 ghostRecorder.isRecording = false;
 
@@ -547,7 +559,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 winTxt.fontSize = 75;
                 winTxt.text = winSayings[winSayingIndex];
             }
-            else if (inv.isLevelUnlocked(Map.current, GameMode.TYPE.FREEPLAY, holeNum + 1))
+            else if (Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1))
             {
 
                 nextLevelButton.interactable = true;
@@ -570,7 +582,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.isAnySpeedrun())
             {
-                nextLevelButton.interactable = inv.isLevelUnlocked(Map.current, GameMode.TYPE.SPEEDRUN, holeNum + 1);
+                nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Too Slow!";
@@ -641,7 +653,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if (currentMap == Map.TYPE.CLASSIC && GameMode.isAnySpeedrun())
             {
-                nextLevelButton.interactable = inv.isLevelUnlocked(Map.current, GameMode.TYPE.SPEEDRUN, holeNum + 1);
+                nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Too Slow!";

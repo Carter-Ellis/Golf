@@ -36,7 +36,7 @@ public class LevelMenu : MonoBehaviour
         bool isFreePlay = mode == GameMode.TYPE.FREEPLAY;
         for (int i = 0; i < buttons.Length; i++)
         {
-            bool unlocked = inv.isLevelUnlocked(map, mode, i+1);
+            bool unlocked = Map.get(map).isLevelUnlocked(mode, i+1);
             buttons[i].interactable = unlocked;
             buttons[i].GetComponent<ButtonAudio>().enabled = unlocked;
             buttons[i].GetComponent<HoverFlag>().enabled = isFreePlay;
