@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
     private GameObject[] stateScreens = new GameObject[(int)State.MAX];
     private State currentState = State.MAIN;
 
-    private Map.TYPE currentMap = Map.TYPE.CAMPAIGN;
+    public Map.TYPE selectedMap = Map.TYPE.CAMPAIGN;
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play(int level)
     {
-        SceneManager.LoadSceneAsync(Map.name(currentMap) + " " + level);
+        SceneManager.LoadSceneAsync(Map.name(selectedMap) + " " + level);
     }
 
     public void GoTo(State state)
@@ -135,13 +135,13 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        currentMap = (Map.TYPE)map;
+        selectedMap = (Map.TYPE)map;
 
     }
 
     public Map.TYPE GetMap()
     {
-        return currentMap;
+        return selectedMap;
     }
 
     public void DisplayOptions()

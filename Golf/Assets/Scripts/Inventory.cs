@@ -29,7 +29,6 @@ public class Inventory : MonoBehaviour
 
     public float zoom = 5f;
 
-    public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
     public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
     public Dictionary<int, bool> levelsCompleted = new Dictionary<int, bool>();
@@ -63,8 +62,6 @@ public class Inventory : MonoBehaviour
 
     public Dictionary<int, int> classicHardHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> classicHardCurrScore = new Dictionary<int, int>();
-
-    public List<bool[,]> unlockedLevels = new List<bool[,]>();
 
     public List<int> heightLevels = new List<int>() { 0, 1, 2, 3 };
     public int currentHeight = 0;
@@ -131,8 +128,6 @@ public class Inventory : MonoBehaviour
 
     [Header("Speedrun")]
     public float timer = 0f;
-    public List<List<GhostFrame>[,]> speedrunFrames = new List<List<GhostFrame>[,]>();
-    public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
     [SerializeField] private TextMeshProUGUI timerTxt;
     private TextMeshProUGUI bestTimeTxt;
 
@@ -146,7 +141,8 @@ public class Inventory : MonoBehaviour
     [HideInInspector]
     public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
 
-    
+    private Map.TYPE currentMap;
+    private int holeNum;
 
     private void Awake()
     {
@@ -159,6 +155,9 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+
+        currentMap = Map.current;
+        holeNum = Map.hole;
 
         LoadZoom();
         ChangeCoinSprites();
@@ -205,8 +204,10 @@ public class Inventory : MonoBehaviour
         {
             bestTimeTxt = bestTimeObj.GetComponent<TextMeshProUGUI>();
         }
-        int level = FindObjectOfType<Hole>().holeNum;
-        List<GhostFrame> ghostFrames = getGhostFrames();
+        MapData currentMap = Map.getCurrent();
+        int level = Map.hole;
+        GameMode.TYPE mode = GameMode.current;
+        List<GhostFrame> ghostFrames = currentMap.getGhostFrames(mode, level);
         if (bestTimeTxt == null || ghostFrames == null) { return; }
 
 
@@ -232,11 +233,6 @@ public class Inventory : MonoBehaviour
 
     public void DisplayReset()
     {
-
-        if (Map.current == Map.TYPE.MAX) //Not in a map
-        {
-            return;
-        }
 
         GameObject reset = GameObject.Find("Reset");
 
@@ -328,23 +324,18 @@ public class Inventory : MonoBehaviour
     }
     private void ChangeCoinSprites()
     {
-        Hole hole = FindObjectOfType<Hole>();
-        if (hole == null) { return; }
-        int currentLevel = hole.holeNum;
-        if (coinsCollected != null && coinsCollected.ContainsKey(currentLevel))
+        MapData map = Map.get(currentMap);
+        if (map.isCoinCollected(holeNum, 1) && coin1 != null && coin1Menu != null)
         {
-            if (coinsCollected[currentLevel].Contains(1) && coin1 != null && coin1Menu != null)
-            {
-                SetCoinState(coin1, coin1Menu);
-            }
-            if (coinsCollected[currentLevel].Contains(2) && coin2 != null && coin2Menu != null)
-            {
-                SetCoinState(coin2, coin2Menu);
-            }
-            if (coinsCollected[currentLevel].Contains(3) && coin3 != null && coin3Menu != null)
-            {
-                SetCoinState(coin3, coin3Menu);
-            }
+            SetCoinState(coin1, coin1Menu);
+        }
+        if (map.isCoinCollected(holeNum, 2) && coin2 != null && coin2Menu != null)
+        {
+            SetCoinState(coin2, coin2Menu);
+        }
+        if (map.isCoinCollected(holeNum, 3) && coin3 != null && coin3Menu != null)
+        {
+            SetCoinState(coin3, coin3Menu);
         }
     }
 
@@ -534,15 +525,6 @@ public class Inventory : MonoBehaviour
             AudioManager.instance.musicVolume = musicVol;
             AudioManager.instance.SFXVolume = SFXVol;
             AudioManager.instance.ambienceVolume = ambienceVol;
-        }
-
-        if (data?.coinsCollected != null)
-        {
-            coinsCollected = data.coinsCollected;
-        }
-        else
-        {
-            coinsCollected = new Dictionary<int, List<int>>();
         }
 
         if (data?.levelPopups != null)
@@ -750,40 +732,22 @@ public class Inventory : MonoBehaviour
             levelsCompleted = new Dictionary<int, bool>();
         }
 
-        if (data?.unlockedLevels == null)
+        List<MapData> mapData = new List<MapData>();
+        if (data?.mapData != null)
         {
-            unlockedLevels = new List<bool[,]>();
-        }
-        else
-        {
-            unlockedLevels = data.unlockedLevels;
+            mapData = data.mapData;
         }
         for (int i = 0; i < (int)Map.TYPE.MAX; i++)
         {
-            if (unlockedLevels.Count - 1 < i)
+            if (i >= mapData.Count) {
+                mapData.Add(new MapData((Map.TYPE)i));
+            }
+            else if (mapData[i] == null)
             {
-                unlockedLevels.Add(new bool[3, 18]);
-                unlockedLevels[i][0, 0] = true;
-                unlockedLevels[i][1, 0] = true;
-                unlockedLevels[i][2, 0] = true;
+                mapData[i] = new MapData((Map.TYPE)i);
             }
         }
-
-        if (data?.speedrunFrames != null)
-        {
-            speedrunFrames = data.speedrunFrames;
-        }
-        else
-        {
-            speedrunFrames = new List<List<GhostFrame>[,]>();
-        }
-        for (int i = 0; i < (int)Map.TYPE.MAX; i++)
-        {
-            if (speedrunFrames.Count - 1 < i)
-            {
-                speedrunFrames.Add(new List<GhostFrame>[2,18]);
-            }
-        }
+        Map.setAll(mapData);
 
         ballColor = data != null ? data.ballColor.ToColor() : Color.white;
         isColorUnlocked = data != null ? data.isColorUnlocked : false;
@@ -805,89 +769,6 @@ public class Inventory : MonoBehaviour
 
         numResets = data != null ? data.numResets : 0;
 
-        if (data?.campSpeedFrames != null)
-        {
-
-            campSpeedFrames = data.campSpeedFrames;
-        }
-        else
-        {
-            campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
-        }
-
-    }
-
-    public List<GhostFrame> getGhostFrames()
-    {
-        return getGhostFramesRef();
-    }
-
-    public void setGhostFrames(List<GhostFrame> frames)
-    {
-        getGhostFramesRef() = frames;
-    }
-
-    private List<GhostFrame> blankGhostFrames;
-    private ref List<GhostFrame> getGhostFramesRef()
-    {
-        if (SceneManager.GetActiveScene().name == "Main Menu")
-        {
-            return ref blankGhostFrames;
-        }
-        Map.TYPE map = Map.current;
-        GameMode.TYPE mode = GameMode.current;
-        int holeNum = Map.hole;
-        int modeIndex = -1;
-        if (mode == GameMode.TYPE.SPEEDRUN)
-        {
-            modeIndex = 0;
-        }
-        else if (mode == GameMode.TYPE.CLUBLESS)
-        {
-            modeIndex = 1;
-        }
-        if (modeIndex != -1 && speedrunFrames != null)
-        {
-            return ref speedrunFrames[(int)map][modeIndex, holeNum];
-        }
-        return ref blankGhostFrames;
-    }
-
-    public bool isLevelUnlocked(Map.TYPE map, GameMode.TYPE mode, int level)
-    {
-        return getLevelUnlockedBool(map, mode, level);
-    }
-
-    public void setLevelUnlocked(Map.TYPE map, GameMode.TYPE mode, int level, bool unlocked = true)
-    {
-        getLevelUnlockedBool(map, mode, level) = unlocked;
-    }
-
-    private bool blankRef;
-    private ref bool getLevelUnlockedBool(Map.TYPE map, GameMode.TYPE mode, int level)
-    {
-        if (mode != GameMode.TYPE.CLUBLESS && mode != GameMode.TYPE.SPEEDRUN &&
-            mode != GameMode.TYPE.FREEPLAY)
-        {
-            blankRef = false;
-            return ref blankRef;
-        }
-        if (level < 1 || level > 18)
-        {
-            blankRef = false;
-            return ref blankRef;
-        }
-        int modeIndex = 0;
-        switch (mode)
-        {
-            case GameMode.TYPE.SPEEDRUN:
-                modeIndex = 0; break;
-            case GameMode.TYPE.CLUBLESS:
-                modeIndex = 1; break;
-            case GameMode.TYPE.FREEPLAY:
-                modeIndex = 2; break;
-        }
-        return ref unlockedLevels[(int)map][modeIndex, level-1];
     }
 
     public void ErasePlayerData()

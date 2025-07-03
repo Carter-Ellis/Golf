@@ -20,7 +20,7 @@ public class GhostPlayer : MonoBehaviour
     {
         inv = FindObjectOfType<Inventory>();
 
-        frames = inv.getGhostFrames();
+        frames = Map.getCurrent().getGhostFrames(GameMode.current, Map.hole);
         
     }
 

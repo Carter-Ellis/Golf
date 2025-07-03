@@ -20,6 +20,28 @@ public class Map
         "Beach",
     };
 
+    private static List<MapData> mapData = new List<MapData>((int)Map.TYPE.MAX);
+
+    public static MapData get(Map.TYPE type)
+    {
+        return mapData[(int)type];
+    }
+
+    public static MapData getCurrent()
+    {
+        return get(current);
+    }
+
+    public static List<MapData> getAll()
+    {
+        return mapData;
+    }
+
+    public static void setAll(List<MapData> data)
+    {
+        mapData = data;
+    }
+
     public static string name(TYPE type)
     {
         return mapNames[(int)type];
@@ -27,7 +49,7 @@ public class Map
 
     public static TYPE current
     {
-        get { return getCurrent(); }
+        get { return getCurrentMap(); }
     }
 
     public static int hole
@@ -35,7 +57,7 @@ public class Map
         get { return getHole(); }
     }
 
-    private static TYPE getCurrent()
+    private static TYPE getCurrentMap()
     {
         string name = SceneManager.GetActiveScene().name;
         name = name.Substring(0, name.IndexOf(' '));

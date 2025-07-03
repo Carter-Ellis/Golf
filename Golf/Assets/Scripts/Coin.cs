@@ -38,20 +38,10 @@ public class Coin : MonoBehaviour
             }
 
             inventory = ball.GetComponent<Inventory>();
-
-            if (inventory.coinsCollected == null)
-            {
-                inventory.coinsCollected = new Dictionary<int, List<int>>();
-            }
   
             int currentLevel = FindObjectOfType<Hole>().holeNum;
 
-            if (!inventory.coinsCollected.ContainsKey(currentLevel))
-            {
-                inventory.coinsCollected[currentLevel] = new List<int>();
-            }
-
-            if (!inventory.coinsCollected[currentLevel].Contains(coinNumber))
+            if (!Map.getCurrent().isCoinCollected(currentLevel, coinNumber))
             {
                 inventory.tempCollectedCoins.Add(coinNumber);
             }

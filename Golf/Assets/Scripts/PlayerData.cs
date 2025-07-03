@@ -17,17 +17,6 @@ public class PlayerData
     public float SFXVol = 1f;
     public float ambienceVol = 1f;
 
-    public bool isWalkMode;
-    public bool isFreeplayMode;
-
-    public bool isCampaignMode;
-    public bool isCampSpeedMode;
-    public bool isCampHardMode;
-    public bool isClassicMode;
-    public bool isClassicSpeedMode;
-    public bool isClassicHardMode;
-
-    public Dictionary<int, List<int>> coinsCollected = new Dictionary<int, List<int>>();
     public Dictionary<int, bool> levelPopups = new Dictionary<int, bool>();
     public Dictionary<int, int> upgradeLevels = new Dictionary<int, int>();
     public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
@@ -56,8 +45,6 @@ public class PlayerData
     public List<AbilityChargeData> maxChargesList = new List<AbilityChargeData>();
     public List<ABILITIES> unlockedAbilityTypes = new List<ABILITIES>();
 
-    public List<bool[,]> unlockedLevels = new List<bool[,]>();
-
     [NonSerialized] public Sprite hat;
     public string hatName;
     public Hat.TYPE hatType;
@@ -79,9 +66,8 @@ public class PlayerData
     public bool[] achievements = new bool[(int)Achievement.TYPE.MAX];
 
     public int numResets;
-
-    public List<List<GhostFrame>[,]> speedrunFrames = new List<List<GhostFrame>[,]>();
-    public Dictionary<int, List<GhostFrame>> campSpeedFrames = new Dictionary<int, List<GhostFrame>>();
+    
+    public List<MapData> mapData = new List<MapData>();
 
     public PlayerData(Inventory inv)
     {
@@ -95,7 +81,6 @@ public class PlayerData
         SFXVol = inv.SFXVol;
         ambienceVol = inv.ambienceVol;
 
-        coinsCollected = inv.coinsCollected;
         levelPopups = inv.levelPopups;
         upgradeLevels = inv.upgradeLevels;
 
@@ -144,10 +129,7 @@ public class PlayerData
         achievements = inv.achievements;
         numResets = inv.numResets;
 
-        speedrunFrames = inv.speedrunFrames;
-        campSpeedFrames = inv.campSpeedFrames;
-
-        unlockedLevels = inv.unlockedLevels;
+        mapData = Map.getAll();
 
 }
 

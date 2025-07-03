@@ -23,9 +23,8 @@ public class SteamIntegration : MonoBehaviour
                 Steamworks.SteamClient.Init(3812820); // Use your actual AppID
                 steamInitialized = Steamworks.SteamClient.IsValid;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
-                Debug.LogError("Steam init failed: " + e.Message);
                 steamInitialized = false;
             }
         }

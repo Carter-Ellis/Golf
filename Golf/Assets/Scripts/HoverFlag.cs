@@ -17,10 +17,12 @@ public class HoverFlag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public int levelNum = 1;
 
     private Coroutine fadeCoroutine;
+    private MainMenu menu;
 
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
+        menu = FindObjectOfType<MainMenu>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -48,20 +50,9 @@ public class HoverFlag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void SetCoinSprite(Image image, int coinNum)
     {
-        if (!inv.coinsCollected.ContainsKey(levelNum))
-        {
-            image.sprite = grayCoin;
-            return;
-        }
-
-        if (inv.coinsCollected[levelNum].Contains(coinNum))
-        {
-            image.sprite = goldCoin;
-        }
-        else
-        {
-            image.sprite = grayCoin;
-        }
+        MapData mapData = Map.get(menu.selectedMap);
+        bool hasCoin = mapData.isCoinCollected(levelNum, coinNum);
+        image.sprite = hasCoin ? goldCoin : grayCoin;
     }
 
     private void StartFade(Color targetColor)
