@@ -1,3 +1,4 @@
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,6 +75,15 @@ public class PlayerInput : MonoBehaviour
         clearInput();
     }
 
+    private void Awake()
+    {
+        SteamFriends.OnGameOverlayActivated += (bool active) =>
+        {
+            isInSteamOverlay = active;
+            onPause(active);
+        };
+    }
+
     private void clearInput()
     {
         cursorSpeed = defaultCursorSpeed;
@@ -132,23 +142,6 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-
-        if (Steamworks.SteamUtils.IsOverlayEnabled)
-        {
-            if (!isInSteamOverlay)
-            {
-                isInSteamOverlay = true;
-                onPause(true);
-            }
-        }
-        else
-        {
-            if (isInSteamOverlay)
-            {
-                isInSteamOverlay = false;
-                onPause(false);
-            }
-        }
 
         if (isInSteamOverlay)
         {

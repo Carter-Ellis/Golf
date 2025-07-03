@@ -3108,7 +3108,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6167987906088177891, guid: 5d3c9d01ccae05f4481ca27e5730aecb, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: backButton
         m_Mode: 1
@@ -4782,6 +4782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9c3ce7af7a10e46ac002b428d77263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFunctional: 1
 --- !u!222 &1767249053526699448
 CanvasRenderer:
   m_ObjectHideFlags: 0

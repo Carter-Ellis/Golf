@@ -8,6 +8,10 @@ public class GhostRecorder : MonoBehaviour
     private float lastFrameTime = 0f;
     private float frameCaptureRate = 0.08f;
     public bool isRecordingTunnel = false;
+    Animator anim;
+    Hole hole;
+    Inventory inv;
+    bool timeMaxed = false;
     public bool isRecording
     {
         get { return _isRecording; }
@@ -24,6 +28,9 @@ public class GhostRecorder : MonoBehaviour
 
     private void Start()
     {
+        anim = GameObject.Find("LevelFinishedCanvas").GetComponent<Animator>();
+        hole = FindObjectOfType<Hole>();
+        inv = FindObjectOfType<Inventory>();
         if (!GameMode.isAnySpeedrun())
         {
             isRecording = false;
@@ -33,6 +40,56 @@ public class GhostRecorder : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (timeMaxed)
+        {
+            return;
+        }
+
+        if (timeElapsed > 300f)
+        {
+            if (GameMode.current == GameMode.TYPE.SPEEDRUN && inv.isLevelUnlocked(Map.current, GameMode.TYPE.SPEEDRUN, hole.holeNum + 1))
+            {
+                hole.nextLevelButton.interactable = true;
+            }
+            else if (GameMode.current == GameMode.TYPE.CLUBLESS && inv.isLevelUnlocked(Map.current, GameMode.TYPE.CLUBLESS, hole.holeNum + 1))
+            {
+                hole.nextLevelButton.interactable = true;
+            }
+            else
+            {
+                hole.nextLevelButton.interactable = false;
+            }
+            hole.winTxt.fontSize = 50f;
+            hole.winTxt.text = "Wayyyy Too Slow!";
+            hole.holeOnWinScreenTxt.text = "";
+            hole.parOnWinScreenTxt.text = "";
+            hole.strokesTxt.text = "";
+            anim.SetBool("SpeedrunWon", true);
+            
+            Ball ball = FindObjectOfType<Ball>();
+
+            if (ball != null)
+            {
+                ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                ball.isBallLocked = true;
+                ball.isBattleMode = false;
+                ball.hasClickedBall = false;
+                ball.ClearDots();
+                ball.swingPowerSlider?.gameObject.SetActive(false);
+                ball.powerTxt?.gameObject.SetActive(false);
+                ball.cancelImage?.SetActive(false);
+                SpriteRenderer cursorSprite = ball.cursor?.GetComponent<SpriteRenderer>();
+                if (cursorSprite != null)
+                {
+                    cursorSprite.enabled = false;
+                }
+            }
+
+            timeMaxed = true;
+
+            return;
+        }
+
         recordFrame();
     }
 

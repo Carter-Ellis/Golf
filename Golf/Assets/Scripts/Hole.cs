@@ -32,10 +32,10 @@ public class Hole : MonoBehaviour, ButtonTarget
     private GameMode.TYPE currentMode;
     public UnityEngine.UI.Button nextLevelButton;
 
-    [SerializeField] private TextMeshProUGUI winTxt;
-    [SerializeField] private TextMeshProUGUI holeOnWinScreenTxt;
-    [SerializeField] private TextMeshProUGUI parOnWinScreenTxt;
-    [SerializeField] private TextMeshProUGUI strokesTxt;
+    public TextMeshProUGUI winTxt;
+    public TextMeshProUGUI holeOnWinScreenTxt;
+    public TextMeshProUGUI parOnWinScreenTxt;
+    public TextMeshProUGUI strokesTxt;
     [SerializeField] private TextMeshPro signTxt;
     [SerializeField] private TextMeshPro signLevelTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
@@ -549,11 +549,16 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if (inv.isLevelUnlocked(Map.current, GameMode.TYPE.FREEPLAY, holeNum + 1))
             {
-
                 nextLevelButton.interactable = true;
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "You Lose! Too Many Strokes!";
+
+                if (GameMode.isAnySpeedrun())
+                {
+                    winTxt.text = "Too Slow!";
+                }
+
             }
             else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.current == GameMode.TYPE.HOLE18)
             {

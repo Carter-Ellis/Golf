@@ -7,11 +7,11 @@ public class AbilityPickup : MonoBehaviour
 {
     public ABILITIES type;
     public bool isRecharge = false;
-    public bool playPickupAudio = false;
     public bool isRefill = false;
     private float timer = 0f;
     private float refillTime = 3f;
     private bool used = false;
+    public bool playAudio;
 
     private void Update()
     {
@@ -48,11 +48,6 @@ public class AbilityPickup : MonoBehaviour
             ability.reset(ball);
         }
 
-        if (playPickupAudio)
-        {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, transform.position);
-        }
-
         if (isRecharge)
         {
             inv.RechargeAbility(type);
@@ -62,6 +57,22 @@ public class AbilityPickup : MonoBehaviour
             inv.AddAbility(Ability.Create(type, gameObject.GetComponent<SpriteRenderer>().color));
         }
         
+        if(playAudio)
+        {
+            if (type == ABILITIES.WIND)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.windAbility, Vector3.zero);
+            }
+            else if (type == ABILITIES.FREEZE)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, Vector3.zero);
+            }
+            else if (type == ABILITIES.TELEPORT)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.teleport, Vector3.zero);
+            }
+        }
+
         if (isRefill)
         {
             used = true;

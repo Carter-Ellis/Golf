@@ -25,6 +25,7 @@ TagManager:
   - Mole
   - Fake Flag
   - Ghost
+  - Buoy
   layers:
   - Default
   - TransparentFX
