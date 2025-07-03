@@ -40,25 +40,15 @@ public class GhostRecorder : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (timeMaxed)
+        if (timeMaxed || !isRecording)
         {
             return;
         }
 
         if (timeElapsed > 300f)
         {
-            if (GameMode.current == GameMode.TYPE.SPEEDRUN && inv.isLevelUnlocked(Map.current, GameMode.TYPE.SPEEDRUN, hole.holeNum + 1))
-            {
-                hole.nextLevelButton.interactable = true;
-            }
-            else if (GameMode.current == GameMode.TYPE.CLUBLESS && inv.isLevelUnlocked(Map.current, GameMode.TYPE.CLUBLESS, hole.holeNum + 1))
-            {
-                hole.nextLevelButton.interactable = true;
-            }
-            else
-            {
-                hole.nextLevelButton.interactable = false;
-            }
+            MapData mapData = Map.getCurrent();
+            hole.nextLevelButton.interactable = mapData.isLevelUnlocked(GameMode.current, hole.holeNum + 1);
             hole.winTxt.fontSize = 50f;
             hole.winTxt.text = "Wayyyy Too Slow!";
             hole.holeOnWinScreenTxt.text = "";
