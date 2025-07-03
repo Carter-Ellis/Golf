@@ -67,7 +67,14 @@ public class PlayerInput : MonoBehaviour
     private const float defaultCursorSpeed = 0.6f;
     private Vector2 lastMousePos;
 
+    private bool isInSteamOverlay = false;
+
     private void OnEnable()
+    {
+        clearInput();
+    }
+
+    private void clearInput()
     {
         cursorSpeed = defaultCursorSpeed;
         for (int i = 0; i < (int)Axis.MAX_AXIS; i++)
@@ -114,8 +121,39 @@ public class PlayerInput : MonoBehaviour
         return type;
     }
 
+    private void onPause(bool isPaused)
+    {
+        if (isPaused)
+        {
+            clearInput();
+        }
+        FindObjectOfType<SettingsManager>()?.pause();
+    }
+
     void Update()
     {
+
+        if (Steamworks.SteamUtils.IsOverlayEnabled)
+        {
+            if (!isInSteamOverlay)
+            {
+                isInSteamOverlay = true;
+                onPause(true);
+            }
+        }
+        else
+        {
+            if (isInSteamOverlay)
+            {
+                isInSteamOverlay = false;
+                onPause(false);
+            }
+        }
+
+        if (isInSteamOverlay)
+        {
+            return;
+        }
         
         bool usedKey = false;
         bool usedController = false;

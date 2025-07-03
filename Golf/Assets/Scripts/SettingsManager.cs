@@ -44,11 +44,7 @@ public class SettingsManager : MonoBehaviour
         {
             if (PlayerInput.isDown(PlayerInput.Axis.Cancel))
             {
-                soundMenu.SetActive(!soundMenu.activeSelf);
-                if (soundMenu.activeSelf)
-                {
-                    pauseManager.UpdatePauseMenu();
-                }
+                pause();
             }
             return;
         }
@@ -57,12 +53,7 @@ public class SettingsManager : MonoBehaviour
         {
             if (PlayerInput.isDown(PlayerInput.Axis.Cancel))
             {
-                soundMenu.SetActive(!soundMenu.activeSelf);
-                ball.isBallLocked = soundMenu.activeSelf;
-                if (soundMenu.activeSelf)
-                {
-                    pauseManager.UpdatePauseMenu();
-                }
+                pause();
             }
             return;
         }
@@ -72,24 +63,34 @@ public class SettingsManager : MonoBehaviour
         }
         if (PlayerInput.isDown(PlayerInput.Axis.Cancel) && ball.isActiveAndEnabled && GameObject.Find("Menu Warning") == null)
         {
-            soundMenu.SetActive(!soundMenu.activeSelf);
-            if (ball != null)
-            {
-                ball.isBallLocked = soundMenu.activeSelf;
-                if (soundMenu.activeSelf)
-                {
-                    ball.hasClickedBall = false;
-                    ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
-                    ball.ClearDots();
-                    ball.swingPowerSlider.gameObject.SetActive(false);
-                    ball.powerTxt.gameObject.SetActive(false);
-                    ball.cancelImage.SetActive(false);
-                    pauseManager.UpdatePauseMenu();
-                }
-            }   
-            
+            pause();
         }
     }
+
+    public void pause()
+    {
+        soundMenu.SetActive(!soundMenu.activeSelf);
+        if (soundMenu.activeSelf)
+        {
+            pauseManager.UpdatePauseMenu();
+        }
+        if (ball != null)
+        {
+            ball.isBallLocked = soundMenu.activeSelf;
+            ball.hasClickedBall = false;
+            ball.ClearDots();
+            ball.swingPowerSlider?.gameObject.SetActive(false);
+            ball.powerTxt?.gameObject.SetActive(false);
+            ball.cancelImage?.SetActive(false);
+            SpriteRenderer cursorSprite = ball.cursor?.GetComponent<SpriteRenderer>();
+            if (cursorSprite != null)
+            {
+                cursorSprite.enabled = false;
+            }
+        }
+        
+    }
+
     public void backButton()
     {
         
