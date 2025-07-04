@@ -32,7 +32,7 @@ public class TimedDoor : MonoBehaviour, ButtonTarget
         startPos = transform.position;
         travelDist = Mathf.Sqrt(Mathf.Pow(doorCollider.bounds.size.y, 2) + Mathf.Pow(doorCollider.bounds.size.x, 2));
         endPos = startPos + ((Vector2)(transform.rotation * Vector3.up)).normalized * travelDist;
-        doorTimeSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.door6sec);
+        //doorTimeSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.door6sec);
     }
 
     void Update()

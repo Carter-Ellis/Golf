@@ -33,7 +33,7 @@ public class Fan : MonoBehaviour, Selectable
         center = transform.GetChild(0);
         origRotation = transform.rotation;
 
-        fanSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.fan);
+        //fanSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.fan);
         fanSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         fanSFX.start();
 

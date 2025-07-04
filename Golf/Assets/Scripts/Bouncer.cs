@@ -44,7 +44,7 @@ public class Bouncer : MonoBehaviour
         //AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
         if (GameMode.current != GameMode.TYPE.CLUBLESS)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
+            Audio.playSFX(FMODEvents.instance.bouncer, transform.position);
         }
         
     }

@@ -31,7 +31,7 @@ public class GolfCart : MonoBehaviour
 
         particleSys = gameObject.transform.Find("Grass Particles Cart").GetComponent<ParticleSystem>();
 
-        cartSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.golfCart);
+        //cartSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.golfCart);
         cartSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         cartSFX.start();
 

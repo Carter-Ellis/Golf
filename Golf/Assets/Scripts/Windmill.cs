@@ -15,7 +15,7 @@ public class Windmill : MonoBehaviour
     {
         blades = transform.GetChild(0);
 
-        windSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.windmill);
+        //windSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.windmill);
         windSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         windSFX.start();
     }

@@ -12,13 +12,13 @@ public class ButtonAudio : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     {
         if (isSecretButton || !gameObject.GetComponent<UnityEngine.UI.Button>().interactable) {  return; }
 
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.menuBlip, transform.position);
+        Audio.playSFX(FMODEvents.instance.menuBlip, transform.position);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!gameObject.GetComponent<UnityEngine.UI.Button>().interactable) { return; }
         if (clickSound.IsNull) { return; }
-        AudioManager.instance.PlayOneShot(clickSound, transform.position);
+        Audio.playSFX(clickSound, transform.position);
     }
 }
