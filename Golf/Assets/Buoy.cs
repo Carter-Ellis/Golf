@@ -32,4 +32,17 @@ public class Buoy : MonoBehaviour
 
         rb.velocity = floatVelocity;
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        string otherLayerName = LayerMask.LayerToName(collision.gameObject.layer);
+        Debug.Log("Buoy collided with layer: " + otherLayerName);
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            Debug.Log("Buoy hit Water layer!");
+            inWater = true;
+        }
+    }
+
 }

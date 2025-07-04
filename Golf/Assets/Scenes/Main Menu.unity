@@ -18752,6 +18752,7 @@ MonoBehaviour:
   - {fileID: 6585859455139315435}
   - {fileID: 883815796}
   - {fileID: 1621917835}
+  selectedMap: 0
 --- !u!4 &1859414400
 Transform:
   m_ObjectHideFlags: 0

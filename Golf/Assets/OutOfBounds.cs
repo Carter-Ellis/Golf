@@ -11,7 +11,8 @@ public class OutOfBounds : MonoBehaviour
     private float fallTime = .2f;
     private bool isFalling;
     private float fallSpeed = 1;
-
+    private float endTime;
+    private float triggerCheckDuration = .2f;
     private TilemapCollider2D tilemapCollider;
 
     void Start()
@@ -47,6 +48,13 @@ public class OutOfBounds : MonoBehaviour
     {
         if (!isFalling && collision.CompareTag("Ball"))
         {
+            if (Time.time < endTime)
+            {
+                return;
+            }
+
+            endTime = Time.time + triggerCheckDuration;
+
             if (IsFullyInsideCollider(collision, tilemapCollider))
             {
                 isFalling = true;
