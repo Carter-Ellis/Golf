@@ -19,6 +19,10 @@ public class Buoy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rb.bodyType == RigidbodyType2D.Static)
+        {
+            return;
+        }
         //if (!inWater)
             //return;
 
@@ -35,12 +39,16 @@ public class Buoy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (GameMode.current != GameMode.TYPE.CLUBLESS)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
+        }
+
         string otherLayerName = LayerMask.LayerToName(collision.gameObject.layer);
-        Debug.Log("Buoy collided with layer: " + otherLayerName);
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
-            Debug.Log("Buoy hit Water layer!");
             inWater = true;
         }
     }

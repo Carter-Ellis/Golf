@@ -552,19 +552,6 @@ public class Hole : MonoBehaviour, ButtonTarget
                 winTxt.fontSize = 75;
                 winTxt.text = winSayings[winSayingIndex];
             }
-            else if (Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1))
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "You Lose! Too Many Strokes!";
-
-                if (GameMode.isAnySpeedrun())
-                {
-                    winTxt.text = "Too Slow!";
-                }
-
-            }
             else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.current == GameMode.TYPE.HOLE18)
             {
                 nextLevelButton.interactable = true;
@@ -584,11 +571,10 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
                 winTxt.fontSize = 50;
                 winTxt.text = "Too Slow!";
-
                 List<GhostFrame> currFrames = ghostRecorder.currFrames;
                 float time = currFrames[currFrames.Count - 1].GetTime();
 
-                if (!nextLevelButton.interactable && time < timeToBeat)
+                if (time < timeToBeat)
                 {
                     winTxt.text = "Campaign Speedrun";
                     nextLevelButton.interactable = true;
@@ -658,7 +644,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
                 List<GhostFrame> currFrames = ghostRecorder.currFrames;
                 float time = currFrames[currFrames.Count - 1].GetTime();
-                if (!nextLevelButton.interactable && time < timeToBeat)
+                if (time < timeToBeat)
                 {
                     winTxt.text = "Classic Speedrun";
                     nextLevelButton.interactable = true;
@@ -704,6 +690,60 @@ public class Hole : MonoBehaviour, ButtonTarget
                 
 
             }
+            else if (currentMap == Map.TYPE.BEACH && GameMode.isAnySpeedrun())
+            {
+                nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Too Slow!";
+
+                List<GhostFrame> currFrames = ghostRecorder.currFrames;
+                float time = currFrames[currFrames.Count - 1].GetTime();
+                if (time < timeToBeat)
+                {
+                    winTxt.text = "Beach Speedrun";
+                    nextLevelButton.interactable = true;
+                    inv.campSpeedGoalsBeat[holeNum] = true;
+
+                    if (holeNum == 18)
+                    {
+                        if (GameMode.current == GameMode.TYPE.CLUBLESS)
+                        {
+                            //Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
+                        }
+                        else
+                        {
+                            // BEACH ACHIEVEMENT Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
+                        }
+                        winTxt.text = "You finished Beach Speedrun!";
+                    }
+
+                }
+
+            }
+            else if (Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1))
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "You Lose! Too Many Strokes!";
+
+                
+
+               if (GameMode.isAnySpeedrun())
+               {
+                    List<GhostFrame> currFrames = ghostRecorder.currFrames;
+                    float time = currFrames[currFrames.Count - 1].GetTime();
+                    winTxt.text = "Too Slow!";
+                    if (time < timeToBeat)
+                    {
+                        winTxt.fontSize = 75;
+                        winTxt.text = winSayings[winSayingIndex];
+                    }
+                    
+               }
+
+            }
             else
             {
                 nextLevelButton.interactable = false;
@@ -742,6 +782,11 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     private void PlayVoiceLine()
     {
+        if (GameMode.isAnySpeedrun())
+        {
+            return;
+        }
+
         if (ball.strokes == 1)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.parfect, transform.position);
