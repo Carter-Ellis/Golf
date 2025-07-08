@@ -5,6 +5,11 @@ using FMODUnity;
 
 public class FMODEvents : MonoBehaviour
 {
+    [field: Header("Crab")]
+    [field: SerializeField] public EventReference crabWalk { get; private set; }
+    [field: Header("Seagull")]
+    [field: SerializeField] public EventReference squak { get; private set; }
+    [field: SerializeField] public EventReference flapWing { get; private set; }
     [field: Header("Ball SFX")]
     [field: SerializeField] public EventReference ballRollSFX { get; private set; }
     [field: SerializeField] public EventReference ballHurtSFX { get; private set; }

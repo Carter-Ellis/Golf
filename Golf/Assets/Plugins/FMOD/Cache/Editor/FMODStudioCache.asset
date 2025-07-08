@@ -321,6 +321,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-5640379924552448926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Seagull/Squak
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Seagull/Squak
+  Guid:
+    Data1: -387416561
+    Data2: 1171302166
+    Data3: 203454388
+    Data4: 994263414
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 3.6000001
+  MaxDistance: 35
+  Length: 2000
 --- !u!114 &-4969260732975587229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,7 +630,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638868968782703534
+  lastModified: 638875300798647989
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -689,6 +716,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-1363903371947610646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Crab/CrabWalking
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Crab/CrabWalking
+  Guid:
+    Data1: 1664624825
+    Data2: 1076146055
+    Data3: 938442121
+    Data4: -1592266185
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 3.25
+  MaxDistance: 35
+  Length: 1000
 --- !u!114 &-1287355612274333649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -954,13 +1008,16 @@ MonoBehaviour:
   - {fileID: -2778700431476125355}
   - {fileID: 186538832908839141}
   - {fileID: 6911870697662646261}
+  - {fileID: -5640379924552448926}
+  - {fileID: -1363903371947610646}
+  - {fileID: 8844926012215068730}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -2382926633897921263}
   StringsBanks:
   - {fileID: 327917192201675269}
-  cacheTime: 638871487822909016
+  cacheTime: 638875303532500923
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -1085,10 +1142,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638868968782733447
+  lastModified: 638875300798677908
   FileSizes:
   - Name: Desktop
-    Value: 4018
+    Value: 4170
   Exists: 1
 --- !u!114 &371802504618700355
 MonoBehaviour:
@@ -1132,10 +1189,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/World 1.bank
   Name: World 1
   StudioPath: bank:/World 1
-  lastModified: 638868968830566542
+  lastModified: 638875272068303584
   FileSizes:
   - Name: Desktop
-    Value: 34795584
+    Value: 36556416
   Exists: 1
 --- !u!114 &420839407750736933
 MonoBehaviour:
@@ -1451,10 +1508,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638871487822909016
+  lastModified: 638875303532500923
   FileSizes:
   - Name: Desktop
-    Value: 2150560
+    Value: 2270080
   Exists: 1
 --- !u!114 &5944229386815654179
 MonoBehaviour:
@@ -1909,6 +1966,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &8844926012215068730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Seagull/WindFlap
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Seagull/WindFlap
+  Guid:
+    Data1: 1903567829
+    Data2: 1267254545
+    Data3: 221623469
+    Data4: 1756602752
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &8935984509762363687
 MonoBehaviour:
   m_ObjectHideFlags: 0

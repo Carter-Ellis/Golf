@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class Seagull : MonoBehaviour
 {
@@ -9,15 +11,16 @@ public class Seagull : MonoBehaviour
     private float radius = 3f;
     private bool isFlying;
 
-
-    public float forwardSpeed = 2f;          // Horizontal speed (right)
-    public float upwardSpeed = 1f;           // Constant upward movement
-    public float wobbleAmplitude = 0.5f;     // How much it wobbles up/down
-    public float wobbleFrequency = 3f;       // How fast it wobbles
+    public float forwardSpeed = 2f;
+    public float upwardSpeed = 1f;
+    public float wobbleAmplitude = 0.5f;
+    public float wobbleFrequency = 3f;
 
     private Rigidbody2D rb;
     private float elapsedTime;
 
+    private EventInstance squakInstance;  // FMOD event instance
+    private EventInstance flapInstance;
 
     private void Start()
     {
@@ -26,14 +29,10 @@ public class Seagull : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-
     private void Update()
     {
-        
-        if (isFlying)
-        {
+        if (isFlying || ball == null)
             return;
-        }
 
         float distance = Vector2.Distance(transform.position, ball.transform.position);
 
@@ -42,28 +41,30 @@ public class Seagull : MonoBehaviour
             Destroy(gameObject, 10f);
             anim.SetTrigger("Fly");
             isFlying = true;
-        }
 
+            // Create and attach sound to this GameObject so it moves with the bird
+            squakInstance = RuntimeManager.CreateInstance(FMODEvents.instance.squak);
+            RuntimeManager.AttachInstanceToGameObject(squakInstance, transform, rb);
+            squakInstance.start();
+            squakInstance.release();  // Release so FMOD cleans it up when done
+
+            flapInstance = RuntimeManager.CreateInstance(FMODEvents.instance.flapWing);
+            RuntimeManager.AttachInstanceToGameObject(flapInstance, transform, rb);
+            flapInstance.start();
+            flapInstance.release();
+        }
     }
 
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!isFlying)
-        {
             return;
-        }
 
         elapsedTime += Time.fixedDeltaTime;
 
-        // Vertical wobble using sine wave
         float wobble = Mathf.Sin(elapsedTime * wobbleFrequency) * wobbleAmplitude;
-
-        // Total vertical speed = constant upward + wobble
         float verticalVelocity = upwardSpeed + wobble;
 
-        // Set velocity (right + vertical)
         rb.velocity = new Vector2(forwardSpeed, verticalVelocity);
     }
-
 }

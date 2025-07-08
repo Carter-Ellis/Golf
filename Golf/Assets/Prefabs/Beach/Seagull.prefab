@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a16b69b1f40334d82b73faad25e302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 4
+  forwardSpeed: 8
   upwardSpeed: 1
   wobbleAmplitude: 1
   wobbleFrequency: 6

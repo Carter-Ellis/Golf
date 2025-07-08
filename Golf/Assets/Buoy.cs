@@ -19,8 +19,8 @@ public class Buoy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!inWater)
-            return;
+        //if (!inWater)
+            //return;
 
         elapsedTime += Time.fixedDeltaTime;
 

@@ -475,7 +475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 488.9, y: 59.5}
+  m_AnchoredPosition: {x: 450, y: -77.17993}
   m_SizeDelta: {x: 468.2369, y: 65.8765}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &105315737
@@ -1818,7 +1818,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 488.9, y: -17.620033}
+  m_AnchoredPosition: {x: 450, y: -138}
   m_SizeDelta: {x: 468.2369, y: 65.8765}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &471982466
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Noah Williams
+  m_text: Noah Williams - CarboNight
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05f8abcf009adf14197c41333c1d35b6, type: 2}
   m_sharedMaterial: {fileID: -4435618918570714015, guid: 05f8abcf009adf14197c41333c1d35b6, type: 2}
@@ -1868,8 +1868,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1904,7 +1904,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.58403015, y: 1.3314209, z: -0.7425537, w: 0.034301758}
+  m_margin: {x: -0.58403015, y: 1.3314209, z: -67.68811, w: 0.034301758}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3048,8 +3048,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53.1, y: 60.000046}
-  m_SizeDelta: {x: 468.2369, y: 65.8765}
+  m_AnchoredPosition: {x: 79.94375, y: 60.000046}
+  m_SizeDelta: {x: 521.9243, y: 65.8765}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &686736385
 MonoBehaviour:
@@ -3071,7 +3071,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Patrick Sizemore
+  m_text: Patrick "NOG*" Sizemore
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05f8abcf009adf14197c41333c1d35b6, type: 2}
   m_sharedMaterial: {fileID: -4435618918570714015, guid: 05f8abcf009adf14197c41333c1d35b6, type: 2}
