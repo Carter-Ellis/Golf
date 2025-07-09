@@ -9,15 +9,13 @@ public class Windmill : MonoBehaviour
     Transform blades;
     public float rotationsPerMinute = 40f;
 
-    private EventInstance windSFX;
+    private SoundEffect windSFX = new SoundEffect(FMODEvents.instance.windmill);
 
     void Start()
     {
         blades = transform.GetChild(0);
 
-        //windSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.windmill);
-        windSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-        windSFX.start();
+        windSFX.play(this);
     }
 
     void Update()
@@ -27,7 +25,6 @@ public class Windmill : MonoBehaviour
 
     private void OnDestroy()
     {
-        windSFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        windSFX.release();
+        windSFX.stop();
     }
 }

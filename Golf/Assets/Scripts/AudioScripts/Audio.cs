@@ -108,7 +108,7 @@ public class Audio : MonoBehaviour
         }
         if (currentRef[(int)type].Guid == eventRef.Guid)
         {
-            return; //Don't restart songs
+            return; //Don't restart music/ambience
         }
         stop(type);
 
