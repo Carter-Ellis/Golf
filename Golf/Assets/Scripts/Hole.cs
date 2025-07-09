@@ -549,6 +549,10 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
                 }
+                else if (holeNum == 18 && SceneManager.GetActiveScene().name == "Beach 18")
+                {
+                    //Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
+                }
                 winTxt.fontSize = 75;
                 winTxt.text = winSayings[winSayingIndex];
             }
@@ -690,6 +694,19 @@ public class Hole : MonoBehaviour, ButtonTarget
                 
 
             }
+            else if (currentMap == Map.TYPE.BEACH && GameMode.current == GameMode.TYPE.HOLE18)
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Beach 18 Holes";
+
+                if (holeNum == 18)
+                {
+                    //Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
+                    winTxt.text = "You finished Beach 18 Holes!";
+                }
+            }
             else if (currentMap == Map.TYPE.BEACH && GameMode.isAnySpeedrun())
             {
                 nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
@@ -719,6 +736,31 @@ public class Hole : MonoBehaviour, ButtonTarget
                     }
 
                 }
+
+            }
+            else if ((currentMap == Map.TYPE.BEACH) && (currentMode == GameMode.TYPE.HARDCORE))
+            {
+                nextLevelButton.interactable = true;
+                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+                winTxt.fontSize = 50;
+                winTxt.text = "Beach Hardcore";
+
+                if (ball.strokes > par)
+                {
+                    winTxt.text = "Too Many Strokes!";
+                    nextLevelButton.interactable = false;
+
+                }
+                else
+                {
+                    if (holeNum == 18)
+                    {
+                        //Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
+                        winTxt.text = "You finished Beach Hardcore!";
+                    }
+
+                }
+
 
             }
             else if (Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1))
