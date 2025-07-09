@@ -30,6 +30,7 @@ public class Behind : MonoBehaviour
 
     IEnumerator FadeToTransparent()
     {
+
         for (float i = 1f; i >= fadeToTransparentAmount; i -= 0.05f)
         {
             if (exited)
@@ -41,7 +42,10 @@ public class Behind : MonoBehaviour
             spriteRenderer.color = new Color(color.r, color.g, color.b, i);
             if (transform.childCount == 1)
             {
-                childSr.color = new Color(color.r, color.g, color.b, i);
+                if (childSr != null)
+                {
+                    childSr.color = new Color(color.r, color.g, color.b, i);
+                }
             }
             yield return new WaitForSeconds(fadingSpeed);
         }
@@ -58,7 +62,11 @@ public class Behind : MonoBehaviour
             spriteRenderer.color = new Color(color.r, color.g, color.b, i);
             if (transform.childCount == 1)
             {
-                childSr.color = new Color(color.r, color.g, color.b, i);
+                if (childSr != null)
+                {
+                    childSr.color = new Color(color.r, color.g, color.b, i);
+                }
+                
             }
             yield return new WaitForSeconds(fadingSpeed);
         }
@@ -76,6 +84,8 @@ public class Behind : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        
+
         if (collision.gameObject != null && collision.gameObject.tag == "Ball")
         {
             //Make transparent when not behind

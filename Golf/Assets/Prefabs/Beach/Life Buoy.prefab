@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2052318771974136029}
   - component: {fileID: 2345575538621853948}
   - component: {fileID: 2572543234428205650}
+  - component: {fileID: 1201807079491792348}
   m_Layer: 8
   m_Name: Life Buoy
   m_TagString: Buoy
@@ -134,7 +135,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 10
+  m_LinearDrag: 5
   m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -148,3 +149,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1201807079491792348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532379558055928540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d03a48c08cde64f9a5214cbd9a1627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatAmplitude: 0.5
+  floatFrequency: 1
+  currentDrift: {x: 0.1, y: -0.1}
+  inWater: 0

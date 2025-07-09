@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b1035b75-ea9a-4791-94ab-22db9aa4ac35}">
+		<property name="assetPath">
+			<value>Seagull Chirp.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.1538541666666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d8494cd1-52ad-4497-bcab-97c11a86bb1b}</destination>
+		</relationship>
+	</object>
+</objects>

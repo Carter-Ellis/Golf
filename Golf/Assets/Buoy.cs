@@ -19,8 +19,12 @@ public class Buoy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!inWater)
+        if (rb.bodyType == RigidbodyType2D.Static)
+        {
             return;
+        }
+        //if (!inWater)
+            //return;
 
         elapsedTime += Time.fixedDeltaTime;
 
@@ -32,4 +36,21 @@ public class Buoy : MonoBehaviour
 
         rb.velocity = floatVelocity;
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (GameMode.current != GameMode.TYPE.CLUBLESS)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
+        }
+
+        string otherLayerName = LayerMask.LayerToName(collision.gameObject.layer);
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            inWater = true;
+        }
+    }
+
 }

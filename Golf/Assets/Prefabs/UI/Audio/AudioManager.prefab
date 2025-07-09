@@ -89,6 +89,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc67b6d4655e775408ffdbed6bd32c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <crabWalk>k__BackingField:
+    Guid:
+      Data1: 1664624825
+      Data2: 1076146055
+      Data3: 938442121
+      Data4: -1592266185
+    Path: event:/SFX/Crab/CrabWalking
+  <squak>k__BackingField:
+    Guid:
+      Data1: -387416561
+      Data2: 1171302166
+      Data3: 203454388
+      Data4: 994263414
+    Path: event:/SFX/Seagull/Squak
+  <flapWing>k__BackingField:
+    Guid:
+      Data1: 1903567829
+      Data2: 1267254545
+      Data3: 221623469
+      Data4: 1756602752
+    Path: event:/SFX/Seagull/WindFlap
   <ballRollSFX>k__BackingField:
     Guid:
       Data1: 958806356
