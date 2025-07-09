@@ -90,11 +90,10 @@ public static class SaveSystem
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
 
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.SetVolumes(1f, 1f, 1f, 1f);
-            //Debug.Log("Audio settings reset to default.");
-        }
+        Audio.volume(Audio.TYPE.MASTER, 1f);
+        Audio.volume(Audio.TYPE.MUSIC, 1f);
+        Audio.volume(Audio.TYPE.SFX, 1f);
+        Audio.volume(Audio.TYPE.AMBIENCE, 1f);
     }
 
     public static void EraseZoomData()
@@ -119,10 +118,5 @@ public static class SaveSystem
 
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
-
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.SetVolumes(1f, 1f, 1f, 1f);
-        }
     }
 }

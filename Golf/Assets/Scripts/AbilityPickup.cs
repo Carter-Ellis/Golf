@@ -61,15 +61,15 @@ public class AbilityPickup : MonoBehaviour
         {
             if (type == ABILITIES.WIND)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.windAbility, Vector3.zero);
+                Audio.playSFX(FMODEvents.instance.windAbility, Vector3.zero);
             }
             else if (type == ABILITIES.FREEZE)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.freeze, Vector3.zero);
+                Audio.playSFX(FMODEvents.instance.freeze, Vector3.zero);
             }
             else if (type == ABILITIES.TELEPORT)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.teleport, Vector3.zero);
+                Audio.playSFX(FMODEvents.instance.teleport, Vector3.zero);
             }
         }
 

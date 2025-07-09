@@ -72,7 +72,7 @@ public class BallClone : MonoBehaviour
     {
         if (GameMode.current != GameMode.TYPE.CLUBLESS)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
+            Audio.playSFX(FMODEvents.instance.wallHit, transform.position);
         }
     }
        

@@ -49,7 +49,7 @@ public class UI_Shop : MonoBehaviour
     public void exitShop() 
     {
         SceneManager.LoadSceneAsync("Level 1");
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
+        Audio.playSFX(FMODEvents.instance.menuClose, transform.position);
     }
 
     private void CreateItemButton(Item.ItemType itemType)
@@ -92,7 +92,7 @@ public class UI_Shop : MonoBehaviour
         {
             if (!isBought)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.menuBlip, transform.position);
+                Audio.playSFX(FMODEvents.instance.menuBlip, transform.position);
                 background.color = hoverColor;
             }
             description.SetActive(true);
@@ -151,7 +151,7 @@ public class UI_Shop : MonoBehaviour
             }
             inv.AddAbility(Ability.Create(abilityType, Color.black));           
         }
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.shopPurchase, transform.position);
+        Audio.playSFX(FMODEvents.instance.shopPurchase, transform.position);
         inv.coins -= Item.GetCost(itemType);
         return true;
     }

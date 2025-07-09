@@ -77,7 +77,7 @@ public class Food : MonoBehaviour
         if (collision.gameObject.tag == "Ball" && !eaten)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = eatenApple;
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.appleBite, transform.position);
+            Audio.playSFX(FMODEvents.instance.appleBite, transform.position);
             eaten = true;
 
             if (isTheBigOne && !ball.GetComponent<Inventory>().achievements[(int)Achievement.TYPE.THE_BIG_ONE])

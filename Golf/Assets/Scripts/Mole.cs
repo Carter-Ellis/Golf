@@ -26,7 +26,7 @@ public class Mole : MonoBehaviour
         {
             if (!playedAudio)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.moleCrawl, transform.position);
+                Audio.playSFX(FMODEvents.instance.moleCrawl, transform.position);
                 playedAudio = true;
                 PlayPopupParticles();
             }
@@ -72,7 +72,7 @@ public class Mole : MonoBehaviour
     {
         if (GameMode.current != GameMode.TYPE.CLUBLESS)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.moleHit, transform.position);
+            Audio.playSFX(FMODEvents.instance.moleHit, transform.position);
         }
         
     }

@@ -52,10 +52,6 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
-    public void PlayGame()
-    {
-        SceneManager.LoadSceneAsync("Level 1");
-    }
 
     public void QuitGame()
     {
@@ -90,7 +86,7 @@ public class MainMenu : MonoBehaviour
         {
             case State.SHOP:
                 userInterface.SetActive(true);
-                AudioManager.instance.PlayShopMusic();
+                Audio.playShopMusic();
                 break;
         }
     }
@@ -100,7 +96,7 @@ public class MainMenu : MonoBehaviour
         switch (state)
         {
             case State.SHOP:
-                AudioManager.instance.StartMainMusic();
+                Audio.playMainMusic();
                 userInterface.SetActive(false);
                 break;
         }

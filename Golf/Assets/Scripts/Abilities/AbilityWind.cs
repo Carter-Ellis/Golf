@@ -56,7 +56,7 @@ public class AbilityWind : Ability
             return;
         }
 
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.windAbility, GameObject.FindObjectOfType<Ball>().transform.position);
+        Audio.playSFX(FMODEvents.instance.windAbility, GameObject.FindObjectOfType<Ball>().transform.position);
         charges--;
 
         rb.AddForce(rb.velocity.normalized * gustSpeed, ForceMode2D.Impulse);

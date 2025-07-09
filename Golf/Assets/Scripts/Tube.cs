@@ -63,7 +63,7 @@ public class Tube : MonoBehaviour
 
             if (timer > rand)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelBounce, transform.position);
+                Audio.playSFX(FMODEvents.instance.tunnelBounce, transform.position);
                 rand = Random.Range(playStartRange, playEndRange);
                 timer = 0f;
             }
@@ -102,7 +102,7 @@ public class Tube : MonoBehaviour
         if (collision.gameObject.tag == "Interactable")
         {
             GameObject iball = collision.gameObject;
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelEnter, transform.position);
+            Audio.playSFX(FMODEvents.instance.tunnelEnter, transform.position);
             IExit(iball);
             return;
         }
@@ -122,7 +122,7 @@ public class Tube : MonoBehaviour
         if (!played)
         {
             ghostRecorder.isRecordingTunnel = true;
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelEnter, transform.position);
+            Audio.playSFX(FMODEvents.instance.tunnelEnter, transform.position);
             played = true;
         }
         ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -174,7 +174,7 @@ public class Tube : MonoBehaviour
                 ball.GetComponent<Rigidbody2D>().velocity = new Vector2(exitSpeed, 0);
                 break;
         }
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.tunnelExit, transform.position);
+        Audio.playSFX(FMODEvents.instance.tunnelExit, transform.position);
         played = false;
         isTraveling = false;
         ball.isTraveling = isTraveling;

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7956473694093078949}
-  - component: {fileID: 6798223887699778760}
+  - component: {fileID: 4845186686422173365}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 8849396101991071891}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6798223887699778760
+--- !u!114 &4845186686422173365
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,14 +42,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5674323343691079615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0e28542081680643a870d6a68f22ce7, type: 3}
+  m_Script: {fileID: 11500000, guid: ba7fc7510cff67b4cbcc3fbd4cc3994e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
-  musicVolume: 1
-  SFXVolume: 1
-  ambienceVolume: 1
-  isShop: 0
 --- !u!1 &5738473320897888796
 GameObject:
   m_ObjectHideFlags: 0

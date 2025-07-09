@@ -49,7 +49,7 @@ public class Button : MonoBehaviour
             if (inv == null) { return; }
             if (inv.redCoinCount == redCoins.Length)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
+                Audio.playSFX(FMODEvents.instance.inHoleSound, transform.position);
                 specialCoin.SetActive(true);
                 redCoinComplete = true;
             }
@@ -122,7 +122,7 @@ public class Button : MonoBehaviour
         }
         isPressed = true;
         sr.sprite = pushedSprite;
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.push, transform.position);
+        Audio.playSFX(FMODEvents.instance.push, transform.position);
         if (isRedCoinButton && !isRedCoinActive)
         {
             SpawnRedCoins();
@@ -138,7 +138,7 @@ public class Button : MonoBehaviour
     {
         if (!isOnePress)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.unpush, transform.position);
+            Audio.playSFX(FMODEvents.instance.unpush, transform.position);
             sr.sprite = unpushedSprite;
             isPressed = false;
         }

@@ -80,8 +80,8 @@ public class CameraController : MonoBehaviour
 
         if (ball != null && PlayerInput.isDown(PlayerInput.Axis.Fire4) && !isViewMode) 
         {
-            
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.mapOpen, transform.position);
+
+            Audio.playSFX(FMODEvents.instance.mapOpen, transform.position);
 
             ball.hasClickedBall = false;
             ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
@@ -111,7 +111,7 @@ public class CameraController : MonoBehaviour
         }
         else if (ball != null && PlayerInput.isDown(PlayerInput.Axis.Fire4))
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
+            Audio.playSFX(FMODEvents.instance.menuClose, transform.position);
             var transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
             if (transposer != null)
             {

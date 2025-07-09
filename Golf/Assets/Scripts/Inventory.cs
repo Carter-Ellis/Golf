@@ -519,13 +519,10 @@ public class Inventory : MonoBehaviour
         SFXVol = data != null ? data.SFXVol : 1;
         ambienceVol = data != null ? data.ambienceVol : 1;
 
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.masterVolume = masterVol;
-            AudioManager.instance.musicVolume = musicVol;
-            AudioManager.instance.SFXVolume = SFXVol;
-            AudioManager.instance.ambienceVolume = ambienceVol;
-        }
+        Audio.volume(Audio.TYPE.MASTER, masterVol);
+        Audio.volume(Audio.TYPE.MUSIC, musicVol);
+        Audio.volume(Audio.TYPE.SFX, SFXVol);
+        Audio.volume(Audio.TYPE.AMBIENCE, ambienceVol);
 
         if (data?.levelPopups != null)
         {

@@ -18,7 +18,7 @@ public class GolfCart : MonoBehaviour
     private Vector2 startPosition;
     private float ballHits;
 
-    private EventInstance cartSFX;
+    private SoundEffect cartSFX = new SoundEffect(FMODEvents.instance.golfCart);
 
     void Start()
     {
@@ -31,9 +31,7 @@ public class GolfCart : MonoBehaviour
 
         particleSys = gameObject.transform.Find("Grass Particles Cart").GetComponent<ParticleSystem>();
 
-        cartSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.golfCart);
-        cartSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-        cartSFX.start();
+        cartSFX.play(this);
 
         cartBody.velocity = new Vector2(speed, 0);
         UpdateSpriteDirection();
@@ -47,9 +45,9 @@ public class GolfCart : MonoBehaviour
             TurnAround();
         }
 
-        if (cartSFX.isValid())
+        if (cartSFX.isPlaying)
         {
-            cartSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            cartSFX.updatePosition(this);
         }
 
     }
@@ -108,19 +106,7 @@ public class GolfCart : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (cartSFX.isValid())
-        {
-            cartSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            cartSFX.release();
-        }
+        cartSFX.stop();
     }
 
-    private void OnDisable()
-    {
-        if (cartSFX.isValid())
-        {
-            cartSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            cartSFX.release();
-        }
-    }
 }

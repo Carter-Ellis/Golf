@@ -35,16 +35,16 @@ public class VolumeSlider : MonoBehaviour
         switch(volumeType)
         {
             case VolumeType.MASTER:
-                volumeSlider.value = AudioManager.instance.masterVolume;
+                volumeSlider.value = Audio.volume(Audio.TYPE.MASTER);
                 break;
             case VolumeType.MUSIC:
-                volumeSlider.value = AudioManager.instance.musicVolume;
+                volumeSlider.value = Audio.volume(Audio.TYPE.MUSIC);
                 break;
             case VolumeType.SFX:
-                volumeSlider.value = AudioManager.instance.SFXVolume;
+                volumeSlider.value = Audio.volume(Audio.TYPE.SFX);
                 break;
             case VolumeType.AMBIENCE:
-                volumeSlider.value = AudioManager.instance.ambienceVolume;    
+                volumeSlider.value = Audio.volume(Audio.TYPE.AMBIENCE);    
                 break;
             default:
                 Debug.Log("Volume Type not supported: " + volumeType);
@@ -58,26 +58,26 @@ public class VolumeSlider : MonoBehaviour
     public void OnSliderValueChange()
     {
         if (isInitializing) { return; }
-        
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.tick, transform.position);
+
+        Audio.playSFX(FMODEvents.instance.tick, transform.position);
         
         
         switch (volumeType)
         {
             case VolumeType.MASTER:
-                AudioManager.instance.masterVolume = volumeSlider.value;
+                Audio.volume(Audio.TYPE.MASTER, volumeSlider.value);
                 inv.masterVol = volumeSlider.value;
                 break;
             case VolumeType.MUSIC:
-                AudioManager.instance.musicVolume = volumeSlider.value;
+                Audio.volume(Audio.TYPE.MUSIC, volumeSlider.value);
                 inv.musicVol = volumeSlider.value;
                 break;
             case VolumeType.SFX:
-                AudioManager.instance.SFXVolume = volumeSlider.value;
+                Audio.volume(Audio.TYPE.SFX, volumeSlider.value);
                 inv.SFXVol = volumeSlider.value;
                 break;
             case VolumeType.AMBIENCE:
-                AudioManager.instance.ambienceVolume = volumeSlider.value;
+                Audio.volume(Audio.TYPE.AMBIENCE, volumeSlider.value);
                 inv.ambienceVol = volumeSlider.value;
                 break;
             default:
