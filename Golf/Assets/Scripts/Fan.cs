@@ -20,7 +20,7 @@ public class Fan : MonoBehaviour, Selectable
     public float rotationBounds = 90f;
     public bool isSelectable;
 
-    private EventInstance fanSFX;
+    private SoundEffect fanSFX = new SoundEffect(FMODEvents.instance.fan);
     private LineRenderer line;
     private int clickCount;
 
@@ -33,9 +33,7 @@ public class Fan : MonoBehaviour, Selectable
         center = transform.GetChild(0);
         origRotation = transform.rotation;
 
-        fanSFX = AudioManager.instance.CreateInstance(FMODEvents.instance.fan);
-        fanSFX.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-        fanSFX.start();
+        fanSFX.play(this);
 
         if (wind != null)
         {
@@ -187,5 +185,9 @@ public class Fan : MonoBehaviour, Selectable
         line.SetPosition(1, end);
     }
 
+    private void OnDestroy()
+    {
+        fanSFX.stop();
+    }
 
 }

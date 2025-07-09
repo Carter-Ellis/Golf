@@ -29,11 +29,11 @@ public class ShopTrigger : MonoBehaviour
             if (isActive)
             {
                 isSoundPlayed = false;
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.menuOpen, transform.position);
+                Audio.playSFX(FMODEvents.instance.menuOpen, transform.position);
             }
             else
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
+                Audio.playSFX(FMODEvents.instance.menuClose, transform.position);
             }
 
         }
@@ -43,7 +43,7 @@ public class ShopTrigger : MonoBehaviour
             isActive = false;
             if (!isSoundPlayed)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClose, transform.position);
+                Audio.playSFX(FMODEvents.instance.menuClose, transform.position);
                 isSoundPlayed = true;
             }
            

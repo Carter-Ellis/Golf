@@ -28,12 +28,12 @@ public class BuyColors : MonoBehaviour
             //FindObjectOfType<CosmeticsManager>().changeHat(0);
             FindObjectOfType<CosmeticsManager>().changeBallColor(0);
             inv.SavePlayer();
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.shopPurchase, transform.position);
+            Audio.playSFX(FMODEvents.instance.shopPurchase, transform.position);
             Destroy(gameObject);
         }
         else
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.error, transform.position);
+            Audio.playSFX(FMODEvents.instance.error, transform.position);
         }
         
     }

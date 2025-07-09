@@ -36,6 +36,7 @@ public class SceneInitializer : MonoBehaviour
         if (!SceneLoader.isShopLoad || objectsToEnable.Length == 0 || objectsToDisable.Length == 0) return;
 
         FindObjectOfType<MainMenu>().SetState(MainMenu.State.SHOP);
+        Audio.playShopMusic();
 
         foreach (GameObject obj in objectsToEnable)
         {

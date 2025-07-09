@@ -18,7 +18,7 @@ public class AchievementGet : MonoBehaviour
 
     public static void PlayAchievementGet(Achievement.TYPE type)
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.achievement, Camera.main.transform.position);
+        Audio.playSFX(FMODEvents.instance.achievement, Camera.main.transform.position);
         anim.SetTrigger("ShowAchievement");
         title.text = Achievement.GetName(type);
     }

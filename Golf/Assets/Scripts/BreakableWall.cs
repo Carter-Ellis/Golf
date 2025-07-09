@@ -28,7 +28,7 @@ public class BreakableWall : MonoBehaviour
         float ballSpeed = calculateIncomingSpeed();
         if (collision.gameObject.tag == "Ball" && ballSpeed > threshold)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.wallBreak, transform.position);
+            Audio.playSFX(FMODEvents.instance.wallBreak, transform.position);
             Vector3 ballVel = ballRB.velocity;
             isBroken = true;
             transform.parent.gameObject.GetComponent<BoxCollider2D>().enabled = false;

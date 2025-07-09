@@ -269,7 +269,7 @@ public class Ball : MonoBehaviour
 
         if (PlayerInput.isDown(PlayerInput.Axis.Reset) && currentMode != GameMode.TYPE.HOLE18 && currentMode != GameMode.TYPE.HARDCORE) 
         {
-            AudioManager.instance.StopAllSFXEvents();
+            //AudioManager.instance.StopAllSFXEvents();
             inv.numResets++;
             inv.SavePlayer();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -510,7 +510,7 @@ public class Ball : MonoBehaviour
     {
         takingDamage = true;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(255/255, 100/255,100/255);
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.ballHurtSFX, transform.position);
+        Audio.playSFX(FMODEvents.instance.ballHurtSFX, transform.position);
         health -= damage;
     }
     void ClickEnemy()
@@ -585,7 +585,7 @@ public class Ball : MonoBehaviour
             didEnter = true;
             if (!didExit || !didEnter)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.wallHit, transform.position);
+                Audio.playSFX(FMODEvents.instance.wallHit, transform.position);
             }
         }
         else if (collision.gameObject.tag == "Wood")
@@ -598,7 +598,7 @@ public class Ball : MonoBehaviour
             }
             if (!didExit || !didEnter)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.woodHit, transform.position);
+                Audio.playSFX(FMODEvents.instance.woodHit, transform.position);
             }
         }
         else if (collision.gameObject.tag == "Cobblestone")
@@ -611,7 +611,7 @@ public class Ball : MonoBehaviour
             }
             if (!didExit || !didEnter)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.cobbleHit, transform.position);
+                Audio.playSFX(FMODEvents.instance.cobbleHit, transform.position);
             }
         }
         else if (collision.gameObject.tag == "Mole" && !inv.achievements[(int)Achievement.TYPE.WHACK_A_MOLE])
@@ -808,15 +808,15 @@ public class Ball : MonoBehaviour
         
         if (distFromBall > 0 && distFromBall < 4)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.softSwing, transform.position);
+            Audio.playSFX(FMODEvents.instance.softSwing, transform.position);
         }
         else if (distFromBall >= 4 && distFromBall < 8.5)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.mediumSwing, transform.position);
+            Audio.playSFX(FMODEvents.instance.mediumSwing, transform.position);
         }
         else
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.hardSwing, transform.position);
+            Audio.playSFX(FMODEvents.instance.hardSwing, transform.position);
         }
         DisplayParticles();
     }

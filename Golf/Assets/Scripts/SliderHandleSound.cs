@@ -22,7 +22,7 @@ public class SliderHandleSound : MonoBehaviour, IPointerEnterHandler, IPointerDo
     {
         if (!isHolding)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.menuBlip, transform.position);
+            Audio.playSFX(FMODEvents.instance.menuBlip, transform.position);
         }
     }
 

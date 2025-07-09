@@ -114,7 +114,7 @@ public class AbilityTeleport : Ability
             return;
         }
 
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.teleport, GameObject.FindObjectOfType<Ball>().transform.position);
+        Audio.playSFX(FMODEvents.instance.teleport, GameObject.FindObjectOfType<Ball>().transform.position);
         ball.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
         PlayerInput.cursorSpeed /= 2;
         ball.DisplayTeleportParticles();

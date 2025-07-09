@@ -64,7 +64,7 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         if (inv.coins >= cost)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.shopPurchase, transform.position);
+            Audio.playSFX(FMODEvents.instance.shopPurchase, transform.position);
             inv.coins -= cost;
             progressSquares[upgradeLevel].sprite = purchasedSquare;
             upgradeLevel++;
@@ -85,7 +85,7 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         else
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.error, transform.position);
+            Audio.playSFX(FMODEvents.instance.error, transform.position);
         }
     }
     public void OnPointerEnter(PointerEventData eventData)

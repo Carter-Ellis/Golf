@@ -369,11 +369,11 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             if (ball.strokes <= par)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleSound, transform.position);
+                Audio.playSFX(FMODEvents.instance.inHoleSound, transform.position);
             }
             else
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.inHoleBad, transform.position);
+                Audio.playSFX(FMODEvents.instance.inHoleBad, transform.position);
             }
 
             if (ball.strokes == 0 && (GameMode.current != GameMode.TYPE.CLUBLESS))
@@ -506,7 +506,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                     inv.coins += 1;
                     inv.totalCoins += 1;
                     mapData.setCoinCollected(currentLevel, 3);
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
+                    Audio.playSFX(FMODEvents.instance.coinCollect, transform.position);
                 }
 
             }
@@ -811,7 +811,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         else if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude >= ballOverHoleSpeed)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.overHole, transform.position);
+            Audio.playSFX(FMODEvents.instance.overHole, transform.position);
             if (!inv.achievements[(int)Achievement.TYPE.SLOW_THERE_BUDDY])
             {
                 Achievement.Give(Achievement.TYPE.SLOW_THERE_BUDDY);
@@ -831,39 +831,39 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         if (ball.strokes == 1)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.parfect, transform.position);
+            Audio.playSFX(FMODEvents.instance.parfect, transform.position);
             return;
         }
         if (ball.strokes == par + 1)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.bogey, transform.position);
+            Audio.playSFX(FMODEvents.instance.bogey, transform.position);
         }
         else if (ball.strokes == par + 2)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.doubleBogey, transform.position);
+            Audio.playSFX(FMODEvents.instance.doubleBogey, transform.position);
         }
         else if (ball.strokes == par)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.par, transform.position);
+            Audio.playSFX(FMODEvents.instance.par, transform.position);
         }
         else if (ball.strokes == par - 1)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.birdie, transform.position);
+            Audio.playSFX(FMODEvents.instance.birdie, transform.position);
         }
         else if (ball.strokes == par - 2)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.eagle, transform.position);
+            Audio.playSFX(FMODEvents.instance.eagle, transform.position);
             
         }
         else
         {
             if (ball.strokes > par)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.parthetic, transform.position);
+                Audio.playSFX(FMODEvents.instance.parthetic, transform.position);
             }
             else
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.excellent, transform.position);
+                Audio.playSFX(FMODEvents.instance.excellent, transform.position);
             }
             
         }
@@ -874,7 +874,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     {
         if (ball.strokes <= par)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.applause, transform.position);
+            Audio.playSFX(FMODEvents.instance.applause, transform.position);
         }
     }
 

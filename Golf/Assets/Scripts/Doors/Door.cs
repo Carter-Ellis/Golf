@@ -20,6 +20,7 @@ public class Door : MonoBehaviour, ButtonTarget
     private Vector2 startPos;
     private Vector2 endPos;
     private float travelDist;
+    private SoundEffect doorSFX = new SoundEffect(FMODEvents.instance.door6sec);
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class Door : MonoBehaviour, ButtonTarget
             {
                 doorRB.velocity = Vector2.zero;
                 state = DOOR_STATE.OPEN;
+                doorSFX.stop();
             }
 
         }
@@ -53,6 +55,7 @@ public class Door : MonoBehaviour, ButtonTarget
             {
                 doorRB.velocity = Vector2.zero;
                 state = DOOR_STATE.CLOSED;
+                doorSFX.stop();
             }
         }
 
@@ -63,12 +66,14 @@ public class Door : MonoBehaviour, ButtonTarget
         Vector3 direction = transform.rotation * Vector3.up;
         doorRB.velocity = direction.normalized * speed;
         state = DOOR_STATE.OPENING;
+        doorSFX.play(this);
     }
     void CloseDoor()
     {
         Vector3 direction = transform.rotation * Vector3.up;
         doorRB.velocity = -direction.normalized * speed;
         state = DOOR_STATE.CLOSING;
+        doorSFX.play(this);
     }
 
     public void onPress()
@@ -82,4 +87,10 @@ public class Door : MonoBehaviour, ButtonTarget
             OpenDoor();
         }
     }
+
+    private void OnDestroy()
+    {
+        doorSFX.stop();
+    }
+
 }

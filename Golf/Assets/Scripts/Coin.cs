@@ -28,7 +28,7 @@ public class Coin : MonoBehaviour
         
         if (collision.gameObject != null && collision.gameObject.tag == "Ball")
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.coinCollect, transform.position);
+            Audio.playSFX(FMODEvents.instance.coinCollect, transform.position);
 
             if (isRed)
             {
