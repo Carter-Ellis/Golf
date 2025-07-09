@@ -42,7 +42,7 @@ public class Buoy : MonoBehaviour
 
         if (GameMode.current != GameMode.TYPE.CLUBLESS)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.bouncer, transform.position);
+            Audio.playSFX(FMODEvents.instance.bouncer, transform.position);
         }
 
         string otherLayerName = LayerMask.LayerToName(collision.gameObject.layer);
