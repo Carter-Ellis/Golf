@@ -9,13 +9,13 @@ public class Windmill : MonoBehaviour
     Transform blades;
     public float rotationsPerMinute = 40f;
 
-    private SoundEffect windSFX = new SoundEffect(FMODEvents.instance.windmill);
+    private SoundEffect windSFX;
 
     void Start()
     {
-        blades = transform.GetChild(0);
-
+        windSFX = new SoundEffect(FMODEvents.instance.windmill);
         windSFX.play(this);
+        blades = transform.GetChild(0);
     }
 
     void Update()

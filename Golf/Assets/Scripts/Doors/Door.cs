@@ -20,10 +20,11 @@ public class Door : MonoBehaviour, ButtonTarget
     private Vector2 startPos;
     private Vector2 endPos;
     private float travelDist;
-    private SoundEffect doorSFX = new SoundEffect(FMODEvents.instance.door6sec);
+    private SoundEffect doorSFX;
 
     void Start()
     {
+        doorSFX = new SoundEffect(FMODEvents.instance.door6sec);
         doorRB = GetComponent<Rigidbody2D>();
         doorCollider = GetComponent<BoxCollider2D>();
         startPos = transform.position;

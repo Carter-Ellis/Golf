@@ -20,7 +20,7 @@ public class Fan : MonoBehaviour, Selectable
     public float rotationBounds = 90f;
     public bool isSelectable;
 
-    private SoundEffect fanSFX = new SoundEffect(FMODEvents.instance.fan);
+    private SoundEffect fanSFX;
     private LineRenderer line;
     private int clickCount;
 
@@ -32,7 +32,7 @@ public class Fan : MonoBehaviour, Selectable
         cam = FindObjectOfType<CameraController>();
         center = transform.GetChild(0);
         origRotation = transform.rotation;
-
+        fanSFX = new SoundEffect(FMODEvents.instance.fan);
         fanSFX.play(this);
 
         if (wind != null)

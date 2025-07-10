@@ -31,6 +31,7 @@ public class Audio : MonoBehaviour
         "bus:/SFX",
         "bus:/Ambience",
     };
+    private static bool isBusSet = false;
 
     private static FMODEvents fmodEvents;
 
@@ -48,13 +49,23 @@ public class Audio : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         fmodEvents = FindObjectOfType<FMODEvents>();
 
+        setBuses();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+
+    }
+
+    private static void setBuses()
+    {
+
+        if (isBusSet) { return; }
+        isBusSet = true;
+
         for (int i = 0; i < (int)TYPE.MAX; i++)
         {
             buses[i] = RuntimeManager.GetBus(busPaths[i]);
         }
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
 
     }
 
@@ -94,6 +105,7 @@ public class Audio : MonoBehaviour
         {
             return volumes[(int)type];
         }
+        setBuses();
         volumes[(int)type] = Mathf.Clamp01(value);
         buses[(int)type].setVolume(volumes[(int)type]);
         return value;

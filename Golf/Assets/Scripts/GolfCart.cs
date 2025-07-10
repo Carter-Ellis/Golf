@@ -18,7 +18,7 @@ public class GolfCart : MonoBehaviour
     private Vector2 startPosition;
     private float ballHits;
 
-    private SoundEffect cartSFX = new SoundEffect(FMODEvents.instance.golfCart);
+    private SoundEffect cartSFX;
 
     void Start()
     {
@@ -31,6 +31,7 @@ public class GolfCart : MonoBehaviour
 
         particleSys = gameObject.transform.Find("Grass Particles Cart").GetComponent<ParticleSystem>();
 
+        cartSFX = new SoundEffect(FMODEvents.instance.golfCart);
         cartSFX.play(this);
 
         cartBody.velocity = new Vector2(speed, 0);
