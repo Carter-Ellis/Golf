@@ -60,6 +60,9 @@ public class Hole : MonoBehaviour, ButtonTarget
     private CursorController cursor;
     public TextMeshProUGUI timeToBeatTxt;
     private int[] costs = { 2, 5, 8, 12 };
+
+    private bool isBallTouching = false;
+
     private void Awake()
     {
         currentMap = Map.current;
@@ -493,323 +496,13 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
-        {
-            
-            if (ball.strokes < par && currentMap != Map.TYPE.CLASSIC)
-            {
-                currentLevel = holeNum;
-                Inventory inv = ball.GetComponent<Inventory>();
-                MapData mapData = Map.get(currentMap);
-                if (!mapData.isCoinCollected(currentLevel, 3))
-                {
-                    inv.coins += 1;
-                    inv.totalCoins += 1;
-                    mapData.setCoinCollected(currentLevel, 3);
-                    Audio.playSFX(FMODEvents.instance.coinCollect, transform.position);
-                }
 
-            }
+        Ball ball = collision.GetComponent<Ball>();
+        if (ball == null) { return; }
 
-            // Save ghost frames
-            if (GameMode.isAnySpeedrun() && !inHole)
-            {
-                inHole = true;
-                
-                List<GhostFrame> ghostFrames = Map.get(currentMap).getGhostFrames(currentMode, holeNum);
-                if (ghostFrames != null)
-                {
-                    if (ghostFrames.Count > 0) 
-                    {
-                        float totalTime = ghostFrames[ghostFrames.Count - 1].GetTime();
+        isBallTouching = true;
 
-                        if (totalTime > ghostRecorder.timeElapsed)
-                        {
-                            ghostRecorder.recordFrame();
-                            Map.get(currentMap).setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames), currentMode, holeNum);
-                        }
-                    }
-                }
-                else
-                {
-                    ghostRecorder.recordFrame();
-                    Map.get(currentMap).setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames), currentMode, holeNum);
-                }
-                ghostRecorder.isRecording = false;
-
-            }
-
-            if ((GameMode.current == GameMode.TYPE.FREEPLAY) && ball.strokes <= par)
-            {
-                if (holeNum == 18 && SceneManager.GetActiveScene().name == "Campaign 18")
-                {
-                    Achievement.Give(Achievement.TYPE.BEAT_CAMP_FREEPLAY);
-                }
-                else if (holeNum == 18 && SceneManager.GetActiveScene().name == "Classic 18")
-                {
-                    Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
-                }
-                else if (holeNum == 18 && SceneManager.GetActiveScene().name == "Beach 18")
-                {
-                    //Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
-                }
-                winTxt.fontSize = 75;
-                winTxt.text = winSayings[winSayingIndex];
-            }
-            else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.current == GameMode.TYPE.HOLE18)
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Campaign 18 Holes";
-
-                if (holeNum == 18)
-                {
-                    Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
-                    winTxt.text = "You finished Campaign 18 Holes!";
-                }
-            }
-            else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.isAnySpeedrun())
-            {
-                nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Too Slow!";
-                List<GhostFrame> currFrames = ghostRecorder.currFrames;
-                float time = currFrames[currFrames.Count - 1].GetTime();
-
-                if (time < timeToBeat)
-                {
-                    winTxt.text = "Campaign Speedrun";
-                    nextLevelButton.interactable = true;
-                    inv.campSpeedGoalsBeat[holeNum] = true;
-
-                    if (holeNum == 18)
-                    {
-                        if (GameMode.current == GameMode.TYPE.CLUBLESS)
-                        {
-                            Achievement.Give(Achievement.TYPE.BEAT_CAMP_CLUBLESS);
-                        }
-                        else
-                        {
-                            Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
-                        }
-
-                        winTxt.text = "You finished Campaign Speedrun!";
-                    }
-
-                }
-
-            }
-            else if ((currentMap == Map.TYPE.CAMPAIGN) && (currentMode == GameMode.TYPE.HARDCORE))
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Campaign Hardcore";
-
-                if (ball.strokes > par)
-                {
-                    winTxt.text = "Too Many Strokes!";
-                    nextLevelButton.interactable = false;
-
-                }
-                else 
-                {
-                    if (holeNum == 18)
-                    {
-                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
-                        winTxt.text = "You finished Campaign Hardcore!";
-                    }
-                    
-                }
-                
-
-            }
-            else if (currentMap == Map.TYPE.CLASSIC && currentMode == GameMode.TYPE.HOLE18)
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Classic 18 Holes";
-                if (holeNum == 18)
-                {
-                    Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
-                    winTxt.text = "You finished Classic 18 Holes!";
-                }
-
-            }
-            else if (currentMap == Map.TYPE.CLASSIC && GameMode.isAnySpeedrun())
-            {
-                nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Too Slow!";
-
-                List<GhostFrame> currFrames = ghostRecorder.currFrames;
-                float time = currFrames[currFrames.Count - 1].GetTime();
-                if (time < timeToBeat)
-                {
-                    winTxt.text = "Classic Speedrun";
-                    nextLevelButton.interactable = true;
-                    inv.campSpeedGoalsBeat[holeNum] = true;
-
-                    if (holeNum == 18)
-                    {
-                        if (GameMode.current == GameMode.TYPE.CLUBLESS)
-                        {
-                            Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
-                        }
-                        else
-                        {
-                            Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
-                        }
-                        winTxt.text = "You finished Classic Speedrun!";
-                    }
-
-                }
-
-            }
-            else if (currentMap == Map.TYPE.CLASSIC && currentMode == GameMode.TYPE.HARDCORE)
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Classic Hardcore";
-
-                if (ball.strokes > par)
-                {
-                    winTxt.text = "Too Many Strokes!";
-                    nextLevelButton.interactable = false;
-
-                }
-                else
-                {
-                    if (holeNum == 18)
-                    {
-                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
-                        winTxt.text = "You finished Classic Hardcore!";
-                    }
-                }
-                
-
-            }
-            else if (currentMap == Map.TYPE.BEACH && GameMode.current == GameMode.TYPE.HOLE18)
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Beach 18 Holes";
-
-                if (holeNum == 18)
-                {
-                    //Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
-                    winTxt.text = "You finished Beach 18 Holes!";
-                }
-            }
-            else if (currentMap == Map.TYPE.BEACH && GameMode.isAnySpeedrun())
-            {
-                nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Too Slow!";
-
-                List<GhostFrame> currFrames = ghostRecorder.currFrames;
-                float time = currFrames[currFrames.Count - 1].GetTime();
-                if (time < timeToBeat)
-                {
-                    winTxt.text = "Beach Speedrun";
-                    nextLevelButton.interactable = true;
-                    inv.campSpeedGoalsBeat[holeNum] = true;
-
-                    if (holeNum == 18)
-                    {
-                        if (GameMode.current == GameMode.TYPE.CLUBLESS)
-                        {
-                            //Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
-                        }
-                        else
-                        {
-                            // BEACH ACHIEVEMENT Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
-                        }
-                        winTxt.text = "You finished Beach Speedrun!";
-                    }
-
-                }
-
-            }
-            else if ((currentMap == Map.TYPE.BEACH) && (currentMode == GameMode.TYPE.HARDCORE))
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "Beach Hardcore";
-
-                if (ball.strokes > par)
-                {
-                    winTxt.text = "Too Many Strokes!";
-                    nextLevelButton.interactable = false;
-
-                }
-                else
-                {
-                    if (holeNum == 18)
-                    {
-                        //Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
-                        winTxt.text = "You finished Beach Hardcore!";
-                    }
-
-                }
-
-
-            }
-            else if (Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1))
-            {
-                nextLevelButton.interactable = true;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
-                winTxt.fontSize = 50;
-                winTxt.text = "You Lose! Too Many Strokes!";
-
-                
-
-               if (GameMode.isAnySpeedrun())
-               {
-                    List<GhostFrame> currFrames = ghostRecorder.currFrames;
-                    float time = currFrames[currFrames.Count - 1].GetTime();
-                    winTxt.text = "Too Slow!";
-                    if (time < timeToBeat)
-                    {
-                        winTxt.fontSize = 75;
-                        winTxt.text = winSayings[winSayingIndex];
-                    }
-                    
-               }
-
-            }
-            else
-            {
-                nextLevelButton.interactable = false;
-                nextLevelButton.GetComponent<ButtonAudio>().enabled = false;
-                winTxt.fontSize = 50;
-                winTxt.text = "You Lose! Too Many Strokes!";
-            }
-
-
-            if (parOnWinScreenTxt != null)
-            {
-                parOnWinScreenTxt.text = "Par " + par;
-            }
-
-            holeOnWinScreenTxt.text = "Hole " + holeNum;
-
-            strokesTxt.text = "Strokes " + ball.strokes;
-            
-
-            inHole = true;
-            ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
-        }
-        else if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude >= ballOverHoleSpeed)
+        if (ball.GetComponent<Rigidbody2D>().velocity.magnitude >= ballOverHoleSpeed)
         {
             Audio.playSFX(FMODEvents.instance.overHole, transform.position);
             if (!inv.achievements[(int)Achievement.TYPE.SLOW_THERE_BUDDY])
@@ -817,9 +510,353 @@ public class Hole : MonoBehaviour, ButtonTarget
                 Achievement.Give(Achievement.TYPE.SLOW_THERE_BUDDY);
                 inv.SavePlayer();
             }
-            
+
         }
-        
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+        Ball ball = collision.GetComponent<Ball>();
+        if (ball == null) { return; }
+
+        isBallTouching = false;
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!isBallTouching) { return; }
+
+        Ball ball = collision.GetComponent<Ball>();
+        if (ball == null) { return; }
+
+        if (ball.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
+        {
+            onBallEnterHole();
+            isBallTouching = false;
+        }
+
+    }
+
+    private void onBallEnterHole()
+    {
+        if (ball.strokes < par && currentMap != Map.TYPE.CLASSIC)
+        {
+            currentLevel = holeNum;
+            Inventory inv = ball.GetComponent<Inventory>();
+            MapData mapData = Map.get(currentMap);
+            if (!mapData.isCoinCollected(currentLevel, 3))
+            {
+                inv.coins += 1;
+                inv.totalCoins += 1;
+                mapData.setCoinCollected(currentLevel, 3);
+                Audio.playSFX(FMODEvents.instance.coinCollect, transform.position);
+            }
+
+        }
+
+        // Save ghost frames
+        if (GameMode.isAnySpeedrun() && !inHole)
+        {
+            inHole = true;
+
+            List<GhostFrame> ghostFrames = Map.get(currentMap).getGhostFrames(currentMode, holeNum);
+            if (ghostFrames != null)
+            {
+                if (ghostFrames.Count > 0)
+                {
+                    float totalTime = ghostFrames[ghostFrames.Count - 1].GetTime();
+
+                    if (totalTime > ghostRecorder.timeElapsed)
+                    {
+                        ghostRecorder.recordFrame();
+                        Map.get(currentMap).setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames), currentMode, holeNum);
+                    }
+                }
+            }
+            else
+            {
+                ghostRecorder.recordFrame();
+                Map.get(currentMap).setGhostFrames(new List<GhostFrame>(ghostRecorder.currFrames), currentMode, holeNum);
+            }
+            ghostRecorder.isRecording = false;
+
+        }
+
+        if (GameMode.current == GameMode.TYPE.FREEPLAY && ball.strokes <= par)
+        {
+            if (holeNum == 18)
+            {
+                switch (currentMap)
+                {
+                    case Map.TYPE.CAMPAIGN:
+                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_FREEPLAY);
+                        break;
+                    case Map.TYPE.CLASSIC:
+                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
+                        break;
+                    case Map.TYPE.BEACH:
+                        //TODO: BEACH ACHIEVEMENT
+                        break;
+                }
+            }
+            winTxt.fontSize = 75;
+            winTxt.text = winSayings[winSayingIndex];
+        }
+        else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.current == GameMode.TYPE.HOLE18)
+        {
+            nextLevelButton.interactable = true;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Campaign 18 Holes";
+
+            if (holeNum == 18)
+            {
+                Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
+                winTxt.text = "You finished Campaign 18 Holes!";
+            }
+        }
+        else if (currentMap == Map.TYPE.CAMPAIGN && GameMode.isAnySpeedrun())
+        {
+            nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Too Slow!";
+            List<GhostFrame> currFrames = ghostRecorder.currFrames;
+            float time = currFrames[currFrames.Count - 1].GetTime();
+
+            if (time < timeToBeat)
+            {
+                winTxt.text = "Campaign Speedrun";
+                nextLevelButton.interactable = true;
+                inv.campSpeedGoalsBeat[holeNum] = true;
+
+                if (holeNum == 18)
+                {
+                    if (GameMode.current == GameMode.TYPE.CLUBLESS)
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_CLUBLESS);
+                    }
+                    else
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
+                    }
+
+                    winTxt.text = "You finished Campaign Speedrun!";
+                }
+
+            }
+
+        }
+        else if (currentMap == Map.TYPE.CAMPAIGN && (currentMode == GameMode.TYPE.HARDCORE))
+        {
+            nextLevelButton.interactable = true;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Campaign Hardcore";
+
+            if (ball.strokes > par)
+            {
+                winTxt.text = "Too Many Strokes!";
+                nextLevelButton.interactable = false;
+
+            }
+            else
+            {
+                if (holeNum == 18)
+                {
+                    Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
+                    winTxt.text = "You finished Campaign Hardcore!";
+                }
+
+            }
+
+
+        }
+        else if (currentMap == Map.TYPE.CLASSIC && currentMode == GameMode.TYPE.HOLE18)
+        {
+            nextLevelButton.interactable = true;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Classic 18 Holes";
+            if (holeNum == 18)
+            {
+                Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
+                winTxt.text = "You finished Classic 18 Holes!";
+            }
+
+        }
+        else if (currentMap == Map.TYPE.CLASSIC && GameMode.isAnySpeedrun())
+        {
+            nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Too Slow!";
+
+            List<GhostFrame> currFrames = ghostRecorder.currFrames;
+            float time = currFrames[currFrames.Count - 1].GetTime();
+            if (time < timeToBeat)
+            {
+                winTxt.text = "Classic Speedrun";
+                nextLevelButton.interactable = true;
+                inv.campSpeedGoalsBeat[holeNum] = true;
+
+                if (holeNum == 18)
+                {
+                    if (GameMode.current == GameMode.TYPE.CLUBLESS)
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
+                    }
+                    else
+                    {
+                        Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
+                    }
+                    winTxt.text = "You finished Classic Speedrun!";
+                }
+
+            }
+
+        }
+        else if (currentMap == Map.TYPE.CLASSIC && currentMode == GameMode.TYPE.HARDCORE)
+        {
+            nextLevelButton.interactable = true;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Classic Hardcore";
+
+            if (ball.strokes > par)
+            {
+                winTxt.text = "Too Many Strokes!";
+                nextLevelButton.interactable = false;
+
+            }
+            else
+            {
+                if (holeNum == 18)
+                {
+                    Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
+                    winTxt.text = "You finished Classic Hardcore!";
+                }
+            }
+
+
+        }
+        else if (currentMap == Map.TYPE.BEACH && GameMode.current == GameMode.TYPE.HOLE18)
+        {
+            nextLevelButton.interactable = true;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Beach 18 Holes";
+
+            if (holeNum == 18)
+            {
+                //Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
+                winTxt.text = "You finished Beach 18 Holes!";
+            }
+        }
+        else if (currentMap == Map.TYPE.BEACH && GameMode.isAnySpeedrun())
+        {
+            nextLevelButton.interactable = Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1);
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Too Slow!";
+
+            List<GhostFrame> currFrames = ghostRecorder.currFrames;
+            float time = currFrames[currFrames.Count - 1].GetTime();
+            if (time < timeToBeat)
+            {
+                winTxt.text = "Beach Speedrun";
+                nextLevelButton.interactable = true;
+                inv.campSpeedGoalsBeat[holeNum] = true;
+
+                if (holeNum == 18)
+                {
+                    if (GameMode.current == GameMode.TYPE.CLUBLESS)
+                    {
+                        //Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
+                    }
+                    else
+                    {
+                        // BEACH ACHIEVEMENT Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
+                    }
+                    winTxt.text = "You finished Beach Speedrun!";
+                }
+
+            }
+
+        }
+        else if ((currentMap == Map.TYPE.BEACH) && (currentMode == GameMode.TYPE.HARDCORE))
+        {
+            nextLevelButton.interactable = true;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "Beach Hardcore";
+
+            if (ball.strokes > par)
+            {
+                winTxt.text = "Too Many Strokes!";
+                nextLevelButton.interactable = false;
+
+            }
+            else
+            {
+                if (holeNum == 18)
+                {
+                    //Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
+                    winTxt.text = "You finished Beach Hardcore!";
+                }
+
+            }
+
+
+        }
+        else if (Map.get(currentMap).isLevelUnlocked(currentMode, holeNum + 1))
+        {
+            nextLevelButton.interactable = true;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
+            winTxt.fontSize = 50;
+            winTxt.text = "You Lose! Too Many Strokes!";
+
+
+
+            if (GameMode.isAnySpeedrun())
+            {
+                List<GhostFrame> currFrames = ghostRecorder.currFrames;
+                float time = currFrames[currFrames.Count - 1].GetTime();
+                winTxt.text = "Too Slow!";
+                if (time < timeToBeat)
+                {
+                    winTxt.fontSize = 75;
+                    winTxt.text = winSayings[winSayingIndex];
+                }
+
+            }
+
+        }
+        else
+        {
+            nextLevelButton.interactable = false;
+            nextLevelButton.GetComponent<ButtonAudio>().enabled = false;
+            winTxt.fontSize = 50;
+            winTxt.text = "You Lose! Too Many Strokes!";
+        }
+
+
+        if (parOnWinScreenTxt != null)
+        {
+            parOnWinScreenTxt.text = "Par " + par;
+        }
+
+        holeOnWinScreenTxt.text = "Hole " + holeNum;
+
+        strokesTxt.text = "Strokes " + ball.strokes;
+
+
+        inHole = true;
+        ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
     }
 
     private void PlayVoiceLine()
