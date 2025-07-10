@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     GhostRecorder ghostRecorder;
 
     public List<Ability> unlockedAbilities = new List<Ability>();
-    public int indexOfAbility = 0;
+    public static int indexOfAbility = 0;
 
     public int currentLevel = 1;
     public int coins;
@@ -167,8 +167,9 @@ public class Inventory : MonoBehaviour
         PopulateCharges();
         DisplayCosmetics();
         SetGoal();
-        
         DisplayBestTime();
+
+        equipAbility(indexOfAbility);
 
         ghostRecorder = gameObject.GetComponent<GhostRecorder>();
 
@@ -417,7 +418,7 @@ public class Inventory : MonoBehaviour
     private void DisplayCoins()
     {
         coinImage = GameObject.Find("Coin Image")?.GetComponent<Image>();
-        if (GameMode.isAnySpeedrun() || Map.current == Map.TYPE.CLASSIC)
+        if (GameMode.isAnySpeedrun() || currentMap == Map.TYPE.CLASSIC)
         {
             if (coinImage != null && coinTxt != null)
             {
@@ -705,19 +706,12 @@ public class Inventory : MonoBehaviour
             }
             foreach (var type in data.unlockedAbilityTypes)
             {
-                if (indexOfAbility >= data.unlockedAbilityTypes.Count)
-                {
-                    break;
-                }
-
                 int maxCharges = data.maxChargesList.FirstOrDefault(c => c.ability == type).charges;
                 Ability.SetMaxCharges(type, maxCharges);
                 Ability ability = Ability.Create(type, Color.white);
                 ability.onPickup(ball);
                 unlockedAbilities.Add(ability);
-                indexOfAbility++;
             }
-            indexOfAbility = 0;
         }
 
         if (data?.levelsCompleted != null)
@@ -778,7 +772,7 @@ public class Inventory : MonoBehaviour
     private void AbilityManager()
     {
 
-        if (unlockedAbilities == null || Map.current == Map.TYPE.CLASSIC)
+        if (unlockedAbilities == null || currentMap == Map.TYPE.CLASSIC)
         {
             return;
         }
@@ -802,19 +796,28 @@ public class Inventory : MonoBehaviour
         if (PlayerInput.isDown(PlayerInput.Axis.SwapUp) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].reset(ball);
-            indexOfAbility = (indexOfAbility + 1) % unlockedAbilities.Count;
+            equipAbility((indexOfAbility + 1) % unlockedAbilities.Count);
         }
         else if (PlayerInput.isDown(PlayerInput.Axis.SwapDown) && unlockedAbilities.Count > 0)
         {
             unlockedAbilities[indexOfAbility].reset(ball);
-            indexOfAbility = (unlockedAbilities.Count - 1 + indexOfAbility) % unlockedAbilities.Count;
+            equipAbility((unlockedAbilities.Count - 1 + indexOfAbility) % unlockedAbilities.Count);
         }
 
-    }   
+    }
+
+    private void equipAbility(int index)
+    {
+        if (index < 0 || index >= unlockedAbilities.Count)
+        {
+            index = 0;
+        }
+        indexOfAbility = index;
+    }
 
     private void DisplayAbility()
     {
-        if (unlockedAbilities == null || Map.current == Map.TYPE.CLASSIC)
+        if (unlockedAbilities == null || currentMap == Map.TYPE.CLASSIC)
         {
             return;
         }
@@ -850,9 +853,9 @@ public class Inventory : MonoBehaviour
             }
         }
         unlockedAbilities.Add(ability);
-        indexOfAbility = unlockedAbilities.Count - 1;
         abilityCount++;
-        
+        equipAbility(unlockedAbilities.Count - 1);
+
         ability.onPickup(ball);
 
     }

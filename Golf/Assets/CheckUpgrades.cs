@@ -10,7 +10,6 @@ public class CheckUpgrades : MonoBehaviour
         foreach (RectTransform child in transform)
         {
             int level = child.GetComponent<UpgradeButton>().upgradeLevel;
-            print(level);
             if (level == 4)
             {
                 count++;
