@@ -20,6 +20,13 @@ public class Map
         "Beach",
     };
 
+    private static string[] descriptions =
+    {
+        "Play through the main set of golf levels. Use abilities to overcome obstacles and collect coins.",
+        "Classic mini golf levels. No abilities or coins.",
+        "Play through beach themed levels. Use abilities to overcome tropical obstacles and collect coins.",
+    };
+
     private static List<MapData> mapData = new List<MapData>((int)Map.TYPE.MAX);
 
     public static MapData get(Map.TYPE type)
@@ -37,6 +44,18 @@ public class Map
         return mapData;
     }
 
+    public static TYPE getByName(string name)
+    {
+        for (int i = 0; i < (int)TYPE.MAX; i++)
+        {
+            if (name.Equals(mapNames[i]))
+            {
+                return (TYPE)i;
+            }
+        }
+        return TYPE.CAMPAIGN;
+    }
+
     public static void setAll(List<MapData> data)
     {
         mapData = data;
@@ -45,6 +64,11 @@ public class Map
     public static string name(TYPE type)
     {
         return mapNames[(int)type];
+    }
+
+    public static string description(TYPE type)
+    {
+        return descriptions[(int)type];
     }
 
     public static TYPE current

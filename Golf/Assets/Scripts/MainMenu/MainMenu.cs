@@ -171,6 +171,11 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public State GetState()
+    {
+        return currentState;
+    }
+
     public void SetState(State state)
     {
         currentState = state;
