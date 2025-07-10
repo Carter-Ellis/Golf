@@ -683,7 +683,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             winTxt.text = "Classic 18 Holes";
             if (holeNum == 18)
             {
-                Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
+                Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_18);
                 winTxt.text = "You finished Classic 18 Holes!";
             }
 

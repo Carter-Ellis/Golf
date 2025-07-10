@@ -17,12 +17,10 @@ public class HoverFlag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public int levelNum = 1;
 
     private Coroutine fadeCoroutine;
-    private MainMenu menu;
 
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
-        menu = FindObjectOfType<MainMenu>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -50,7 +48,7 @@ public class HoverFlag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void SetCoinSprite(Image image, int coinNum)
     {
-        MapData mapData = Map.get(menu.selectedMap);
+        MapData mapData = Map.get(MainMenu.selectedMap);
         bool hasCoin = mapData.isCoinCollected(levelNum, coinNum);
         image.sprite = hasCoin ? goldCoin : grayCoin;
     }

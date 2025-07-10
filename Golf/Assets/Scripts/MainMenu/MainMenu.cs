@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -34,7 +36,7 @@ public class MainMenu : MonoBehaviour
     private GameObject[] stateScreens = new GameObject[(int)State.MAX];
     private State currentState = State.MAIN;
 
-    public Map.TYPE selectedMap = Map.TYPE.CAMPAIGN;
+    public static Map.TYPE selectedMap = Map.TYPE.CAMPAIGN;
 
     private void Start()
     {
@@ -88,6 +90,21 @@ public class MainMenu : MonoBehaviour
                 userInterface.SetActive(true);
                 Audio.playShopMusic();
                 break;
+            case State.MODE_SELECT:
+                var hardcoreButton = GameObject.Find("Hardcore").GetComponent<UnityEngine.UI.Button>();
+                Image lockImage = hardcoreButton.transform.GetChild(0).GetComponent<Image>();
+                bool hardcoreAllowed = Map.get(selectedMap).isHardcoreUnlocked;
+                hardcoreButton.interactable = hardcoreAllowed;
+                lockImage.enabled = !hardcoreAllowed;
+                break;
+            case State.LEVEL_SELECT:
+                var coinTxt = GameObject.Find("TotalCoinsTxt")?.GetComponent<TextMeshProUGUI>();
+                if (coinTxt != null)
+                {
+                    int coins = Map.get(selectedMap).coinsUnlocked;
+                    coinTxt.text = coins + "/" + 3 * 18;
+                }
+                break;
         }
     }
 
@@ -124,7 +141,7 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    public void SetMap(int map)
+    public static void SetMap(int map)
     {
         if (map < 0 || map >= (int)Map.TYPE.MAX)
         {
@@ -135,7 +152,7 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    public Map.TYPE GetMap()
+    public static Map.TYPE GetMap()
     {
         return selectedMap;
     }

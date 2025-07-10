@@ -9,29 +9,13 @@ public class LevelMenu : MonoBehaviour
 {
     public UnityEngine.UI.Button[] buttons;
     public GameObject levelButtons;
-    private Inventory inv;
     [SerializeField] private TextMeshProUGUI totalCoinsTxt;
     [SerializeField] private Image totalCoinsImg;
-    private int totalCoins;
-    private void Start()
-    {
-        inv = FindObjectOfType<Ball>().GetComponent<Inventory>();
-    }
-    private void Update()
-    {
-        if (totalCoinsTxt != null)
-        {
-            totalCoinsTxt.text = inv.totalCoins + "/" + totalCoins;
-        }
-        
-    }
 
     private void OnEnable()
     {
         ButtonsToArray();
-        MainMenu menu = FindObjectOfType<MainMenu>();
-        Inventory inv = FindObjectOfType<Inventory>();
-        Map.TYPE map = menu.GetMap();
+        Map.TYPE map = MainMenu.GetMap();
         GameMode.TYPE mode = GameMode.current;
         bool isFreePlay = mode == GameMode.TYPE.FREEPLAY;
         for (int i = 0; i < buttons.Length; i++)
@@ -65,7 +49,6 @@ public class LevelMenu : MonoBehaviour
         {
             buttons[i] = levelButtons.transform.GetChild(i).gameObject.GetComponent<UnityEngine.UI.Button>();
         }
-        totalCoins = buttons.Length * 3;
         
     }
 

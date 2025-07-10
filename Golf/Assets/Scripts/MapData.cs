@@ -16,6 +16,41 @@ public class MapData
     private List<GhostFrame>[,] ghostFrames = new List<GhostFrame>[2, 18];
     private bool[,] coinsCollected = new bool[18, 3];
 
+    public bool isHardcoreUnlocked
+    {
+        get
+        {
+            if (type == Map.TYPE.CLASSIC)
+            {
+                Inventory inv = Object.FindAnyObjectByType<Inventory>();
+                return inv.classicHighScore != null && inv.classicHighScore.Count == 18;
+            }
+            else
+            {
+                return coinsUnlocked >= 40;
+            }
+        }
+    }
+
+    public int coinsUnlocked
+    {
+        get
+        {
+            int total = 0;
+            for (int i = 0; i < 18; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (coinsCollected[i, j])
+                    {
+                        total++;
+                    }
+                }
+            }
+            return total;
+        }
+    }
+
     public MapData(Map.TYPE type)
     {
 
