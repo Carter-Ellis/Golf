@@ -407,7 +407,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
                 MapData mapData = Map.get(currentMap);
-                if (mapData.isCoinCollected(currentLevel, 1)
+                if (mapData.type == Map.TYPE.CAMPAIGN && mapData.isCoinCollected(currentLevel, 1)
                     && mapData.isCoinCollected(currentLevel, 2)
                     && mapData.isCoinCollected(currentLevel, 3))
                 {  
@@ -496,7 +496,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         if (collision.gameObject.tag == "Ball" && collision.gameObject.GetComponent<Ball>() is Ball && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
         {
             
-            if (ball.strokes < par && currentMap == Map.TYPE.CAMPAIGN)
+            if (ball.strokes < par && currentMap != Map.TYPE.CLASSIC)
             {
                 currentLevel = holeNum;
                 Inventory inv = ball.GetComponent<Inventory>();
