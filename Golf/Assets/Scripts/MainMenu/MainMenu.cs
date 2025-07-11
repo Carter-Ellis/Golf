@@ -15,6 +15,8 @@ public class MainMenu : MonoBehaviour
     public GameObject userInterface;
     private GameObject mainCursor;
     private bool inShop = false;
+    [SerializeField] private GameObject selectedMapTxt;
+    [SerializeField] private GameObject mapTitleTxt;
 
     public enum State
     {
@@ -70,6 +72,7 @@ public class MainMenu : MonoBehaviour
     {
         if (currentState == state)
         {
+            print("Hello " + currentState);
             return;
         }
 
@@ -81,7 +84,7 @@ public class MainMenu : MonoBehaviour
         {
             inShop = false;
         }
-
+        print(inShop);
         OnExit(currentState);
 
         stateScreens[(int)currentState].SetActive(false);
@@ -119,6 +122,11 @@ public class MainMenu : MonoBehaviour
                 bool hardcoreAllowed = Map.get(selectedMap).isHardcoreUnlocked;
                 hardcoreButton.interactable = hardcoreAllowed;
                 lockImage.enabled = !hardcoreAllowed;
+                print("Mode select");
+                mapTitleTxt.SetActive(true);
+                selectedMapTxt.SetActive(true);
+                selectedMapTxt.GetComponent<TextMeshProUGUI>().text = Map.name(selectedMap);
+
                 break;
             case State.LEVEL_SELECT:
                 var coinTxt = GameObject.Find("TotalCoinsTxt")?.GetComponent<TextMeshProUGUI>();
@@ -127,12 +135,23 @@ public class MainMenu : MonoBehaviour
                     int coins = Map.get(selectedMap).coinsUnlocked;
                     coinTxt.text = coins + "/" + 3 * 18;
                 }
+                mapTitleTxt.SetActive(true);
+                selectedMapTxt.SetActive(true);
+                selectedMapTxt.GetComponent<TextMeshProUGUI>().text = Map.name(selectedMap);
+                break;
+            case State.SPEEDRUN_SELECT:
+                mapTitleTxt.SetActive(true);
+                selectedMapTxt.SetActive(true);
+                selectedMapTxt.GetComponent<TextMeshProUGUI>().text = Map.name(selectedMap);
                 break;
         }
     }
 
     private void OnExit(State state)
     {
+        mapTitleTxt.SetActive(false);
+        selectedMapTxt.SetActive(false);
+
         if (inShop)
         {
             return;
