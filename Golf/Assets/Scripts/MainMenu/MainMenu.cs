@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     public bool isActive = true;
     public GameObject userInterface;
     private GameObject mainCursor;
+    private bool inShop = false;
 
     public enum State
     {
@@ -72,6 +73,15 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
+        if ((currentState == State.SHOP || currentState == State.COSMETICS) && (state == State.SHOP || state == State.COSMETICS))
+        {
+            inShop = true;
+        }
+        else
+        {
+            inShop = false;
+        }
+
         OnExit(currentState);
 
         stateScreens[(int)currentState].SetActive(false);
@@ -87,8 +97,21 @@ public class MainMenu : MonoBehaviour
         switch (state)
         {
             case State.SHOP:
-                userInterface.SetActive(true);
-                Audio.playShopMusic();
+                if (!inShop)
+                {
+                    userInterface.SetActive(true);
+                    Audio.playShopMusic();
+
+                }
+                break;
+            case State.COSMETICS:
+                if (!inShop)
+                {
+                    userInterface.SetActive(true);
+                    Audio.playShopMusic();
+
+                }
+                
                 break;
             case State.MODE_SELECT:
                 var hardcoreButton = GameObject.Find("Hardcore").GetComponent<UnityEngine.UI.Button>();
@@ -110,9 +133,17 @@ public class MainMenu : MonoBehaviour
 
     private void OnExit(State state)
     {
+        if (inShop)
+        {
+            return;
+        }
         switch (state)
         {
             case State.SHOP:
+                Audio.playMainMusic();
+                userInterface.SetActive(false);
+                break;
+            case State.COSMETICS:
                 Audio.playMainMusic();
                 userInterface.SetActive(false);
                 break;
