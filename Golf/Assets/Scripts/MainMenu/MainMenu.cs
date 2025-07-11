@@ -72,7 +72,6 @@ public class MainMenu : MonoBehaviour
     {
         if (currentState == state)
         {
-            print("Hello " + currentState);
             return;
         }
 
@@ -84,7 +83,7 @@ public class MainMenu : MonoBehaviour
         {
             inShop = false;
         }
-        print(inShop);
+
         OnExit(currentState);
 
         stateScreens[(int)currentState].SetActive(false);
@@ -122,7 +121,7 @@ public class MainMenu : MonoBehaviour
                 bool hardcoreAllowed = Map.get(selectedMap).isHardcoreUnlocked;
                 hardcoreButton.interactable = hardcoreAllowed;
                 lockImage.enabled = !hardcoreAllowed;
-                print("Mode select");
+
                 mapTitleTxt.SetActive(true);
                 selectedMapTxt.SetActive(true);
                 selectedMapTxt.GetComponent<TextMeshProUGUI>().text = Map.name(selectedMap);

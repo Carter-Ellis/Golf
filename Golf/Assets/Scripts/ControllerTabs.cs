@@ -24,11 +24,13 @@ public class ControllerTabs : MonoBehaviour
         int tabChange = 0;
         if (PlayerInput.isDown(PlayerInput.Axis.SwapUp))
         {
+            print("SWAP UP");
             tabChange = 1;
             
         }
         else if(PlayerInput.isDown(PlayerInput.Axis.SwapDown))
         {
+            print("SWAP DOWN");
             tabChange = buttons.Length - 1;
         }
         else
@@ -37,7 +39,7 @@ public class ControllerTabs : MonoBehaviour
         }
         
         currentTab = (currentTab + tabChange) % buttons.Length;
-
+        print(currentTab);
         GameObject buttonObj = buttons[currentTab].gameObject;
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class Audio : MonoBehaviour
 {
@@ -49,10 +50,23 @@ public class Audio : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         fmodEvents = FindObjectOfType<FMODEvents>();
 
+        clearVariables();
         setBuses();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+
+    }
+
+    private static void clearVariables()
+    {
+
+        isBusSet = false;
+        for (int i = 0; i < (int)TYPE.MAX; i++)
+        {
+            events[i] = default;
+            currentRef[i] = default;
+        }
 
     }
 

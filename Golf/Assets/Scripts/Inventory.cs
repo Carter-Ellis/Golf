@@ -144,6 +144,8 @@ public class Inventory : MonoBehaviour
     private Map.TYPE currentMap;
     private int holeNum;
 
+    private GameObject abilityInterface;
+
     private void Awake()
     {
         ball = GetComponent<Ball>();
@@ -158,7 +160,7 @@ public class Inventory : MonoBehaviour
 
         currentMap = Map.current;
         holeNum = Map.hole;
-
+        abilityInterface = GameObject.Find("AbilityInterface");
         LoadZoom();
         ChangeCoinSprites();
         CheckPopup();
@@ -185,6 +187,11 @@ public class Inventory : MonoBehaviour
             {
                 timerTxt.enabled = true;
             }
+        }
+
+        if (unlockedAbilities == null || currentMap == Map.TYPE.CLASSIC || unlockedAbilities.Count < 2)
+        {
+            abilityInterface.SetActive(false);
         }
 
         SavePlayer();
@@ -441,7 +448,7 @@ public class Inventory : MonoBehaviour
         SpeedrunTimer();
 
         //CHANGE TOTAL COINS IF ADD MORE LEVELS!
-        if (totalCoins >= 54 && !achievements[(int)Achievement.TYPE.PIXEL_PENNY_PARFECT])
+        if (totalCoins >= 108 && !achievements[(int)Achievement.TYPE.PIXEL_PENNY_PARFECT])
         {
             Achievement.Give(Achievement.TYPE.PIXEL_PENNY_PARFECT);
             SavePlayer();
@@ -789,6 +796,11 @@ public class Inventory : MonoBehaviour
 
 
         if (ball.isTeleportReady)
+        {
+            return;
+        }
+
+        if (ball.isBallLocked)
         {
             return;
         }
