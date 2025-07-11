@@ -12,11 +12,11 @@ public class AbilityPickup : MonoBehaviour
     private float refillTime = 3f;
     private bool used = false;
     public bool playAudio;
-    private GameObject abilityInterace;
+    private GameObject abilityInterface;
 
     private void Start()
     {
-        abilityInterace = GameObject.Find("AbilityInterface");
+        abilityInterface = GameObject.Find("AbilityInterface");
     }
 
     private void Update()
@@ -65,7 +65,7 @@ public class AbilityPickup : MonoBehaviour
         
         if (inv.unlockedAbilities.Count >= 2)
         {
-            abilityInterace.SetActive(true);
+            abilityInterface?.SetActive(true);
         }
 
         if(playAudio)

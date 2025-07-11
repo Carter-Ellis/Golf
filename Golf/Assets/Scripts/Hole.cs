@@ -59,7 +59,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     private CursorController cursor;
     public TextMeshProUGUI timeToBeatTxt;
-    private int[] costs = { 2, 5, 8, 12 };
+    private int[] costs = { 4, 6, 9, 12 };
 
     private bool isBallTouching = false;
 

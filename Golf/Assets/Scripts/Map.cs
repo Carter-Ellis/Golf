@@ -27,6 +27,27 @@ public class Map
         "Play through beach themed levels. Use abilities to overcome tropical obstacles and collect coins.",
     };
 
+    private static string[] mapUnlockDescriptions =
+    {
+        "",
+        "",
+        "Complete a Campaign 18 hole run to unlock."
+    };
+
+    public static bool isBeachUnlocked
+    {
+        
+        get
+        {
+            Inventory inv = Object.FindAnyObjectByType<Inventory>();
+            if (inv.campaignHighScore.Count >= 18)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
     private static List<MapData> mapData = new List<MapData>((int)Map.TYPE.MAX);
 
     public static MapData get(Map.TYPE type)
@@ -68,7 +89,15 @@ public class Map
 
     public static string description(TYPE type)
     {
-        return descriptions[(int)type];
+        string result = descriptions[(int)type];
+
+        // Beach not unlocked
+        if (type == TYPE.BEACH && !isBeachUnlocked)
+        {
+            result += " " + mapUnlockDescriptions[(int)type];
+        }
+
+        return result;
     }
 
     public static TYPE current

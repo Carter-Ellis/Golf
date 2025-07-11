@@ -10,11 +10,14 @@ public class CheckUpgrades : MonoBehaviour
         foreach (RectTransform child in transform)
         {
             int level = child.GetComponent<UpgradeButton>().upgradeLevel;
-            if (level == 4)
+
+            if (level >= 3)
             {
+                
                 count++;
             }
         }
+
         if (count == 3)
         {
             Achievement.Give(Achievement.TYPE.ALL_MY_POWER);

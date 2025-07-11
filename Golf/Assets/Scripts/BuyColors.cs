@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuyColors : MonoBehaviour
 {
-    [SerializeField] int price = 10;
+    [SerializeField] int price = 15;
     private Inventory inv;
     void Start()
     {

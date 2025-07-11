@@ -143,6 +143,13 @@ public class MainMenu : MonoBehaviour
                 selectedMapTxt.SetActive(true);
                 selectedMapTxt.GetComponent<TextMeshProUGUI>().text = Map.name(selectedMap);
                 break;
+            case State.MAP_SELECT:
+                var beachButton = GameObject.Find("Beach").GetComponent<UnityEngine.UI.Button>();
+                Image beachLockImage = beachButton.transform.GetChild(0).GetComponent<Image>();
+                bool beachUnlocked = Map.isBeachUnlocked;
+                beachButton.interactable = beachUnlocked;
+                beachLockImage.enabled = !beachUnlocked;
+                break;
         }
     }
 

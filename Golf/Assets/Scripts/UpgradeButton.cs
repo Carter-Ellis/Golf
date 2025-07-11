@@ -8,7 +8,7 @@ using Image = UnityEngine.UI.Image;
 public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public int upgradeLevel = 0;
-    public int[] costs = { 2, 5, 8, 12 };
+    public int[] costs = { 4, 6, 9, 12 };
     public Image[] progressSquares;
     public Sprite purchasedSquare;
     public UnityEngine.UI.Button button;

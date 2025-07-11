@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7808456614278874409}
   - component: {fileID: 1401820048763382267}
   - component: {fileID: 4105156185238628087}
-  - component: {fileID: 4988090578620198826}
   - component: {fileID: 3672077668265069275}
   - component: {fileID: 1804730302063460867}
+  - component: {fileID: 2870845199858502490}
   m_Layer: 0
   m_Name: Windmill
   m_TagString: Wood
@@ -130,54 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationsPerMinute: 40
---- !u!68 &4988090578620198826
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172961021845144147}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 1.6855469, y: -1.4185276}
-  - {x: -1.6857758, y: -1.4220352}
-  - {x: -1.869278, y: -2.3659248}
-  - {x: -1.8680725, y: -2.5077}
-  - {x: -0.48522186, y: -2.88521}
-  - {x: 0.48900604, y: -2.8746624}
-  - {x: 1.8621521, y: -2.5018559}
-  - {x: 1.8525391, y: -2.2545967}
-  - {x: 1.6858368, y: -1.4201832}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!114 &3672077668265069275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +177,41 @@ CapsuleCollider2D:
   m_Offset: {x: 0.026260376, y: 0.96282196}
   m_Size: {x: 3.0962067, y: 5.074356}
   m_Direction: 0
+--- !u!70 &2870845199858502490
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172961021845144147}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.006497359, y: -2.209595}
+  m_Size: {x: 3.5369825, y: 1.1727859}
+  m_Direction: 1
 --- !u!1 &6448894116968131053
 GameObject:
   m_ObjectHideFlags: 0

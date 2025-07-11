@@ -16,14 +16,14 @@ PlayerSettings:
   productName: Pixel Par
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 1, y: 1}
-  m_SplashScreenBackgroundColor: {r: 0.07149014, g: 0.122641504, b: 0.061899252, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.066037714, g: 0.061365236, b: 0.06292273, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
-  m_SplashScreenAnimation: 1
+  m_SplashScreenAnimation: 0
   m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 0
-  m_SplashScreenBackgroundAnimationZoom: 1
+  m_SplashScreenBackgroundAnimationZoom: 0.39
   m_SplashScreenLogoAnimationZoom: 1
   m_SplashScreenBackgroundLandscapeAspect: 1
   m_SplashScreenBackgroundPortraitAspect: 1

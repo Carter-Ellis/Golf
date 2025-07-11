@@ -191,7 +191,7 @@ public class Inventory : MonoBehaviour
 
         if (unlockedAbilities == null || currentMap == Map.TYPE.CLASSIC || unlockedAbilities.Count < 2)
         {
-            abilityInterface.SetActive(false);
+            abilityInterface?.SetActive(false);
         }
 
         SavePlayer();
