@@ -123,6 +123,8 @@ public class Ball : MonoBehaviour
     private EventInstance ballRollSFX;
 
     private bool isMainMenu;
+    private GhostRecorder ghostRecorder;
+    private GhostPlayer ghostPlayer;
 
     [Header("Achievement Variables")]
     private HashSet<GameObject> moleHits = new HashSet<GameObject>();
@@ -156,6 +158,8 @@ public class Ball : MonoBehaviour
         currentMap = Map.current;
         CurrentDirection = Direction.South;
         inv = GetComponent<Inventory>();
+        ghostRecorder = FindObjectOfType<GhostRecorder>();
+        ghostPlayer = FindObjectOfType<GhostPlayer>();
         // Instantiate dots spaced out behind startPos
         for (int i = 0; i < numDots; i++)
         {
@@ -766,7 +770,15 @@ public class Ball : MonoBehaviour
 
     void Shoot()
     {
-        FindObjectOfType<GhostRecorder>().recordFrame();
+        if (ghostRecorder != null && !ghostRecorder.isRecording)
+        {
+            ghostRecorder.isRecording = true;
+            if (ghostPlayer != null)
+            {
+                ghostPlayer.isPlaying = true;
+            }
+        }
+        ghostRecorder?.recordFrame();
         ClearDots();
         swingPowerSlider.gameObject.SetActive(false);
         powerTxt.gameObject.SetActive(false);
@@ -819,6 +831,9 @@ public class Ball : MonoBehaviour
             Audio.playSFX(FMODEvents.instance.hardSwing, transform.position);
         }
         DisplayParticles();
+
+
+
     }
 
     public void DisplayParticles()

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GhostPlayer : MonoBehaviour
 {
-    private Inventory inv;
     private List<GhostFrame> frames;
     public float playbackSpeed = 1f;
+    public bool isPlaying = false;
 
     private int currentFrame = 0;
     private float playbackTime = 0f;
@@ -18,15 +18,19 @@ public class GhostPlayer : MonoBehaviour
 
     private void Start()
     {
-        inv = FindObjectOfType<Inventory>();
 
         frames = Map.getCurrent().getGhostFrames(GameMode.current, Map.hole);
-        
+        if (frames == null || frames.Count < 2 || !GameMode.isAnySpeedrun())
+        {
+            Destroy(this);
+        }
+
+
     }
 
     void Update()
     {
-        if (frames == null || frames.Count < 2 || !GameMode.isAnySpeedrun())
+        if (!isPlaying)
             return;
 
         if (tunnelTimer < tunnelTime)

@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
 {
     Ball ball;
     PopupController popupController;
-    GhostRecorder ghostRecorder;
 
     public List<Ability> unlockedAbilities = new List<Ability>();
     public static int indexOfAbility = 0;
@@ -146,6 +145,9 @@ public class Inventory : MonoBehaviour
 
     private GameObject abilityInterface;
 
+    private GhostRecorder ghostRecorder;
+    private GhostPlayer ghostPlayer;
+
     private void Awake()
     {
         ball = GetComponent<Ball>();
@@ -153,6 +155,7 @@ public class Inventory : MonoBehaviour
         popupController = FindObjectOfType<PopupController>();
         DisplayReset();
         DisplayCoins();
+
     }
 
     private void Start()
@@ -173,7 +176,8 @@ public class Inventory : MonoBehaviour
 
         equipAbility(indexOfAbility);
 
-        ghostRecorder = gameObject.GetComponent<GhostRecorder>();
+        ghostRecorder = FindObjectOfType<GhostRecorder>();
+        ghostPlayer = FindObjectOfType<GhostPlayer>();
 
         GameObject time = GameObject.Find("Timer");
         if (time != null)
@@ -310,7 +314,7 @@ public class Inventory : MonoBehaviour
     {
         if ((!GameMode.isAnySpeedrun()) || timerTxt == null) { return; }
 
-        System.TimeSpan time = System.TimeSpan.FromSeconds(ghostRecorder.timeElapsed);
+        System.TimeSpan time = TimeSpan.FromSeconds(ghostRecorder.timeElapsed);
         timerTxt.text = time.ToString(@"mm\:ss\.ff");
     }
 
@@ -786,6 +790,14 @@ public class Inventory : MonoBehaviour
         
         if (PlayerInput.isDown(PlayerInput.Axis.Fire3) && unlockedAbilities.Count > 0)
         {
+            if (ghostRecorder != null && !ghostRecorder.isRecording)
+            {
+                ghostRecorder.isRecording = true;
+                if (ghostPlayer != null)
+                {
+                    ghostPlayer.isPlaying = true;
+                }
+            }
             ball.ClearDots();
             unlockedAbilities[indexOfAbility].onUse(ball);
         }

@@ -10,7 +10,6 @@ public class GhostRecorder : MonoBehaviour
     public bool isRecordingTunnel = false;
     Animator anim;
     Hole hole;
-    Inventory inv;
     bool timeMaxed = false;
     public bool isRecording
     {
@@ -22,20 +21,22 @@ public class GhostRecorder : MonoBehaviour
             {
                 timeElapsed = currFrames[currFrames.Count - 1].GetTime();
             }
+            else if (_isRecording)
+            {
+                recordFrame();
+            }
         }
     }
-    private bool _isRecording = true;
+    private bool _isRecording = false;
 
     private void Start()
     {
         anim = GameObject.Find("LevelFinishedCanvas").GetComponent<Animator>();
         hole = FindObjectOfType<Hole>();
-        inv = FindObjectOfType<Inventory>();
         if (!GameMode.isAnySpeedrun())
         {
-            isRecording = false;
+            Destroy(this);
         }
-        recordFrame();
     }
 
     void FixedUpdate()

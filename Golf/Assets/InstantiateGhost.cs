@@ -5,7 +5,7 @@ using UnityEngine;
 public class InstantiateGhost : MonoBehaviour
 {
     public GameObject ghost;
-    void Start()
+    void Awake()
     {
         if (ghost != null)
         {
