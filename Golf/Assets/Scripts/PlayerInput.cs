@@ -51,8 +51,8 @@ public class PlayerInput : MonoBehaviour
         { 0, 38 },
         { 1, 36 },
         { 10, 19 },
-        { 5, 21 },
-        { 4, 20 },
+        { 4, 21 },
+        { 5, 20 },
         { 2, 27 },
         { 3, 26 },
     };
@@ -66,7 +66,7 @@ public class PlayerInput : MonoBehaviour
 
     private static Vector2 _cursorPos = new Vector2(0.5f, 0.5f);
     private const float defaultCursorSpeed = 0.6f;
-    private Vector2 lastMousePos;
+    private static Vector2 lastMousePos;
 
     private bool isInSteamOverlay = false;
 
@@ -115,7 +115,7 @@ public class PlayerInput : MonoBehaviour
     public static Sprite getSprite(Axis axis)
     {
         loadSprites();
-        return sprites[spriteIndices[(int)axis, PlayerInput.isController ? 1 : 0]];
+        return sprites[spriteIndices[(int)axis, isController ? 1 : 0]];
     }
 
     public static Axis getType(string axis)
@@ -214,7 +214,7 @@ public class PlayerInput : MonoBehaviour
     private static void OnControllerChange()
     {
         Cursor.visible = !isController;
-        InputImageController[] imgCtrls = GameObject.FindObjectsByType<InputImageController>(FindObjectsSortMode.None);
+        InputImageController[] imgCtrls = FindObjectsByType<InputImageController>(FindObjectsSortMode.None);
         foreach (InputImageController imgs in imgCtrls)
         {
             imgs.OnControllerChange();

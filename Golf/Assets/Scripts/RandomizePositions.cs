@@ -10,7 +10,7 @@ public class RandomizePositions : MonoBehaviour
     private void Start()
     {
         
-        List<Vector2> positions = new List<Vector2>();
+        List<Vector3> positions = new List<Vector3>();
 
         foreach (GameObject obj in  gameObjects)
         {

@@ -867,8 +867,12 @@ public class Inventory : MonoBehaviour
         unlockedAbilities.Add(ability);
         abilityCount++;
         equipAbility(unlockedAbilities.Count - 1);
-
         ability.onPickup(ball);
+
+        if (unlockedAbilities.Count > 1)
+        {
+            abilityInterface?.SetActive(true);
+        }
 
     }
 

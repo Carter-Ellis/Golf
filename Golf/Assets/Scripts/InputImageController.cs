@@ -10,7 +10,6 @@ public class InputImageController : MonoBehaviour
 
     void Start()
     {
-        
         updateSprites();
 
     }
@@ -24,7 +23,7 @@ public class InputImageController : MonoBehaviour
     {
         foreach (Image img in images)
         {
-
+            if (img == null) { continue; }
             PlayerInput.Axis type = PlayerInput.getType(img.gameObject.name);
             Sprite sprite = PlayerInput.getSprite(type);
             float ratio = sprite.bounds.size.x / sprite.bounds.size.y;

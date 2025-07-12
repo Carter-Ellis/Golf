@@ -12,12 +12,6 @@ public class AbilityPickup : MonoBehaviour
     private float refillTime = 3f;
     private bool used = false;
     public bool playAudio;
-    private GameObject abilityInterface;
-
-    private void Start()
-    {
-        abilityInterface = GameObject.Find("AbilityInterface");
-    }
 
     private void Update()
     {
@@ -61,11 +55,6 @@ public class AbilityPickup : MonoBehaviour
         else
         {
             inv.AddAbility(Ability.Create(type, gameObject.GetComponent<SpriteRenderer>().color));
-        }
-        
-        if (inv.unlockedAbilities.Count >= 2)
-        {
-            abilityInterface?.SetActive(true);
         }
 
         if(playAudio)
