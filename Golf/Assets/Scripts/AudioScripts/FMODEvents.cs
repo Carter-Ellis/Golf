@@ -88,6 +88,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference parthetic { get; private set; }
 
     [field: SerializeField] public EventReference eagle { get; private set; }
+    [field: SerializeField] public EventReference seagle { get; private set; }
 
     [field: SerializeField] public EventReference par { get; private set; }
     [field: SerializeField] public EventReference excellent { get; private set; }
@@ -141,6 +142,11 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Achievement")]
     [field: SerializeField] public EventReference achievement { get; private set; }
+
+    [field: Header("Water")]
+    [field: SerializeField] public EventReference watersplash { get; private set; }
+    [field: Header("Secret Coin")]
+    [field: SerializeField] public EventReference secretCoin { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 

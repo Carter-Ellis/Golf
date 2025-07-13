@@ -17,6 +17,7 @@ public class Vampire : MonoBehaviour
                 Achievement.Give(Achievement.TYPE.VAMPIRE);
                 inv.SavePlayer();
             }
+            Audio.playSFX(FMODEvents.instance.windAbility);
             StartCoroutine(FadeOutPauseIn(ballImage, 1f, 5f));
         }
     }

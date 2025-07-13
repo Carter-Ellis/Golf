@@ -526,11 +526,14 @@ public class Ball : MonoBehaviour
         
         //healthTxt.text = "Health: " + health;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool isFall = false)
     {
         takingDamage = true;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(255/255, 100/255,100/255);
-        Audio.playSFX(FMODEvents.instance.ballHurtSFX, transform.position);
+        if (!isFall)
+        {
+            Audio.playSFX(FMODEvents.instance.ballHurtSFX, transform.position);
+        }
         health -= damage;
     }
     void ClickEnemy()

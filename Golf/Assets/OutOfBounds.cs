@@ -34,9 +34,9 @@ public class OutOfBounds : MonoBehaviour
             ball.swingPowerSlider.gameObject.SetActive(false);
             ball.powerTxt.gameObject.SetActive(false);
             ball.cancelImage.SetActive(false);
-            ball.TakeDamage(100);
+            ball.TakeDamage(100, true);
             isFalling = false;
-
+            Audio.playSFX(FMODEvents.instance.watersplash, transform.position);
             Inventory inv = ball.GetComponent<Inventory>();
             if (!inv.achievements[(int)Achievement.TYPE.SPLURSH])
             {
@@ -65,6 +65,8 @@ public class OutOfBounds : MonoBehaviour
 
             if (IsFullyInsideCollider(collision, tilemapCollider))
             {
+                Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+                rb.velocity *= 0.2f;
                 isFalling = true;
             }
         }

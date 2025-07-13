@@ -369,12 +369,19 @@ MonoBehaviour:
       Data3: 1245826704
       Data4: -1530488822
     Path: event:/SFX/ColinLines/eagle
+  <seagle>k__BackingField:
+    Guid:
+      Data1: -1965780787
+      Data2: 1246058068
+      Data3: 574960520
+      Data4: -254190280
+    Path: event:/SFX/ColinLines/seagle
   <par>k__BackingField:
     Guid:
-      Data1: 458861357
-      Data2: 1115060431
-      Data3: 1613100735
-      Data4: -1038973158
+      Data1: -1326826372
+      Data2: 1258228455
+      Data3: 241027476
+      Data4: 1829734876
     Path: event:/SFX/ColinLines/par
   <excellent>k__BackingField:
     Guid:
@@ -509,3 +516,17 @@ MonoBehaviour:
       Data3: -1421870920
       Data4: 1107668975
     Path: event:/SFX/Achievement
+  <watersplash>k__BackingField:
+    Guid:
+      Data1: -868905133
+      Data2: 1074555457
+      Data3: 857586606
+      Data4: -994166171
+    Path: event:/SFX/WaterSplash/Watersplash
+  <secretCoin>k__BackingField:
+    Guid:
+      Data1: -22581163
+      Data2: 1147144685
+      Data3: 629894841
+      Data4: -628747393
+    Path: event:/SFX/SecretCoin

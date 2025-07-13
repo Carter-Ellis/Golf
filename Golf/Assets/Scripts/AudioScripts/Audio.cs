@@ -145,7 +145,7 @@ public class Audio : MonoBehaviour
         currentRef[(int)type] = eventRef;
     }
 
-    public static void playSFX(EventReference eventRef, Vector3 pos)
+    public static void playSFX(EventReference eventRef, Vector3 pos = default)
     {
         play(TYPE.SFX, eventRef, pos);
     }

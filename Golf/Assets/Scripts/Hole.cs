@@ -895,8 +895,14 @@ public class Hole : MonoBehaviour, ButtonTarget
         }
         else if (ball.strokes == par - 2)
         {
-            Audio.playSFX(FMODEvents.instance.eagle, transform.position);
-            
+            if (Map.current == Map.TYPE.BEACH)
+            {
+                Audio.playSFX(FMODEvents.instance.seagle, transform.position);
+            }
+            else
+            {
+                Audio.playSFX(FMODEvents.instance.eagle, transform.position);
+            }
         }
         else
         {

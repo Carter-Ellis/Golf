@@ -343,7 +343,7 @@ MonoBehaviour:
   - {fileID: 5890043130547251492}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 3.6000001
   MaxDistance: 35
@@ -630,7 +630,7 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638875300798647989
+  lastModified: 638879597738347548
   FileSizes:
   - Name: Desktop
     Value: 1672
@@ -662,6 +662,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1846
+--- !u!114 &-2033199291892774551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ColinLines/seagle
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ColinLines/seagle
+  Guid:
+    Data1: -1965780787
+    Data2: 1246058068
+    Data3: 574960520
+    Data4: -254190280
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-2013606825857887653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,13 +1038,16 @@ MonoBehaviour:
   - {fileID: -5640379924552448926}
   - {fileID: -1363903371947610646}
   - {fileID: 8844926012215068730}
+  - {fileID: -2033199291892774551}
+  - {fileID: 3846211618890901096}
+  - {fileID: 3595816685722784573}
   EditorParameters:
   - {fileID: -6658157434718990235}
   MasterBanks:
   - {fileID: -2382926633897921263}
   StringsBanks:
   - {fileID: 327917192201675269}
-  cacheTime: 638876804685552706
+  cacheTime: 638879603005180538
   cacheVersion: 131618
 --- !u!114 &14254293823330912
 MonoBehaviour:
@@ -1142,10 +1172,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638875300798677908
+  lastModified: 638879597738377472
   FileSizes:
   - Name: Desktop
-    Value: 4170
+    Value: 4322
   Exists: 1
 --- !u!114 &371802504618700355
 MonoBehaviour:
@@ -1412,6 +1442,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3595816685722784573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SecretCoin
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SecretCoin
+  Guid:
+    Data1: -22581163
+    Data2: 1147144685
+    Data3: 629894841
+    Data4: -628747393
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &3691960937131047237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,6 +1496,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3846211618890901096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/WaterSplash/Watersplash
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/WaterSplash/Watersplash
+  Guid:
+    Data1: -868905133
+    Data2: 1074555457
+    Data3: 857586606
+    Data4: -994166171
+  Banks:
+  - {fileID: 5890043130547251492}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 906
 --- !u!114 &5125607457999878318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1508,10 +1592,10 @@ MonoBehaviour:
   Path: Assets/Golf-Audio-System/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638876750337372198
+  lastModified: 638879603005180538
   FileSizes:
   - Name: Desktop
-    Value: 2270080
+    Value: 2472736
   Exists: 1
 --- !u!114 &5944229386815654179
 MonoBehaviour:
@@ -1953,10 +2037,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/ColinLines/par
   Guid:
-    Data1: 458861357
-    Data2: 1115060431
-    Data3: 1613100735
-    Data4: -1038973158
+    Data1: -1326826372
+    Data2: 1258228455
+    Data3: 241027476
+    Data4: 1829734876
   Banks:
   - {fileID: 5890043130547251492}
   IsStream: 0
@@ -1965,7 +2049,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 2000
 --- !u!114 &8844926012215068730
 MonoBehaviour:
   m_ObjectHideFlags: 0

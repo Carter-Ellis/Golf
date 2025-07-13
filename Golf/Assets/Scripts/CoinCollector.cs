@@ -33,7 +33,7 @@ public class CoinCollector : MonoBehaviour
         if (allCollected)
         {
             coin.transform.position = this.transform.position;
-            Audio.playSFX(FMODEvents.instance.shopPurchase, transform.position);
+            Audio.playSFX(FMODEvents.instance.secretCoin, transform.position);
 
             if (isAchievement && !inv.achievements[(int)Achievement.TYPE.CASEOH] && !isPineapple)
             {

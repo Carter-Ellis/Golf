@@ -19,8 +19,8 @@ public class Seagull : MonoBehaviour
     private Rigidbody2D rb;
     private float elapsedTime;
 
-    private EventInstance squakInstance;  // FMOD event instance
-    private EventInstance flapInstance;
+    private SoundEffect squawkSFX = new SoundEffect(FMODEvents.instance.squak);
+    private SoundEffect flapSFX = new SoundEffect(FMODEvents.instance.flapWing);
 
     private void Start()
     {
@@ -40,20 +40,14 @@ public class Seagull : MonoBehaviour
         if (distance < radius)
         {
             Inventory.hitBird = true;
-            Destroy(gameObject, 10f);
+            Destroy(gameObject, 20f);
             anim.SetTrigger("Fly");
             isFlying = true;
 
             // Create and attach sound to this GameObject so it moves with the bird
-            squakInstance = RuntimeManager.CreateInstance(FMODEvents.instance.squak);
-            RuntimeManager.AttachInstanceToGameObject(squakInstance, transform, rb);
-            squakInstance.start();
-            squakInstance.release();  // Release so FMOD cleans it up when done
-
-            flapInstance = RuntimeManager.CreateInstance(FMODEvents.instance.flapWing);
-            RuntimeManager.AttachInstanceToGameObject(flapInstance, transform, rb);
-            flapInstance.start();
-            flapInstance.release();
+            squawkSFX.play(this);
+            flapSFX.play(this);
+           
         }
     }
 
@@ -62,6 +56,9 @@ public class Seagull : MonoBehaviour
         if (!isFlying)
             return;
 
+        squawkSFX.updatePosition(this);
+        flapSFX.updatePosition(this);
+
         elapsedTime += Time.fixedDeltaTime;
 
         float wobble = Mathf.Sin(elapsedTime * wobbleFrequency) * wobbleAmplitude;
@@ -69,4 +66,11 @@ public class Seagull : MonoBehaviour
 
         rb.velocity = new Vector2(forwardSpeed, verticalVelocity);
     }
+
+    private void OnDestroy()
+    {
+        squawkSFX.stop();
+        flapSFX.stop();
+    }
+
 }
