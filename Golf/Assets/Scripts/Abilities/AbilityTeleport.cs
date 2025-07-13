@@ -164,6 +164,12 @@ public class AbilityTeleport : Ability
         {
             return;
         }
+
+        if (GameObject.Find("Pop Up") != null && GameObject.Find("Pop Up").activeSelf)
+        {
+            return;
+        }
+
         if (charges <= 0)
         {
             return;

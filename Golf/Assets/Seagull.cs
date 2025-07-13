@@ -27,6 +27,7 @@ public class Seagull : MonoBehaviour
         anim = GetComponent<Animator>();
         ball = FindObjectOfType<Ball>();
         rb = GetComponent<Rigidbody2D>();
+        ball.GetComponent<Inventory>().seagullInScene = true;
     }
 
     private void Update()
@@ -38,6 +39,7 @@ public class Seagull : MonoBehaviour
 
         if (distance < radius)
         {
+            Inventory.hitBird = true;
             Destroy(gameObject, 10f);
             anim.SetTrigger("Fly");
             isFlying = true;

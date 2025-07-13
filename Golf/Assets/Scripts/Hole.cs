@@ -358,7 +358,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         {
             return;
         }
-        if (ball.transform.localScale.x <= 0)
+        if (ball?.transform.localScale.x <= 0)
         {
 
             ball.cursor.SetActive(false);
@@ -542,6 +542,12 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     private void onBallEnterHole()
     {
+        print(Inventory.hitBird);
+        if (!inv.achievements[(int)Achievement.TYPE.BIRD_THAT_I_HATE] && !Inventory.hitBird && ball.strokes <= par)
+        {
+            Achievement.Give(Achievement.TYPE.BIRD_THAT_I_HATE);
+        }
+
         if (ball.strokes < par && currentMap != Map.TYPE.CLASSIC)
         {
             currentLevel = holeNum;

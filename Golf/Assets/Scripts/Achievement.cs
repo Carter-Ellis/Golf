@@ -37,6 +37,15 @@ public class Achievement : MonoBehaviour
         BACK_TO_THE_BACK,
         TORNADO,
         APPLE_A_DAY,
+        VAMPIRE,
+        ALAKAZAA,
+        SPLURSH,
+        BIRD_THAT_I_HATE,
+        WHO_LIVES_IN_PINEAPPLE,
+        MOMENTEMUMS,
+        ANNOYING_ORANGE,
+        MAUI_2026,
+        MR_K,
         MAX
     }
 
@@ -72,7 +81,16 @@ public class Achievement : MonoBehaviour
         "The Big One",
         "Back To The Back",
         "How About A Tornado Patrick?",
-        "An Apple A Day"
+        "An Apple A Day",
+        "Am I A Vampire?",
+        "ALAKAZAA!!!",
+        "SPLURSHHH!",
+        "That Bird That I Hate",
+        "Who Lives In A Pineapple",
+        "Momentemums",
+        "Annoying Orange",
+        "Maui 2026",
+        "Mr. K",
 };
 
     private static string[] descriptions =
@@ -107,7 +125,17 @@ public class Achievement : MonoBehaviour
         "Eat the giant apple.",
         "Reset 50 times.",
         "Click on a fan 20 times.",
-        "???"
+        "???",
+        "???",
+        "Use all abilities when they are maxed.",
+        "Sink into a watery grave.",
+        "Complete a hole without scaring seagulls.",
+        "Collect the hidden pineapples.",
+        "Break through 10 walls.",
+        "Equip the orange ball color and a green hat.",
+        "Unlock the beach map.",
+        "Hit Mr. K 5 times."
+
     };
 
     public static string GetName(TYPE type)

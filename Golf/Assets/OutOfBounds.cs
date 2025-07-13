@@ -36,6 +36,14 @@ public class OutOfBounds : MonoBehaviour
             ball.cancelImage.SetActive(false);
             ball.TakeDamage(100);
             isFalling = false;
+
+            Inventory inv = ball.GetComponent<Inventory>();
+            if (!inv.achievements[(int)Achievement.TYPE.SPLURSH])
+            {
+                Achievement.Give(Achievement.TYPE.SPLURSH);
+                inv.SavePlayer();
+            }
+
         }
         else
         {

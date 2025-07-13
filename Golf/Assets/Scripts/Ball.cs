@@ -130,6 +130,8 @@ public class Ball : MonoBehaviour
     private HashSet<GameObject> moleHits = new HashSet<GameObject>();
     public bool closeToSpike = false;
 
+    private bool isRecordingClubless = false;
+
     void Awake()
     {
         isMainMenu = (SceneManager.GetActiveScene().name == "Main Menu");
@@ -217,6 +219,20 @@ public class Ball : MonoBehaviour
     {
         if (isBattleMode && movement.magnitude > 0)
         {
+            if (!isRecordingClubless)
+            {
+                if (ghostRecorder != null && !ghostRecorder.isRecording)
+                {
+                    ghostRecorder.isRecording = true;
+                    if (ghostPlayer != null)
+                    {
+                        ghostPlayer.isPlaying = true;
+                    }
+                }
+                isRecordingClubless = true;
+            }
+            
+            ghostRecorder?.recordFrame();
             float speed = Mathf.Max(moveSpeed, rb.velocity.magnitude);
             rb.velocity = (rb.velocity + movement.normalized * moveSpeed).normalized * speed;
         }
@@ -809,6 +825,10 @@ public class Ball : MonoBehaviour
         if (force.magnitude >= 0.1f)
         {
             strokes++;
+            if (strokes % 100 == 0)
+            {
+                strokes = 99;
+            }
         }
         else
         {

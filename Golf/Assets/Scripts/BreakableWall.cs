@@ -28,6 +28,22 @@ public class BreakableWall : MonoBehaviour
         float ballSpeed = calculateIncomingSpeed();
         if (collision.gameObject.tag == "Ball" && ballSpeed > threshold)
         {
+
+            if (Inventory.wallBreakCount < 10)
+            {
+                Inventory.wallBreakCount++;
+            }
+
+            if (Inventory.wallBreakCount == 10) 
+            {
+                Inventory inv = ball.GetComponent<Inventory>();
+                if (!inv.achievements[(int)Achievement.TYPE.MOMENTEMUMS])
+                {
+                    Achievement.Give(Achievement.TYPE.MOMENTEMUMS);
+                    inv.SavePlayer();
+                }
+            }
+
             Audio.playSFX(FMODEvents.instance.wallBreak, transform.position);
             Vector3 ballVel = ballRB.velocity;
             isBroken = true;

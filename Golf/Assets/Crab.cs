@@ -10,6 +10,8 @@ public class Crab : MonoBehaviour
     public float moveDuration = 2f;
     public Vector2 waitTimeRange = new Vector2(1f, 3f);
 
+    public bool mrCrab;
+
     private Rigidbody2D rb;
     private Animator animator;
 
@@ -18,6 +20,8 @@ public class Crab : MonoBehaviour
 
     private EventInstance walkInstance;     // FMOD event instance for CrabWalk
     private bool isSoundPlaying = false;    // To track sound state
+
+    private int hitCount = 0;
 
     void Start()
     {
@@ -88,4 +92,23 @@ public class Crab : MonoBehaviour
         walkInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         walkInstance.release();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag != "Ball") { return; }
+        if (mrCrab && hitCount < 5)
+        {
+            hitCount++;
+
+            if (hitCount >= 5) 
+            {
+                if (!FindObjectOfType<Inventory>().achievements[(int)Achievement.TYPE.MR_K])
+                {
+                    Achievement.Give(Achievement.TYPE.MR_K);
+                    FindObjectOfType<Inventory>().SavePlayer();
+                }
+            }
+        }
+    }
+
 }

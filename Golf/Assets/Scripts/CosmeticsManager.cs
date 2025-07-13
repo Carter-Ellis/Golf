@@ -329,7 +329,17 @@ public class CosmeticsManager : MonoBehaviour
             equipButton.SetActive(false);
             unequipButton.SetActive(true);
         }
-        
+
+        print("colorIndex: " + colorIndex);
+        print("ballColorIndex: " + colorBallIndex);
+        if (colorBallIndex == 5 && (colorIndex == 3 || colorIndex == 4))
+        {
+            
+            if (!inv.achievements[(int)Achievement.TYPE.ANNOYING_ORANGE])
+            {
+                Achievement.Give(Achievement.TYPE.ANNOYING_ORANGE);
+            }
+        }
 
         inv.SavePlayer();   
     }

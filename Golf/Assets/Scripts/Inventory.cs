@@ -148,6 +148,10 @@ public class Inventory : MonoBehaviour
     private GhostRecorder ghostRecorder;
     private GhostPlayer ghostPlayer;
 
+    public static int wallBreakCount = 0;
+    public static bool hitBird = false;
+    public bool seagullInScene = false;
+
     private void Awake()
     {
         ball = GetComponent<Ball>();
@@ -198,6 +202,15 @@ public class Inventory : MonoBehaviour
             abilityInterface?.SetActive(false);
         }
 
+        if (seagullInScene)
+        {
+            hitBird = false;
+        }
+        else
+        {
+            hitBird = true;
+        }
+
         SavePlayer();
 
     }
@@ -220,8 +233,7 @@ public class Inventory : MonoBehaviour
         int level = Map.hole;
         GameMode.TYPE mode = GameMode.current;
         List<GhostFrame> ghostFrames = currentMap.getGhostFrames(mode, level);
-        if (bestTimeTxt == null || ghostFrames == null) { return; }
-
+        if (bestTimeTxt == null || ghostFrames == null || ghostFrames.Count < 2) { return; }
 
         float timeInSeconds = ghostFrames[ghostFrames.Count - 1].GetTime();
         TimeSpan timeSpan = TimeSpan.FromSeconds(timeInSeconds);
@@ -441,11 +453,11 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.P))
         {
             ClearAchievements();
             SavePlayer();
-        }*/
+        }
 
         AbilityManager();
         DisplayAbility();
@@ -800,6 +812,9 @@ public class Inventory : MonoBehaviour
             }
             ball.ClearDots();
             unlockedAbilities[indexOfAbility].onUse(ball);
+
+            checkAlakazaa();    
+
         }
         if (unlockedAbilities.Count > 0)
         {
@@ -829,6 +844,51 @@ public class Inventory : MonoBehaviour
         }
 
     }
+
+    private void checkAlakazaa()
+    {
+        if (!achievements[(int)Achievement.TYPE.ALAKAZAA])
+        {
+            int count = 0;
+            foreach (Ability ability in unlockedAbilities)
+            {
+                int maxCharges = ability.getMaxCharges(ball);
+
+                int charges = ability.getCharges(ball);
+
+                if (ability.type == ABILITIES.WIND)
+                {
+                    if (charges == 0 && maxCharges == 5)
+                    {
+                        count++;
+                    }
+                }
+                else if (ability.type == ABILITIES.FREEZE)
+                {
+                    if (charges == 0 && maxCharges == 5)
+                    {
+                        count++;
+                    }
+                }
+                else if (ability.type == ABILITIES.TELEPORT)
+                {
+                    if (charges == 0 && maxCharges == 1)
+                    {
+                        count++;
+                    }
+                }
+
+            }
+
+            if (count == 3)
+            {
+                Achievement.Give(Achievement.TYPE.ALAKAZAA);
+                SavePlayer();
+            }
+        }
+    }
+
+
 
     private void equipAbility(int index)
     {

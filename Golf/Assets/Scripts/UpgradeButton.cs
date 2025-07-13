@@ -55,7 +55,7 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void TryPurchase()
     {
-        FindObjectOfType<CheckUpgrades>().checkUpgrades();
+        
         if (upgradeLevel >= costs.Length) return;
 
         int cost = costs[upgradeLevel];
@@ -79,7 +79,7 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 inv.maxChargesByType[(ABILITIES)transform.GetSiblingIndex()]++;
             }
 
-            
+            FindObjectOfType<CheckUpgrades>().checkUpgrades();
 
             inv.SavePlayer();
         }
@@ -105,5 +105,5 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         descriptionPanel.SetActive(false);
     }
-
+    
 }
