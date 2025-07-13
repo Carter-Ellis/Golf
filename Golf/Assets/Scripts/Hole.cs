@@ -27,7 +27,7 @@ public class Hole : MonoBehaviour, ButtonTarget
     public Animator animator;
     private int currentLevel;
     public int holeNum;
-    private int runFinalHole = 2;
+    private int runFinalHole = 18;
     private Map.TYPE currentMap;
     private GameMode.TYPE currentMode;
     public UnityEngine.UI.Button nextLevelButton;
@@ -426,15 +426,15 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.transform.position = camController.mapViewPos.position;
 
             bool isSpeedrunning = GameMode.isAnySpeedrun();
-            if (holeNum == 18 && ((isSpeedrunning && inv.timer < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
+            if (holeNum == runFinalHole && ((isSpeedrunning && inv.timer < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
             {
                 animator.SetBool("RunFinished", true);
             }
             else if (GameMode.current == GameMode.TYPE.FREEPLAY)
             {
-                if (holeNum == 18)
+                if (holeNum == runFinalHole)
                 {
-                    animator.SetBool("18HoleWin", true);
+                    animator.SetBool("FreeplayLastHole", true);
                 }
                 else if (Map.current == Map.TYPE.CLASSIC)
                 {          
@@ -542,7 +542,6 @@ public class Hole : MonoBehaviour, ButtonTarget
 
     private void onBallEnterHole()
     {
-        print(Inventory.hitBird);
         if (!inv.achievements[(int)Achievement.TYPE.BIRD_THAT_I_HATE] && !Inventory.hitBird && ball.strokes <= par)
         {
             Achievement.Give(Achievement.TYPE.BIRD_THAT_I_HATE);
@@ -550,6 +549,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         if (ball.strokes < par && currentMap != Map.TYPE.CLASSIC)
         {
+            print("Ball Enter Hole");
             currentLevel = holeNum;
             Inventory inv = ball.GetComponent<Inventory>();
             MapData mapData = Map.get(currentMap);
@@ -593,7 +593,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         if (GameMode.current == GameMode.TYPE.FREEPLAY && ball.strokes <= par)
         {
-            if (holeNum == 18)
+            if (holeNum == runFinalHole)
             {
                 switch (currentMap)
                 {
@@ -618,7 +618,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             winTxt.fontSize = 50;
             winTxt.text = "Campaign 18 Holes";
 
-            if (holeNum == 18)
+            if (holeNum == runFinalHole)
             {
                 Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
                 winTxt.text = "You finished Campaign 18 Holes!";
@@ -639,7 +639,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.interactable = true;
                 inv.campSpeedGoalsBeat[holeNum] = true;
 
-                if (holeNum == 18)
+                if (holeNum == runFinalHole)
                 {
                     if (GameMode.current == GameMode.TYPE.CLUBLESS)
                     {
@@ -671,7 +671,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else
             {
-                if (holeNum == 18)
+                if (holeNum == runFinalHole)
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
                     winTxt.text = "You finished Campaign Hardcore!";
@@ -687,7 +687,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             nextLevelButton.GetComponent<ButtonAudio>().enabled = true;
             winTxt.fontSize = 50;
             winTxt.text = "Classic 18 Holes";
-            if (holeNum == 18)
+            if (holeNum == runFinalHole)
             {
                 Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_18);
                 winTxt.text = "You finished Classic 18 Holes!";
@@ -709,7 +709,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.interactable = true;
                 inv.campSpeedGoalsBeat[holeNum] = true;
 
-                if (holeNum == 18)
+                if (holeNum == runFinalHole)
                 {
                     if (GameMode.current == GameMode.TYPE.CLUBLESS)
                     {
@@ -740,7 +740,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else
             {
-                if (holeNum == 18)
+                if (holeNum == runFinalHole)
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_HARDCORE);
                     winTxt.text = "You finished Classic Hardcore!";
@@ -756,7 +756,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             winTxt.fontSize = 50;
             winTxt.text = "Beach 18 Holes";
 
-            if (holeNum == 18)
+            if (holeNum == runFinalHole)
             {
                 //Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
                 winTxt.text = "You finished Beach 18 Holes!";
@@ -777,7 +777,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 nextLevelButton.interactable = true;
                 inv.campSpeedGoalsBeat[holeNum] = true;
 
-                if (holeNum == 18)
+                if (holeNum == runFinalHole)
                 {
                     if (GameMode.current == GameMode.TYPE.CLUBLESS)
                     {
@@ -808,7 +808,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else
             {
-                if (holeNum == 18)
+                if (holeNum == runFinalHole)
                 {
                     //Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
                     winTxt.text = "You finished Beach Hardcore!";

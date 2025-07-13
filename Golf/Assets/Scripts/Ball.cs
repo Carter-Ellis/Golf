@@ -232,7 +232,7 @@ public class Ball : MonoBehaviour
                 isRecordingClubless = true;
             }
             
-            ghostRecorder?.recordFrame();
+            
             float speed = Mathf.Max(moveSpeed, rb.velocity.magnitude);
             rb.velocity = (rb.velocity + movement.normalized * moveSpeed).normalized * speed;
         }
@@ -565,6 +565,7 @@ public class Ball : MonoBehaviour
     {
         if (health <= 0)
         {
+            cursor.SetActive(false);
             Destroy(gameObject);
         }
     }
