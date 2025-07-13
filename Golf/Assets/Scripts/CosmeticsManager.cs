@@ -48,6 +48,7 @@ public class CosmeticsManager : MonoBehaviour
         new Vector2(0,9),
         new Vector2(0,4),
         new Vector2(10,4),
+        new Vector2(0,-6),
     };
 
     private void Start()
@@ -317,7 +318,7 @@ public class CosmeticsManager : MonoBehaviour
             inv.hatName = hatImage.sprite.name;
             Vector2 spriteSize2 = hatMirror.sprite.rect.size;
             hatMirror.rectTransform.sizeDelta = spriteSize2 * 10;
-            hatMirror.rectTransform.anchoredPosition = mirrorPos[(int)type - 1];
+            hatMirror.rectTransform.anchoredPosition = mirrorPos[((int)type - 1)];
             hatMirror.color = colors[colorIndex];
         }
         else
@@ -330,8 +331,6 @@ public class CosmeticsManager : MonoBehaviour
             unequipButton.SetActive(true);
         }
 
-        print("colorIndex: " + colorIndex);
-        print("ballColorIndex: " + colorBallIndex);
         if (colorBallIndex == 5 && (colorIndex == 3 || colorIndex == 4))
         {
             

@@ -426,6 +426,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.transform.position = camController.mapViewPos.position;
 
             bool isSpeedrunning = GameMode.isAnySpeedrun();
+            print("it hit");
             if (holeNum == runFinalHole && ((isSpeedrunning && inv.timer < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
             {
                 animator.SetBool("RunFinished", true);
@@ -451,6 +452,7 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else
             {
+                print("RunWon");
                 animator.SetBool("RunWon", true);
             }
 

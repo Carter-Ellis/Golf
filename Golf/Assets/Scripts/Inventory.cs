@@ -123,6 +123,7 @@ public class Inventory : MonoBehaviour
         new Vector2(0,.406f),
         new Vector2(0,.375f),
         new Vector2(.064f,.375f),
+        new Vector2(0,.312f),
     };
 
     [Header("Speedrun")]
@@ -342,6 +343,7 @@ public class Inventory : MonoBehaviour
         
         SpriteRenderer sr = hatPos.GetComponent<SpriteRenderer>();
         if (hatType == Hat.TYPE.NONE) { return; }
+
         sr.transform.localPosition = new Vector3(hatPositions[(int)hatType - 1].x, hatPositions[(int)hatType - 1].y, -.01f);
         sr.sprite = hat;
         sr.color = hatColor;

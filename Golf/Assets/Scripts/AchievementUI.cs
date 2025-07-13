@@ -11,6 +11,7 @@ public class AchievementUI : MonoBehaviour
     public Sprite grayStar;
     Inventory inv;
     private List<GameObject> entries = new List<GameObject>();
+    [SerializeField] private TextMeshProUGUI achievementCountTxt;
     void Start()
     {
         inv = FindObjectOfType<Inventory>();
@@ -22,15 +23,19 @@ public class AchievementUI : MonoBehaviour
 
     public void LoadAchievements()
     {
+        int totalAch = 0;
+        int achievementsUnlocked = 0;
+
         for (int i = 0; i < (int)Achievement.TYPE.MAX; i++)
         {
             GameObject titleObj = entries[i].transform.Find("Achievement Title")?.gameObject;
             GameObject descObj = entries[i].transform.Find("Achievement Description")?.gameObject;
             titleObj.GetComponent<TextMeshProUGUI>().text = Achievement.GetName((Achievement.TYPE)i);
             descObj.GetComponent<TextMeshProUGUI>().text = Achievement.GetDescription((Achievement.TYPE)i);
-
+            totalAch++;
             if (inv.achievements[i])
             {
+                achievementsUnlocked++;
                 entries[i].GetComponentInChildren<Image>().sprite = goldStar;
             }
             else
@@ -39,5 +44,8 @@ public class AchievementUI : MonoBehaviour
             }
 
         }
+
+        achievementCountTxt.text = achievementsUnlocked + "/" + totalAch;
+
     }
 }
