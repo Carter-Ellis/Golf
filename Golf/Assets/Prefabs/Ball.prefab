@@ -14822,15 +14822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601d2e914f9a5fa4aac2a5e7761b6e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWalkMode: 0
-  isFreeplayMode: 0
-  isCampaignMode: 0
-  isCampSpeedMode: 0
-  isCampHardMode: 0
-  isClassicMode: 0
-  isClassicSpeedMode: 0
-  isClassicHardMode: 0
-  indexOfAbility: 0
   currentLevel: 1
   coins: 0
   totalCoins: 0
@@ -14871,12 +14862,12 @@ MonoBehaviour:
   ballColor: {r: 0, g: 0, b: 0, a: 0}
   isColorUnlocked: 0
   timer: 0
-  frames: []
   timerTxt: {fileID: 0}
   tempCollectedCoins: 
   numBounces: 0
   numResets: 0
   achievements: 
+  seagullInScene: 0
 --- !u!212 &5055157833523683041
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14984,6 +14975,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4
   moveSpeed: 7
+  powerTxt: {fileID: 0}
+  swingPowerSlider: {fileID: 0}
+  cancelImage: {fileID: 0}
   animator: {fileID: 8195194255100573815}
   cursor: {fileID: 0}
   minSpeedForParticles: 5
@@ -15003,7 +14997,6 @@ MonoBehaviour:
   isSelectFan: 0
   maxHitSpeed: 15
   dotPrefab: {fileID: 1044738372782656448, guid: 7d7cbc2e86264ec44bcb466012bbf257, type: 3}
-  swingCooldownTxt: {fileID: 0}
   healthTxt: {fileID: 0}
   maxSFXVolume: 0.45
   minPitch: 0.5
@@ -15226,6 +15219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currFrames: []
+  timeElapsed: 0
+  isRecordingTunnel: 0
 --- !u!114 &8077776878925480396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25207,6 +25202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6961993410145078781}
   - component: {fileID: 1792824224763885107}
+  - component: {fileID: 1318452962421107540}
   m_Layer: 0
   m_Name: HatPos
   m_TagString: Untagged
@@ -25281,6 +25277,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1318452962421107540
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7883308830938036564}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9167045017077048676
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,7 +41,6 @@ public class Inventory : MonoBehaviour
     };
 
     public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
-    public Dictionary<Hat.ANIM_TYPE, bool> unlockedAnimHats = new Dictionary<Hat.ANIM_TYPE, bool>();
 
     public Dictionary<int, int> campaignHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> campaignCurrScore = new Dictionary<int, int>();
@@ -99,7 +98,6 @@ public class Inventory : MonoBehaviour
     [Header("Cosmetics")]
     [SerializeField] GameObject hatPos;
     public Sprite hat;
-    public GameObject animHat;
     public string hatName;
     public Color hatColor;
     public Hat.TYPE hatType;
@@ -126,6 +124,9 @@ public class Inventory : MonoBehaviour
         new Vector2(0,.375f),
         new Vector2(.064f,.375f),
         new Vector2(0,.312f),
+        new Vector2(0,0),
+        new Vector2(0,0),
+        new Vector2(0,0),
     };
 
     [Header("Speedrun")]
@@ -341,13 +342,22 @@ public class Inventory : MonoBehaviour
         ball.GetComponent<SpriteRenderer>().color = ballColor;
 
         if (hatPos == null) { return; }
-        
-        SpriteRenderer sr = hatPos.GetComponent<SpriteRenderer>();
         if (hatType == Hat.TYPE.NONE) { return; }
+
+        Animator animator = hatPos.GetComponent<Animator>();
+        SpriteRenderer sr = hatPos.GetComponent<SpriteRenderer>();
 
         sr.transform.localPosition = new Vector3(hatPositions[(int)hatType - 1].x, hatPositions[(int)hatType - 1].y, -.01f);
         sr.sprite = hat;
         sr.color = hatColor;
+        if (Hat.isAnimated(hatType))
+        {
+            animator.runtimeAnimatorController = Hat.getAnimator(hatType, false);
+        }
+        else
+        {
+            animator.runtimeAnimatorController = null;
+        }
     }
     private void ChangeCoinSprites()
     {
@@ -710,24 +720,6 @@ public class Inventory : MonoBehaviour
         else
         {
             unlockedHats = new Dictionary<Hat.TYPE, bool>();
-        }
-
-        if (data?.unlockedAnimHats != null)
-        {
-            unlockedAnimHats = data.unlockedAnimHats;
-        }
-        else
-        {
-            unlockedAnimHats = new Dictionary<Hat.ANIM_TYPE, bool>();
-        }
-
-        if (data?.animHat != null)
-        {
-            animHat = data.animHat;
-        }
-        else
-        {
-            animHat = null;
         }
 
         data?.RestoreHatSprite();

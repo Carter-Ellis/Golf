@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a26c3c8f81248354d9fbc088a961e73d
+guid: 10827a15911972a46bd10b0528d25a71
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,106 +123,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GoldHat_0
+      name: fire_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 4
         y: 3
-        width: 12
-        height: 10
+        width: 7
+        height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26dace086780caf4aa1414b9a5ee6213
-      internalID: 210998372
+      spriteID: a362b1155ef73394b84212675411f80d
+      internalID: 823334373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoldHat_1
+      name: fire_1
       rect:
         serializedVersion: 2
-        x: 18
+        x: 21
         y: 3
-        width: 12
-        height: 10
+        width: 7
+        height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5235dddaabc24a43b6bf26314308dbb
-      internalID: 217031733
+      spriteID: 03d89807d20039d438fce847ed3673ce
+      internalID: 696503212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoldHat_2
+      name: fire_2
       rect:
         serializedVersion: 2
-        x: 34
+        x: 37
         y: 3
-        width: 12
-        height: 10
+        width: 7
+        height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a0a52beb17cfc344a012cebca1dac0d
-      internalID: 972836734
+      spriteID: d67c7fdd7f575d64eb5646a0fbfb2c4a
+      internalID: 1334849735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoldHat_3
+      name: fire_3
       rect:
         serializedVersion: 2
-        x: 50
+        x: 53
         y: 3
-        width: 12
-        height: 10
+        width: 7
+        height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d192de1c04790a4c9ddb4280e2736d3
-      internalID: 1337386651
+      spriteID: 5202fda38d2754d49aa2eb285c1caac9
+      internalID: -807407335
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoldHat_4
+      name: fire_4
       rect:
         serializedVersion: 2
-        x: 66
+        x: 69
         y: 3
-        width: 12
-        height: 10
+        width: 7
+        height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e0cc53809d02e145891fdd983947f33
-      internalID: -1826193789
+      spriteID: 9f08e2b7586e4974091208f42276d1b3
+      internalID: -507756846
       vertices: []
       indices: 
       edges: []
@@ -238,11 +238,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GoldHat_0: 210998372
-      GoldHat_1: 217031733
-      GoldHat_2: 972836734
-      GoldHat_3: 1337386651
-      GoldHat_4: -1826193789
+      fire_0: 823334373
+      fire_1: 696503212
+      fire_2: 1334849735
+      fire_3: -807407335
+      fire_4: -507756846
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -26,39 +26,53 @@ public class Hat : MonoBehaviour
         STRAW,
         SANTA,
         CROWN,
-        MAX_HATS
-    }
-
-    public enum ANIM_TYPE
-    {
-        NONE,
         FIRE,
         GOLD,
         WINGS,
-        MAX_ANIM_HATS
+        MAX_HATS
     }
 
     private static string hatSpriteSheetPath = "Hats/Hats";
-
-    private static string animHatPath = "Hats/AnimatedHats";
+    private static string animSpriteSheetPath = "Hats/AnimatedHats/";
 
     private static Sprite[] sprites = new Sprite[(int)TYPE.MAX_HATS];
-
-    private static GameObject[] animHats = new GameObject[(int)ANIM_TYPE.MAX_ANIM_HATS];
+    private static RuntimeAnimatorController[] animators = new RuntimeAnimatorController[(int)TYPE.MAX_HATS];
+    private static RuntimeAnimatorController[] uiAnimators = new RuntimeAnimatorController[(int)TYPE.MAX_HATS];
 
     private static bool isLoaded;
 
-    public static Sprite GetSprite(TYPE type)
+    public static Sprite getSprite(TYPE type)
     {
         loadSprites();
         
         return sprites[(int)type];
     }
 
-    public static GameObject GetAnimHat(ANIM_TYPE type)
+    public static RuntimeAnimatorController getAnimator(TYPE type, bool isUI)
     {
-        loadSprites();
-        return animHats[(int)type];
+        if (isUI)
+        {
+            return uiAnimators[(int)type];
+        }
+        return animators[(int)type];
+    }
+
+    public static bool isAnimated(TYPE type)
+    {
+        switch(type)
+        {
+            case TYPE.FIRE:
+            case TYPE.GOLD:
+            case TYPE.WINGS:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static string getName(TYPE type)
+    {
+        return type.ToString().ToLower();
     }
 
     private static void loadSprites()
@@ -70,15 +84,17 @@ public class Hat : MonoBehaviour
 
         for (int i = 1; i < (int)TYPE.MAX_HATS; i++)
         {
-            sprites[i] = spriteSheet[i - 1];
-        }
-
-        GameObject[] hats = Resources.LoadAll<GameObject>(animHatPath);
-
-        for (int i = 1; i < (int)ANIM_TYPE.MAX_ANIM_HATS; i++)
-        {
-            print("CREATING HAT");
-            animHats[i] = hats[i - 1];
+            if (isAnimated((TYPE)i))
+            {
+                string path = animSpriteSheetPath + getName((TYPE)i);
+                sprites[i] = Resources.LoadAll<Sprite>(path)[0];
+                animators[i] = Resources.Load<RuntimeAnimatorController>(path);
+                uiAnimators[i] = Resources.Load<RuntimeAnimatorController>(path + "_ui");
+            }
+            else
+            {
+                sprites[i] = spriteSheet[i - 1];
+            }
         }
 
     }

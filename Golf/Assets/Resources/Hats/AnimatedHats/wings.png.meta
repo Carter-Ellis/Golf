@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 10827a15911972a46bd10b0528d25a71
+guid: f3c4b7614b4e2fe4988c4df32a0baff8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 15
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,106 +123,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FireHat_0
+      name: wing_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 3
-        width: 7
-        height: 11
+        x: 2
+        y: 2
+        width: 12
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a362b1155ef73394b84212675411f80d
-      internalID: 823334373
+      spriteID: 226094f772992054fa88d7c9b07b3c85
+      internalID: -904369451
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FireHat_1
+      name: wing_1
       rect:
         serializedVersion: 2
-        x: 21
-        y: 3
-        width: 7
-        height: 11
+        x: 18
+        y: 2
+        width: 12
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03d89807d20039d438fce847ed3673ce
-      internalID: 696503212
+      spriteID: 799b81d017f7fc44d9c24fb4093a27d1
+      internalID: 1381147091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FireHat_2
+      name: wing_2
       rect:
         serializedVersion: 2
-        x: 37
-        y: 3
-        width: 7
-        height: 11
+        x: 34
+        y: 2
+        width: 12
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d67c7fdd7f575d64eb5646a0fbfb2c4a
-      internalID: 1334849735
+      spriteID: ac4296950919ee140a2289b4daaa045f
+      internalID: 430713903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FireHat_3
+      name: wing_3
       rect:
         serializedVersion: 2
-        x: 53
-        y: 3
-        width: 7
-        height: 11
+        x: 50
+        y: 2
+        width: 12
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5202fda38d2754d49aa2eb285c1caac9
-      internalID: -807407335
+      spriteID: 5ccea1db6374ae54fb6831d683330a02
+      internalID: -436157988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FireHat_4
+      name: wing_4
       rect:
         serializedVersion: 2
-        x: 69
-        y: 3
-        width: 7
-        height: 11
+        x: 66
+        y: 2
+        width: 12
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f08e2b7586e4974091208f42276d1b3
-      internalID: -507756846
+      spriteID: b283bb1933b77ed448457db91c45f979
+      internalID: 1810397065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wing_5
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 2
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ac48738e97938d47992150bb22f630d
+      internalID: 1828347923
       vertices: []
       indices: 
       edges: []
@@ -238,11 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FireHat_0: 823334373
-      FireHat_1: 696503212
-      FireHat_2: 1334849735
-      FireHat_3: -807407335
-      FireHat_4: -507756846
+      wing_0: -904369451
+      wing_1: 1381147091
+      wing_2: 430713903
+      wing_3: -436157988
+      wing_4: 1810397065
+      wing_5: 1828347923
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
