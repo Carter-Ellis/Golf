@@ -189,7 +189,7 @@ public class Achievement : MonoBehaviour
         if (count == finalAchievement) 
         {
             inv.achievements[finalAchievement] = true;
-            inv.unlockedHats[Hat.TYPE.GOLD] = true;
+            Hat.give(Hat.TYPE.GOLD);
             AchievementGet.PlayAchievementGet((Achievement.TYPE)finalAchievement);
         }
 

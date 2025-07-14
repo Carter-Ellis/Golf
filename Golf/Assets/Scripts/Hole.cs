@@ -416,8 +416,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {  
                     int level = holeNum;
                     
-                    ball.GetComponent<Inventory>().unlockedHats[(Hat.TYPE)level] = true;
-                    inv.SavePlayer();
+                    Hat.give((Hat.TYPE)level);
                 }
             }
             camController.isWinScreen = true;
@@ -426,7 +425,6 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.transform.position = camController.mapViewPos.position;
 
             bool isSpeedrunning = GameMode.isAnySpeedrun();
-            print("it hit");
             if (holeNum == runFinalHole && ((isSpeedrunning && inv.timer < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
             {
                 animator.SetBool("RunFinished", true);
@@ -649,7 +647,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                     else
                     {
                         Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
-                        inv.unlockedHats[Hat.TYPE.WINGS] = true;
+                        Hat.give(Hat.TYPE.WINGS);
                     }
 
                     winTxt.text = "You finished Campaign Speedrun!";
@@ -676,7 +674,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 if (holeNum == runFinalHole)
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
-                    inv.unlockedHats[Hat.TYPE.FIRE] = true;
+                    Hat.give(Hat.TYPE.FIRE);
                     winTxt.text = "You finished Campaign Hardcore!";
                 }
 

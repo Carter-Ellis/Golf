@@ -119,6 +119,19 @@ public class Hat : MonoBehaviour
         return names[(int)type];
     }
 
+    public static void give(TYPE type)
+    {
+
+        Inventory inv = FindObjectOfType<Inventory>();
+        if (inv == null) { return; }
+        if (inv.unlockedHats.ContainsKey(type) && inv.unlockedHats[type]) { return; }
+
+        inv.unlockedHats[type] = true;
+        inv.SavePlayer();
+        AchievementGet.PlayHatGet(type);
+
+    }
+
     private static void loadSprites()
     {
         if (isLoaded) { return; }
