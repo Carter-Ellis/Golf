@@ -50,6 +50,7 @@ public class Hat : MonoBehaviour
 
     public static RuntimeAnimatorController getAnimator(TYPE type, bool isUI)
     {
+        loadSprites();
         if (isUI)
         {
             return uiAnimators[(int)type];

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Achievement : MonoBehaviour
@@ -171,9 +172,27 @@ public class Achievement : MonoBehaviour
             return;
         }
         
-        
         inv.achievements[index] = true;
         AchievementGet.PlayAchievementGet(type);
+
+        int count = 0;
+        foreach (bool ach in inv.achievements)
+        {
+            if (ach)
+            {
+                count++;
+            }
+        }
+
+        int finalAchievement = (int)(Achievement.TYPE.MAX - 1);
+
+        if (count == finalAchievement) 
+        {
+            inv.achievements[finalAchievement] = true;
+            inv.unlockedHats[Hat.TYPE.GOLD] = true;
+            AchievementGet.PlayAchievementGet((Achievement.TYPE)finalAchievement);
+        }
+
     }
 
 }

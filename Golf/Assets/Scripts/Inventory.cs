@@ -124,9 +124,9 @@ public class Inventory : MonoBehaviour
         new Vector2(0,.375f),
         new Vector2(.064f,.375f),
         new Vector2(0,.312f),
-        new Vector2(0,0),
-        new Vector2(0,0),
-        new Vector2(0,0),
+        new Vector2(0,.5f),
+        new Vector2(0,.4f),
+        new Vector2(0,.3f),
     };
 
     [Header("Speedrun")]
@@ -247,6 +247,18 @@ public class Inventory : MonoBehaviour
     public void ClearAchievements()
     {
         achievements = new bool[(int)Achievement.TYPE.MAX];
+    }
+
+    public void UnlockAchievements()
+    {
+        for (int i = 0; i < (int)(Achievement.TYPE.MAX - 1); i ++)
+        {
+            if ((Achievement.TYPE)i == Achievement.TYPE.APPLE_A_DAY)
+            {
+                continue;
+            }
+            achievements[i] = true;
+        }
     }
 
     public Ability getCurrentAbility()
@@ -466,11 +478,12 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P))
+        /*if (Input.GetKeyUp(KeyCode.P))
         {
-            ClearAchievements();
+            //ClearAchievements();
+            //UnlockAchievements();
             SavePlayer();
-        }
+        }*/
 
         AbilityManager();
         DisplayAbility();

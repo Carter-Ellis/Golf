@@ -551,11 +551,10 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         if (ball.strokes < par && currentMap != Map.TYPE.CLASSIC)
         {
-            print("Ball Enter Hole");
             currentLevel = holeNum;
             Inventory inv = ball.GetComponent<Inventory>();
             MapData mapData = Map.get(currentMap);
-            if (!mapData.isCoinCollected(currentLevel, 3))
+            if (!mapData.isCoinCollected(currentLevel, 3) && !GameMode.isAnySpeedrun())
             {
                 inv.coins += 1;
                 inv.totalCoins += 1;
@@ -650,6 +649,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                     else
                     {
                         Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
+                        inv.unlockedHats[Hat.TYPE.WINGS] = true;
                     }
 
                     winTxt.text = "You finished Campaign Speedrun!";
@@ -676,6 +676,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 if (holeNum == runFinalHole)
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
+                    inv.unlockedHats[Hat.TYPE.FIRE] = true;
                     winTxt.text = "You finished Campaign Hardcore!";
                 }
 

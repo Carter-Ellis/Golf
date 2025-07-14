@@ -52,9 +52,9 @@ public class CosmeticsManager : MonoBehaviour
         new Vector2(0,4),
         new Vector2(10,4),
         new Vector2(0,-6),
-        new Vector2(-5,18),
-        new Vector2(-5, -10),
-        new Vector2(-5, -20),
+        new Vector2(0,25),
+        new Vector2(0, 13),
+        new Vector2(0,-2),
     };
 
     private void Start()
@@ -63,10 +63,6 @@ public class CosmeticsManager : MonoBehaviour
         inv = FindObjectOfType<Inventory>();
         animator = hatImage.GetComponent<Animator>();
         mirrorAnimator = hatMirror.GetComponent<Animator>();
-
-        inv.unlockedHats[Hat.TYPE.FIRE] = true;
-        inv.unlockedHats[Hat.TYPE.GOLD] = true;
-        inv.unlockedHats[Hat.TYPE.WINGS] = true;
         
         isEquipped = false;
 
