@@ -29,6 +29,7 @@ public class Hat : MonoBehaviour
         FIRE,
         GOLD,
         WINGS,
+        CRAB,
         MAX_HATS
     }
 
@@ -55,7 +56,8 @@ public class Hat : MonoBehaviour
         "Crown",
         "Fire",
         "Shiny Hat",
-        "Wings"
+        "Wings",
+        "Crab"
     };
 
     private static string defaultDescription = "Collect all 3 coins in a level to unlock a unique hat! There is one hat per CAMPAIGN level.";
@@ -93,6 +95,7 @@ public class Hat : MonoBehaviour
             case TYPE.FIRE:
             case TYPE.GOLD:
             case TYPE.WINGS:
+            case TYPE.CRAB:
                 return true;
             default:
                 return false;
@@ -109,6 +112,8 @@ public class Hat : MonoBehaviour
                 return "Get all achievements to unlock!";
             case TYPE.WINGS:
                 return "Complete all speedrun levels on campaign to unlock!";
+            case TYPE.CRAB:
+                return "Complete the Mr. K achievement to unlock!";
             default:
                 return defaultDescription;
         }
@@ -142,5 +147,23 @@ public class Hat : MonoBehaviour
         }
 
     }
+
+    public static Vector2 getSize(Hat.TYPE type)
+    {
+        return getSprite(type).rect.size * getScale(type);
+    }
+
+    public static Vector2 getScale(Hat.TYPE type)
+    {
+        switch (type)
+        {
+            case Hat.TYPE.CRAB:
+                return new Vector2(0.65f, 0.65f);
+            default:
+                return new Vector2(1f, 1f);
+
+        }
+    }
+
 
 }

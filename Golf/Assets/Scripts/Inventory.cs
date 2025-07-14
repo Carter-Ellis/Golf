@@ -127,6 +127,7 @@ public class Inventory : MonoBehaviour
         new Vector2(0,.5f),
         new Vector2(0,.4f),
         new Vector2(0,.3f),
+        new Vector2(0,.3f),
     };
 
     [Header("Speedrun")]
@@ -362,6 +363,7 @@ public class Inventory : MonoBehaviour
         sr.transform.localPosition = new Vector3(hatPositions[(int)hatType - 1].x, hatPositions[(int)hatType - 1].y, -.01f);
         sr.sprite = hat;
         sr.color = hatColor;
+        sr.transform.localScale = Hat.getScale(hatType);
         if (Hat.isAnimated(hatType))
         {
             animator.runtimeAnimatorController = Hat.getAnimator(hatType, false);

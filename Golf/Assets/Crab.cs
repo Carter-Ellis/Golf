@@ -104,8 +104,10 @@ public class Crab : MonoBehaviour
             {
                 if (!FindObjectOfType<Inventory>().achievements[(int)Achievement.TYPE.MR_K])
                 {
+                    Inventory inv = FindObjectOfType<Inventory>();
+                    inv.unlockedHats[Hat.TYPE.CRAB] = true;
                     Achievement.Give(Achievement.TYPE.MR_K);
-                    FindObjectOfType<Inventory>().SavePlayer();
+                    inv.SavePlayer();
                 }
             }
         }

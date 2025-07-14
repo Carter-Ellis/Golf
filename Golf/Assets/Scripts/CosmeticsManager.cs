@@ -56,6 +56,7 @@ public class CosmeticsManager : MonoBehaviour
         new Vector2(0,25),
         new Vector2(0, 13),
         new Vector2(0,-2),
+        new Vector2(0,-5),
     };
 
     private void Start()
@@ -64,7 +65,9 @@ public class CosmeticsManager : MonoBehaviour
         inv = FindObjectOfType<Inventory>();
         animator = hatImage.GetComponent<Animator>();
         mirrorAnimator = hatMirror.GetComponent<Animator>();
+
         
+
         isEquipped = false;
 
         for (int i = 1; i < (int)Hat.TYPE.MAX_HATS; i++)
@@ -157,8 +160,7 @@ public class CosmeticsManager : MonoBehaviour
         if (type != Hat.TYPE.NONE)
         {
             hatImage.color = colors[colorIndex];
-            Vector2 spriteSize = hatImage.sprite.rect.size;
-            hatImage.rectTransform.sizeDelta = spriteSize * 10;
+            hatImage.rectTransform.sizeDelta = Hat.getSize(type) * 10;
 
             adjustHatPos(type, hatImage.rectTransform);
         }
@@ -337,6 +339,7 @@ public class CosmeticsManager : MonoBehaviour
         changeHat(-1);
     }
 
+
     public void Equip()
     {
         inv.hat = hatImage.sprite;
@@ -352,8 +355,7 @@ public class CosmeticsManager : MonoBehaviour
         if (type != TYPE.NONE)
         {
             inv.hatName = hatImage.sprite.name;
-            Vector2 spriteSize2 = hatMirror.sprite.rect.size;
-            hatMirror.rectTransform.sizeDelta = spriteSize2 * 10;
+            hatMirror.rectTransform.sizeDelta = Hat.getSize(type) * 10;
             hatMirror.rectTransform.anchoredPosition = mirrorPos[(int)type - 1];
             hatMirror.color = colors[colorIndex];
         }
