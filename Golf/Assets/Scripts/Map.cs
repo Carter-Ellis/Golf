@@ -52,6 +52,7 @@ public class Map
 
     public static MapData get(Map.TYPE type)
     {
+        if ((int)type >= mapData.Count) { return null; }
         return mapData[(int)type];
     }
 

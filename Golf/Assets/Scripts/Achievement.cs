@@ -46,6 +46,7 @@ public class Achievement : MonoBehaviour
         ANNOYING_ORANGE,
         MAUI_2026,
         MR_K,
+        HIM,
         MAX
     }
 
@@ -91,6 +92,7 @@ public class Achievement : MonoBehaviour
         "Annoying Orange",
         "Maui 2026",
         "Mr. K",
+        "I'm Him"
 };
 
     private static string[] descriptions =
@@ -113,7 +115,7 @@ public class Achievement : MonoBehaviour
         "Use a bouncer 100 times in one life.",
         "Hit 5 different moles in 1 putt.",
         "Get over par and collect no coins.",
-        "On Campaign hole 9 go into the wrong goal.",
+        "Go into the wrong goal.",
         "Get hit 20 times by the same golf cart.",
         "Use the freeze ability next to a spike trap that is attacking.",
         "Max out all of the abilities.",
@@ -134,7 +136,8 @@ public class Achievement : MonoBehaviour
         "Break through 10 walls.",
         "Equip the orange ball color and a green hat.",
         "Unlock the beach map.",
-        "Hit Mr. K 5 times."
+        "Hit Mr. K 5 times.",
+        "Unlock all achievements."
 
     };
 

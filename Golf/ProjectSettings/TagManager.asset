@@ -26,6 +26,7 @@ TagManager:
   - Fake Flag
   - Ghost
   - Buoy
+  - AnimHats
   layers:
   - Default
   - TransparentFX
@@ -39,7 +40,7 @@ TagManager:
   - Enemy
   - Sand
   - Death
-  - 
+  - AnimHats
   - 
   - 
   - 

@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
     };
 
     public Dictionary<Hat.TYPE, bool> unlockedHats = new Dictionary<Hat.TYPE, bool>();
+    public Dictionary<Hat.ANIM_TYPE, bool> unlockedAnimHats = new Dictionary<Hat.ANIM_TYPE, bool>();
 
     public Dictionary<int, int> campaignHighScore = new Dictionary<int, int>();
     public Dictionary<int, int> campaignCurrScore = new Dictionary<int, int>();
@@ -98,6 +99,7 @@ public class Inventory : MonoBehaviour
     [Header("Cosmetics")]
     [SerializeField] GameObject hatPos;
     public Sprite hat;
+    public GameObject animHat;
     public string hatName;
     public Color hatColor;
     public Hat.TYPE hatType;
@@ -165,7 +167,6 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-
         currentMap = Map.current;
         holeNum = Map.hole;
         abilityInterface = GameObject.Find("AbilityInterface");
@@ -709,6 +710,24 @@ public class Inventory : MonoBehaviour
         else
         {
             unlockedHats = new Dictionary<Hat.TYPE, bool>();
+        }
+
+        if (data?.unlockedAnimHats != null)
+        {
+            unlockedAnimHats = data.unlockedAnimHats;
+        }
+        else
+        {
+            unlockedAnimHats = new Dictionary<Hat.ANIM_TYPE, bool>();
+        }
+
+        if (data?.animHat != null)
+        {
+            animHat = data.animHat;
+        }
+        else
+        {
+            animHat = null;
         }
 
         data?.RestoreHatSprite();

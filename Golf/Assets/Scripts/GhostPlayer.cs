@@ -19,7 +19,7 @@ public class GhostPlayer : MonoBehaviour
     private void Start()
     {
 
-        frames = Map.getCurrent().getGhostFrames(GameMode.current, Map.hole);
+        frames = Map.getCurrent()?.getGhostFrames(GameMode.current, Map.hole);
         if (frames == null || frames.Count < 2 || !GameMode.isAnySpeedrun())
         {
             Destroy(this);
