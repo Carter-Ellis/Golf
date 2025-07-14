@@ -31,6 +31,7 @@ public class CosmeticsManager : MonoBehaviour
     [SerializeField] private GameObject hatDescription;
     [SerializeField] private TextMeshProUGUI holeNumTxt;
     [SerializeField] private TextMeshProUGUI hatNameTxt;
+    [SerializeField] private TextMeshProUGUI unlockDescription;
 
     private Vector2[] mirrorPos = new Vector2[]
     {
@@ -120,6 +121,8 @@ public class CosmeticsManager : MonoBehaviour
             type = (Hat.TYPE)((int)Hat.TYPE.MAX_HATS - 1);
         }
 
+        bool isAnimated = Hat.isAnimated(type);
+
         if (type == Hat.TYPE.NONE)
         {
             hatDescription.SetActive(false);
@@ -127,11 +130,24 @@ public class CosmeticsManager : MonoBehaviour
         else
         {
             hatDescription.SetActive(true);
-            holeNumTxt.text = "Hole " + ((int)type).ToString();
-            hatNameTxt.text = ToTitleCase(Hat.getName(type));
+            if (isAnimated)
+            {
+                holeNumTxt.text = "Special";
+                holeNumTxt.color = Color.red;
+                holeNumTxt.fontStyle = FontStyles.Italic;
+            }
+            else
+            {
+                holeNumTxt.text = "Hole " + ((int)type).ToString();
+                holeNumTxt.color = Color.white;
+                holeNumTxt.fontStyle = FontStyles.Normal;
+            }
+            hatNameTxt.text = Hat.getName(type);
         }
 
-        if (Hat.isAnimated(type))
+        unlockDescription.text = Hat.getDescription(type);
+
+        if (isAnimated)
         {
             animator.runtimeAnimatorController = Hat.getAnimator(type, true);
         }
@@ -386,12 +402,6 @@ public class CosmeticsManager : MonoBehaviour
 
 
         inv.SavePlayer();
-    }
-
-    string ToTitleCase(string input)
-    {
-        if (string.IsNullOrEmpty(input)) return input;
-        return char.ToUpper(input[0]) + input.Substring(1).ToLower();
     }
 
 }

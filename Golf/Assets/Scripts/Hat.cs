@@ -32,6 +32,34 @@ public class Hat : MonoBehaviour
         MAX_HATS
     }
 
+    private static string[] names =
+    {
+        "None",
+        "Ninja",
+        "Top Hat",
+        "Wizard",
+        "Frog",
+        "Viking",
+        "Chef",
+        "Mushroom",
+        "Halo",
+        "Traffic Cone",
+        "Propeller",
+        "Beret",
+        "Pirate",
+        "Fez",
+        "Sombrero",
+        "Cowboy",
+        "Straw",
+        "Santa",
+        "Crown",
+        "Fire",
+        "Shiny Hat",
+        "Wings"
+    };
+
+    private static string defaultDescription = "Collect all 3 coins in a level to unlock a unique hat! There is one hat per CAMPAIGN level.";
+
     private static string hatSpriteSheetPath = "Hats/Hats";
     private static string animSpriteSheetPath = "Hats/AnimatedHats/";
 
@@ -50,6 +78,7 @@ public class Hat : MonoBehaviour
 
     public static RuntimeAnimatorController getAnimator(TYPE type, bool isUI)
     {
+        loadSprites();
         if (isUI)
         {
             return uiAnimators[(int)type];
@@ -70,9 +99,24 @@ public class Hat : MonoBehaviour
         }
     }
 
+    public static string getDescription(TYPE type)
+    {
+        switch (type)
+        {
+            case TYPE.FIRE:
+                return "Complete a hardcore run on campaign to unlock!";
+            case TYPE.GOLD:
+                return "Get all achievements to unlock!";
+            case TYPE.WINGS:
+                return "Complete all speedrun levels on campaign to unlock!";
+            default:
+                return defaultDescription;
+        }
+    }
+
     public static string getName(TYPE type)
     {
-        return type.ToString().ToLower();
+        return names[(int)type];
     }
 
     private static void loadSprites()
@@ -86,7 +130,7 @@ public class Hat : MonoBehaviour
         {
             if (isAnimated((TYPE)i))
             {
-                string path = animSpriteSheetPath + getName((TYPE)i);
+                string path = animSpriteSheetPath + ((TYPE)i).ToString().ToLower();
                 sprites[i] = Resources.LoadAll<Sprite>(path)[0];
                 animators[i] = Resources.Load<RuntimeAnimatorController>(path);
                 uiAnimators[i] = Resources.Load<RuntimeAnimatorController>(path + "_ui");
