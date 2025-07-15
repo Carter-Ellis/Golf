@@ -66,8 +66,6 @@ public class CosmeticsManager : MonoBehaviour
         animator = hatImage.GetComponent<Animator>();
         mirrorAnimator = hatMirror.GetComponent<Animator>();
 
-        
-
         isEquipped = false;
 
         for (int i = 1; i < (int)Hat.TYPE.MAX_HATS; i++)
@@ -105,6 +103,31 @@ public class CosmeticsManager : MonoBehaviour
             Equip();
         }
 
+        CheckUnlockedHats();
+
+    }
+
+    public void CheckUnlockedHats()
+    {
+        if (inv.achievements[(int)Achievement.TYPE.DIGITAL_STYLE])
+        {
+            return;
+        }
+
+        int count = 0;
+        for (int i = 1; i < (int)Hat.TYPE.MAX_HATS; i++)
+        {
+            if (inv.unlockedHats.ContainsKey((Hat.TYPE)i) && inv.unlockedHats[(Hat.TYPE)i])
+            {
+                count++;
+            }
+        }
+
+        if (count == (int)Hat.TYPE.MAX_HATS - 1)
+        {
+            Achievement.Give(Achievement.TYPE.DIGITAL_STYLE);
+            inv.SavePlayer();
+        }
     }
 
     public void changeHat(int amount)

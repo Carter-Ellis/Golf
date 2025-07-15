@@ -326,6 +326,25 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             }
         }
+
+        if (currentMap == Map.TYPE.CAMPAIGN && !inv.achievements[(int)Achievement.TYPE.ALL_HOLE_IN_ONE])
+        {
+            int count = 0;
+            foreach (int par in inv.campaignHighScore.Values)
+            {
+                if (par <= 1)
+                {
+                    count++;
+                }
+            }
+
+            if (count == 18)
+            {
+                Achievement.Give(Achievement.TYPE.ALL_HOLE_IN_ONE);
+            }
+
+        }
+
         inv.SavePlayer();
 
     }
@@ -426,13 +445,17 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.transform.position = camController.mapViewPos.position;
 
             bool isSpeedrunning = GameMode.isAnySpeedrun();
-
-            if (holeNum == runFinalHole && ((isSpeedrunning && inv.timer < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
+            List<GhostFrame> currFrames = ghostRecorder.currFrames;
+            float time = currFrames[currFrames.Count - 1].GetTime();
+            print("YOOOOOO");
+            if (holeNum == runFinalHole && ((isSpeedrunning && time < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
             {
+                print("YAEET");
                 animator.SetBool("RunFinished", true);
             }
             else if (GameMode.current == GameMode.TYPE.FREEPLAY)
             {
+                print("FREEPLAY");
                 if (holeNum == runFinalHole)
                 {
                     animator.SetBool("FreeplayLastHole", true);
@@ -448,11 +471,12 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if (isSpeedrunning)
             {
+                print("ISPEEDING");
                 animator.SetBool("SpeedrunWon", true);
             }
             else
             {
-                print("RunWon");
+                print("WHAT?");
                 animator.SetBool("RunWon", true);
             }
 
@@ -605,7 +629,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                         Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_FREEPLAY);
                         break;
                     case Map.TYPE.BEACH:
-                        //TODO: BEACH ACHIEVEMENT
+                        Achievement.Give(Achievement.TYPE.BEAT_BEACH_FREEPLAY);
                         break;
                 }
             }
@@ -761,7 +785,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
             if (holeNum == runFinalHole)
             {
-                //Achievement.Give(Achievement.TYPE.BEAT_CAMP_18);
+                Achievement.Give(Achievement.TYPE.BEAT_BEACH_18);
                 winTxt.text = "You finished Beach 18 Holes!";
             }
         }
@@ -784,11 +808,11 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {
                     if (GameMode.current == GameMode.TYPE.CLUBLESS)
                     {
-                        //Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_CLUBLESS);
+                        Achievement.Give(Achievement.TYPE.BEAT_BEACH_CLUBLESS);
                     }
                     else
                     {
-                        // BEACH ACHIEVEMENT Achievement.Give(Achievement.TYPE.BEAT_CLASSIC_SPEEDRUN);
+                        Achievement.Give(Achievement.TYPE.BEAT_BEACH_SPEEDRUN);
                     }
                     winTxt.text = "You finished Beach Speedrun!";
                 }

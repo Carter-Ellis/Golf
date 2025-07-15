@@ -19,6 +19,10 @@ public class Achievement : MonoBehaviour
         BEAT_CLASSIC_SPEEDRUN,
         BEAT_CLASSIC_CLUBLESS,
         BEAT_CLASSIC_FREEPLAY,
+        BEAT_BEACH_18,
+        BEAT_BEACH_SPEEDRUN,
+        BEAT_BEACH_CLUBLESS,
+        BEAT_BEACH_FREEPLAY,
         APPLE_TEE,
         ALL_HOLE_IN_ONE,
         HOLE9_GUESS,
@@ -65,6 +69,10 @@ public class Achievement : MonoBehaviour
         "Classic Speedrun",
         "Classic Clubless",
         "Classic Freeplay",
+        "Beach 18 Holes",
+        "Beach Speedrun",
+        "Beach Clubless",
+        "Beach Freeplay",
         "Appleooza",
         "All Holes In One",
         "Lucky Guess",
@@ -102,16 +110,20 @@ public class Achievement : MonoBehaviour
         "Complete a hole with only one stroke.",
         "Complete a Hardcore Campaign run.",
         "Complete all 18 holes in a Campaign run.",
-        "Complete a Campaign Speedrun.",
-        "Complete a Campaign Speedrun without using any clubs.",
+        "Complete Campaign Speedrun.",
+        "Complete Campaign Speedrun without using any clubs.",
         "Complete Campaign Freeplay mode.",
         "Complete a Hardcore Classic run.",
         "Complete all 18 holes in a Classic run.",
-        "Complete a Classic Speedrun.",
-        "Complete a Classic Speedrun without using any clubs.",
-        "Complete a Classic Freeplay mode.",
+        "Complete Classic Speedrun.",
+        "Complete Classic Speedrun without using any clubs.",
+        "Complete Classic Freeplay mode.",
+        "Complete all 18 holes in a Beach run.",
+        "Complete Beach Speedrun.",
+        "Complete Beach Speedrun without using any clubs.",
+        "Complete Beach Freeplay mode.",
         "Complete Campaign hole 11 with par or less without eating the apple on the tee.",
-        "Score a hole-in-one on every hole.",
+        "Score a hole-in-one on every CAMPAIGN hole.",
         "Complete Campaign hole 9 with par or less without pressing the button.",
         "Use a bouncer 100 times in one life.",
         "Hit 5 different moles in 1 putt.",
@@ -123,7 +135,7 @@ public class Achievement : MonoBehaviour
         "Run into a tree 10 times.",
         "Go too fast over the hole.",
         "Eat all the apples on Campaign hole 10.",
-        "Unlock all cosmetics.",
+        "Enter the cosmetics wardrobe with all cosmetics unlocked.",
         "Obtain all coins.",
         "Eat the giant apple.",
         "Reset 50 times.",
@@ -175,23 +187,28 @@ public class Achievement : MonoBehaviour
         inv.achievements[index] = true;
         AchievementGet.PlayAchievementGet(type);
 
-        int count = 0;
-        foreach (bool ach in inv.achievements)
+        if (!inv.achievements[(int)Achievement.TYPE.HIM])
         {
-            if (ach)
+            int count = 0;
+            foreach (bool ach in inv.achievements)
             {
-                count++;
+                if (ach)
+                {
+                    count++;
+                }
+            }
+
+            int finalAchievement = (int)(Achievement.TYPE.MAX - 1);
+
+            if (count == finalAchievement)
+            {
+                inv.achievements[finalAchievement] = true;
+                inv.unlockedHats[Hat.TYPE.GOLD] = true;
+                AchievementGet.PlayAchievementGet(Achievement.TYPE.HIM);
             }
         }
 
-        int finalAchievement = (int)(Achievement.TYPE.MAX - 1);
-
-        if (count == finalAchievement) 
-        {
-            inv.achievements[finalAchievement] = true;
-            inv.unlockedHats[Hat.TYPE.GOLD] = true;
-            AchievementGet.PlayAchievementGet((Achievement.TYPE)finalAchievement);
-        }
+        
 
     }
 
