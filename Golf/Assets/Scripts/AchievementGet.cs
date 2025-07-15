@@ -49,6 +49,7 @@ public class AchievementGet : MonoBehaviour
         hatBanner.title.text = Hat.getName(type);
         hatBanner.image.sprite = Hat.getSprite(type);
         hatBanner.image.GetComponent<Animator>().runtimeAnimatorController = Hat.getAnimator(type, true);
+        hatBanner.image.rectTransform.sizeDelta = Hat.getSize(type) * 10;
 
     }
 

@@ -444,8 +444,15 @@ public class Hole : MonoBehaviour, ButtonTarget
             camController.cam.transform.position = camController.mapViewPos.position;
 
             bool isSpeedrunning = GameMode.isAnySpeedrun();
-            List<GhostFrame> currFrames = ghostRecorder.currFrames;
-            float time = currFrames[currFrames.Count - 1].GetTime();
+            float time = 0f;
+            if (isSpeedrunning)
+            {
+                List<GhostFrame> currFrames = ghostRecorder.currFrames;
+                if (currFrames != null && currFrames.Count > 1)
+                {
+                    time = currFrames[currFrames.Count - 1].GetTime();
+                }
+            }
             if (holeNum == runFinalHole && ((isSpeedrunning && time < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
             {
                 animator.SetBool("RunFinished", true);
