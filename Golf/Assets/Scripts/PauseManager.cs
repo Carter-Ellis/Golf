@@ -20,7 +20,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI parTxt;
     [SerializeField] private TextMeshProUGUI strokesTxt;
     [SerializeField] private TextMeshProUGUI upgradeAvailableTxt;
-    private int[] costs = { 2, 5, 8, 12 };
+    private int[] costs = { 4, 6, 9, 12 };
     public void initialize(GameObject menu)
     {
         inv = FindObjectOfType<Inventory>();
@@ -57,12 +57,13 @@ public class PauseManager : MonoBehaviour
         {
             upgradeAvailableTxt.enabled = false;
             int level = 0;
-            if (inv.upgradeLevels.ContainsKey(i))
+            if (inv.upgradeLevels.ContainsKey(i+1))
             {
-                level = inv.upgradeLevels[i];
+                level = inv.upgradeLevels[i+1];
             }
 
-            if (level < costs.Length && inv.coins >= costs[level])
+            if (level < costs.Length && inv.coins >= costs[level]
+                && inv.unlockedAbilities.Count > i)
             {
                 upgradeAvailableTxt.enabled = true;
             }

@@ -102,6 +102,28 @@ public class Hole : MonoBehaviour, ButtonTarget
     {
         Inventory inv = ball.GetComponent<Inventory>();
         GameMode.TYPE currentMode = GameMode.current;
+
+        if (currentMap == Map.TYPE.CAMPAIGN)
+        {
+            int type = -1;
+            switch (holeNum)
+            {
+                case 2:
+                    type = (int)ABILITIES.WIND;
+                    break;
+                case 7:
+                    type = (int)ABILITIES.FREEZE;
+                    break;
+                case 12:
+                    type = (int)ABILITIES.TELEPORT;
+                    break;
+            }
+            if (type >= 0)
+            {
+                inv.AddAbility(Ability.Create((ABILITIES)type, Color.white));
+            }
+        }
+
         if (currentMode == GameMode.TYPE.FREEPLAY)
         {
             inv.levelsCompleted[holeNum] = true;
@@ -492,12 +514,13 @@ public class Hole : MonoBehaviour, ButtonTarget
             {
                 upgradeAvailableTxt.enabled = false;
                 int level = 0;
-                if (inv.upgradeLevels.ContainsKey(i))
+                if (inv.upgradeLevels.ContainsKey(i + 1))
                 {
-                    level = inv.upgradeLevels[i];
+                    level = inv.upgradeLevels[i + 1];
                 }
-
-                if (level < costs.Length && inv.coins >= costs[level])
+                
+                if (level < costs.Length && inv.coins >= costs[level]
+                    && inv.unlockedAbilities.Count > i)
                 {
                     upgradeAvailableTxt.enabled = true;
                 }

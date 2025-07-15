@@ -55,7 +55,6 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void TryPurchase()
     {
-        
         if (upgradeLevel >= costs.Length) return;
 
         int cost = costs[upgradeLevel];
