@@ -202,13 +202,11 @@ public class Achievement : MonoBehaviour
 
             if (count == finalAchievement)
             {
-                inv.achievements[finalAchievement] = true;
+                inv.achievements[(int)Achievement.TYPE.HIM] = true;
                 inv.unlockedHats[Hat.TYPE.GOLD] = true;
                 AchievementGet.PlayAchievementGet(Achievement.TYPE.HIM);
             }
         }
-
-        
 
     }
 

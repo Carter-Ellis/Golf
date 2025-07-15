@@ -435,8 +435,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 {  
                     int level = holeNum;
                     
-                    ball.GetComponent<Inventory>().unlockedHats[(Hat.TYPE)level] = true;
-                    inv.SavePlayer();
+                    Hat.give((Hat.TYPE)level);
                 }
             }
             camController.isWinScreen = true;
@@ -447,15 +446,12 @@ public class Hole : MonoBehaviour, ButtonTarget
             bool isSpeedrunning = GameMode.isAnySpeedrun();
             List<GhostFrame> currFrames = ghostRecorder.currFrames;
             float time = currFrames[currFrames.Count - 1].GetTime();
-            print("YOOOOOO");
             if (holeNum == runFinalHole && ((isSpeedrunning && time < timeToBeat) || (!isSpeedrunning && currentMode != GameMode.TYPE.FREEPLAY)))
             {
-                print("YAEET");
                 animator.SetBool("RunFinished", true);
             }
             else if (GameMode.current == GameMode.TYPE.FREEPLAY)
             {
-                print("FREEPLAY");
                 if (holeNum == runFinalHole)
                 {
                     animator.SetBool("FreeplayLastHole", true);
@@ -471,12 +467,10 @@ public class Hole : MonoBehaviour, ButtonTarget
             }
             else if (isSpeedrunning)
             {
-                print("ISPEEDING");
                 animator.SetBool("SpeedrunWon", true);
             }
             else
             {
-                print("WHAT?");
                 animator.SetBool("RunWon", true);
             }
 
@@ -673,7 +667,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                     else
                     {
                         Achievement.Give(Achievement.TYPE.BEAT_CAMP_SPEEDRUN);
-                        inv.unlockedHats[Hat.TYPE.WINGS] = true;
+                        Hat.give(Hat.TYPE.WINGS);
                     }
 
                     winTxt.text = "You finished Campaign Speedrun!";
@@ -700,7 +694,7 @@ public class Hole : MonoBehaviour, ButtonTarget
                 if (holeNum == runFinalHole)
                 {
                     Achievement.Give(Achievement.TYPE.BEAT_CAMP_HARDCORE);
-                    inv.unlockedHats[Hat.TYPE.FIRE] = true;
+                    Hat.give(Hat.TYPE.FIRE);
                     winTxt.text = "You finished Campaign Hardcore!";
                 }
 
