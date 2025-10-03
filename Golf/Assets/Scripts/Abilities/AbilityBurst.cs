@@ -53,8 +53,8 @@ public class AbilityBurst : Ability
     public override void onUse(Ball ball)
     {
         Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-        Debug.Log(charges + " MAg: " + rb.velocity.magnitude + "isBusrt: " + isBurst);
-        if (charges <= 0 || rb.velocity.magnitude <= 0f)
+        Debug.Log(charges + " MAg: " + rb.linearVelocity.magnitude + "isBusrt: " + isBurst);
+        if (charges <= 0 || rb.linearVelocity.magnitude <= 0f)
         {
             
             return;

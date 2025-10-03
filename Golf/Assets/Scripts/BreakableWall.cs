@@ -45,7 +45,7 @@ public class BreakableWall : MonoBehaviour
             }
 
             Audio.playSFX(FMODEvents.instance.wallBreak, transform.position);
-            Vector3 ballVel = ballRB.velocity;
+            Vector3 ballVel = ballRB.linearVelocity;
             isBroken = true;
             transform.parent.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             
@@ -73,9 +73,9 @@ public class BreakableWall : MonoBehaviour
         }
         if (isVertical)
         {
-            return Mathf.Abs(ballRB.velocity.x);
+            return Mathf.Abs(ballRB.linearVelocity.x);
         }
-        return Mathf.Abs(ballRB.velocity.y);
+        return Mathf.Abs(ballRB.linearVelocity.y);
     }
 
 }

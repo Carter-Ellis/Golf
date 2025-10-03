@@ -11,6 +11,8 @@ public class SceneInitializer : MonoBehaviour
     void Start()
     {
 
+        Screen.SetResolution(1920, 1080, true);
+
         if (!SceneLoader.isShopLoad || objectsToEnable.Length == 0 || objectsToDisable.Length == 0) return;
 
         FindObjectOfType<MainMenu>().SetState(MainMenu.State.SHOP);

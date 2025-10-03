@@ -56,7 +56,7 @@ public class TimedDoor : MonoBehaviour, ButtonTarget
         {
             if (((Vector2)transform.position - startPos).magnitude >= travelDist)
             {
-                doorRB.velocity = Vector2.zero;
+                doorRB.linearVelocity = Vector2.zero;
                 state = DOOR_STATE.OPEN;
                 isTiming = true;
             }
@@ -66,7 +66,7 @@ public class TimedDoor : MonoBehaviour, ButtonTarget
         {
             if (((Vector2)transform.position - endPos).magnitude >= travelDist)
             {
-                doorRB.velocity = Vector2.zero;
+                doorRB.linearVelocity = Vector2.zero;
                 state = DOOR_STATE.CLOSED;
             }
         }
@@ -76,14 +76,14 @@ public class TimedDoor : MonoBehaviour, ButtonTarget
     void OpenDoor()
     {
         Vector3 direction = transform.rotation * Vector3.up;
-        doorRB.velocity = direction.normalized * speed;
+        doorRB.linearVelocity = direction.normalized * speed;
         state = DOOR_STATE.OPENING;
         
     }
     void CloseDoor()
     {
         Vector3 direction = transform.rotation * Vector3.up;
-        doorRB.velocity = -direction.normalized * speed;
+        doorRB.linearVelocity = -direction.normalized * speed;
         state = DOOR_STATE.CLOSING;
     }
 

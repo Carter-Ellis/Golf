@@ -66,7 +66,7 @@ public class OutOfBounds : MonoBehaviour
             if (IsFullyInsideCollider(collision, tilemapCollider))
             {
                 Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-                rb.velocity *= 0.2f;
+                rb.linearVelocity *= 0.2f;
                 isFalling = true;
             }
         }

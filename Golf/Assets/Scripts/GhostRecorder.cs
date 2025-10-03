@@ -61,7 +61,7 @@ public class GhostRecorder : MonoBehaviour
 
             if (ball != null)
             {
-                ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                ball.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
                 ball.isBallLocked = true;
                 ball.isBattleMode = false;
                 ball.hasClickedBall = false;

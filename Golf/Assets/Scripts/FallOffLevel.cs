@@ -34,12 +34,12 @@ public class FallOffLevel : MonoBehaviour
         if (isFalling)
         {
             tilemap.GetComponent<TilemapCollider2D>().enabled = false;
-            rb.velocity = new Vector2(rb.velocity.x, -gravity);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -gravity);
 
             if (ball.transform.position.y <= targetPosition.y)
             {
                 isFalling = false;
-                rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, bounceForce);
                 isBouncing = true;
                 
             }
@@ -50,10 +50,10 @@ public class FallOffLevel : MonoBehaviour
             bounceTimer += Time.deltaTime;
             if (bounceTimer > bounceTime)
             {
-                rb.velocity = new Vector2(rb.velocity.x, -gravity / 2.5f);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -gravity / 2.5f);
                 if (ball.transform.position.y <= targetPosition.y)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, 0);
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                     isBouncing = false;
                     bounceTimer = 0f;
                     ball.GetComponent<Inventory>().currentHeight -= (int)levelFallAmount;

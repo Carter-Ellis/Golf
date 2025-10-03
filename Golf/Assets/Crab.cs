@@ -41,7 +41,7 @@ public class Crab : MonoBehaviour
     {
         if (isMoving)
         {
-            rb.velocity = new Vector2(moveSpeed * moveDirection, rb.velocity.y);
+            rb.linearVelocity = new Vector2(moveSpeed * moveDirection, rb.linearVelocity.y);
 
             if (!isSoundPlaying)
             {
@@ -51,7 +51,7 @@ public class Crab : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
 
             if (isSoundPlaying)
             {

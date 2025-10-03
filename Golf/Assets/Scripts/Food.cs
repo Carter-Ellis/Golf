@@ -40,7 +40,7 @@ public class Food : MonoBehaviour
     {
         if (!isCopied)
         {
-            rb.velocity = new Vector2(-ball.GetComponent<Rigidbody2D>().velocity.normalized.x * 2, -ball.GetComponent<Rigidbody2D>().velocity.normalized.y * 2);
+            rb.linearVelocity = new Vector2(-ball.GetComponent<Rigidbody2D>().linearVelocity.normalized.x * 2, -ball.GetComponent<Rigidbody2D>().linearVelocity.normalized.y * 2);
             isCopied = true;
             StartCoroutine(FadeToTransparent());
         }

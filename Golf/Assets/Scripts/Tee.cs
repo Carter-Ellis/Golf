@@ -38,7 +38,7 @@ public class Tee : MonoBehaviour
     {
         if (!isCopied)
         {
-            rb.velocity = new Vector2(-ball.GetComponent<Rigidbody2D>().velocity.x, -ball.GetComponent<Rigidbody2D>().velocity.y);
+            rb.linearVelocity = new Vector2(-ball.GetComponent<Rigidbody2D>().linearVelocity.x, -ball.GetComponent<Rigidbody2D>().linearVelocity.y);
             isCopied = true;
             StartCoroutine(FadeToTransparent());
         }

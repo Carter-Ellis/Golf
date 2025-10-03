@@ -46,7 +46,7 @@ public class AbilityFreeze : Ability
     public override void onUse(Ball ball)
     {
         Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-        if (charges <= 0 || rb.velocity.magnitude <= 0f)
+        if (charges <= 0 || rb.linearVelocity.magnitude <= 0f)
         {
             return;
         }
@@ -57,7 +57,7 @@ public class AbilityFreeze : Ability
         }
         ball.DisplayFreezeParticles();
         Audio.playSFX(FMODEvents.instance.freeze, GameObject.FindObjectOfType<Ball>().transform.position);
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         charges -= 1;
     }
 

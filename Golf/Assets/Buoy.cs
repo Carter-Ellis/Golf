@@ -34,7 +34,7 @@ public class Buoy : MonoBehaviour
         // Combine with steady current drift
         Vector2 floatVelocity = new Vector2(currentDrift.x, currentDrift.y + offsetY);
 
-        rb.velocity = floatVelocity;
+        rb.linearVelocity = floatVelocity;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

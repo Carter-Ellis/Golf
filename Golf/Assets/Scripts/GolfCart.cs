@@ -22,7 +22,7 @@ public class GolfCart : MonoBehaviour
 
     void Start()
     {
-        // Removed PlayOneShot — we're already creating a manual instance below
+        // Removed PlayOneShot ï¿½ we're already creating a manual instance below
 
         cartBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -34,7 +34,7 @@ public class GolfCart : MonoBehaviour
         cartSFX = new SoundEffect(FMODEvents.instance.golfCart);
         cartSFX.play(this);
 
-        cartBody.velocity = new Vector2(speed, 0);
+        cartBody.linearVelocity = new Vector2(speed, 0);
         UpdateSpriteDirection();
     }
 
@@ -57,7 +57,7 @@ public class GolfCart : MonoBehaviour
     {
         // Reverse direction
         speed *= -1;
-        cartBody.velocity = new Vector2(speed, 0);
+        cartBody.linearVelocity = new Vector2(speed, 0);
         startPosition = cartBody.position;
 
         PlayParticlesOppositeDirection();

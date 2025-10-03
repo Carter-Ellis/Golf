@@ -552,7 +552,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
         isBallTouching = true;
 
-        if (ball.GetComponent<Rigidbody2D>().velocity.magnitude >= ballOverHoleSpeed)
+        if (ball.GetComponent<Rigidbody2D>().linearVelocity.magnitude >= ballOverHoleSpeed)
         {
             Audio.playSFX(FMODEvents.instance.overHole, transform.position);
             if (!inv.achievements[(int)Achievement.TYPE.SLOW_THERE_BUDDY])
@@ -582,7 +582,7 @@ public class Hole : MonoBehaviour, ButtonTarget
         Ball ball = collision.GetComponent<Ball>();
         if (ball == null) { return; }
 
-        if (ball.GetComponent<Rigidbody2D>().velocity.magnitude < ballOverHoleSpeed)
+        if (ball.GetComponent<Rigidbody2D>().linearVelocity.magnitude < ballOverHoleSpeed)
         {
             onBallEnterHole();
             isBallTouching = false;
@@ -912,7 +912,7 @@ public class Hole : MonoBehaviour, ButtonTarget
 
 
         inHole = true;
-        ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        ball.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
     }
 

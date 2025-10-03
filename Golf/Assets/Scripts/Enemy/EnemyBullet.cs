@@ -15,7 +15,7 @@ public class EnemyBullet : MonoBehaviour
         ball = GameObject.FindGameObjectWithTag("Ball");
 
         Vector2 direction = ball.transform.position - transform.position;
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * speed;
+        rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * speed;
 
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rot + 90);

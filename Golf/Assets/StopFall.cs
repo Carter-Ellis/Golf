@@ -16,7 +16,7 @@ public class StopFall : MonoBehaviour
 
             if (collision.transform.position.y > triggerBounds.max.y)
             {
-                collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector3.zero;
             }
 
         }

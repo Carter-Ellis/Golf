@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
             return 0;
         }
         Vector2 ballSpeed;
-        Vector2 RelativeVelocity = ballRB.velocity - rb.velocity;
+        Vector2 RelativeVelocity = ballRB.linearVelocity - rb.linearVelocity;
         Vector2 Normal = ballRB.position - rb.position;
         float dot = Vector2.Dot(RelativeVelocity, Normal);
         dot *= ballRB.mass + rb.mass;

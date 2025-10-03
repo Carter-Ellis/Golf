@@ -107,7 +107,7 @@ public class Tube : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.tag != "Ball"|| collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > ballOverHoleSpeed)
+        if (collision.gameObject.tag != "Ball"|| collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.magnitude > ballOverHoleSpeed)
         {
             return;
         }
@@ -125,7 +125,7 @@ public class Tube : MonoBehaviour
             Audio.playSFX(FMODEvents.instance.tunnelEnter, transform.position);
             played = true;
         }
-        ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        ball.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         fallSpeed = Vector2.Distance(ball.transform.position, transform.position - new Vector3(0, .1f)) / fallTime;
         isTraveling = true;
         ball.isTraveling = isTraveling;
@@ -141,16 +141,16 @@ public class Tube : MonoBehaviour
         switch (direction)
         {
             case DIRECTION.UP:
-                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, IExitspeed);
+                iball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, IExitspeed);
                 break;
             case DIRECTION.DOWN:
-                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -IExitspeed);
+                iball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, -IExitspeed);
                 break;
             case DIRECTION.LEFT:
-                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(-IExitspeed, 0);
+                iball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(-IExitspeed, 0);
                 break;
             case DIRECTION.RIGHT:
-                iball.GetComponent<Rigidbody2D>().velocity = new Vector2(IExitspeed, 0);
+                iball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(IExitspeed, 0);
                 break;
         }
     }
@@ -162,16 +162,16 @@ public class Tube : MonoBehaviour
         switch(direction)
         {
             case DIRECTION.UP:
-                ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, exitSpeed);
+                ball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, exitSpeed);
                 break;
             case DIRECTION.DOWN:
-                ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -exitSpeed);
+                ball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, -exitSpeed);
                 break;
             case DIRECTION.LEFT:
-                ball.GetComponent<Rigidbody2D>().velocity = new Vector2(-exitSpeed, 0);
+                ball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(-exitSpeed, 0);
                 break;
             case DIRECTION.RIGHT:
-                ball.GetComponent<Rigidbody2D>().velocity = new Vector2(exitSpeed, 0);
+                ball.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(exitSpeed, 0);
                 break;
         }
         Audio.playSFX(FMODEvents.instance.tunnelExit, transform.position);

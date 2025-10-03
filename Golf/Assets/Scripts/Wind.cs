@@ -39,21 +39,21 @@ public class Wind : MonoBehaviour
 
         if (isBlowing && obj != null)
         {
-            if (obj.gameObject.tag == "Ball" && ball.GetComponent<Rigidbody2D>().velocity.magnitude > .5f)
+            if (obj.gameObject.tag == "Ball" && ball.GetComponent<Rigidbody2D>().linearVelocity.magnitude > .5f)
             {
-                obj.GetComponent<Rigidbody2D>().velocity += blowingPower * direction / Vector2.Distance(transform.position, ball.transform.position);
+                obj.GetComponent<Rigidbody2D>().linearVelocity += blowingPower * direction / Vector2.Distance(transform.position, ball.transform.position);
             }
-            else if (obj.gameObject.tag == "Interactable" && obj.GetComponent<Rigidbody2D>().velocity.magnitude > .5f){
-                obj.GetComponent<Rigidbody2D>().velocity += blowingPower * direction;
+            else if (obj.gameObject.tag == "Interactable" && obj.GetComponent<Rigidbody2D>().linearVelocity.magnitude > .5f){
+                obj.GetComponent<Rigidbody2D>().linearVelocity += blowingPower * direction;
                 
             }
             else if (obj.gameObject.tag == "Ball" || obj.gameObject.tag == "Interactable")
             {
-                obj.GetComponent<Rigidbody2D>().velocity = direction;
+                obj.GetComponent<Rigidbody2D>().linearVelocity = direction;
             }
             else
             {
-                obj.GetComponent<Rigidbody2D>().velocity += blowingPower * direction;
+                obj.GetComponent<Rigidbody2D>().linearVelocity += blowingPower * direction;
             }
 
         }

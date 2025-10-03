@@ -39,24 +39,24 @@ public class BallClone : MonoBehaviour
     }
     void AnimateBall()
     {
-        if (rb.velocity.magnitude < .5f)
+        if (rb.linearVelocity.magnitude < .5f)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
-        if (Mathf.Abs(rb.velocity.y) > Mathf.Abs(rb.velocity.x))
+        if (Mathf.Abs(rb.linearVelocity.y) > Mathf.Abs(rb.linearVelocity.x))
         {
             //Roll Up
             animator.SetBool("isHorizontal", false);
             animator.SetBool("isVertical", true);
-            animator.SetFloat("SpeedY", rb.velocity.y);
+            animator.SetFloat("SpeedY", rb.linearVelocity.y);
 
         }
-        else if (Mathf.Abs(rb.velocity.y) < Mathf.Abs(rb.velocity.x))
+        else if (Mathf.Abs(rb.linearVelocity.y) < Mathf.Abs(rb.linearVelocity.x))
         {
             //Roll Right
             animator.SetBool("isVertical", false);
             animator.SetBool("isHorizontal", true);
-            animator.SetFloat("SpeedX", rb.velocity.x);
+            animator.SetFloat("SpeedX", rb.linearVelocity.x);
         }
         else
         {

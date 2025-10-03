@@ -1,4 +1,3 @@
-using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -68,21 +67,9 @@ public class PlayerInput : MonoBehaviour
     private const float defaultCursorSpeed = 0.6f;
     private static Vector2 lastMousePos;
 
-    private bool isInSteamOverlay = false;
-
     private void OnEnable()
     {
         clearInput();
-    }
-
-    private void OnDestroy()
-    {
-        SteamFriends.OnGameOverlayActivated -= onPause;
-    }
-
-    private void Awake()
-    {
-        SteamFriends.OnGameOverlayActivated += onPause;
     }
 
     private void clearInput()
@@ -132,23 +119,8 @@ public class PlayerInput : MonoBehaviour
         return type;
     }
 
-    private void onPause(bool isPaused)
-    {
-        isInSteamOverlay = isPaused;
-        if (isPaused)
-        {
-            clearInput();
-        }
-        FindObjectOfType<SettingsManager>()?.pause();
-    }
-
     void Update()
     {
-        
-        if (isInSteamOverlay)
-        {
-            return;
-        }
         
         bool usedKey = false;
         bool usedController = false;

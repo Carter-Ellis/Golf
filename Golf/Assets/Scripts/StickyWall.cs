@@ -12,7 +12,7 @@ public class StickyWall : MonoBehaviour
             return;
         }
 
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
 
     }
 }

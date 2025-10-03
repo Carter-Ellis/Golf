@@ -175,10 +175,6 @@ public class Achievement : MonoBehaviour
 
         int index = (int)type;
 
-        if (!SteamIntegration.IsThisSteamAchUnlocked(type))
-        {
-            SteamIntegration.UnlockSteamAch(type);
-        }
         if (inv.achievements[index])
         {
             return;

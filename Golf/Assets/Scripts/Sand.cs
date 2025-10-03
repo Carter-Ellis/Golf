@@ -10,7 +10,7 @@ public class Sand : MonoBehaviour
     private void Awake()
     {
         Ball ball = FindObjectOfType<Ball>();
-        ballDrag = ball.GetComponent<Rigidbody2D>().drag;
+        ballDrag = ball.GetComponent<Rigidbody2D>().linearDamping;
         ps = ball.GetComponentInChildren<ParticleSystem>();
         ps.gameObject.SetActive(false);
         
@@ -28,14 +28,14 @@ public class Sand : MonoBehaviour
                 velocityModule.enabled = true;
 
                 // Set constant velocity based on ball velocity
-                velocityModule.x = new ParticleSystem.MinMaxCurve(rb.velocity.x / 2);
-                velocityModule.y = new ParticleSystem.MinMaxCurve(rb.velocity.y / 2);
+                velocityModule.x = new ParticleSystem.MinMaxCurve(rb.linearVelocity.x / 2);
+                velocityModule.y = new ParticleSystem.MinMaxCurve(rb.linearVelocity.y / 2);
                 velocityModule.z = new ParticleSystem.MinMaxCurve(0f);
                 ps.Play();
             }
 
             if (rb != null)
-                rb.drag = sandDrag;
+                rb.linearDamping = sandDrag;
                 
         }
     }
@@ -49,19 +49,19 @@ public class Sand : MonoBehaviour
 
             if (particles != null)
             {
-                if (rb.velocity.magnitude > minSpeedForParticles && !particles.isPlaying)
+                if (rb.linearVelocity.magnitude > minSpeedForParticles && !particles.isPlaying)
                 {
                     
                     var velocityModule = particles.velocityOverLifetime;
                     velocityModule.enabled = true;
 
                     // Set constant velocity based on ball velocity
-                    velocityModule.x = new ParticleSystem.MinMaxCurve(rb.velocity.x / 2);
-                    velocityModule.y = new ParticleSystem.MinMaxCurve(rb.velocity.y / 2);
+                    velocityModule.x = new ParticleSystem.MinMaxCurve(rb.linearVelocity.x / 2);
+                    velocityModule.y = new ParticleSystem.MinMaxCurve(rb.linearVelocity.y / 2);
                     velocityModule.z = new ParticleSystem.MinMaxCurve(0f);
                     particles.Play();
                 }
-                else if (rb.velocity.magnitude <= minSpeedForParticles && particles.isPlaying)
+                else if (rb.linearVelocity.magnitude <= minSpeedForParticles && particles.isPlaying)
                 {
                     particles.Stop();
                 }
@@ -76,7 +76,7 @@ public class Sand : MonoBehaviour
             Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
             
             if (rb != null)
-                rb.drag = ballDrag;
+                rb.linearDamping = ballDrag;
 
             var particles = collision.GetComponentInChildren<ParticleSystem>();
             if (particles != null)

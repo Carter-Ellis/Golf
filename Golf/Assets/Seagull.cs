@@ -19,11 +19,15 @@ public class Seagull : MonoBehaviour
     private Rigidbody2D rb;
     private float elapsedTime;
 
-    private SoundEffect squawkSFX = new SoundEffect(FMODEvents.instance.squak);
-    private SoundEffect flapSFX = new SoundEffect(FMODEvents.instance.flapWing);
+    private SoundEffect squawkSFX;
+    private SoundEffect flapSFX;
 
     private void Start()
     {
+
+        squawkSFX = new SoundEffect(FMODEvents.instance.squak);
+        flapSFX = new SoundEffect(FMODEvents.instance.flapWing);
+
         anim = GetComponent<Animator>();
         ball = FindObjectOfType<Ball>();
         rb = GetComponent<Rigidbody2D>();
@@ -64,7 +68,7 @@ public class Seagull : MonoBehaviour
         float wobble = Mathf.Sin(elapsedTime * wobbleFrequency) * wobbleAmplitude;
         float verticalVelocity = upwardSpeed + wobble;
 
-        rb.velocity = new Vector2(forwardSpeed, verticalVelocity);
+        rb.linearVelocity = new Vector2(forwardSpeed, verticalVelocity);
     }
 
     private void OnDestroy()

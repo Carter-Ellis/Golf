@@ -43,7 +43,7 @@ public class MoveOnceDoor : MonoBehaviour, ButtonTarget
         {
             if (((Vector2)transform.position - startPos).magnitude >= travelDist)
             {
-                doorRB.velocity = Vector2.zero;
+                doorRB.linearVelocity = Vector2.zero;
                 state = DOOR_STATE.OPEN;
             }
 
@@ -52,7 +52,7 @@ public class MoveOnceDoor : MonoBehaviour, ButtonTarget
         {
             if (((Vector2)transform.position - endPos).magnitude >= travelDist)
             {
-                doorRB.velocity = Vector2.zero;
+                doorRB.linearVelocity = Vector2.zero;
                 state = DOOR_STATE.CLOSED;
             }
         }
@@ -62,7 +62,7 @@ public class MoveOnceDoor : MonoBehaviour, ButtonTarget
     void OpenDoor()
     {
         Vector3 direction = transform.rotation * Vector3.up;
-        doorRB.velocity = direction.normalized * speed;
+        doorRB.linearVelocity = direction.normalized * speed;
         state = DOOR_STATE.OPENING;
     }
 

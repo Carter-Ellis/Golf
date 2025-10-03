@@ -143,7 +143,7 @@ public class BattleMode : MonoBehaviour
     private void Move()
     {
         Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        body.velocity = direction * moveSpeed;
+        body.linearVelocity = direction * moveSpeed;
 
         
     }
@@ -151,7 +151,7 @@ public class BattleMode : MonoBehaviour
     {
         DodgeCooldown();
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && body.velocity.magnitude > 0f && !hasDodged)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && body.linearVelocity.magnitude > 0f && !hasDodged)
         {
             isDodging = true;
             hasDodged = true;
@@ -169,7 +169,7 @@ public class BattleMode : MonoBehaviour
             return;
         }
 
-        body.velocity = body.velocity.normalized * dodgeSpeed;
+        body.linearVelocity = body.linearVelocity.normalized * dodgeSpeed;
     }
     private Vector2 GetDirectionVector(Direction direction)
     {

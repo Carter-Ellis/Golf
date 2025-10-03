@@ -233,17 +233,17 @@ public class Ball : MonoBehaviour
             }
             
             
-            float speed = Mathf.Max(moveSpeed, rb.velocity.magnitude);
-            rb.velocity = (rb.velocity + movement.normalized * moveSpeed).normalized * speed;
+            float speed = Mathf.Max(moveSpeed, rb.linearVelocity.magnitude);
+            rb.linearVelocity = (rb.linearVelocity + movement.normalized * moveSpeed).normalized * speed;
         }
-        if (rb.velocity.magnitude < .5f)
+        if (rb.linearVelocity.magnitude < .5f)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             wallHits = 0;
         }
-        else if (rb.velocity.magnitude > 20f)
+        else if (rb.linearVelocity.magnitude > 20f)
         {
-            rb.velocity = rb.velocity.normalized * 20f;
+            rb.linearVelocity = rb.linearVelocity.normalized * 20f;
         }
 
     }
@@ -278,7 +278,7 @@ public class Ball : MonoBehaviour
         checkDead();
         AnimateBall();
         //UpdateSound();
-        UpdateDirection(rb.velocity);
+        UpdateDirection(rb.linearVelocity);
 
         if (inv.numResets >= 50 && !inv.achievements[(int)Achievement.TYPE.BACK_TO_THE_BACK])
         {
@@ -434,7 +434,7 @@ public class Ball : MonoBehaviour
             swingTimer += Time.deltaTime;
             swingCooldownSlider.value = (swingCooldownTime - swingTimer) / swingCooldownTime;
 
-            if (swingTimer > swingCooldownTime || rb.velocity.magnitude == 0)
+            if (swingTimer > swingCooldownTime || rb.linearVelocity.magnitude == 0)
             {
                 isPuttCooldown = true;
                 swingTimer = 0f;
@@ -461,7 +461,7 @@ public class Ball : MonoBehaviour
 
     void AnimateBall()
     {
-        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
         float origAngle = angle;
 
         if (angle < 0)
@@ -472,11 +472,11 @@ public class Ball : MonoBehaviour
         {
             if (origAngle < 0)
             {
-                animator.SetFloat("DiagonalSpeed", -rb.velocity.magnitude);
+                animator.SetFloat("DiagonalSpeed", -rb.linearVelocity.magnitude);
             }
             else
             {
-                animator.SetFloat("DiagonalSpeed", rb.velocity.magnitude);
+                animator.SetFloat("DiagonalSpeed", rb.linearVelocity.magnitude);
             }
             animator.SetBool("isDiagonalRight", true);
             animator.SetBool("isVertical", true);
@@ -488,31 +488,31 @@ public class Ball : MonoBehaviour
 
             if (origAngle < 0)
             {
-                animator.SetFloat("DiagonalSpeed", -rb.velocity.magnitude);
+                animator.SetFloat("DiagonalSpeed", -rb.linearVelocity.magnitude);
             }
             else
             {
-                animator.SetFloat("DiagonalSpeed", rb.velocity.magnitude);
+                animator.SetFloat("DiagonalSpeed", rb.linearVelocity.magnitude);
             }
 
             animator.SetBool("isDiagonalRight", false);
             animator.SetBool("isVertical", true);
             animator.SetBool("isHorizontal", true);
         }
-        else if (Mathf.Abs(rb.velocity.y) > Mathf.Abs(rb.velocity.x))
+        else if (Mathf.Abs(rb.linearVelocity.y) > Mathf.Abs(rb.linearVelocity.x))
         {
             //Roll Up
             animator.SetBool("isHorizontal", false);
             animator.SetBool("isVertical", true);
-            animator.SetFloat("SpeedY", rb.velocity.y);
+            animator.SetFloat("SpeedY", rb.linearVelocity.y);
             
         }
-        else if (Mathf.Abs(rb.velocity.y) < Mathf.Abs(rb.velocity.x))
+        else if (Mathf.Abs(rb.linearVelocity.y) < Mathf.Abs(rb.linearVelocity.x))
         {
             //Roll Right           
             animator.SetBool("isVertical", false);
             animator.SetBool("isHorizontal", true);       
-            animator.SetFloat("SpeedX", rb.velocity.x);
+            animator.SetFloat("SpeedX", rb.linearVelocity.x);
         }
         else
         {
@@ -579,14 +579,14 @@ public class Ball : MonoBehaviour
         float burstSpeedMultiplier = 2f;
         GameObject clone;
         clone = Instantiate(ballClone, burstPos1.position, Quaternion.identity);
-        clone.GetComponent<Rigidbody2D>().velocity = rb.velocity * burstSpeedMultiplier;
+        clone.GetComponent<Rigidbody2D>().linearVelocity = rb.linearVelocity * burstSpeedMultiplier;
         
         clone = Instantiate(ballClone, burstPos2.position, Quaternion.identity);
-        clone.GetComponent<Rigidbody2D>().velocity = rb.velocity * burstSpeedMultiplier;
+        clone.GetComponent<Rigidbody2D>().linearVelocity = rb.linearVelocity * burstSpeedMultiplier;
         clone = Instantiate(ballClone, burstPos3.position, Quaternion.identity);
-        clone.GetComponent<Rigidbody2D>().velocity = rb.velocity * burstSpeedMultiplier;
+        clone.GetComponent<Rigidbody2D>().linearVelocity = rb.linearVelocity * burstSpeedMultiplier;
         clone = Instantiate(ballClone, burstPos4.position, Quaternion.identity);
-        clone.GetComponent<Rigidbody2D>().velocity = rb.velocity * burstSpeedMultiplier;
+        clone.GetComponent<Rigidbody2D>().linearVelocity = rb.linearVelocity * burstSpeedMultiplier;
 
     }
 
@@ -601,7 +601,7 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             wallHits++;
-            float volume = rb.velocity.magnitude / 10;
+            float volume = rb.linearVelocity.magnitude / 10;
             if (volume > maxSFXVolume)
             {
                 volume = maxSFXVolume;
@@ -615,7 +615,7 @@ public class Ball : MonoBehaviour
         else if (collision.gameObject.tag == "Wood")
         {
             wallHits++;
-            float volume = rb.velocity.magnitude / 10;
+            float volume = rb.linearVelocity.magnitude / 10;
             if (volume > maxSFXVolume)
             {
                 volume = maxSFXVolume;
@@ -628,7 +628,7 @@ public class Ball : MonoBehaviour
         else if (collision.gameObject.tag == "Cobblestone")
         {
             wallHits++;
-            float volume = rb.velocity.magnitude / 10;
+            float volume = rb.linearVelocity.magnitude / 10;
             if (volume > maxSFXVolume)
             {
                 volume = maxSFXVolume;
@@ -865,18 +865,18 @@ public class Ball : MonoBehaviour
         var particles = transform.Find("Grass Particles").GetComponent<ParticleSystem>();
         if (particles != null)
         {
-            if (rb.velocity.magnitude > minSpeedForParticles && !particles.isPlaying)
+            if (rb.linearVelocity.magnitude > minSpeedForParticles && !particles.isPlaying)
             {
                 var velocityModule = particles.velocityOverLifetime;
                 velocityModule.enabled = true;
 
                 // Set constant velocity based on ball velocity
-                velocityModule.x = new ParticleSystem.MinMaxCurve(-(rb.velocity.x / 2));
-                velocityModule.y = new ParticleSystem.MinMaxCurve(-(rb.velocity.y / 2));
+                velocityModule.x = new ParticleSystem.MinMaxCurve(-(rb.linearVelocity.x / 2));
+                velocityModule.y = new ParticleSystem.MinMaxCurve(-(rb.linearVelocity.y / 2));
                 velocityModule.z = new ParticleSystem.MinMaxCurve(0f);
                 particles.Play();
             }
-            else if (rb.velocity.magnitude <= minSpeedForParticles && particles.isPlaying)
+            else if (rb.linearVelocity.magnitude <= minSpeedForParticles && particles.isPlaying)
             {
                 particles.Stop();
             }
@@ -888,18 +888,18 @@ public class Ball : MonoBehaviour
         var particles = transform.Find("Wind Particles").GetComponent<ParticleSystem>();
         if (particles != null)
         {
-            if (rb.velocity.magnitude > minSpeedForParticles && !particles.isPlaying)
+            if (rb.linearVelocity.magnitude > minSpeedForParticles && !particles.isPlaying)
             {
                 var velocityModule = particles.velocityOverLifetime;
                 velocityModule.enabled = true;
 
                 // Set constant velocity based on ball velocity
-                velocityModule.x = new ParticleSystem.MinMaxCurve(-(rb.velocity.x / 2));
-                velocityModule.y = new ParticleSystem.MinMaxCurve(-(rb.velocity.y / 2));
+                velocityModule.x = new ParticleSystem.MinMaxCurve(-(rb.linearVelocity.x / 2));
+                velocityModule.y = new ParticleSystem.MinMaxCurve(-(rb.linearVelocity.y / 2));
                 velocityModule.z = new ParticleSystem.MinMaxCurve(0f);
                 particles.Play();
             }
-            else if (rb.velocity.magnitude <= minSpeedForParticles && particles.isPlaying)
+            else if (rb.linearVelocity.magnitude <= minSpeedForParticles && particles.isPlaying)
             {
                 particles.Stop();
             }
@@ -941,7 +941,7 @@ public class Ball : MonoBehaviour
     private void UpdateSound()
     {
         //Start rollSFX event if the ball has a velocity > 0
-        if (rb.velocity.magnitude > 0)
+        if (rb.linearVelocity.magnitude > 0)
         {
             // Get the playback state
             PLAYBACK_STATE playbackState;

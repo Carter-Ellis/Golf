@@ -51,7 +51,7 @@ public class AbilityWind : Ability
     public override void onUse(Ball ball)
     {
         Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-        if (charges <= 0 || rb.velocity.magnitude <= 0f)
+        if (charges <= 0 || rb.linearVelocity.magnitude <= 0f)
         {
             return;
         }
@@ -59,7 +59,7 @@ public class AbilityWind : Ability
         Audio.playSFX(FMODEvents.instance.windAbility, GameObject.FindObjectOfType<Ball>().transform.position);
         charges--;
 
-        rb.AddForce(rb.velocity.normalized * gustSpeed, ForceMode2D.Impulse);
+        rb.AddForce(rb.linearVelocity.normalized * gustSpeed, ForceMode2D.Impulse);
         ball.DisplayWindParticles();
     }
 

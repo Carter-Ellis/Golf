@@ -58,7 +58,7 @@ public class EnvironmentManager : MonoBehaviour
         emitter.Play();
         
 
-        rbody.velocity = new Vector2(flySpeed, 0);
+        rbody.linearVelocity = new Vector2(flySpeed, 0);
         Destroy(geeseGroup, 30f);
         
     }

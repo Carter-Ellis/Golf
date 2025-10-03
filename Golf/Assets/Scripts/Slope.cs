@@ -23,13 +23,13 @@ public class Slope : MonoBehaviour
         //print("Height: " + ball.GetComponent<Inventory>().currentHeight);
         if (isOnSlope)
         {
-            if (rb.velocity.magnitude > 0.4f)
+            if (rb.linearVelocity.magnitude > 0.4f)
             {
-                rb.velocity += steepness * Vector2.down;
+                rb.linearVelocity += steepness * Vector2.down;
             }
             else
             {
-                rb.velocity = Vector2.down;
+                rb.linearVelocity = Vector2.down;
             }     
         }
 
@@ -39,13 +39,13 @@ public class Slope : MonoBehaviour
             {
                 return;
             }
-            if (buoyBody.velocity.magnitude > 0.4f)
+            if (buoyBody.linearVelocity.magnitude > 0.4f)
             {
-                buoyBody.velocity += steepness * Vector2.down;
+                buoyBody.linearVelocity += steepness * Vector2.down;
             }
             else
             {
-                buoyBody.velocity = Vector2.down;
+                buoyBody.linearVelocity = Vector2.down;
             }
         }
 

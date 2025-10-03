@@ -44,7 +44,7 @@ public class Door : MonoBehaviour, ButtonTarget
         {
             if (((Vector2)transform.position - startPos).magnitude >= travelDist)
             {
-                doorRB.velocity = Vector2.zero;
+                doorRB.linearVelocity = Vector2.zero;
                 state = DOOR_STATE.OPEN;
                 doorSFX.stop();
             }
@@ -54,7 +54,7 @@ public class Door : MonoBehaviour, ButtonTarget
         {
             if (((Vector2)transform.position - endPos).magnitude >= travelDist)
             {
-                doorRB.velocity = Vector2.zero;
+                doorRB.linearVelocity = Vector2.zero;
                 state = DOOR_STATE.CLOSED;
                 doorSFX.stop();
             }
@@ -65,14 +65,14 @@ public class Door : MonoBehaviour, ButtonTarget
     void OpenDoor()
     {
         Vector3 direction = transform.rotation * Vector3.up;
-        doorRB.velocity = direction.normalized * speed;
+        doorRB.linearVelocity = direction.normalized * speed;
         state = DOOR_STATE.OPENING;
         doorSFX.play(this);
     }
     void CloseDoor()
     {
         Vector3 direction = transform.rotation * Vector3.up;
-        doorRB.velocity = -direction.normalized * speed;
+        doorRB.linearVelocity = -direction.normalized * speed;
         state = DOOR_STATE.CLOSING;
         doorSFX.play(this);
     }
