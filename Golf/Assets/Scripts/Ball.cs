@@ -299,7 +299,6 @@ public class Ball : MonoBehaviour
         {
             movement.x = PlayerInput.get(PlayerInput.Axis.Horizontal);
             movement.y = PlayerInput.get(PlayerInput.Axis.Vertical);
-            movement *= PlayerInput.isController ? -1 : 1;
         }
         
         if (takingDamage)
@@ -322,26 +321,7 @@ public class Ball : MonoBehaviour
 
         if (isBattleMode) { return; }
 
-        if (PlayerInput.isController)
-        {
-            if (!hasClickedBall && !camController.isViewMode && PlayerInput.isDown(PlayerInput.Axis.Fire2))
-            {
-                int index = -1;
-                if (objectSelected != null)
-                {
-                    for (int i = 0; i < allFans.Length; i++)
-                    {
-                        if (allFans[i] as Selectable == objectSelected)
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
-                }
-                pickFan(index);
-            }
-        }
-        else if (PlayerInput.isDown(PlayerInput.Axis.Fire1) && !camController.isViewMode)
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire1) && !camController.isViewMode)
         {
             Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -365,8 +345,6 @@ public class Ball : MonoBehaviour
                 Select(null);
             }
         }
-       
-        //ClickEnemy();
         
         isMouseButton1Held = PlayerInput.get(PlayerInput.Axis.Fire1) != 0;
 
@@ -697,26 +675,20 @@ public class Ball : MonoBehaviour
 
     void GrabBall()
     {
-        if (!PlayerInput.isController)
+        
+        Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
+        RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
+
+        foreach (RaycastHit2D hit in hits)
         {
-            Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
-            RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
 
-            foreach (RaycastHit2D hit in hits)
+            if (isMouseButton1Held && hit.collider != null && hit.collider.tag == "Ball" && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ball"))
             {
-
-                if (isMouseButton1Held && hit.collider != null && hit.collider.tag == "Ball" && hit.collider.gameObject.layer == LayerMask.NameToLayer("Ball"))
-                {
-                    hasClickedBall = true;
-                    break;
-                }
+                hasClickedBall = true;
+                break;
             }
         }
-        else if (!hasClickedBall && PlayerInput.isDown(PlayerInput.Axis.Fire1))
-        {
-            hasClickedBall = true;
-            PlayerInput.resetCursor();
-        }
+
         if (PlayerInput.isDown(PlayerInput.Axis.Fire2))
         {
             hasClickedBall = false;
@@ -727,6 +699,7 @@ public class Ball : MonoBehaviour
             ClearDots();
             return;
         }
+
         if (hasClickedBall)
         {
             Putt();

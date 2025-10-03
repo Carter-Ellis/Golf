@@ -46,23 +46,7 @@ public class AbilityTeleport : Ability
             return;
         }
 
-        Vector3 mousePos;
-        if (PlayerInput.isController)
-        {
-            //Convert cursor position from 0:1 to -1:1 range and invert
-            Vector3 cursorDir = -(PlayerInput.rawCursorPosition * 2f - new Vector2(1, 1));
-            //Normalize if too large to contain in circle
-            if (cursorDir.magnitude > 1f)
-            {
-                cursorDir.Normalize();
-            }
-            mousePos = ball.transform.position + cursorDir * (maxTeleportRange - 0.01f);
-            ball.cursor.transform.position = new Vector3(mousePos.x, mousePos.y, -9.7f);
-        }
-        else
-        {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (!PlayerInput.isUp(PlayerInput.Axis.Fire1))
         {
@@ -116,7 +100,6 @@ public class AbilityTeleport : Ability
 
         Audio.playSFX(FMODEvents.instance.teleport, GameObject.FindObjectOfType<Ball>().transform.position);
         ball.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
-        PlayerInput.cursorSpeed /= 2;
         ball.DisplayTeleportParticles();
         charges--;
         isReady = false;
@@ -188,16 +171,13 @@ public class AbilityTeleport : Ability
         if (isReady)
         {
             ball.hasClickedBall = false;
-            ball.cursor.GetComponent<SpriteRenderer>().enabled = PlayerInput.isController;
-            PlayerInput.resetCursor();
-            PlayerInput.cursorSpeed *= 2;
+            ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
         }
         else
         {
             ball.cursor.GetComponent<SpriteRenderer>().enabled = false;
             GameObject tpCircle = GameObject.Find("TeleportCircle");
             if (tpCircle != null) GameObject.Destroy(tpCircle);
-            PlayerInput.cursorSpeed /= 2;
         }
 
     }

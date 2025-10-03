@@ -134,7 +134,7 @@ public class Fan : MonoBehaviour, Selectable
 
     private void Rotate()
     {
-        float input = PlayerInput.get(PlayerInput.Axis.Horizontal) * (PlayerInput.isController ? 1 : -1);
+        float input = PlayerInput.get(PlayerInput.Axis.Horizontal) * -1;
         bool left =  input > 0;
         bool right = input < 0;
         UpdateSprite();

@@ -84,22 +84,14 @@ public class UpgradeManager : MonoBehaviour
     GameObject GetClickedUI()
     {
         PointerEventData pointer = new PointerEventData(EventSystem.current);
-        if (PlayerInput.isController)
-        {
-            pointer.position = new Vector2(Screen.width, Screen.height) - PlayerInput.cursorPosition;
-        }
-        else
-        {
-            pointer.position = PlayerInput.cursorPosition;
-        }
+        pointer.position = PlayerInput.cursorPosition;
 
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointer, results);
 
-        int min = PlayerInput.isController ? 1 : 0;
-        if (results.Count > min)
+        if (results.Count > 0)
         {
-            return results[min].gameObject;
+            return results[0].gameObject;
         }
         return null;
     }

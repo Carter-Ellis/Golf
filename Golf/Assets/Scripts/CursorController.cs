@@ -12,45 +12,17 @@ public class CursorController : MonoBehaviour
     private HashSet<GameObject> hovered = new HashSet<GameObject>();
     private bool isDragging = false;
 
-    private void OnEnable()
-    {
-        PlayerInput.resetCursor();
-    }
     private void Awake()
     {
         cursorImage = this.GetComponent<Image>();
-        if (PlayerInput.isController)
-        {
-            if (!cursorImage.enabled)
-            {
-                cursorImage.enabled = true;
-            }
-        }
-        else if (cursorImage.enabled)
+        if (cursorImage.enabled)
         {
             cursorImage.enabled = false;
         }
     }
     void Update()
     {
-        if (PlayerInput.isController)
-        {
-            if (!cursorImage.enabled)
-            {
-                cursorImage.enabled = true;
-            }
-            Vector2 position = new Vector2(Screen.width, Screen.height) - PlayerInput.cursorPosition;
-            transform.position = position;
-            if (isFunctional)
-            {
-                SimulateClick(position);
-                if (PlayerInput.isDown(PlayerInput.Axis.Fire2))
-                {
-                    BackButton(position);
-                }
-            }
-        }
-        else if (cursorImage.enabled)
+        if (cursorImage.enabled)
         {
             cursorImage.enabled = false;
             isDragging = false;
