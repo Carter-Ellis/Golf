@@ -58,6 +58,15 @@ public class PlayerInput : MonoBehaviour
     private static bool[] axesFrameDown = new bool[(int)Axis.MAX_AXIS];
     private static bool[] axesFrameUp = new bool[(int)Axis.MAX_AXIS];
 
+    private struct QueueInput
+    {
+        public Axis axis;
+        public float value;
+    }
+
+    private static List<QueueInput> inputQueue = new List<QueueInput>();
+    private static List<Axis> resetQueue = new List<Axis>();
+
     private void OnEnable()
     {
         clearInput();
@@ -128,6 +137,24 @@ public class PlayerInput : MonoBehaviour
                 break;
         }
 
+        handleInputQueue();
+
+    }
+
+    private void handleInputQueue()
+    {
+        foreach (var axis in resetQueue)
+        {
+            updateValue(axis, 0);
+        }
+        resetQueue.Clear();
+
+        foreach (var input in inputQueue)
+        {
+            updateValue(input.axis, input.value);
+            resetQueue.Add(input.axis);
+        }
+        inputQueue.Clear();
     }
 
     private void handleZoom()
@@ -182,6 +209,11 @@ public class PlayerInput : MonoBehaviour
         {
             return Input.mousePosition;
         }
+    }
+
+    public static void sendInput(Axis axis, float value = 1.0f)
+    {
+        inputQueue.Add(new QueueInput() { axis = axis, value = value });
     }
 
 }

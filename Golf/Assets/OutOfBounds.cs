@@ -33,7 +33,6 @@ public class OutOfBounds : MonoBehaviour
             ball.cursor.SetActive(false);
             ball.swingPowerSlider.gameObject.SetActive(false);
             ball.powerTxt.gameObject.SetActive(false);
-            ball.cancelImage.SetActive(false);
             ball.TakeDamage(100, true);
             isFalling = false;
             Audio.playSFX(FMODEvents.instance.watersplash, transform.position);

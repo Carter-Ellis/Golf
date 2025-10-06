@@ -57,7 +57,6 @@ public class Hole : MonoBehaviour, ButtonTarget
     [SerializeField] private GameObject appleAchievement;
     [SerializeField] private Button hole9Button;
 
-    private CursorController cursor;
     public TextMeshProUGUI timeToBeatTxt;
     private int[] costs = { 4, 6, 9, 12 };
 
@@ -71,12 +70,6 @@ public class Hole : MonoBehaviour, ButtonTarget
         ghostRecorder = ball.GetComponent<GhostRecorder>();
         inv = ball.GetComponent<Inventory>();
         camController = FindObjectOfType<CameraController>();
-
-        if (animator != null)
-        {
-            cursor = animator.GetComponentInChildren<CursorController>();
-            cursor.gameObject.SetActive(false);
-        }
 
         GameObject timeObject = GameObject.Find("Time To Beat");
 
@@ -405,7 +398,6 @@ public class Hole : MonoBehaviour, ButtonTarget
             ball.cursor.SetActive(false);
             ball.swingPowerSlider.gameObject.SetActive(false);
             ball.powerTxt.gameObject.SetActive(false);
-            ball.cancelImage.SetActive(false);
 
 
             // Play inhole audio
@@ -530,9 +522,6 @@ public class Hole : MonoBehaviour, ButtonTarget
                 }
 
             }
-
-            cursor.gameObject.SetActive(true);
-
 
         }
         else

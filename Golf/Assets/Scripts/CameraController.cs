@@ -88,7 +88,6 @@ public class CameraController : MonoBehaviour
             ball.ClearDots();
             ball.swingPowerSlider.gameObject.SetActive(false);
             ball.powerTxt.gameObject.SetActive(false);
-            ball.cancelImage.SetActive(false);
 
             userInterface.enabled = false;
             mapViewUI.enabled = true;

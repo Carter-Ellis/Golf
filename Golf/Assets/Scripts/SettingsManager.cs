@@ -90,7 +90,6 @@ public class SettingsManager : MonoBehaviour
             ball.ClearDots();
             ball.swingPowerSlider?.gameObject.SetActive(false);
             ball.powerTxt?.gameObject.SetActive(false);
-            ball.cancelImage?.SetActive(false);
             SpriteRenderer cursorSprite = ball.cursor?.GetComponent<SpriteRenderer>();
             if (cursorSprite != null)
             {
