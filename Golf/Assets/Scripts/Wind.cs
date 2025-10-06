@@ -13,11 +13,13 @@ public class Wind : MonoBehaviour
     [SerializeField] private float particleLifetime = .5f;
     private ParticleSystem.EmissionModule emissionModule;
     [SerializeField] private float particlesPerSecond = 300f;
+    private float maxRange;
     void Start()
     {
         ball = FindObjectOfType<Ball>();
         particleSys = transform.GetChild(0).GetComponent<ParticleSystem>();
         boxCollider = GetComponent<BoxCollider2D>();
+        maxRange = boxCollider.bounds.size.magnitude;
         mainModule = particleSys.main;
         velocityModule = particleSys.velocityOverLifetime;
 
@@ -37,39 +39,20 @@ public class Wind : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject == null)
-        {
-            return;
-        }
+        if (collision.gameObject == null) return;
+        if (collision.isTrigger) return;
 
         GameObject obj = collision.gameObject;
         Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
-        if (rb == null)
-        {
-            return;
-        }
+        if (rb == null) return;
 
         float rad = Mathf.Deg2Rad * transform.rotation.eulerAngles.z;
         Vector2 direction = (new Vector2((float)Mathf.Cos(rad), (float)Mathf.Sin(rad))).normalized;
-        bool isBall = obj.gameObject.GetComponent<Ball>() != null;
-        bool isInteractable = obj.gameObject.tag == "Interactable";
-
-        if (isBall && rb.linearVelocity.magnitude > .5f)
+        
+        if (Vector2.Dot(direction, rb.linearVelocity) < 20f)
         {
-            rb.linearVelocity += blowingPower * direction / Vector2.Distance(transform.position, ball.transform.position);
-        }
-        else if (isInteractable && rb.linearVelocity.magnitude > .5f)
-        {
-            rb.linearVelocity += blowingPower * direction;
-
-        }
-        else if (isBall || isInteractable)
-        {
-            rb.linearVelocity = direction;
-        }
-        else
-        {
-            rb.linearVelocity += blowingPower * direction;
+            float influence = 1 - (Vector2.Distance(rb.position, transform.position) / maxRange);
+            rb.linearVelocity += blowingPower * 400f * Time.deltaTime * direction * influence;
         }
 
     }

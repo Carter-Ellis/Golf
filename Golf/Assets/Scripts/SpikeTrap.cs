@@ -114,9 +114,9 @@ public class SpikeTrap : MonoBehaviour
         if (isAttacking && collision.gameObject != null)
         {
             onSpikeTimer += Time.deltaTime;
-            if (collision.gameObject.tag == "Ball" && onSpikeTimer > onSpikeDamageTimer)
+            Ball ball = collision.gameObject.GetComponent<Ball>();
+            if (ball != null && onSpikeTimer > onSpikeDamageTimer)
             {
-                Ball ball = collision.gameObject.GetComponent<Ball>();
                 ball.TakeDamage(100);
                 onSpikeTimer = 0f;
             }

@@ -19,6 +19,7 @@ public class Fan : MonoBehaviour, Selectable
     private Animator anim;
     public float rotationBounds = 90f;
     public bool isSelectable;
+    private bool firstTouch;
 
     private SoundEffect fanSFX;
     private LineRenderer line;
@@ -73,6 +74,13 @@ public class Fan : MonoBehaviour, Selectable
     {
         if (ball == null || !isSelectable) return;
 
+        if (PlayerInput.isDown(PlayerInput.Axis.Fire1)) return;
+        if (PlayerInput.isUp(PlayerInput.Axis.Fire1))
+        {
+            firstTouch = false;
+        }
+        if (PlayerInput.get(PlayerInput.Axis.Fire1) == 0) return;
+
         if (!isSelected)
         {
             line.enabled = false;
@@ -94,7 +102,8 @@ public class Fan : MonoBehaviour, Selectable
     public bool onSelect()
     {
         if (!isSelectable) { return false; }
-        
+
+        firstTouch = true;
         isSelected = !isSelected;
         if (isSelected)
         {
@@ -134,42 +143,20 @@ public class Fan : MonoBehaviour, Selectable
 
     private void Rotate()
     {
-        float input = PlayerInput.get(PlayerInput.Axis.Horizontal) * -1;
-        bool left =  input > 0;
-        bool right = input < 0;
         UpdateSprite();
 
-        if (left == right) return;
-
-        float dir = left ? 1 : -1;
-        float rotationIncrement = dir * rotationSpeed * Time.deltaTime;
-
-        Quaternion rotMat = Quaternion.AngleAxis(rotationIncrement, Vector3.forward);
-        Quaternion newRot = center.rotation * rotMat;
-
-        if (Quaternion.Angle(newRot, origRotation) >= rotationBounds)
+        if (Input.touchCount == 0) return;
+        if (firstTouch)
         {
-            Quaternion max = origRotation * Quaternion.AngleAxis(rotationBounds * dir, Vector3.forward);
-            center.rotation = max;
+            if (Input.touches[0].deltaPosition.magnitude < 10f)
+            {
+                return;
+            }
+            firstTouch = false;
         }
-        else
-        {
-            center.rotation = newRot;
 
-            Quaternion spriteRot = spriteObj.transform.rotation * rotMat;
-            Vector3 angles = spriteRot.eulerAngles;
-            float zAngle = angles.z;
-
-            if (zAngle >= 180) zAngle -= 360;
-
-            if (zAngle > 22.5f)
-                zAngle -= 45f;
-            else if (zAngle < -22.5)
-                zAngle += 45f;
-
-            angles.z = zAngle;
-            // spriteObj.transform.rotation = Quaternion.Euler(angles);
-        }
+        Vector2 dir = (Input.touches[0].position - new Vector2(Screen.width, Screen.height) / 2).normalized;
+        center.rotation = Quaternion.FromToRotation(Vector2.down, dir);
     }
 
     private void UpdateLine()

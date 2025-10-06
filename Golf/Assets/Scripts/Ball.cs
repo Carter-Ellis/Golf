@@ -310,7 +310,6 @@ public class Ball : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(PlayerInput.cursorPosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-            bool didSelect = false;
             if (hit.collider != null)
             {
                 Component[] components = hit.collider.GetComponents<Component>();
@@ -319,15 +318,10 @@ public class Ball : MonoBehaviour
                     if (component is Selectable)
                     {
                         Select(component);
-                        didSelect = true;
                         break;
                     }
                     
                 }
-            }
-            if (!didSelect) 
-            {
-                Select(null);
             }
         }
         
@@ -338,27 +332,6 @@ public class Ball : MonoBehaviour
             setPutt();
         }  
         
-    }
-
-    private void pickFan(int currentIndex)
-    {
-        bool found = false;
-        for (int i = currentIndex + 1; i < allFans.Length; i++)
-        {
-  
-            if (Vector2.Distance(transform.position, allFans[i].transform.position) <= allFans[i].controlRadius)
-            {
-                if (Select(allFans[i]))
-                {
-                    found = true;
-                    break;
-                }
-            }
-        }
-        if (!found)
-        {
-            Select(null);
-        }
     }
 
     public bool Select(Component component)
