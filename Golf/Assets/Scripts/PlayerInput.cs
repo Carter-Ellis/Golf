@@ -174,7 +174,7 @@ public class PlayerInput : MonoBehaviour
         }
         else
         {
-            float strength = Mathf.Clamp(Mathf.Abs(deltaMagnitudeDiff) / 2000f, 0f, 1f);
+            float strength = Mathf.Clamp(Mathf.Abs(deltaMagnitudeDiff) / 4000f, 0f, 1f);
             updateValue(Axis.ScrollWheel, deltaMagnitudeDiff > 0f ? -strength : strength);
             updateValue(Axis.Fire1, 0);
             updateValue(Axis.Fire2, 0);

@@ -89,36 +89,27 @@ public class Flag : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Move up
-        if (collision.gameObject != null && collision.gameObject.tag == "Ball")
+        bool isBall = (collision.gameObject != null && collision.gameObject.GetComponent<Ball>() != null);
+        
+        if (isBall)
         {
             exited = false;
             StartCoroutine(MoveUp());
-        }
-
-        //Make transparent when behind
-        if (collision.gameObject != null && collision.gameObject.tag == "Ball")
-        {
-            exited = false;
             StartCoroutine(FadeToTransparent());
         }
 
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject != null && collision.gameObject.tag == "Ball")
+        bool isBall = (collision.gameObject != null && collision.gameObject.GetComponent<Ball>() != null);
+
+        if (isBall)
         {
-            //Move down
             exited = true;
             StartCoroutine(MoveDown());
-        }
-
-        if (collision.gameObject != null && collision.gameObject.tag == "Ball")
-        {
-            //Make transparent when not behind
-            exited = true;
             StartCoroutine(FadeToSolid());
         }
+
     }
     
 }

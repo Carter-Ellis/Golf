@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Wind : MonoBehaviour
 {
-    GameObject obj;
     Ball ball;
     public float blowingPower = .03f;
-    private bool isBlowing;
     private BoxCollider2D boxCollider;
     private ParticleSystem particleSys;
     private ParticleSystem.VelocityOverLifetimeModule velocityModule;
@@ -27,8 +25,6 @@ public class Wind : MonoBehaviour
 
     void Update()
     {
-        float rad = Mathf.Deg2Rad * transform.rotation.eulerAngles.z;
-        Vector2 direction = (new Vector2((float)Mathf.Cos(rad), (float)Mathf.Sin(rad))).normalized;
       
         mainModule.startLifetime = particleLifetime;
 
@@ -37,26 +33,6 @@ public class Wind : MonoBehaviour
 
         velocityModule.speedModifier = blowingPower * 20f;
 
-        if (isBlowing && obj != null)
-        {
-            if (obj.gameObject.tag == "Ball" && ball.GetComponent<Rigidbody2D>().linearVelocity.magnitude > .5f)
-            {
-                obj.GetComponent<Rigidbody2D>().linearVelocity += blowingPower * direction / Vector2.Distance(transform.position, ball.transform.position);
-            }
-            else if (obj.gameObject.tag == "Interactable" && obj.GetComponent<Rigidbody2D>().linearVelocity.magnitude > .5f){
-                obj.GetComponent<Rigidbody2D>().linearVelocity += blowingPower * direction;
-                
-            }
-            else if (obj.gameObject.tag == "Ball" || obj.gameObject.tag == "Interactable")
-            {
-                obj.GetComponent<Rigidbody2D>().linearVelocity = direction;
-            }
-            else
-            {
-                obj.GetComponent<Rigidbody2D>().linearVelocity += blowingPower * direction;
-            }
-
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -65,14 +41,37 @@ public class Wind : MonoBehaviour
         {
             return;
         }
-        obj = collision.gameObject;
-        isBlowing = true;
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        obj = null;
-        isBlowing = false;
+        GameObject obj = collision.gameObject;
+        Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            return;
+        }
+
+        float rad = Mathf.Deg2Rad * transform.rotation.eulerAngles.z;
+        Vector2 direction = (new Vector2((float)Mathf.Cos(rad), (float)Mathf.Sin(rad))).normalized;
+        bool isBall = obj.gameObject.GetComponent<Ball>() != null;
+        bool isInteractable = obj.gameObject.tag == "Interactable";
+
+        if (isBall && rb.linearVelocity.magnitude > .5f)
+        {
+            rb.linearVelocity += blowingPower * direction / Vector2.Distance(transform.position, ball.transform.position);
+        }
+        else if (isInteractable && rb.linearVelocity.magnitude > .5f)
+        {
+            rb.linearVelocity += blowingPower * direction;
+
+        }
+        else if (isBall || isInteractable)
+        {
+            rb.linearVelocity = direction;
+        }
+        else
+        {
+            rb.linearVelocity += blowingPower * direction;
+        }
+
     }
 
 }

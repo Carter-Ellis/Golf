@@ -107,7 +107,7 @@ public class Tube : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.tag != "Ball"|| collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.magnitude > ballOverHoleSpeed)
+        if (collision.gameObject.GetComponent<Ball>() == null || collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.magnitude > ballOverHoleSpeed)
         {
             return;
         }
