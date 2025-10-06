@@ -111,16 +111,56 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
 
-        for (int i = 0; i < axesValue.GetLength(0); i++)
+        switch(Input.touchCount)
         {
-
-            float value = Input.GetAxis(axesNames[i]);
-            axesFrameDown[i] = Mathf.Approximately(axesValue[i], 0f) && !Mathf.Approximately(value, 0f);
-            axesFrameUp[i] = !Mathf.Approximately(axesValue[i], 0f) && Mathf.Approximately(value, 0f);
-            axesValue[i] = value;
-
+            case 0:
+                updateValue(Axis.Fire1, 0);
+                updateValue(Axis.Fire2, 0);
+                updateValue(Axis.ScrollWheel, 0);
+                break;
+            case 1:
+                updateValue(Axis.Fire1, 1);
+                updateValue(Axis.Fire2, 0);
+                updateValue(Axis.ScrollWheel, 0);
+                break;
+            case 2:
+                handleZoom();
+                break;
         }
 
+    }
+
+    private void handleZoom()
+    {
+        
+        Touch touch0 = Input.GetTouch(0);
+        Touch touch1 = Input.GetTouch(1);
+        Vector2 touch0PrevPos = touch0.position - touch0.deltaPosition;
+        Vector2 touch1PrevPos = touch1.position - touch1.deltaPosition;
+        float prevTouchDeltaMag = (touch0PrevPos - touch1PrevPos).magnitude;
+        float touchDeltaMag = (touch0.position - touch1.position).magnitude;
+        float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+        if (Mathf.Abs(deltaMagnitudeDiff) < 10)
+        {
+            updateValue(Axis.Fire2, 1);
+            updateValue(Axis.ScrollWheel, 0);
+        }
+        else
+        {
+            float strength = Mathf.Clamp(Mathf.Abs(deltaMagnitudeDiff) / 2000f, 0f, 1f);
+            updateValue(Axis.ScrollWheel, deltaMagnitudeDiff > 0f ? -strength : strength);
+            updateValue(Axis.Fire1, 0);
+            updateValue(Axis.Fire2, 0);
+        }
+
+    }
+
+    private void updateValue(Axis axis, float value)
+    {
+        int index = (int)axis;
+        axesFrameDown[index] = Mathf.Approximately(axesValue[index], 0f) && !Mathf.Approximately(value, 0f);
+        axesFrameUp[index] = !Mathf.Approximately(axesValue[index], 0f) && Mathf.Approximately(value, 0f);
+        axesValue[index] = value;
     }
 
     public static bool isDown(Axis axis)
