@@ -90,6 +90,7 @@ public class Inventory : MonoBehaviour
     [Header("AbilityImages")]
     [SerializeField] private Image abilityImage;
     [SerializeField] private Sprite[] abilitySprites;
+    [SerializeField] private GameObject[] abilityButtons;
 
     [Header("Upgrades")]
     [SerializeField] private GameObject upgrades;
@@ -172,6 +173,7 @@ public class Inventory : MonoBehaviour
         currentMap = Map.current;
         holeNum = Map.hole;
         abilityInterface = GameObject.Find("AbilityInterface");
+        abilityButtons = FindFirstObjectByType<InputBridge>()?.abilityButtons;
         LoadZoom();
         ChangeCoinSprites();
         CheckPopup();
@@ -216,6 +218,7 @@ public class Inventory : MonoBehaviour
         }
 
         SavePlayer();
+        DisplayAbility();
 
     }
 
@@ -480,15 +483,8 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetKeyUp(KeyCode.P))
-        {
-            //ClearAchievements();
-            //UnlockAchievements();
-            SavePlayer();
-        }*/
 
         AbilityManager();
-        DisplayAbility();
         SpeedrunTimer();
 
         //CHANGE TOTAL COINS IF ADD MORE LEVELS!
@@ -840,6 +836,7 @@ public class Inventory : MonoBehaviour
             }
             ball.ClearDots();
             unlockedAbilities[indexOfAbility].onUse(ball);
+            DisplayAbility();
 
             checkAlakazaa();    
 
@@ -848,7 +845,6 @@ public class Inventory : MonoBehaviour
         {
             unlockedAbilities[indexOfAbility].onFrame(ball);
         }
-
 
         if (ball.isTeleportReady)
         {
@@ -918,7 +914,7 @@ public class Inventory : MonoBehaviour
 
 
 
-    private void equipAbility(int index)
+    public void equipAbility(int index)
     {
         if (index < 0 || index >= unlockedAbilities.Count)
         {
@@ -929,24 +925,45 @@ public class Inventory : MonoBehaviour
 
     private void DisplayAbility()
     {
-        if (unlockedAbilities == null || currentMap == Map.TYPE.CLASSIC)
+        if (unlockedAbilities == null || abilityButtons == null || currentMap == Map.TYPE.CLASSIC)
         {
             return;
         }
-        if (unlockedAbilities.Count > 0 && selectedAbilityTxt != null && abilityImage != null)
+        for (int i = 0; i < abilityButtons.Length; i++)
         {
-            selectedAbilityTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
-            selectedAbilityTxt.color = unlockedAbilities[indexOfAbility].color;
-            abilityImage.sprite = abilitySprites[indexOfAbility];
-            abilityImage.color = Color.white;
-            //abilityChargesTxt.text = unlockedAbilities[indexOfAbility].getCharges(ball) + "/" + unlockedAbilities[indexOfAbility].getMaxCharges(ball);
-            //abilityChargesTxt.color = unlockedAbilities[indexOfAbility].color;
+            if (i >= unlockedAbilities.Count)
+            {
+                abilityButtons[i].SetActive(false);
+                continue;
+            }
+            else
+            {
+                abilityButtons[i].SetActive(true);
+            }
+
+            UnityEngine.UI.Button button = abilityButtons[i].GetComponent<UnityEngine.UI.Button>();
+            button.interactable = unlockedAbilities[i].getCharges(ball) > 0;
+            TextMeshProUGUI text = abilityButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            text.text = unlockedAbilities[i].getCharges(ball).ToString();
+            text.color = unlockedAbilities[i].color;
+            Image img;
+            foreach (Transform child in abilityButtons[i].transform)
+            {
+                img = child.GetComponent<Image>();
+                if (img != null)
+                {
+                    img.sprite = abilitySprites[i];
+                    img.color = Color.white;
+                    break;
+                }
+            }
+
         }
     }
 
     public void AddAbility(Ability ability)
     {
-        
+        DisplayAbility();
         if (ability == null)
         {
             return;
@@ -978,6 +995,7 @@ public class Inventory : MonoBehaviour
 
     public void RechargeAbility(ABILITIES type)
     {
+        DisplayAbility();
         if (unlockedAbilities == null)
         {
             return;
