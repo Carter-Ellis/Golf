@@ -1,0 +1,5 @@
+/home/coot/git/Pixel-Par/Golf/.utmp/RelWithDebInfo/b93i5zma/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/coot/git/Pixel-Par/Golf/.utmp/RelWithDebInfo/b93i5zma/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/home/coot/git/Pixel-Par/Golf/.utmp/RelWithDebInfo/b93i5zma/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+/home/coot/git/Pixel-Par/Golf/.utmp/RelWithDebInfo/b93i5zma/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+/home/coot/git/Pixel-Par/Golf/.utmp/RelWithDebInfo/b93i5zma/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
