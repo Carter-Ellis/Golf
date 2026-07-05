@@ -13,9 +13,17 @@ public class SceneInitializer : MonoBehaviour
 
         //Screen.SetResolution(1920, 1080, true);
 
-        if (!SceneLoader.isShopLoad || objectsToEnable.Length == 0 || objectsToDisable.Length == 0) return;
+        if (!SceneLoader.isShopLoad)
+        {
+            return;
+        }
 
-        FindObjectOfType<MainMenu>().SetState(MainMenu.State.SHOP);
+        SceneLoader.isShopLoad = false;
+        FindAnyObjectByType<MainMenu>().GoTo(MainMenu.State.SHOP);
+
+        /*if (!SceneLoader.isShopLoad || objectsToEnable.Length == 0 || objectsToDisable.Length == 0) return;
+
+        FindAnyObjectByType<MainMenu>().SetState(MainMenu.State.SHOP);
         Audio.playShopMusic();
 
         foreach (GameObject obj in objectsToEnable)
@@ -29,6 +37,6 @@ public class SceneInitializer : MonoBehaviour
             if (obj != null)
                 obj.SetActive(false);
         }
-        SceneLoader.isShopLoad = false;
+        SceneLoader.isShopLoad = false;*/
     }
 }
